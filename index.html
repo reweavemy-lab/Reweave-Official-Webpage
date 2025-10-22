@@ -4,43 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reweave - Sustainable Fashion</title>
+    <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <a href="index.html">Reweave</a>
-            </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="pages/story/index.html">Our Story</a></li>
-                    <li><a href="pages/shop/index.html">Shop</a></li>
-                    <li><a href="pages/tryon/index.html">Try On</a></li>
-                    <li><a href="pages/community/index.html">Community</a></li>
-                    <li><a href="pages/impact/index.html">Impact</a></li>
-                    <li><a href="pages/journal/index.html">Journal</a></li>
-                </ul>
-                <div class="mobile-menu-btn">
+    <header class="luxury-header">
+        <div class="header-container">
+            <!-- Left Side: Menu & Search -->
+            <div class="header-left">
+                <button class="menu-btn" aria-label="Menu">
                     <i class="fas fa-bars"></i>
-                </div>
-            </nav>
+                    <span>Menu</span>
+                </button>
+                <button class="search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </div>
+            
+            <!-- Center: Logo -->
+            <div class="logo-center">
+                <a href="index.html">REWEAVE</a>
+            </div>
+            
+            <!-- Right Side: Utility Icons -->
+            <div class="header-right">
+                <button class="utility-btn" aria-label="Call Us">
+                    <span>Call Us</span>
+                </button>
+                <button class="utility-btn" aria-label="Wishlist">
+                    <i class="fas fa-heart"></i>
+                </button>
+                <button class="utility-btn" aria-label="Account">
+                    <i class="fas fa-user"></i>
+                </button>
+                <button class="utility-btn cart-btn" aria-label="Cart">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count">0</span>
+                </button>
+            </div>
         </div>
+        
+        <!-- Hidden Navigation Menu -->
+        <nav class="hidden-nav">
+            <div class="nav-content">
+                <button class="close-nav" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                    <span>Close</span>
+                </button>
+                <div class="nav-categories">
+                    <div class="nav-section">
+                        <h3>New</h3>
+                        <ul>
+                            <li><a href="pages/shop/index.html">Latest Arrivals</a></li>
+                            <li><a href="pages/shop/index.html">Limited Edition</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Bags and Accessories</h3>
+                        <ul>
+                            <li><a href="pages/shop/index.html">Totes</a></li>
+                            <li><a href="pages/shop/index.html">Slings</a></li>
+                            <li><a href="pages/shop/index.html">Accessories</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Collections</h3>
+                        <ul>
+                            <li><a href="pages/shop/index.html">Batik Heritage</a></li>
+                            <li><a href="pages/shop/index.html">Artisan Series</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="pages/story/index.html">Our Story</a></li>
+                            <li><a href="pages/community/index.html">Community</a></li>
+                            <li><a href="pages/impact/index.html">Impact</a></li>
+                            <li><a href="pages/journal/index.html">Journal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
 
-    <!-- Hero Section -->
-  <section class="hero">
-  <div class="hero-overlay"></div>
-  <div class="container hero-content">
-    <h1>Reweave the Future</h1>
-    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
-    <a href="pages/shop/index.html" class="btn">Shop Collection</a>
-  </div>
-</section>
+    <!-- Search Overlay -->
+    <div class="search-overlay" aria-hidden="true">
+        <div class="search-panel">
+            <div class="search-header">
+                <button class="search-close" aria-label="Close Search">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3>Search</h3>
+            </div>
+            <div class="search-body">
+                <div class="search-input-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search products, stories, categories..." aria-label="Search input" />
+                </div>
+                <div class="search-suggestions">
+                    <p>Popular searches:</p>
+                    <div class="tags">
+                        <a href="pages/shop/index.html">Batik</a>
+                        <a href="pages/shop/index.html">Handbags</a>
+                        <a href="pages/shop/index.html">Artisan</a>
+                        <a href="pages/journal/index.html">Journal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-backdrop"></div>
+    </div>
 
+    <!-- Hero Section -->
+    <section class="luxury-hero">
+        <div class="hero-image">
+            <img src="images/Gemini_Generated_Image_j8e9c1j8e9c1j8e9.png" alt="Reweave Luxury Collection">
+        </div>
+        <div class="hero-overlay">
+            <div class="hero-content">
+                <h1 class="hero-title">REWEAVE BATIK</h1>
+                <div class="hero-subtitle">
+                    <span class="hero-line">For Her</span>
+                    <span class="hero-line">For Him</span>
+                </div>
+            </div>
+        </div>
+        <button class="chat-btn">
+            <i class="fas fa-comment"></i>
+            <span>Chat with us</span>
+        </button>
+    </section>
+
+    <!-- Category Grid Section -->
+    <section class="category-grid">
+        <div class="category-container">
+            <!-- Top Row -->
+            <div class="category-row">
+                <div class="category-item large">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Batik Front (WIP).png" alt="Women's Handbags">
+                        </div>
+                        <div class="category-title">Women's Handbags</div>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Batik Front (WIP) (1).png" alt="Women's Accessories">
+                        </div>
+                        <div class="category-title">Women's Accessories</div>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Gemini_Generated_Image_mwmxxemwmxxemwmx.png" alt="Limited Edition">
+                        </div>
+                        <div class="category-title">Limited Edition</div>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Batik Front (WIP).png" alt="Artisan Collection">
+                        </div>
+                        <div class="category-title">Artisan Collection</div>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Bottom Row -->
+            <div class="category-row">
+                <div class="category-item">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Batik Front (WIP) (1).png" alt="Men's Bags">
+                        </div>
+                        <div class="category-title">Men's Bags</div>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Gemini_Generated_Image_mwmxxemwmxxemwmx.png" alt="Men's Accessories">
+                        </div>
+                        <div class="category-title">Men's Accessories</div>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Batik Front (WIP).png" alt="Sustainable Line">
+                        </div>
+                        <div class="category-title">Sustainable Line</div>
+                    </a>
+                </div>
+                <div class="category-item">
+                    <a href="pages/shop/index.html">
+                        <div class="category-image">
+                            <img src="images/Batik Front (WIP) (1).png" alt="Gift Collection">
+                        </div>
+                        <div class="category-title">Gift Collection</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Brand Trust Strip -->
+    <section class="brand-strip">
+        <div class="container">
+            <div class="brand-item">
+                <h4>Limited Drops</h4>
+                <p>Small-batch releases for exclusivity</p>
+            </div>
+            <div class="brand-item">
+                <h4>Handcrafted</h4>
+                <p>Made by skilled artisans</p>
+            </div>
+            <div class="brand-item">
+                <h4>Ethically Sourced</h4>
+                <p>Sustainable materials, fair practices</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Pillars Section -->
     <section class="pillars">
@@ -99,7 +293,7 @@
             </div>
             <div class="product-showcase">
                 <div class="product-image">
-                    <img src="/Users/howiesim/Documents/Reweave Official Webpage/images/Gemini_Generated_Image_j8e9c1j8e9c1j8e9.png" alt="Featured Bag">
+                    <img src="/Users/howiesim/Documents/Reweave Official Webpage/images/Gemini_Generated_Image_mwmxxemwmxxemwmx.png" alt="Featured Bag">
                 </div>
                 <div class="product-details">
                     <h3>The Reweave Tote</h3>
@@ -140,53 +334,62 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Reweave</h3>
-                    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Shop</h3>
-                    <ul class="footer-links">
-                        <li><a href="pages/shop/index.html">All Products</a></li>
-                        <li><a href="pages/shop/index.html">New Arrivals</a></li>
-                        <li><a href="pages/shop/index.html">Best Sellers</a></li>
-                        <li><a href="pages/shop/index.html">Sale</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>About</h3>
-                    <ul class="footer-links">
-                        <li><a href="pages/story/index.html">Our Story</a></li>
-                        <li><a href="pages/impact/index.html">Impact</a></li>
-                        <li><a href="pages/story/index.html#team">Our Team</a></li>
-                        <li><a href="pages/story/index.html#artisans">Artisans</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Reweave. All rights reserved.</p>
-            </div>
+    <footer class="luxury-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h4>Help</h4>
+            <ul class="footer-links">
+              <li><a href="#">Client Advisor: 1800 814 930</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Product Care</a></li>
+              <li><a href="#">Delivery, Returns & Exchanges</a></li>
+              <li><a href="#">Stores</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Services</h4>
+            <ul class="footer-links">
+              <li><a href="#">Repairs</a></li>
+              <li><a href="#">Personalisation</a></li>
+              <li><a href="#">Art of Gifting</a></li>
+              <li><a href="#">Download our Apps</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>About Reweave</h4>
+            <ul class="footer-links">
+              <li><a href="pages/story/index.html">Fashion & Craft</a></li>
+              <li><a href="pages/culture/index.html">Arts & Culture</a></li>
+              <li><a href="pages/story/index.html">Our Maison</a></li>
+              <li><a href="pages/impact/index.html">Sustainability</a></li>
+              <li><a href="pages/journal/index.html">Latest News</a></li>
+              <li><a href="pages/story/index.html#careers">Careers</a></li>
+              <li><a href="pages/community/index.html">Foundation</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Connect</h4>
+            <ul class="footer-links">
+              <li><a href="#">Sign up for emails</a></li>
+              <li><a href="#">Follow Us</a></li>
+            </ul>
+          </div>
         </div>
+    
+        <div class="footer-sub">
+          <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+          <div class="footer-legal">
+            <a href="#">Sitemap</a>
+            <a href="#">Legal & Privacy</a>
+          </div>
+        </div>
+    
+        <div class="footer-brand">REWEAVE</div>
+      </div>
     </footer>
-
+    
     <script src="js/main.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

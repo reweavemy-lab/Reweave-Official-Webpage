@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+      <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configure Your Bag - Reweave</title>
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <style>
+    /* Apple-style configure layout */
+    .configure-hero {
+      padding: 2rem 0;
+      border-bottom: 1px solid #eee;
+    }
+
+    .configure-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+
+    .product-view {
+      background: #f7f7f7;
+      border-radius: 12px;
+      min-height: 420px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .product-view img { width: 80%; max-width: 720px; object-fit: contain; }
+
+    .config-panel { position: relative; }
+    .config-panel h2 { font-size: 1.5rem; margin-bottom: 1rem; }
+
+    .option-group { margin-bottom: 1.5rem; }
+    .option-group h3 { font-size: 1.1rem; margin-bottom: 0.75rem; }
+
+    .tile-grid { display: grid; grid-template-columns: 1fr; gap: 0.75rem; }
+    .tile-grid.two { grid-template-columns: 1fr 1fr; }
+    .tile-grid.three { grid-template-columns: repeat(3, 1fr); }
+
+    .option-card {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 0.75rem; padding: 0.9rem 1rem; border: 1px solid #ddd; border-radius: 10px;
+      background: #fff; cursor: pointer; transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .option-card:hover { border-color: #bbb; }
+    .option-card.selected { border-color: #0a84ff; box-shadow: 0 0 0 3px rgba(10,132,255,0.2); }
+
+    .swatches { display: flex; gap: 0.5rem; }
+    .swatch { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ddd; cursor: pointer; }
+    .swatch.selected { outline: 3px solid rgba(10,132,255,0.2); border-color: #0a84ff; }
+
+    .sticky-summary {
+      position: sticky; top: 1rem; border: 1px solid #eee; border-radius: 12px; padding: 1rem; background: #fff;
+    }
+    .summary-line { display: flex; justify-content: space-between; margin: 0.5rem 0; font-size: 0.95rem; }
+    .summary-total { display: flex; justify-content: space-between; font-weight: 700; margin-top: 0.75rem; }
+
+    .btn-primary { background: #3a5a40; color: #fff; border: none; border-radius: 8px; padding: 0.9rem 1.2rem; cursor: pointer; font-weight: 600; width: 100%; }
+    .btn-primary:hover { background: #2d4330; }
+
+    .subtext { color: #666; font-size: 0.9rem; }
+
+    @media (max-width: 900px) { .configure-grid { grid-template-columns: 1fr; } .product-view img { width: 90%; } }
+  </style>
+  <!-- Font Awesome for standardized header icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+<body>
+  <header class="luxury-header">
+    <div class="header-container">
+      <div class="header-left">
+        <button class="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i><span>Menu</span></button>
+        <button class="search-btn" aria-label="Search"><i class="fas fa-search"></i><span>Search</span></button>
+      </div>
+      <div class="logo-center"><a href="../../index.html">REWEAVE</a></div>
+      <div class="header-right">
+        <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
+        <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+        <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
+        <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+      </div>
+    </div>
+    <nav class="hidden-nav">
+      <div class="nav-content">
+        <button class="close-nav" aria-label="Close"><i class="fas fa-times"></i><span>Close</span></button>
+        <div class="nav-categories">
+          <div class="nav-section">
+            <h3>New</h3>
+            <ul>
+              <li><a href="../shop/index.html">Latest Arrivals</a></li>
+              <li><a href="../shop/index.html">Limited Edition</a></li>
+            </ul>
+          </div>
+          <div class="nav-section">
+            <h3>Bags and Accessories</h3>
+            <ul>
+              <li><a href="../shop/index.html">Totes</a></li>
+              <li><a href="../shop/index.html">Slings</a></li>
+              <li><a href="../shop/index.html">Accessories</a></li>
+            </ul>
+          </div>
+          <div class="nav-section">
+            <h3>Collections</h3>
+            <ul>
+              <li><a href="../shop/index.html">Batik Heritage</a></li>
+              <li><a href="../shop/index.html">Artisan Series</a></li>
+            </ul>
+          </div>
+          <div class="nav-section">
+            <h3>About</h3>
+            <ul>
+              <li><a href="../story/index.html">Our Story</a></li>
+              <li><a href="../community/index.html">Community</a></li>
+              <li><a href="../impact/index.html">Impact</a></li>
+              <li><a href="../journal/index.html">Journal</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="container">
+    <section class="configure-hero">
+      <h1>Configure your Batik Tote</h1>
+      <p class="subtext">Pick your finish, size, strap, and more. Price updates as you choose.</p>
+    </section>
+
+    <section class="configure-grid">
+      <div class="product-view" id="productView">
+        <img id="productImage" src="../../images/Batik Front (WIP).png" alt="Reweave Batik Tote" />
+      </div>
+
+      <div class="config-panel">
+        <div class="option-group">
+          <h3>Model. Choose your style</h3>
+          <div class="tile-grid two">
+            <div class="option-card selected" data-group="model" data-value="Classic Tote">
+              <div>
+                <div>Classic Tote</div>
+                <div class="subtext">Timeless, balanced carry</div>
+              </div>
+              <div class="subtext">Included</div>
+            </div>
+            <div class="option-card" data-group="model" data-value="Pro Tote">
+              <div>
+                <div>Pro Tote</div>
+                <div class="subtext">Structured body with extra pockets</div>
+              </div>
+              <div class="subtext">+ $30</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <h3>Finish. Pick your color</h3>
+          <div class="swatches" id="finishSwatches">
+            <div class="swatch selected" title="Deep Plum" style="background:#5e2a5c" data-value="Deep Plum" data-img="../../images/Batik Front (WIP).png"></div>
+            <div class="swatch" title="Terracotta" style="background:#b57c65" data-value="Terracotta" data-img="../../images/Batik Front (WIP) (1).png"></div>
+            <div class="swatch" title="Indigo" style="background:#274c77" data-value="Indigo" data-img="../../images/Batik Front (WIP) (1).png"></div>
+            <div class="swatch" title="Sage" style="background:#86a397" data-value="Sage" data-img="../../images/Batik Front (WIP).png"></div>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <h3>Size. How big do you need?</h3>
+          <div class="tile-grid three">
+            <div class="option-card" data-group="size" data-value="Small"><div>Small</div><div class="subtext">- $10</div></div>
+            <div class="option-card selected" data-group="size" data-value="Medium"><div>Medium</div><div class="subtext">Included</div></div>
+            <div class="option-card" data-group="size" data-value="Large"><div>Large</div><div class="subtext">+ $20</div></div>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <h3>Strap. Carry comfort</h3>
+          <div class="tile-grid two">
+            <div class="option-card selected" data-group="strap" data-value="Standard"><div>Standard</div><div class="subtext">Included</div></div>
+            <div class="option-card" data-group="strap" data-value="Padded"><div>Padded</div><div class="subtext">+ $29</div></div>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <h3>Capacity. Storage space</h3>
+          <div class="tile-grid two">
+            <div class="option-card selected" data-group="capacity" data-value="18L"><div>18L</div><div class="subtext">Included</div></div>
+            <div class="option-card" data-group="capacity" data-value="22L"><div>22L</div><div class="subtext">+ $25</div></div>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <h3>Hardware. Finish</h3>
+          <div class="tile-grid three">
+            <div class="option-card selected" data-group="hardware" data-value="Gold"><div>Gold</div><div class="subtext">Included</div></div>
+            <div class="option-card" data-group="hardware" data-value="Silver"><div>Silver</div><div class="subtext">Included</div></div>
+            <div class="option-card" data-group="hardware" data-value="Matte Black"><div>Matte Black</div><div class="subtext">Included</div></div>
+          </div>
+        </div>
+
+        <div class="option-group">
+          <h3>Personalisation. Monogram</h3>
+          <input id="monogramInput" type="text" maxlength="12" placeholder="Add up to 12 characters" style="width:100%; padding:0.75rem; border:1px solid #ddd; border-radius:8px;" />
+          <div class="subtext" style="margin-top:0.5rem">Adds $10. Preview on cart before checkout.</div>
+        </div>
+
+        <div class="sticky-summary" id="stickySummary">
+          <div class="summary-line"><span>Model</span><span id="sumModel">Classic Tote</span></div>
+          <div class="summary-line"><span>Finish</span><span id="sumFinish">Deep Plum</span></div>
+          <div class="summary-line"><span>Size</span><span id="sumSize">Medium</span></div>
+          <div class="summary-line"><span>Strap</span><span id="sumStrap">Standard</span></div>
+          <div class="summary-line"><span>Capacity</span><span id="sumCapacity">18L</span></div>
+          <div class="summary-line"><span>Hardware</span><span id="sumHardware">Gold</span></div>
+          <div class="summary-line"><span>Monogram</span><span id="sumMonogram">None</span></div>
+          <div class="summary-total"><span>Total</span><span id="sumTotal">$180.00</span></div>
+          <button class="btn-primary" id="addToBag">Add to Bag</button>
+          <div class="subtext" style="margin-top:0.5rem">Upsells are shown in your cart to complete the look.</div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="luxury-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-column">
+          <h4>Help</h4>
+          <ul class="footer-links">
+            <li><a href="#">Client Advisor: 1800 814 930</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Product Care</a></li>
+            <li><a href="#">Delivery, Returns & Exchanges</a></li>
+            <li><a href="#">Stores</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Services</h4>
+          <ul class="footer-links">
+            <li><a href="#">Repairs</a></li>
+            <li><a href="#">Personalisation</a></li>
+            <li><a href="#">Art of Gifting</a></li>
+            <li><a href="#">Download our Apps</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>About Reweave</h4>
+          <ul class="footer-links">
+            <li><a href="../story/index.html">Fashion & Craft</a></li>
+            <li><a href="../culture/index.html">Arts & Culture</a></li>
+            <li><a href="../story/index.html">Our Maison</a></li>
+            <li><a href="../impact/index.html">Sustainability</a></li>
+            <li><a href="../journal/index.html">Latest News</a></li>
+            <li><a href="../story/index.html#careers">Careers</a></li>
+            <li><a href="../community/index.html">Foundation</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h4>Connect</h4>
+          <ul class="footer-links">
+            <li><a href="#">Sign up for emails</a></li>
+            <li><a href="#">Follow Us</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-sub">
+        <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+        <div class="footer-legal">
+          <a href="#">Sitemap</a>
+          <a href="#">Legal & Privacy</a>
+        </div>
+      </div>
+
+      <div class="footer-brand">REWEAVE</div>
+    </div>
+  </footer>
+
+  <script>
+    const state = {
+      id: 'bag-001',
+      name: 'Reweave Batik Tote',
+      image: '../../images/Batik Front (WIP).png',
+      basePrice: 180,
+      qty: 1,
+      selections: {
+        model: 'Classic Tote',
+        finish: 'Deep Plum',
+        size: 'Medium',
+        strap: 'Standard',
+        capacity: '18L',
+        hardware: 'Gold',
+        monogram: ''
+      }
+    };
+
+    const modifiers = {
+      model: { 'Classic Tote': 0, 'Pro Tote': 30 },
+      size: { Small: -10, Medium: 0, Large: 20 },
+      strap: { Standard: 0, Padded: 29 },
+      capacity: { '18L': 0, '22L': 25 },
+      hardware: { 'Gold': 0, 'Silver': 0, 'Matte Black': 0 },
+      finish: { 'Deep Plum': 0, 'Terracotta': 0, 'Indigo': 0, 'Sage': 0 },
+      monogram: { any: 10 }
+    };
+
+    const sumEls = {
+      model: document.getElementById('sumModel'),
+      finish: document.getElementById('sumFinish'),
+      size: document.getElementById('sumSize'),
+      strap: document.getElementById('sumStrap'),
+      capacity: document.getElementById('sumCapacity'),
+      hardware: document.getElementById('sumHardware'),
+      monogram: document.getElementById('sumMonogram'),
+      total: document.getElementById('sumTotal')
+    };
+
+    function computeTotal() {
+      let total = state.basePrice;
+      total += modifiers.model[state.selections.model] || 0;
+      total += modifiers.size[state.selections.size] || 0;
+      total += modifiers.strap[state.selections.strap] || 0;
+      total += modifiers.capacity[state.selections.capacity] || 0;
+      total += modifiers.hardware[state.selections.hardware] || 0;
+      total += modifiers.finish[state.selections.finish] || 0;
+      if ((state.selections.monogram || '').trim()) total += modifiers.monogram.any;
+      return total;
+    }
+
+    function format(n) { return `$${n.toFixed(2)}`; }
+
+    function renderSummary() {
+      sumEls.model.textContent = state.selections.model;
+      sumEls.finish.textContent = state.selections.finish;
+      sumEls.size.textContent = state.selections.size;
+      sumEls.strap.textContent = state.selections.strap;
+      sumEls.capacity.textContent = state.selections.capacity;
+      sumEls.hardware.textContent = state.selections.hardware;
+      sumEls.monogram.textContent = (state.selections.monogram || '').trim() ? state.selections.monogram : 'None';
+      sumEls.total.textContent = format(computeTotal());
+    }
+
+    function selectCard(el) {
+      const group = el.getAttribute('data-group');
+      const value = el.getAttribute('data-value');
+      document.querySelectorAll(`.option-card[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+      el.classList.add('selected');
+      state.selections[group] = value;
+      renderSummary();
+    }
+
+    function wireCards() {
+      document.querySelectorAll('.option-card').forEach(card => {
+        card.addEventListener('click', () => selectCard(card));
+      });
+    }
+
+    // Finish swatches update image and selection
+    const productImage = document.getElementById('productImage');
+    document.getElementById('finishSwatches').querySelectorAll('.swatch').forEach(s => {
+      s.addEventListener('click', () => {
+        document.querySelectorAll('#finishSwatches .swatch').forEach(x => x.classList.remove('selected'));
+        s.classList.add('selected');
+        const value = s.getAttribute('data-value');
+        const img = s.getAttribute('data-img');
+        state.selections.finish = value;
+        if (img) productImage.src = img;
+        renderSummary();
+      });
+    });
+
+    // Monogram input
+    document.getElementById('monogramInput').addEventListener('input', (e) => {
+      state.selections.monogram = e.target.value.trim();
+      renderSummary();
+    });
+
+    document.getElementById('addToBag').addEventListener('click', () => {
+      const options = [
+        `Model: ${state.selections.model}`,
+        `Finish: ${state.selections.finish}`,
+        `Size: ${state.selections.size}`,
+        `Strap: ${state.selections.strap}`,
+        `Capacity: ${state.selections.capacity}`,
+        `Hardware: ${state.selections.hardware}`,
+        state.selections.monogram ? `Monogram: ${state.selections.monogram}` : null
+      ].filter(Boolean).join(' • ');
+
+      const item = {
+        id: state.id,
+        name: state.name,
+        price: computeTotal(),
+        qty: state.qty,
+        image: state.image,
+        options,
+        addon: false
+      };
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const existing = cart.find(i => i.id === item.id && i.options === item.options);
+      if (existing) existing.qty += item.qty; else cart.push(item);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.location.href = '../cart/index.html';
+    });
+
+    wireCards();
+    renderSummary();
+  </script>
+<script src="../../script.js"></script>
+</body>
+</html>

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Detail - Reweave</title>
     <link rel="stylesheet" href="../../css/styles.css">
@@ -148,7 +149,7 @@
             margin-bottom: 2rem;
         }
         
-        .add-to-cart, .try-on-btn {
+        .add-to-cart, .try-on-btn, .customize-btn {
             padding: 0.8rem 1.5rem;
             border: none;
             border-radius: 4px;
@@ -167,7 +168,7 @@
             background-color: #2d4330;
         }
         
-        .try-on-btn, .wishlist-btn {
+        .try-on-btn, .wishlist-btn, .customize-btn {
             background-color: #f5f5f5;
             color: #333;
             flex: 1;
@@ -177,7 +178,7 @@
             gap: 0.5rem;
         }
         
-        .try-on-btn:hover, .wishlist-btn:hover {
+        .try-on-btn:hover, .wishlist-btn:hover, .customize-btn:hover {
             background-color: #e5e5e5;
         }
         
@@ -265,43 +266,73 @@
             }
         }
     </style>
+  <!-- Font Awesome for header icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-    <header class="site-header">
-        <div class="container">
-            <div class="header-content">
-                <div class="logo">
-                    <a href="../../index.html">Reweave</a>
-                </div>
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="../shop/index.html">Shop</a></li>
-                        <li><a href="../story/index.html">Our Story</a></li>
-                        <li><a href="../tryon/index.html">Try On</a></li>
-                        <li><a href="../community/index.html">Community</a></li>
-                        <li><a href="../impact/index.html">Impact</a></li>
-                        <li><a href="../journal/index.html">Journal</a></li>
-                    </ul>
-                </nav>
-                <div class="header-actions">
-                    <button class="icon-btn search-toggle">
-                        <span class="material-icons">search</span>
-                    </button>
-                    <a href="#" class="icon-btn">
-                        <span class="material-icons">favorite_border</span>
-                    </a>
-                    <a href="#" class="icon-btn cart-toggle">
-                        <span class="material-icons">shopping_bag</span>
-                        <span class="cart-count">0</span>
-                    </a>
-                    <button class="mobile-menu-toggle">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                </div>
+    <header class="luxury-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-btn" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                    <span>Menu</span>
+                </button>
+                <button class="search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </div>
+            <div class="logo-center">
+                <a href="../../index.html">REWEAVE</a>
+            </div>
+            <div class="header-right">
+                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
+                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
+                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
             </div>
         </div>
+        <nav class="hidden-nav">
+            <div class="nav-content">
+                <button class="close-nav" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                    <span>Close</span>
+                </button>
+                <div class="nav-categories">
+                    <div class="nav-section">
+                        <h3>New</h3>
+                        <ul>
+                            <li><a href="../index.html">Latest Arrivals</a></li>
+                            <li><a href="../index.html">Limited Edition</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Bags and Accessories</h3>
+                        <ul>
+                            <li><a href="index.html">Totes</a></li>
+                            <li><a href="index.html">Slings</a></li>
+                            <li><a href="index.html">Accessories</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Collections</h3>
+                        <ul>
+                            <li><a href="index.html">Batik Heritage</a></li>
+                            <li><a href="index.html">Artisan Series</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="../story/index.html">Our Story</a></li>
+                            <li><a href="../community/index.html">Community</a></li>
+                            <li><a href="../impact/index.html">Impact</a></li>
+                            <li><a href="../journal/index.html">Journal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
 
     <main>
@@ -377,6 +408,10 @@
 
                     <div class="action-buttons">
                         <button class="add-to-cart">Add to Cart</button>
+                        <button class="customize-btn">
+                            <span class="material-icons">tune</span>
+                            Customize
+                        </button>
                         <button class="try-on-btn">
                             <span class="material-icons">person</span>
                             Try On
@@ -530,74 +565,61 @@
         </div>
     </main>
 
-    <footer class="site-footer">
+    <footer class="luxury-footer">
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-grid">
                 <div class="footer-column">
-                    <h3>Shop</h3>
-                    <ul>
-                        <li><a href="../shop/index.html">New Arrivals</a></li>
-                        <li><a href="../shop/index.html">Bestsellers</a></li>
-                        <li><a href="../shop/index.html">Collections</a></li>
-                        <li><a href="../shop/index.html">Accessories</a></li>
-                        <li><a href="../shop/index.html">Sale</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>About</h3>
-                    <ul>
-                        <li><a href="../story/index.html">Our Story</a></li>
-                        <li><a href="../story/index.html#culture">Our Culture</a></li>
-                        <li><a href="../story/index.html#team">Our Team</a></li>
-                        <li><a href="../artisan/index.html">Artisans</a></li>
-                        <li><a href="../impact/index.html">Impact</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Help</h3>
-                    <ul>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Store Policy</a></li>
-                        <li><a href="#">Payment Methods</a></li>
+                    <h4>Help</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Client Advisor: 1800 814 930</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Product Care</a></li>
+                        <li><a href="#">Delivery, Returns & Exchanges</a></li>
+                        <li><a href="#">Stores</a></li>
                     </ul>
                 </div>
                 <div class="footer-column">
-                    <h3>Join Our Community</h3>
-                    <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
-                    <form class="newsletter-form">
-                        <input type="email" placeholder="Enter your email address">
-                        <button type="submit">Subscribe</button>
-                    </form>
-                    <div class="social-links">
-                        <a href="#" class="social-link">
-                            <span class="material-icons">facebook</span>
-                        </a>
-                        <a href="#" class="social-link">
-                            <span class="material-icons">instagram</span>
-                        </a>
-                        <a href="#" class="social-link">
-                            <span class="material-icons">pinterest</span>
-                        </a>
-                        <a href="#" class="social-link">
-                            <span class="material-icons">twitter</span>
-                        </a>
-                    </div>
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Repairs</a></li>
+                        <li><a href="#">Personalisation</a></li>
+                        <li><a href="#">Art of Gifting</a></li>
+                        <li><a href="#">Download our Apps</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Reweave</h4>
+                    <ul class="footer-links">
+                        <li><a href="../story/index.html">Fashion & Craft</a></li>
+                        <li><a href="../culture/index.html">Arts & Culture</a></li>
+                        <li><a href="../story/index.html">Our Maison</a></li>
+                        <li><a href="../impact/index.html">Sustainability</a></li>
+                        <li><a href="../journal/index.html">Latest News</a></li>
+                        <li><a href="../story/index.html#careers">Careers</a></li>
+                        <li><a href="../community/index.html">Foundation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sign up for emails</a></li>
+                        <li><a href="#">Follow Us</a></li>
+                    </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Reweave. All rights reserved.</p>
-                <div class="footer-links">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
-                    <a href="#">Accessibility</a>
+
+            <div class="footer-sub">
+                <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+                <div class="footer-legal">
+                    <a href="#">Sitemap</a>
+                    <a href="#">Legal & Privacy</a>
                 </div>
             </div>
+
+            <div class="footer-brand">REWEAVE</div>
         </div>
     </footer>
-
-    <script src="../../js/main.js"></script>
+    
     <script>
         // Product Detail Page Specific JavaScript
         document.addEventListener('DOMContentLoaded', function() {
@@ -677,27 +699,32 @@
                 window.location.href = '../tryon/index.html';
             });
             
-            // Add to Cart functionality
+            // Add to Cart functionality wired to localStorage cart
             const addToCartBtn = document.querySelector('.add-to-cart');
             addToCartBtn.addEventListener('click', function() {
-                const product = {
-                    name: document.querySelector('.product-title').textContent,
-                    price: document.querySelector('.product-price').textContent,
-                    size: document.querySelector('.size-option.selected').textContent,
-                    color: document.querySelector('.color-option.selected').getAttribute('title'),
-                    quantity: document.querySelector('.quantity-input').value,
-                    image: document.querySelector('.main-image').src
-                };
-                
-                // Here you would normally add the product to cart
-                // For demo purposes, just show an alert
-                alert(`Added to cart: ${product.name} (${product.color}, ${product.size}) x${product.quantity}`);
-                
-                // Update cart count
-                const cartCount = document.querySelector('.cart-count');
-                cartCount.textContent = parseInt(cartCount.textContent) + parseInt(product.quantity);
+                const name = document.querySelector('.product-title').textContent.trim();
+                const priceText = document.querySelector('.product-price').textContent.trim();
+                const price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
+                const size = document.querySelector('.size-option.selected').textContent.trim();
+                const color = document.querySelector('.color-option.selected').getAttribute('title');
+                const qty = parseInt(document.querySelector('.quantity-input').value, 10) || 1;
+                const image = document.querySelector('.main-image').src;
+                const options = `Color: ${color} • Size: ${size}`;
+                const item = { id: 'dress-001', name, price, qty, image, options, addon: false };
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                const existing = cart.find(i => i.id === item.id && i.options === item.options);
+                if (existing) existing.qty += qty; else cart.push(item);
+                localStorage.setItem('cart', JSON.stringify(cart));
+                window.location.href = '../cart/index.html';
+            });
+
+            // Navigate to Configure page
+            const customizeBtn = document.querySelector('.customize-btn');
+            customizeBtn.addEventListener('click', function() {
+                window.location.href = 'configure.html';
             });
         });
     </script>
+<script src="../../script.js"></script>
 </body>
 </html>

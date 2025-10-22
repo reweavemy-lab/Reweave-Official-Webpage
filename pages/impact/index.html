@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Impact Dashboard - Reweave</title>
     <link rel="stylesheet" href="../../css/styles.css">
@@ -332,26 +333,91 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <a href="../../index.html">Reweave</a>
-            </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="../story/index.html">Our Story</a></li>
-                    <li><a href="../shop/index.html">Shop</a></li>
-                    <li><a href="../tryon/index.html">Try On</a></li>
-                    <li><a href="../community/index.html">Community</a></li>
-                    <li><a href="index.html">Impact</a></li>
-                    <li><a href="../journal/index.html">Journal</a></li>
-                </ul>
-                <div class="mobile-menu-btn">
+    <header class="luxury-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-btn" aria-label="Menu">
                     <i class="fas fa-bars"></i>
-                </div>
-            </nav>
+                    <span>Menu</span>
+                </button>
+                <button class="search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </div>
+            <div class="logo-center">
+                <a href="../../index.html">REWEAVE</a>
+            </div>
+            <div class="header-right">
+                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
+                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
+                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+            </div>
         </div>
+        <nav class="hidden-nav">
+            <div class="nav-content">
+                <button class="close-nav" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                    <span>Close</span>
+                </button>
+                <div class="nav-categories">
+                    <div class="nav-section">
+                        <h3>New</h3>
+                        <ul>
+                            <li><a href="../shop/index.html">Latest Arrivals</a></li>
+                            <li><a href="../shop/index.html">Limited Edition</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Bags and Accessories</h3>
+                        <ul>
+                            <li><a href="../shop/index.html">Totes</a></li>
+                            <li><a href="../shop/index.html">Slings</a></li>
+                            <li><a href="../shop/index.html">Accessories</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="../story/index.html">Our Story</a></li>
+                            <li><a href="../community/index.html">Community</a></li>
+                            <li><a href="index.html">Impact</a></li>
+                            <li><a href="../journal/index.html">Journal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" aria-hidden="true">
+        <div class="search-panel">
+            <div class="search-header">
+                <button class="search-close" aria-label="Close Search">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3>Search</h3>
+            </div>
+            <div class="search-body">
+                <div class="search-input-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search products, stories, categories..." aria-label="Search input" />
+                </div>
+                <div class="search-suggestions">
+                    <p>Popular searches:</p>
+                    <div class="tags">
+                        <a href="../shop/index.html">Batik</a>
+                        <a href="../shop/index.html">Handbags</a>
+                        <a href="../shop/index.html">Artisan</a>
+                        <a href="../journal/index.html">Journal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-backdrop"></div>
+    </div>
 
     <!-- Impact Dashboard Section -->
     <section class="impact-container">
@@ -571,50 +637,58 @@
     </section>
 
     <!-- Footer -->
-    <footer>
+    <footer class="luxury-footer">
         <div class="container">
-            <div class="footer-content">
+            <div class="footer-grid">
                 <div class="footer-column">
-                    <h3>Reweave</h3>
-                    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Shop</h3>
+                    <h4>Help</h4>
                     <ul class="footer-links">
-                        <li><a href="../shop/index.html">All Products</a></li>
-                        <li><a href="../shop/index.html">New Arrivals</a></li>
-                        <li><a href="../shop/index.html">Best Sellers</a></li>
-                        <li><a href="../shop/index.html">Sale</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>About</h3>
-                    <ul class="footer-links">
-                        <li><a href="../story/index.html">Our Story</a></li>
-                        <li><a href="index.html">Impact</a></li>
-                        <li><a href="../story/index.html#team">Our Team</a></li>
-                        <li><a href="../story/index.html#artisans">Artisans</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Client Advisor: 1800 814 930</a></li>
                         <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Product Care</a></li>
+                        <li><a href="#">Delivery, Returns & Exchanges</a></li>
+                        <li><a href="#">Stores</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Repairs</a></li>
+                        <li><a href="#">Personalisation</a></li>
+                        <li><a href="#">Art of Gifting</a></li>
+                        <li><a href="#">Download our Apps</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Reweave</h4>
+                    <ul class="footer-links">
+                        <li><a href="../story/index.html">Fashion & Craft</a></li>
+                        <li><a href="../culture/index.html">Arts & Culture</a></li>
+                        <li><a href="../story/index.html">Our Maison</a></li>
+                        <li><a href="index.html">Sustainability</a></li>
+                        <li><a href="../journal/index.html">Latest News</a></li>
+                        <li><a href="../story/index.html#careers">Careers</a></li>
+                        <li><a href="../community/index.html">Foundation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sign up for emails</a></li>
+                        <li><a href="#">Follow Us</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Reweave. All rights reserved.</p>
+
+            <div class="footer-sub">
+                <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+                <div class="footer-legal">
+                    <a href="#">Sitemap</a>
+                    <a href="#">Legal & Privacy</a>
+                </div>
             </div>
+
+            <div class="footer-brand">REWEAVE</div>
         </div>
     </footer>
 
@@ -739,5 +813,6 @@
             });
         });
     </script>
+    <script src="../../script.js"></script>
 </body>
 </html>

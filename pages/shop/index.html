@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shop - Reweave</title>
     <link rel="stylesheet" href="../../css/styles.css">
@@ -501,26 +502,102 @@
 </head>
 <body>
     <!-- Header -->
-    <header>
-        <div class="container header-container">
-            <div class="logo">
-                <a href="../../index.html">Reweave</a>
-            </div>
-            <nav>
-                <ul class="nav-menu">
-                    <li><a href="../story/index.html">Our Story</a></li>
-                    <li><a href="index.html">Shop</a></li>
-                    <li><a href="../tryon/index.html">Try On</a></li>
-                    <li><a href="../community/index.html">Community</a></li>
-                    <li><a href="../impact/index.html">Impact</a></li>
-                    <li><a href="../journal/index.html">Journal</a></li>
-                </ul>
-                <div class="mobile-menu-btn">
+    <header class="luxury-header">
+        <div class="header-container">
+            <!-- Left: Menu & Search -->
+            <div class="header-left">
+                <button class="menu-btn" aria-label="Menu">
                     <i class="fas fa-bars"></i>
-                </div>
-            </nav>
+                    <span>Menu</span>
+                </button>
+                <button class="search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </div>
+            <!-- Center: Logo -->
+            <div class="logo-center">
+                <a href="../../index.html">REWEAVE</a>
+            </div>
+            <!-- Right: Utilities -->
+            <div class="header-right">
+                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
+                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
+                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+            </div>
         </div>
+        <!-- Hidden Navigation Menu -->
+        <nav class="hidden-nav">
+            <div class="nav-content">
+                <button class="close-nav" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                    <span>Close</span>
+                </button>
+                <div class="nav-categories">
+                    <div class="nav-section">
+                        <h3>New</h3>
+                        <ul>
+                            <li><a href="index.html">Latest Arrivals</a></li>
+                            <li><a href="index.html">Limited Edition</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Bags and Accessories</h3>
+                        <ul>
+                            <li><a href="index.html">Totes</a></li>
+                            <li><a href="index.html">Slings</a></li>
+                            <li><a href="index.html">Accessories</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Collections</h3>
+                        <ul>
+                            <li><a href="index.html">Batik Heritage</a></li>
+                            <li><a href="index.html">Artisan Series</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="../story/index.html">Our Story</a></li>
+                            <li><a href="../community/index.html">Community</a></li>
+                            <li><a href="../impact/index.html">Impact</a></li>
+                            <li><a href="../journal/index.html">Journal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
     </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" aria-hidden="true">
+        <div class="search-panel">
+            <div class="search-header">
+                <button class="search-close" aria-label="Close Search">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3>Search</h3>
+            </div>
+            <div class="search-body">
+                <div class="search-input-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search products, stories, categories..." aria-label="Search input" />
+                </div>
+                <div class="search-suggestions">
+                    <p>Popular searches:</p>
+                    <div class="tags">
+                        <a href="index.html">Batik</a>
+                        <a href="index.html">Handbags</a>
+                        <a href="index.html">Artisan</a>
+                        <a href="../journal/index.html">Journal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-backdrop"></div>
+    </div>
 
     <!-- Shop Section -->
     <section class="shop-container">
@@ -689,7 +766,7 @@
                     <!-- Product 1 -->
                     <div class="product-card" data-collection="artisan" data-material="cotton" data-color="natural" data-use-case="life">
                         <div class="product-img">
-                            <img src="/Users/howiesim/Documents/Reweave Official Webpage/images/Gemini_Generated_Image_j8e9c1j8e9c1j8e9.png" alt="Artisan Tote">
+                            <a href="configure.html"><img src="/Users/howiesim/Documents/Reweave Official Webpage/images/Gemini_Generated_Image_j8e9c1j8e9c1j8e9.png" alt="Artisan Tote"></a>
                             <div class="quick-actions">
                                 <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
                                     <i class="fas fa-tshirt"></i>
@@ -721,13 +798,17 @@
                                 <i class="fas fa-leaf"></i>
                                 <span>500g waste saved</span>
                             </div>
+                            <div class="item-actions" style="display:flex;gap:10px;margin-top:12px;">
+                              <a href="configure.html" class="item-btn primary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#111;color:#fff;">Add to Bag</a>
+                              <a href="configure.html" class="item-btn secondary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#fff;color:#111;border:1px solid #e0e0e0;">Customize</a>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Product 2 -->
                     <div class="product-card" data-collection="heritage" data-material="hemp" data-color="indigo" data-use-case="work">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Heritage Backpack">
+                            <a href="configure.html"><img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Heritage Backpack"></a>
                             <div class="quick-actions">
                                 <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
                                     <i class="fas fa-tshirt"></i>
@@ -758,13 +839,17 @@
                                 <i class="fas fa-leaf"></i>
                                 <span>750g waste saved</span>
                             </div>
+                            <div class="item-actions" style="display:flex;gap:10px;margin-top:12px;">
+                              <a href="configure.html" class="item-btn primary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#111;color:#fff;">Add to Bag</a>
+                              <a href="configure.html" class="item-btn secondary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#fff;color:#111;border:1px solid #e0e0e0;">Customize</a>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Product 3 -->
                     <div class="product-card" data-collection="summer" data-material="bamboo" data-color="earth" data-use-case="play">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Summer Crossbody">
+                            <a href="configure.html"><img src="https://images.unsplash.com/photo-1544816155-12df9643f363?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Summer Crossbody"></a>
                             <div class="quick-actions">
                                 <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
                                     <i class="fas fa-tshirt"></i>
@@ -794,13 +879,17 @@
                                 <i class="fas fa-leaf"></i>
                                 <span>300g waste saved</span>
                             </div>
+                            <div class="item-actions" style="display:flex;gap:10px;margin-top:12px;">
+                              <a href="configure.html" class="item-btn primary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#111;color:#fff;">Add to Bag</a>
+                              <a href="configure.html" class="item-btn secondary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#fff;color:#111;border:1px solid #e0e0e0;">Customize</a>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Product 4 -->
                     <div class="product-card" data-collection="artisan" data-material="cotton" data-color="natural" data-use-case="work">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Artisan Laptop Sleeve">
+                            <a href="configure.html"><img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Artisan Laptop Sleeve"></a>
                             <div class="quick-actions">
                                 <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
                                     <i class="fas fa-tshirt"></i>
@@ -830,13 +919,17 @@
                                 <i class="fas fa-leaf"></i>
                                 <span>200g waste saved</span>
                             </div>
+                            <div class="item-actions" style="display:flex;gap:10px;margin-top:12px;">
+                              <a href="configure.html" class="item-btn primary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#111;color:#fff;">Add to Bag</a>
+                              <a href="configure.html" class="item-btn secondary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#fff;color:#111;border:1px solid #e0e0e0;">Customize</a>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Product 5 -->
                     <div class="product-card" data-collection="heritage" data-material="hemp" data-color="earth" data-use-case="life">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Heritage Weekender">
+                            <a href="configure.html"><img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Heritage Weekender"></a>
                             <div class="quick-actions">
                                 <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
                                     <i class="fas fa-tshirt"></i>
@@ -868,13 +961,17 @@
                                 <i class="fas fa-leaf"></i>
                                 <span>1.2kg waste saved</span>
                             </div>
+                            <div class="item-actions" style="display:flex;gap:10px;margin-top:12px;">
+                              <a href="configure.html" class="item-btn primary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#111;color:#fff;">Add to Bag</a>
+                              <a href="configure.html" class="item-btn secondary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#fff;color:#111;border:1px solid #e0e0e0;">Customize</a>
+                            </div>
                         </div>
                     </div>
                     
                     <!-- Product 6 -->
                     <div class="product-card" data-collection="summer" data-material="bamboo" data-color="indigo" data-use-case="play">
                         <div class="product-img">
-                            <img src="https://images.unsplash.com/photo-1575486234793-6c8e816fce4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Summer Mini Tote">
+                            <a href="configure.html"><img src="https://images.unsplash.com/photo-1575486234793-6c8e816fce4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Summer Mini Tote"></a>
                             <div class="quick-actions">
                                 <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
                                     <i class="fas fa-tshirt"></i>
@@ -904,6 +1001,10 @@
                                 <i class="fas fa-leaf"></i>
                                 <span>250g waste saved</span>
                             </div>
+                            <div class="item-actions" style="display:flex;gap:10px;margin-top:12px;">
+                              <a href="configure.html" class="item-btn primary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#111;color:#fff;">Add to Bag</a>
+                              <a href="configure.html" class="item-btn secondary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;text-decoration:none;background:#fff;color:#111;border:1px solid #e0e0e0;">Customize</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -920,54 +1021,63 @@
     </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column">
-                    <h3>Reweave</h3>
-                    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
-                    </div>
-                </div>
-                <div class="footer-column">
-                    <h3>Shop</h3>
-                    <ul class="footer-links">
-                        <li><a href="index.html">All Products</a></li>
-                        <li><a href="index.html">New Arrivals</a></li>
-                        <li><a href="index.html">Best Sellers</a></li>
-                        <li><a href="index.html">Sale</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>About</h3>
-                    <ul class="footer-links">
-                        <li><a href="../story/index.html">Our Story</a></li>
-                        <li><a href="../impact/index.html">Impact</a></li>
-                        <li><a href="../story/index.html#team">Our Team</a></li>
-                        <li><a href="../story/index.html#artisans">Artisans</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h3>Support</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Shipping & Returns</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Reweave. All rights reserved.</p>
-            </div>
+    <footer class="luxury-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h4>Help</h4>
+            <ul class="footer-links">
+              <li><a href="#">Client Advisor: 1800 814 930</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Product Care</a></li>
+              <li><a href="#">Delivery, Returns & Exchanges</a></li>
+              <li><a href="#">Stores</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Services</h4>
+            <ul class="footer-links">
+              <li><a href="#">Repairs</a></li>
+              <li><a href="#">Personalisation</a></li>
+              <li><a href="#">Art of Gifting</a></li>
+              <li><a href="#">Download our Apps</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>About Reweave</h4>
+            <ul class="footer-links">
+              <li><a href="../story/index.html">Fashion & Craft</a></li>
+              <li><a href="../culture/index.html">Arts & Culture</a></li>
+              <li><a href="../story/index.html">Our Maison</a></li>
+              <li><a href="../impact/index.html">Sustainability</a></li>
+              <li><a href="../journal/index.html">Latest News</a></li>
+              <li><a href="../story/index.html#careers">Careers</a></li>
+              <li><a href="../community/index.html">Foundation</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Connect</h4>
+            <ul class="footer-links">
+              <li><a href="#">Sign up for emails</a></li>
+              <li><a href="#">Follow Us</a></li>
+            </ul>
+          </div>
         </div>
+    
+        <div class="footer-sub">
+          <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+          <div class="footer-legal">
+            <a href="#">Sitemap</a>
+            <a href="#">Legal & Privacy</a>
+          </div>
+        </div>
+    
+        <div class="footer-brand">REWEAVE</div>
+      </div>
     </footer>
 
     <script src="../../js/main.js"></script>
+    <script src="../../script.js"></script>
     <script>
         // Shop Page JavaScript
         document.addEventListener('DOMContentLoaded', function() {
