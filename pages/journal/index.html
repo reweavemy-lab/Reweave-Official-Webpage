@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Journal - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Journal Page Specific Styles */
+        .journal-container {
+            padding: 120px 0 80px;
+        }
+        
+        .journal-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .journal-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .journal-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--earth-brown);
+        }
+        
+        .journal-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: #f5f5f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .journal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .journal-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .journal-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .journal-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .journal-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .journal-card:hover .journal-image img {
+            transform: scale(1.05);
+        }
+        
+        .journal-category {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: var(--accent);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .journal-content {
+            padding: 25px;
+        }
+        
+        .journal-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+        }
+        
+        .journal-meta i {
+            margin-right: 5px;
+        }
+        
+        .journal-title {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+        
+        .journal-excerpt {
+            color: var(--earth-brown);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .journal-read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s;
+        }
+        
+        .journal-read-more:hover {
+            gap: 10px;
+        }
+        
+        .newsletter-section {
+            background-color: var(--warm-beige);
+            padding: 60px 0;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .newsletter-content h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .newsletter-content p {
+            color: var(--earth-brown);
+            margin-bottom: 30px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .newsletter-form {
+            display: flex;
+            max-width: 400px;
+            margin: 0 auto;
+            gap: 10px;
+        }
+        
+        .newsletter-form input {
+            flex: 1;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+        }
+        
+        .newsletter-form input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .newsletter-form button {
+            padding: 12px 25px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .newsletter-form button:hover {
+            background-color: var(--accent);
+        }
+        
+        @media (max-width: 768px) {
+            .journal-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .journal-filters {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .newsletter-form {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../../index.html">Reweave</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="../story/index.html">Our Story</a></li>
+                    <li><a href="../shop/index.html">Shop</a></li>
+                    <li><a href="../tryon/index.html">Try On</a></li>
+                    <li><a href="../community/index.html">Community</a></li>
+                    <li><a href="../impact/index.html">Impact</a></li>
+                    <li><a href="index.html">Journal</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Journal Section -->
+    <section class="journal-container">
+        <div class="container">
+            <div class="journal-header">
+                <h1>Our Journal</h1>
+                <p>Discover stories, insights, and inspiration from our sustainable fashion journey.</p>
+            </div>
+            
+            <!-- Filter Buttons -->
+            <div class="journal-filters">
+                <button class="filter-btn active" data-category="all">All Posts</button>
+                <button class="filter-btn" data-category="sustainability">Sustainability</button>
+                <button class="filter-btn" data-category="artisan">Artisan Stories</button>
+                <button class="filter-btn" data-category="fashion">Fashion</button>
+                <button class="filter-btn" data-category="community">Community</button>
+            </div>
+            
+            <!-- Journal Grid -->
+            <div class="journal-grid">
+                <!-- Article 1 -->
+                <article class="journal-card" data-category="sustainability">
+                    <div class="journal-image">
+                        <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Sustainable Fashion">
+                        <div class="journal-category">Sustainability</div>
+                    </div>
+                    <div class="journal-content">
+                        <div class="journal-meta">
+                            <span><i class="far fa-calendar"></i> December 15, 2023</span>
+                            <span><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                        <h3 class="journal-title">The Future of Sustainable Fashion: Beyond Organic Cotton</h3>
+                        <p class="journal-excerpt">Exploring innovative materials and production methods that are revolutionizing the fashion industry and reducing environmental impact.</p>
+                        <a href="#" class="journal-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- Article 2 -->
+                <article class="journal-card" data-category="artisan">
+                    <div class="journal-image">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Artisan Craft">
+                        <div class="journal-category">Artisan Stories</div>
+                    </div>
+                    <div class="journal-content">
+                        <div class="journal-meta">
+                            <span><i class="far fa-calendar"></i> December 10, 2023</span>
+                            <span><i class="far fa-clock"></i> 7 min read</span>
+                        </div>
+                        <h3 class="journal-title">Meet the Master Weavers: Preserving Ancient Techniques</h3>
+                        <p class="journal-excerpt">A deep dive into the traditional weaving methods passed down through generations and how we're helping preserve these cultural treasures.</p>
+                        <a href="#" class="journal-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- Article 3 -->
+                <article class="journal-card" data-category="fashion">
+                    <div class="journal-image">
+                        <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Fashion Trends">
+                        <div class="journal-category">Fashion</div>
+                    </div>
+                    <div class="journal-content">
+                        <div class="journal-meta">
+                            <span><i class="far fa-calendar"></i> December 5, 2023</span>
+                            <span><i class="far fa-clock"></i> 4 min read</span>
+                        </div>
+                        <h3 class="journal-title">2024 Fashion Trends: Embracing Slow Fashion</h3>
+                        <p class="journal-excerpt">Discover the emerging trends that prioritize quality, sustainability, and timeless design over fast fashion consumption.</p>
+                        <a href="#" class="journal-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- Article 4 -->
+                <article class="journal-card" data-category="community">
+                    <div class="journal-image">
+                        <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Community Impact">
+                        <div class="journal-category">Community</div>
+                    </div>
+                    <div class="journal-content">
+                        <div class="journal-meta">
+                            <span><i class="far fa-calendar"></i> November 28, 2023</span>
+                            <span><i class="far fa-clock"></i> 6 min read</span>
+                        </div>
+                        <h3 class="journal-title">Building Sustainable Communities: Our Impact Report</h3>
+                        <p class="journal-excerpt">How our partnerships with local communities are creating lasting positive change and economic opportunities.</p>
+                        <a href="#" class="journal-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- Article 5 -->
+                <article class="journal-card" data-category="sustainability">
+                    <div class="journal-image">
+                        <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Zero Waste">
+                        <div class="journal-category">Sustainability</div>
+                    </div>
+                    <div class="journal-content">
+                        <div class="journal-meta">
+                            <span><i class="far fa-calendar"></i> November 20, 2023</span>
+                            <span><i class="far fa-clock"></i> 8 min read</span>
+                        </div>
+                        <h3 class="journal-title">Zero Waste Fashion: A Complete Guide</h3>
+                        <p class="journal-excerpt">Learn about zero waste design principles and how they're transforming the fashion industry from production to consumption.</p>
+                        <a href="#" class="journal-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+                
+                <!-- Article 6 -->
+                <article class="journal-card" data-category="artisan">
+                    <div class="journal-image">
+                        <img src="https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Traditional Craft">
+                        <div class="journal-category">Artisan Stories</div>
+                    </div>
+                    <div class="journal-content">
+                        <div class="journal-meta">
+                            <span><i class="far fa-calendar"></i> November 15, 2023</span>
+                            <span><i class="far fa-clock"></i> 5 min read</span>
+                        </div>
+                        <h3 class="journal-title">The Art of Natural Dyeing: Colors from Nature</h3>
+                        <p class="journal-excerpt">Exploring traditional natural dyeing techniques and how they're being revived in modern sustainable fashion.</p>
+                        <a href="#" class="journal-read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Newsletter Section -->
+            <div class="newsletter-section">
+                <div class="container">
+                    <div class="newsletter-content">
+                        <h2>Stay Updated</h2>
+                        <p>Subscribe to our journal for the latest stories, insights, and sustainable fashion news.</p>
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Enter your email address" required>
+                            <button type="submit">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reweave</h3>
+                    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="../shop/index.html">All Products</a></li>
+                        <li><a href="../shop/index.html">New Arrivals</a></li>
+                        <li><a href="../shop/index.html">Best Sellers</a></li>
+                        <li><a href="../shop/index.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                        <li><a href="../story/index.html#team">Our Team</a></li>
+                        <li><a href="../story/index.html#artisans">Artisans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reweave. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // Journal filtering functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const journalCards = document.querySelectorAll('.journal-card');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    const category = this.dataset.category;
+                    
+                    // Show/hide cards based on category
+                    journalCards.forEach(card => {
+                        if (category === 'all' || card.dataset.category === category) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Newsletter form
+            const newsletterForm = document.querySelector('.newsletter-form');
+            if (newsletterForm) {
+                newsletterForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const email = this.querySelector('input[type="email"]').value;
+                    alert('Thank you for subscribing! We\'ll keep you updated with our latest stories.');
+                    this.reset();
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Culture - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        /* Culture Page Specific Styles */
+        .culture-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                              url('https://images.pexels.com/photos/7262407/pexels-photo-7262407.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .culture-hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .culture-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .culture-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .value-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .value-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            color: #3a5a40;
+            margin-bottom: 1rem;
+        }
+        
+        .value-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #3a5a40;
+        }
+        
+        .value-description {
+            line-height: 1.6;
+        }
+        
+        .team-section {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .team-photo {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-info {
+            padding: 1.5rem;
+        }
+        
+        .team-name {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-role {
+            color: #3a5a40;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .team-bio {
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .team-social a {
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .team-social a:hover {
+            color: #3a5a40;
+        }
+        
+        .principles-section {
+            padding: 4rem 0;
+        }
+        
+        .principle-item {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 3rem;
+            align-items: center;
+        }
+        
+        .principle-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #3a5a40;
+            opacity: 0.2;
+            line-height: 1;
+        }
+        
+        .principle-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #3a5a40;
+        }
+        
+        .principle-content p {
+            line-height: 1.6;
+        }
+        
+        .culture-quote {
+            background-color: #3a5a40;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .quote-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .quote-text {
+            font-size: 2rem;
+            font-style: italic;
+            margin-bottom: 1.5rem;
+            line-height: 1.4;
+        }
+        
+        .quote-author {
+            font-size: 1.2rem;
+        }
+        
+        .benefits-section {
+            padding: 4rem 0;
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .benefit-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+        }
+        
+        .benefit-title {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .benefit-title span {
+            color: #3a5a40;
+        }
+        
+        .benefit-title h3 {
+            font-size: 1.3rem;
+            color: #3a5a40;
+        }
+        
+        .benefit-description {
+            line-height: 1.6;
+        }
+        
+        .join-section {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        
+        .open-positions {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .position-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        
+        .position-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #3a5a40;
+        }
+        
+        .position-department {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .position-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .position-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .principle-item {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+            
+            .principle-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../index.html">Reweave</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../shop/index.html">Shop</a></li>
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="../tryon/index.html">Try On</a></li>
+                        <li><a href="../community/index.html">Community</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                        <li><a href="../journal/index.html">Journal</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="icon-btn search-toggle">
+                        <span class="material-icons">search</span>
+                    </button>
+                    <a href="#" class="icon-btn">
+                        <span class="material-icons">favorite_border</span>
+                    </a>
+                    <a href="#" class="icon-btn cart-toggle">
+                        <span class="material-icons">shopping_bag</span>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <button class="mobile-menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="culture-hero">
+            <div class="culture-hero-content">
+                <h1>Our Culture</h1>
+                <p>The values, principles, and people that make Reweave what it is today.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="section-intro">
+                <h2 class="section-title">Our Values</h2>
+                <p class="section-description">At Reweave, our values are the foundation of everything we do. They guide our decisions, shape our relationships, and define our approach to sustainable fashion.</p>
+            </div>
+
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-icon">
+                        <span class="material-icons">eco</span>
+                    </div>
+                    <h3 class="value-title">Sustainability</h3>
+                    <p class="value-description">We believe in creating fashion that respects our planet. Every decision we make considers environmental impact, from material sourcing to packaging and shipping.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <span class="material-icons">diversity_3</span>
+                    </div>
+                    <h3 class="value-title">Community</h3>
+                    <p class="value-description">We foster meaningful connections between artisans, customers, and communities. We believe fashion should bring people together and celebrate diverse cultural traditions.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <span class="material-icons">handshake</span>
+                    </div>
+                    <h3 class="value-title">Transparency</h3>
+                    <p class="value-description">We're committed to honest communication about our products, processes, and pricing. We believe customers deserve to know the full story behind what they wear.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <span class="material-icons">palette</span>
+                    </div>
+                    <h3 class="value-title">Craftsmanship</h3>
+                    <p class="value-description">We honor traditional techniques and the skilled hands that create our pieces. We believe in preserving cultural heritage through contemporary design.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <span class="material-icons">psychology</span>
+                    </div>
+                    <h3 class="value-title">Innovation</h3>
+                    <p class="value-description">We embrace new ideas and technologies that advance sustainable fashion. We believe in finding creative solutions to industry challenges.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-icon">
+                        <span class="material-icons">favorite</span>
+                    </div>
+                    <h3 class="value-title">Empathy</h3>
+                    <p class="value-description">We lead with compassion for people and planet. We believe in creating a fashion ecosystem that respects and uplifts everyone involved.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="principles-section">
+            <div class="container">
+                <div class="section-intro">
+                    <h2 class="section-title">Our Guiding Principles</h2>
+                    <p class="section-description">These principles shape how we operate as a company and interact with our stakeholders.</p>
+                </div>
+
+                <div class="principle-item">
+                    <div class="principle-number">01</div>
+                    <div class="principle-content">
+                        <h3>People First, Always</h3>
+                        <p>We prioritize the wellbeing of our team, artisan partners, and customers in every decision. We believe that when people thrive, business thrives. This means fair wages, safe working conditions, flexible policies, and a culture of mutual respect.</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-number">02</div>
+                    <div class="principle-content">
+                        <h3>Quality Over Quantity</h3>
+                        <p>We reject the fast fashion model in favor of timeless pieces made to last. We believe in creating fewer, better things that stand the test of time in both style and durability. This approach reduces waste and encourages mindful consumption.</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-number">03</div>
+                    <div class="principle-content">
+                        <h3>Continuous Improvement</h3>
+                        <p>We're committed to constantly evolving our practices to be more sustainable, ethical, and impactful. We believe in setting ambitious goals, measuring our progress, and being transparent about both our successes and areas for growth.</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-number">04</div>
+                    <div class="principle-content">
+                        <h3>Cultural Appreciation, Not Appropriation</h3>
+                        <p>We honor the cultural origins of traditional techniques and designs. We believe in collaborative creation that respects intellectual and cultural property, ensures proper attribution, and fairly compensates the communities that inspire our work.</p>
+                    </div>
+                </div>
+                <div class="principle-item">
+                    <div class="principle-number">05</div>
+                    <div class="principle-content">
+                        <h3>Regenerative Impact</h3>
+                        <p>We aim to go beyond sustainability to create positive impact. We believe in business as a force for good that can regenerate ecosystems, revitalize communities, and reimagine the fashion industry.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="culture-quote">
+            <div class="container">
+                <div class="quote-content">
+                    <div class="quote-text">"At Reweave, we're not just creating clothing—we're creating connection. Connection between maker and wearer, between tradition and innovation, between people and planet."</div>
+                    <div class="quote-author">— Maya Chen, Founder & CEO</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="benefits-section">
+            <div class="container">
+                <div class="section-intro">
+                    <h2 class="section-title">Life at Reweave</h2>
+                    <p class="section-description">We believe in creating a workplace where everyone can thrive. Here are some of the benefits and perks of being part of the Reweave team.</p>
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-title">
+                            <span class="material-icons">health_and_safety</span>
+                            <h3>Comprehensive Healthcare</h3>
+                        </div>
+                        <p class="benefit-description">Full medical, dental, and vision coverage for employees and their dependents, with mental health support included.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">
+                            <span class="material-icons">schedule</span>
+                            <h3>Flexible Work</h3>
+                        </div>
+                        <p class="benefit-description">Hybrid work options, flexible hours, and unlimited PTO policy that encourages work-life balance.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">
+                            <span class="material-icons">school</span>
+                            <h3>Learning & Development</h3>
+                        </div>
+                        <p class="benefit-description">Annual learning stipend, regular workshops, and opportunities to learn traditional crafts from our artisan partners.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">
+                            <span class="material-icons">volunteer_activism</span>
+                            <h3>Paid Volunteer Time</h3>
+                        </div>
+                        <p class="benefit-description">40 hours of paid time annually to volunteer with organizations aligned with our mission.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">
+                            <span class="material-icons">diversity_1</span>
+                            <h3>Parental Leave</h3>
+                        </div>
+                        <p class="benefit-description">16 weeks of fully paid leave for all new parents, regardless of gender or how they become parents.</p>
+                    </div>
+                    <div class="benefit-card">
+                        <div class="benefit-title">
+                            <span class="material-icons">shopping_bag</span>
+                            <h3>Employee Discount</h3>
+                        </div>
+                        <p class="benefit-description">50% discount on all Reweave products and special access to sample sales.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="join-section">
+            <div class="container">
+                <div class="section-intro">
+                    <h2 class="section-title">Join Our Team</h2>
+                    <p class="section-description">We're always looking for passionate individuals who share our values and want to make a difference in the fashion industry.</p>
+                </div>
+
+                <div class="open-positions">
+                    <div class="position-card">
+                        <h3 class="position-title">Sustainability Manager</h3>
+                        <div class="position-department">Impact Team</div>
+                        <div class="position-location">
+                            <span class="material-icons">location_on</span>
+                            <span>San Francisco, CA (Hybrid)</span>
+                        </div>
+                        <p class="position-description">Lead our sustainability initiatives and help us measure and improve our environmental impact across the organization.</p>
+                        <a href="#" class="btn btn-secondary">View Position</a>
+                    </div>
+                    <div class="position-card">
+                        <h3 class="position-title">Textile Designer</h3>
+                        <div class="position-department">Design Team</div>
+                        <div class="position-location">
+                            <span class="material-icons">location_on</span>
+                            <span>New York, NY (On-site)</span>
+                        </div>
+                        <p class="position-description">Create innovative textile designs that blend traditional techniques with contemporary aesthetics for our upcoming collections.</p>
+                        <a href="#" class="btn btn-secondary">View Position</a>
+                    </div>
+                    <div class="position-card">
+                        <h3 class="position-title">Community Manager</h3>
+                        <div class="position-department">Marketing Team</div>
+                        <div class="position-location">
+                            <span class="material-icons">location_on</span>
+                            <span>Remote (US-based)</span>
+                        </div>
+                        <p class="position-description">Build and nurture our online community across social platforms, highlighting customer stories and artisan partnerships.</p>
+                        <a href="#" class="btn btn-secondary">View Position</a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="#" class="btn btn-primary">View All Positions</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="../shop/index.html">New Arrivals</a></li>
+                        <li><a href="../shop/index.html">Bestsellers</a></li>
+                        <li><a href="../shop/index.html">Collections</a></li>
+                        <li><a href="../shop/index.html">Accessories</a></li>
+                        <li><a href="../shop/index.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="../culture/index.html">Our Culture</a></li>
+                        <li><a href="../story/index.html#team">Our Team</a></li>
+                        <li><a href="../artisan/index.html">Artisans</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Store Policy</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Join Our Community</h3>
+                    <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <span class="material-icons">facebook</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="material-icons">instagram</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="material-icons">pinterest</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="material-icons">twitter</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reweave. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

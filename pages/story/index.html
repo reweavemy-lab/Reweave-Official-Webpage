@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Story - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Story Page Specific Styles */
+        .story-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                              url('https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .story-hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .story-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .story-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .story-section {
+            padding: 5rem 0;
+        }
+        
+        .story-section:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .story-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .story-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .story-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+        
+        .story-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .story-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: #3a5a40;
+        }
+        
+        .story-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .reverse {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 0;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            background-color: #3a5a40;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -3px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border: 4px solid #3a5a40;
+            border-radius: 50%;
+            top: 15px;
+            z-index: 1;
+        }
+        
+        .left {
+            left: 0;
+        }
+        
+        .right {
+            left: 50%;
+        }
+        
+        .left::after {
+            right: -17px;
+        }
+        
+        .right::after {
+            left: -17px;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            border-radius: 6px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        
+        .timeline-content h3 {
+            color: #3a5a40;
+            margin-bottom: 0.5rem;
+        }
+        
+        .timeline-year {
+            font-weight: bold;
+            color: #3a5a40;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-section {
+            padding: 5rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .team-member {
+            text-align: center;
+        }
+        
+        .team-photo {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+        }
+        
+        .team-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-role {
+            color: #3a5a40;
+            margin-bottom: 1rem;
+        }
+        
+        .team-bio {
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .value-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            color: #3a5a40;
+            margin-bottom: 1rem;
+        }
+        
+        .value-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .story-container {
+                flex-direction: column;
+            }
+            
+            .timeline::after {
+                left: 31px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+            
+            .timeline-item::after {
+                left: 15px;
+            }
+            
+            .left::after, .right::after {
+                left: 15px;
+            }
+            
+            .right {
+                left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../../index.html">Reweave</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="index.html">Our Story</a></li>
+                    <li><a href="../shop/index.html">Shop</a></li>
+                    <li><a href="../tryon/index.html">Try On</a></li>
+                    <li><a href="../community/index.html">Community</a></li>
+                    <li><a href="../impact/index.html">Impact</a></li>
+                    <li><a href="../journal/index.html">Journal</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="story-hero">
+            <div class="story-hero-content">
+                <h1>Our Story</h1>
+                <p>Reweaving the fabric of fashion through tradition, sustainability, and community.</p>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="container">
+                <div class="story-container">
+                    <div class="story-image">
+                        <img src="https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Reweave Founding">
+                    </div>
+                    <div class="story-content">
+                        <h2>How It All Began</h2>
+                        <p>Reweave was born from a simple yet profound realization during a journey through the textile villages of India. Our founder, Maya Chen, witnessed firsthand the incredible artistry of traditional weavers and the challenges they faced in a rapidly changing global market.</p>
+                        <p>What began as a small project to connect these artisans with conscious consumers has grown into a movement that celebrates cultural heritage, champions sustainable practices, and creates meaningful livelihoods for communities around the world.</p>
+                        <p>Today, Reweave partners with over 200 artisans across 12 countries, bringing their exceptional craftsmanship to a global audience while ensuring fair compensation and sustainable production methods.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-section" id="culture">
+            <div class="container">
+                <h2 class="section-title">Our Culture</h2>
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">♻️</div>
+                        <h3 class="value-title">Sustainability</h3>
+                        <p>We believe in creating fashion that honors our planet. From natural dyes to zero-waste patterns, every decision we make considers environmental impact.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🤝</div>
+                        <h3 class="value-title">Community</h3>
+                        <p>We foster meaningful connections between artisans and consumers, creating a global community united by shared values and appreciation for craftsmanship.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🧵</div>
+                        <h3 class="value-title">Heritage</h3>
+                        <p>We honor and preserve traditional techniques that have been passed down through generations, ensuring these cultural treasures continue to thrive.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">💡</div>
+                        <h3 class="value-title">Innovation</h3>
+                        <p>We embrace technology and new ideas that can enhance traditional craftsmanship and create more sustainable, accessible fashion.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">⚖️</div>
+                        <h3 class="value-title">Equity</h3>
+                        <p>We ensure fair compensation and safe working conditions for all artisans, recognizing the true value of their skills and time.</p>
+                    </div>
+                    <div class="value-card">
+                        <div class="value-icon">🔍</div>
+                        <h3 class="value-title">Transparency</h3>
+                        <p>We believe in honest communication about our processes, pricing, and impact, allowing customers to make truly informed choices.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="container">
+                <h2 class="section-title">Our Journey</h2>
+                <div class="timeline">
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2016</div>
+                            <h3>The Seed is Planted</h3>
+                            <p>Maya Chen's journey through textile villages in India inspires the concept for Reweave.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2017</div>
+                            <h3>First Collection</h3>
+                            <p>Reweave launches with a small collection of handwoven scarves made by artisans in Kutch, India.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2018</div>
+                            <h3>Expanding Horizons</h3>
+                            <p>Partnerships established with artisan groups in Peru and Guatemala, introducing new techniques and materials.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2019</div>
+                            <h3>Sustainability Commitment</h3>
+                            <p>Implementation of comprehensive sustainability framework and natural dye initiative.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2020</div>
+                            <h3>Digital Transformation</h3>
+                            <p>Launch of virtual workshops and direct-to-artisan support program during global pandemic.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2021</div>
+                            <h3>Innovation Award</h3>
+                            <p>Reweave receives recognition for innovative approach to sustainable fashion.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item left">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2022</div>
+                            <h3>Community Hub</h3>
+                            <p>Launch of the Reweave Community platform connecting customers directly with artisans.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item right">
+                        <div class="timeline-content">
+                            <div class="timeline-year">2023</div>
+                            <h3>AI Try-On Technology</h3>
+                            <p>Introduction of innovative virtual try-on technology to reduce returns and waste.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="story-section">
+            <div class="container">
+                <div class="story-container reverse">
+                    <div class="story-image">
+                        <img src="https://images.pexels.com/photos/6626967/pexels-photo-6626967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Reweave Mission">
+                    </div>
+                    <div class="story-content">
+                        <h2>Our Mission</h2>
+                        <p>At Reweave, we're on a mission to transform the fashion industry by creating beautiful, sustainable garments that honor traditional craftsmanship while providing meaningful livelihoods for artisan communities.</p>
+                        <p>We believe that fashion can be a force for good—preserving cultural heritage, minimizing environmental impact, and fostering economic empowerment. Every piece in our collection tells a story of tradition, skill, and connection.</p>
+                        <p>By choosing Reweave, you're not just buying clothing—you're participating in a movement that values people and planet over profit, and that celebrates the beauty of human creativity and cultural diversity.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section" id="team">
+            <div class="container">
+                <h2 class="section-title">Our Team</h2>
+                <p class="section-description">Meet the passionate individuals behind Reweave who are dedicated to our mission of sustainable, ethical fashion.</p>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Maya Chen" class="team-photo">
+                        <h3 class="team-name">Maya Chen</h3>
+                        <div class="team-role">Founder & Creative Director</div>
+                        <p class="team-bio">With a background in textile design and sustainable development, Maya founded Reweave after traveling extensively through artisan communities in Asia and South America.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Raj Patel" class="team-photo">
+                        <h3 class="team-name">Raj Patel</h3>
+                        <div class="team-role">Head of Artisan Relations</div>
+                        <p class="team-bio">Raj works directly with our artisan partners to ensure fair practices, quality standards, and authentic representation of cultural techniques.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.pexels.com/photos/1181695/pexels-photo-1181695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sofia Rodriguez" class="team-photo">
+                        <h3 class="team-name">Sofia Rodriguez</h3>
+                        <div class="team-role">Sustainability Officer</div>
+                        <p class="team-bio">With expertise in environmental science, Sofia oversees our sustainability initiatives and ensures we're continuously improving our practices.</p>
+                    </div>
+                    <div class="team-member">
+                        <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="James Kim" class="team-photo">
+                        <h3 class="team-name">James Kim</h3>
+                        <div class="team-role">Technology Director</div>
+                        <p class="team-bio">James leads our digital initiatives, including our innovative AI try-on technology and community platform development.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Join Our Movement</h2>
+                    <p>Be part of the fashion revolution that values people, planet, and cultural heritage.</p>
+                    <div class="cta-buttons">
+                        <a href="../shop/index.html" class="btn btn-primary">Shop Collection</a>
+                        <a href="../community/index.html" class="btn btn-secondary">Join Community</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reweave</h3>
+                    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="../shop/index.html">All Products</a></li>
+                        <li><a href="../shop/index.html">New Arrivals</a></li>
+                        <li><a href="../shop/index.html">Best Sellers</a></li>
+                        <li><a href="../shop/index.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Our Story</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                        <li><a href="index.html#team">Our Team</a></li>
+                        <li><a href="index.html#artisans">Artisans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reweave. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+</body>
+</html>

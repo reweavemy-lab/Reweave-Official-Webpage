@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Impact Dashboard - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js for data visualization -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Impact Dashboard Specific Styles */
+        .impact-container {
+            padding: 120px 0 80px;
+        }
+        
+        .impact-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .impact-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .impact-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--earth-brown);
+        }
+        
+        .impact-metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .metric-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .metric-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 1rem;
+            color: var(--earth-brown);
+            margin-bottom: 15px;
+        }
+        
+        .metric-description {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            line-height: 1.5;
+        }
+        
+        .impact-charts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+        
+        .chart-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .chart-title {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .chart-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 200px;
+            max-height: 250px;
+        }
+        
+        .chart-canvas {
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100%;
+            max-height: 250px;
+        }
+        
+        @media (max-width: 768px) {
+            .chart-wrapper {
+                min-height: 150px;
+                max-height: 200px;
+            }
+            
+            .chart-canvas {
+                max-height: 200px;
+            }
+        }
+        
+        .impact-stories {
+            margin-bottom: 60px;
+        }
+        
+        .story-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .stories-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+        
+        .story-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .story-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .story-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .story-card:hover .story-image img {
+            transform: scale(1.05);
+        }
+        
+        .story-content {
+            padding: 25px;
+        }
+        
+        .story-content h3 {
+            font-size: 1.3rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .story-content p {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+        
+        .story-meta {
+            display: flex;
+            align-items: center;
+            font-size: 0.8rem;
+            color: #999;
+        }
+        
+        .story-meta i {
+            margin-right: 5px;
+        }
+        
+        .story-meta span {
+            margin-right: 15px;
+        }
+        
+        .impact-goals {
+            background-color: var(--secondary-light);
+            padding: 60px;
+            border-radius: 10px;
+            margin-bottom: 60px;
+        }
+        
+        .goals-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .goals-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .goal-item {
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .goal-icon {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-right: 15px;
+        }
+        
+        .goal-content h4 {
+            font-size: 1.1rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+        
+        .goal-content p {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            line-height: 1.5;
+        }
+        
+        .progress-section {
+            margin-bottom: 60px;
+        }
+        
+        .progress-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .progress-bar-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        
+        .progress-label span {
+            font-size: 1rem;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #f0f0f0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background-color: var(--primary);
+            border-radius: 5px;
+        }
+        
+        .progress-description {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            margin-top: 10px;
+        }
+        
+        .cta-section {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .cta-title {
+            font-size: 1.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .cta-description {
+            max-width: 700px;
+            margin: 0 auto 30px;
+            font-size: 1rem;
+            color: var(--earth-brown);
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 992px) {
+            .impact-metrics, .impact-charts, .goals-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .impact-metrics, .impact-charts, .stories-grid, .goals-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .impact-goals {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../../index.html">Reweave</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="../story/index.html">Our Story</a></li>
+                    <li><a href="../shop/index.html">Shop</a></li>
+                    <li><a href="../tryon/index.html">Try On</a></li>
+                    <li><a href="../community/index.html">Community</a></li>
+                    <li><a href="index.html">Impact</a></li>
+                    <li><a href="../journal/index.html">Journal</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Impact Dashboard Section -->
+    <section class="impact-container">
+        <div class="container">
+            <div class="impact-header">
+                <h1>Our Impact Dashboard</h1>
+                <p>Transparency is at the core of our mission. Track our progress in creating positive environmental and social change through sustainable fashion.</p>
+            </div>
+            
+            <!-- Key Metrics -->
+            <div class="impact-metrics">
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div class="metric-value">2.4M</div>
+                    <div class="metric-label">Gallons of Water Saved</div>
+                    <p class="metric-description">Through our sustainable production processes and water recycling initiatives, we've saved millions of gallons of water compared to traditional manufacturing.</p>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-recycle"></i>
+                    </div>
+                    <div class="metric-value">18.5K</div>
+                    <div class="metric-label">Pounds of Waste Diverted</div>
+                    <p class="metric-description">By using recycled and upcycled materials in our products, we've prevented thousands of pounds of textile waste from entering landfills.</p>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="metric-value">450+</div>
+                    <div class="metric-label">Artisans Employed</div>
+                    <p class="metric-description">We provide fair wages and safe working conditions to hundreds of skilled artisans across our partner communities, preserving traditional craftsmanship.</p>
+                </div>
+            </div>
+            
+            <!-- Charts & Visualizations -->
+            <div class="impact-charts">
+                <div class="chart-container">
+                    <h3 class="chart-title">Environmental Impact by Product Category</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="environmentalImpactChart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+                
+                <div class="chart-container">
+                    <h3 class="chart-title">Community Investment Growth</h3>
+                    <div class="chart-wrapper">
+                        <canvas id="communityInvestmentChart" class="chart-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Impact Stories -->
+            <div class="impact-stories">
+                <h2 class="story-title">Impact Stories</h2>
+                <div class="stories-grid">
+                    <div class="story-card">
+                        <div class="story-image">
+                            <img src="https://images.unsplash.com/photo-1489367874814-f5d040621dd8?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Artisan Story">
+                        </div>
+                        <div class="story-content">
+                            <h3>Empowering Women Artisans in Guatemala</h3>
+                            <p>Meet Maria, a master weaver who leads our artisan collective in Guatemala. Through fair trade partnerships, she's been able to provide education for her children and healthcare for her family while preserving traditional weaving techniques.</p>
+                            <div class="story-meta">
+                                <i class="far fa-calendar"></i>
+                                <span>June 12, 2023</span>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>Guatemala</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="story-card">
+                        <div class="story-image">
+                            <img src="https://images.unsplash.com/photo-1531171673193-f175b4b81b9f?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Environmental Story">
+                        </div>
+                        <div class="story-content">
+                            <h3>Revitalizing Cotton Farming Through Regenerative Agriculture</h3>
+                            <p>Our partnership with small-scale organic cotton farmers has helped restore soil health and biodiversity while eliminating harmful pesticides. Learn how regenerative farming practices are transforming communities and ecosystems.</p>
+                            <div class="story-meta">
+                                <i class="far fa-calendar"></i>
+                                <span>May 3, 2023</span>
+                                <i class="fas fa-map-marker-alt"></i>
+                                <span>India</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sustainability Goals -->
+            <div class="impact-goals">
+                <h2 class="goals-title">Our 2025 Sustainability Goals</h2>
+                <div class="goals-grid">
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <div class="goal-content">
+                            <h4>100% Sustainable Materials</h4>
+                            <p>Transition our entire product line to use only certified organic, recycled, or regeneratively sourced materials.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <i class="fas fa-solar-panel"></i>
+                        </div>
+                        <div class="goal-content">
+                            <h4>Carbon Neutral Operations</h4>
+                            <p>Achieve carbon neutrality across our entire supply chain through renewable energy and carbon offset programs.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="goal-content">
+                            <h4>1,000 Artisan Livelihoods</h4>
+                            <p>Expand our artisan network to support 1,000 skilled craftspeople with fair wages and sustainable livelihoods.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <i class="fas fa-box-open"></i>
+                        </div>
+                        <div class="goal-content">
+                            <h4>Zero Waste Packaging</h4>
+                            <p>Eliminate all plastic from our packaging and ensure all materials are compostable or infinitely recyclable.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <i class="fas fa-water"></i>
+                        </div>
+                        <div class="goal-content">
+                            <h4>Water Stewardship</h4>
+                            <p>Reduce water usage by 50% and implement closed-loop water systems in all production facilities.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="goal-item">
+                        <div class="goal-icon">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <div class="goal-content">
+                            <h4>Regenerative Impact</h4>
+                            <p>Move beyond sustainability to create regenerative systems that restore ecosystems and communities.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Progress Tracking -->
+            <div class="progress-section">
+                <h2 class="progress-title">Our Progress</h2>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-label">
+                        <span>Sustainable Materials</span>
+                        <span>78%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 78%;"></div>
+                    </div>
+                    <p class="progress-description">78% of our materials are now certified organic, recycled, or regeneratively sourced.</p>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-label">
+                        <span>Carbon Reduction</span>
+                        <span>45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%;"></div>
+                    </div>
+                    <p class="progress-description">We've reduced our carbon footprint by 45% compared to our 2019 baseline.</p>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-label">
+                        <span>Artisan Network</span>
+                        <span>45%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 45%;"></div>
+                    </div>
+                    <p class="progress-description">We're 45% of the way to our goal of supporting 1,000 artisans.</p>
+                </div>
+                
+                <div class="progress-bar-container">
+                    <div class="progress-label">
+                        <span>Plastic-Free Packaging</span>
+                        <span>92%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 92%;"></div>
+                    </div>
+                    <p class="progress-description">92% of our packaging is now plastic-free and made from compostable or recyclable materials.</p>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="cta-section">
+                <h2 class="cta-title">Join Our Impact Journey</h2>
+                <p class="cta-description">Every purchase contributes to our mission of creating positive environmental and social change. Follow our progress, share your ideas, and be part of the solution.</p>
+                <a href="../shop/index.html" class="btn">Shop Sustainable Products</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reweave</h3>
+                    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="../shop/index.html">All Products</a></li>
+                        <li><a href="../shop/index.html">New Arrivals</a></li>
+                        <li><a href="../shop/index.html">Best Sellers</a></li>
+                        <li><a href="../shop/index.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="index.html">Impact</a></li>
+                        <li><a href="../story/index.html#team">Our Team</a></li>
+                        <li><a href="../story/index.html#artisans">Artisans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reweave. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Environmental Impact Chart
+            const environmentalCtx = document.getElementById('environmentalImpactChart').getContext('2d');
+            const environmentalChart = new Chart(environmentalCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Totes', 'Backpacks', 'Crossbody Bags', 'Accessories'],
+                    datasets: [
+                        {
+                            label: 'Water Saved (Gallons)',
+                            data: [850000, 720000, 520000, 310000],
+                            backgroundColor: 'rgba(58, 90, 64, 0.7)',
+                            borderColor: 'rgba(58, 90, 64, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Waste Diverted (Pounds)',
+                            data: [7200, 5800, 3500, 2000],
+                            backgroundColor: 'rgba(143, 160, 119, 0.7)',
+                            borderColor: 'rgba(143, 160, 119, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    aspectRatio: 2,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            // Community Investment Chart
+            const communityCtx = document.getElementById('communityInvestmentChart').getContext('2d');
+            const communityChart = new Chart(communityCtx, {
+                type: 'line',
+                data: {
+                    labels: ['2019', '2020', '2021', '2022', '2023'],
+                    datasets: [
+                        {
+                            label: 'Artisans Employed',
+                            data: [120, 180, 250, 320, 450],
+                            backgroundColor: 'rgba(58, 90, 64, 0.1)',
+                            borderColor: 'rgba(58, 90, 64, 1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Community Investment ($K)',
+                            data: [75, 120, 210, 280, 350],
+                            backgroundColor: 'rgba(143, 160, 119, 0.1)',
+                            borderColor: 'rgba(143, 160, 119, 1)',
+                            borderWidth: 2,
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    aspectRatio: 2,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                            labels: {
+                                usePointStyle: true,
+                                padding: 20
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>

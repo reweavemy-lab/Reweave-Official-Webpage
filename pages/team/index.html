@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        /* Team Page Specific Styles */
+        .team-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                              url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .team-hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .team-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .team-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin: 3rem 0;
+        }
+        
+        .team-member {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-5px);
+        }
+        
+        .team-photo {
+            height: 350px;
+            overflow: hidden;
+        }
+        
+        .team-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .team-member:hover .team-photo img {
+            transform: scale(1.05);
+        }
+        
+        .team-info {
+            padding: 1.5rem;
+        }
+        
+        .team-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-role {
+            color: #3a5a40;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .team-bio {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-social {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .team-social a {
+            color: #666;
+            transition: color 0.3s;
+        }
+        
+        .team-social a:hover {
+            color: #3a5a40;
+        }
+        
+        .leadership-section {
+            margin-bottom: 4rem;
+        }
+        
+        .department-section {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .department-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .department-tab {
+            padding: 0.5rem 1.5rem;
+            background-color: #f5f5f5;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .department-tab:hover, .department-tab.active {
+            background-color: #3a5a40;
+            color: white;
+        }
+        
+        .department-content {
+            display: none;
+        }
+        
+        .department-content.active {
+            display: block;
+        }
+        
+        .values-section {
+            padding: 4rem 0;
+        }
+        
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .value-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .value-icon {
+            font-size: 3rem;
+            color: #3a5a40;
+            margin-bottom: 1rem;
+        }
+        
+        .value-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #3a5a40;
+        }
+        
+        .value-description {
+            line-height: 1.6;
+        }
+        
+        .join-section {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        
+        .open-positions {
+            margin-top: 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .position-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+        
+        .position-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #3a5a40;
+        }
+        
+        .position-department {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .position-location {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .position-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .department-tabs {
+                flex-direction: column;
+            }
+            
+            .department-tab {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="../../index.html">Reweave</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../shop/index.html">Shop</a></li>
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="../tryon/index.html">Try On</a></li>
+                        <li><a href="../community/index.html">Community</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                        <li><a href="../journal/index.html">Journal</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="icon-btn search-toggle">
+                        <span class="material-icons">search</span>
+                    </button>
+                    <a href="#" class="icon-btn">
+                        <span class="material-icons">favorite_border</span>
+                    </a>
+                    <a href="#" class="icon-btn cart-toggle">
+                        <span class="material-icons">shopping_bag</span>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <button class="mobile-menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="team-hero">
+            <div class="team-hero-content">
+                <h1>Meet Our Team</h1>
+                <p>The passionate individuals driving Reweave's mission forward.</p>
+            </div>
+        </section>
+
+        <section class="container leadership-section">
+            <div class="section-intro">
+                <h2 class="section-title">Our Leadership</h2>
+                <p class="section-description">Meet the visionaries guiding Reweave's journey toward sustainable fashion and positive impact.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Maya Chen">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Maya Chen</h3>
+                        <div class="team-role">Founder & CEO</div>
+                        <p class="team-bio">With a background in sustainable design and social entrepreneurship, Maya founded Reweave to bridge the gap between traditional craftsmanship and contemporary fashion. Her vision drives our mission to create positive impact through beautiful, ethical clothing.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn">
+                                <span class="material-icons">linkedin</span>
+                            </a>
+                            <a href="#" aria-label="Twitter">
+                                <span class="material-icons">twitter</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Amir Patel">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Amir Patel</h3>
+                        <div class="team-role">Chief Operating Officer</div>
+                        <p class="team-bio">Amir brings over 15 years of experience in ethical supply chain management. He oversees our operations, ensuring that our commitment to sustainability and fair labor practices is maintained at every step of production.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn">
+                                <span class="material-icons">linkedin</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="https://images.pexels.com/photos/1587009/pexels-photo-1587009.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sofia Rodriguez">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">Sofia Rodriguez</h3>
+                        <div class="team-role">Creative Director</div>
+                        <p class="team-bio">With a keen eye for design and a passion for cultural preservation, Sofia leads our creative team in developing collections that honor traditional techniques while appealing to contemporary aesthetics.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn">
+                                <span class="material-icons">linkedin</span>
+                            </a>
+                            <a href="#" aria-label="Instagram">
+                                <span class="material-icons">instagram</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="team-photo">
+                        <img src="https://images.pexels.com/photos/2381069/pexels-photo-2381069.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="David Kim">
+                    </div>
+                    <div class="team-info">
+                        <h3 class="team-name">David Kim</h3>
+                        <div class="team-role">Chief Impact Officer</div>
+                        <p class="team-bio">David leads our impact strategy, measuring and maximizing the positive environmental and social outcomes of our work. His background in environmental science and community development guides our approach to regenerative business.</p>
+                        <div class="team-social">
+                            <a href="#" aria-label="LinkedIn">
+                                <span class="material-icons">linkedin</span>
+                            </a>
+                            <a href="#" aria-label="Twitter">
+                                <span class="material-icons">twitter</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="department-section">
+            <div class="container">
+                <div class="section-intro">
+                    <h2 class="section-title">Our Departments</h2>
+                    <p class="section-description">Meet the talented teams working behind the scenes to bring Reweave's vision to life.</p>
+                </div>
+
+                <div class="department-tabs">
+                    <button class="department-tab active" data-department="design">Design Team</button>
+                    <button class="department-tab" data-department="production">Production & Sourcing</button>
+                    <button class="department-tab" data-department="impact">Impact & Sustainability</button>
+                    <button class="department-tab" data-department="marketing">Marketing & Community</button>
+                    <button class="department-tab" data-department="tech">Technology & Innovation</button>
+                </div>
+
+                <div class="department-content active" id="design">
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181695/pexels-photo-1181695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Leila Nguyen">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Leila Nguyen</h3>
+                                <div class="team-role">Senior Textile Designer</div>
+                                <p class="team-bio">Leila specializes in creating innovative textile designs that blend traditional techniques with contemporary aesthetics. She works closely with our artisan partners to develop unique fabrics for our collections.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1516680/pexels-photo-1516680.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Marco Rossi">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Marco Rossi</h3>
+                                <div class="team-role">Pattern Maker</div>
+                                <p class="team-bio">With training in both traditional tailoring and zero-waste design, Marco creates patterns that maximize fabric efficiency while ensuring beautiful fit and drape for all body types.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Zara Johnson">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Zara Johnson</h3>
+                                <div class="team-role">Accessories Designer</div>
+                                <p class="team-bio">Zara brings her background in jewelry design and sustainable materials to create our line of accessories that complement our garments and showcase artisanal techniques.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-content" id="production">
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Raj Mehta">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Raj Mehta</h3>
+                                <div class="team-role">Production Manager</div>
+                                <p class="team-bio">Raj oversees our production processes, ensuring quality control and ethical manufacturing practices across our partner workshops and cooperatives.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181424/pexels-photo-1181424.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Elena Santos">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Elena Santos</h3>
+                                <div class="team-role">Materials Sourcing Specialist</div>
+                                <p class="team-bio">Elena researches and sources sustainable materials for our collections, from organic cotton to innovative recycled fabrics, ensuring they meet our environmental and ethical standards.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/2182970/pexels-photo-2182970.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Thomas Lee">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Thomas Lee</h3>
+                                <div class="team-role">Artisan Partnership Coordinator</div>
+                                <p class="team-bio">Thomas works directly with our artisan partners around the world, facilitating communication, providing support, and ensuring fair compensation and working conditions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-content" id="impact">
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181391/pexels-photo-1181391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Amara Okafor">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Amara Okafor</h3>
+                                <div class="team-role">Sustainability Manager</div>
+                                <p class="team-bio">Amara leads our sustainability initiatives, from carbon footprint reduction to water conservation and waste management, ensuring we minimize our environmental impact.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/2379005/pexels-photo-2379005.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Miguel Fernandez">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Miguel Fernandez</h3>
+                                <div class="team-role">Community Impact Specialist</div>
+                                <p class="team-bio">Miguel measures and reports on the social impact of our work, from job creation to cultural preservation, and develops programs to enhance our positive influence in artisan communities.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181690/pexels-photo-1181690.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Sarah Kim">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Sarah Kim</h3>
+                                <div class="team-role">Circular Economy Researcher</div>
+                                <p class="team-bio">Sarah explores innovative approaches to circularity in fashion, from take-back programs to upcycling initiatives, helping us move toward a zero-waste business model.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-content" id="marketing">
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181678/pexels-photo-1181678.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="James Wilson">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">James Wilson</h3>
+                                <div class="team-role">Marketing Director</div>
+                                <p class="team-bio">James leads our marketing strategy, telling Reweave's story in authentic ways that connect with conscious consumers and highlight the value of sustainable fashion.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181686/pexels-photo-1181686.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Priya Sharma">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Priya Sharma</h3>
+                                <div class="team-role">Community Manager</div>
+                                <p class="team-bio">Priya nurtures our online community, sharing customer stories, highlighting artisan partners, and fostering meaningful connections around our shared values.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181694/pexels-photo-1181694.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Leo Chen">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Leo Chen</h3>
+                                <div class="team-role">Visual Storyteller</div>
+                                <p class="team-bio">Leo captures the beauty of our products and the stories behind them through photography and video, creating compelling visual content that resonates with our audience.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="department-content" id="tech">
+                    <div class="team-grid">
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Olivia Park">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Olivia Park</h3>
+                                <div class="team-role">Technology Director</div>
+                                <p class="team-bio">Olivia leads our technology initiatives, from our e-commerce platform to innovative tools that enhance the customer experience and support our sustainability goals.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181391/pexels-photo-1181391.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Mateo Rivera">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Mateo Rivera</h3>
+                                <div class="team-role">AI Try-On Developer</div>
+                                <p class="team-bio">Mateo develops our virtual try-on technology, allowing customers to see how our garments will look on them before purchasing, reducing returns and their associated environmental impact.</p>
+                            </div>
+                        </div>
+                        <div class="team-member">
+                            <div class="team-photo">
+                                <img src="https://images.pexels.com/photos/1181695/pexels-photo-1181695.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Aisha Johnson">
+                            </div>
+                            <div class="team-info">
+                                <h3 class="team-name">Aisha Johnson</h3>
+                                <div class="team-role">Supply Chain Technologist</div>
+                                <p class="team-bio">Aisha implements blockchain and other technologies to enhance transparency in our supply chain, allowing customers to trace the journey of their garments from fiber to finished product.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="join-section">
+            <div class="container">
+                <div class="section-intro">
+                    <h2 class="section-title">Join Our Team</h2>
+                    <p class="section-description">We're always looking for passionate individuals who share our values and want to make a difference in the fashion industry.</p>
+                </div>
+
+                <div class="open-positions">
+                    <div class="position-card">
+                        <h3 class="position-title">Sustainability Manager</h3>
+                        <div class="position-department">Impact Team</div>
+                        <div class="position-location">
+                            <span class="material-icons">location_on</span>
+                            <span>San Francisco, CA (Hybrid)</span>
+                        </div>
+                        <p class="position-description">Lead our sustainability initiatives and help us measure and improve our environmental impact across the organization.</p>
+                        <a href="#" class="btn btn-secondary">View Position</a>
+                    </div>
+                    <div class="position-card">
+                        <h3 class="position-title">Textile Designer</h3>
+                        <div class="position-department">Design Team</div>
+                        <div class="position-location">
+                            <span class="material-icons">location_on</span>
+                            <span>New York, NY (On-site)</span>
+                        </div>
+                        <p class="position-description">Create innovative textile designs that blend traditional techniques with contemporary aesthetics for our upcoming collections.</p>
+                        <a href="#" class="btn btn-secondary">View Position</a>
+                    </div>
+                    <div class="position-card">
+                        <h3 class="position-title">Community Manager</h3>
+                        <div class="position-department">Marketing Team</div>
+                        <div class="position-location">
+                            <span class="material-icons">location_on</span>
+                            <span>Remote (US-based)</span>
+                        </div>
+                        <p class="position-description">Build and nurture our online community across social platforms, highlighting customer stories and artisan partnerships.</p>
+                        <a href="#" class="btn btn-secondary">View Position</a>
+                    </div>
+                </div>
+
+                <div style="margin-top: 3rem;">
+                    <a href="#" class="btn btn-primary">View All Positions</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul>
+                        <li><a href="../shop/index.html">New Arrivals</a></li>
+                        <li><a href="../shop/index.html">Bestsellers</a></li>
+                        <li><a href="../shop/index.html">Collections</a></li>
+                        <li><a href="../shop/index.html">Accessories</a></li>
+                        <li><a href="../shop/index.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul>
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="../culture/index.html">Our Culture</a></li>
+                        <li><a href="../team/index.html">Our Team</a></li>
+                        <li><a href="../artisan/index.html">Artisans</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help</h3>
+                    <ul>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Store Policy</a></li>
+                        <li><a href="#">Payment Methods</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Join Our Community</h3>
+                    <p>Subscribe to receive updates, access to exclusive deals, and more.</p>
+                    <form class="newsletter-form">
+                        <input type="email" placeholder="Enter your email address">
+                        <button type="submit">Subscribe</button>
+                    </form>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <span class="material-icons">facebook</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="material-icons">instagram</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="material-icons">pinterest</span>
+                        </a>
+                        <a href="#" class="social-link">
+                            <span class="material-icons">twitter</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reweave. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Accessibility</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Department tabs functionality
+            const departmentTabs = document.querySelectorAll('.department-tab');
+            const departmentContents = document.querySelectorAll('.department-content');
+            
+            departmentTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    // Update active tab
+                    departmentTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const department = this.getAttribute('data-department');
+                    departmentContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === department) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

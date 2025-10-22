@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reweave - Where Culture Moves</title>
+    <meta name="description" content="Sustainable fashion that connects culture, community, and environmental responsibility. Handcrafted bags with traditional batik patterns.">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        indigo: '#1A2741',
+                        sand: '#E5D6BF',
+                        sage: '#9BA48C',
+                        brown: '#3A2E27',
+                        gold: '#C4A96A',
+                        terracotta: '#8C4B36',
+                        ivory: '#FAF7F2',
+                        pebble: '#B1ABA2',
+                        navy: '#0E1824',
+                        text: '#2E2B28',
+                    },
+                    fontFamily: {
+                        display: ['Playfair Display', 'serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        soft: '0 4px 10px rgba(0,0,0,0.05)',
+                        medium: '0 8px 25px rgba(0,0,0,0.1)',
+                        strong: '0 12px 40px rgba(0,0,0,0.15)',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.6s ease-in-out',
+                        'slide-up': 'slideUp 0.8s ease-out',
+                        'float': 'float 3s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(30px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        .hero-gradient {
+            background: linear-gradient(135deg, #1A2741 0%, #0E1824 100%);
+        }
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(26, 39, 65, 0.8) 0%, rgba(14, 24, 36, 0.9) 100%);
+        }
+        
+        /* Button Styles */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: #9BA48C;
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #8C4B36;
+        }
+        .btn-secondary {
+            background-color: #C4A96A;
+            color: #3A2E27;
+        }
+        .btn-secondary:hover {
+            background-color: #8C4B36;
+            color: white;
+        }
+        .btn-outline {
+            border: 2px solid #1A2741;
+            color: #1A2741;
+            background: transparent;
+        }
+        .btn-outline:hover {
+            background-color: #1A2741;
+            color: white;
+        }
+        
+        /* Card Styles */
+        .card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+        
+        /* Navigation */
+        .nav-link {
+            color: #1A2741;
+            font-weight: 500;
+            padding: 8px 0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #8C4B36;
+        }
+        .nav-link.active {
+            color: #C4A96A;
+        }
+        
+        /* Container */
+        .container-custom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Section Padding */
+        .section-padding {
+            padding: 4rem 0;
+        }
+        
+        @media (min-width: 1024px) {
+            .section-padding {
+                padding: 6rem 0;
+            }
+        }
+        
+        /* Mobile Menu */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: white;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+                flex-direction: column;
+                padding: 20px;
+            }
+            .nav-menu.active {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body class="bg-ivory text-text font-body">
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white/95 backdrop-blur-md shadow-soft">
+        <div class="container-custom">
+            <div class="flex items-center justify-between h-20">
+                <!-- Logo -->
+                <a href="#" class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-indigo rounded-lg flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">R</span>
+                    </div>
+                    <span class="text-2xl font-display font-bold text-indigo">
+                        Reweave
+                    </span>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden lg:flex items-center space-x-8">
+                    <a href="index-fixed.html" class="nav-link active">Home</a>
+                    <a href="story.html" class="nav-link">Our Story</a>
+                    <a href="shop.html" class="nav-link">Shop</a>
+                    <a href="try-on.html" class="nav-link">Try On</a>
+                    <a href="community.html" class="nav-link">Your Reweave</a>
+                    <a href="impact.html" class="nav-link">Impact</a>
+                    <a href="journal.html" class="nav-link">Journal</a>
+                </nav>
+
+                <!-- Mobile Menu Button -->
+                <button class="lg:hidden p-2 rounded-lg hover:bg-sand transition-colors duration-300" onclick="toggleMobileMenu()">
+                    <div class="w-6 h-6 flex flex-col justify-center space-y-1">
+                        <span class="block h-0.5 bg-indigo transition-all duration-300" id="menu-line-1"></span>
+                        <span class="block h-0.5 bg-indigo transition-all duration-300" id="menu-line-2"></span>
+                        <span class="block h-0.5 bg-indigo transition-all duration-300" id="menu-line-3"></span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="lg:hidden transition-all duration-300 max-h-0 opacity-0 overflow-hidden bg-white shadow-soft" id="mobile-menu">
+            <div class="container-custom py-4">
+                <nav class="flex flex-col space-y-4">
+                    <a href="index-fixed.html" class="nav-link text-lg active">Home</a>
+                    <a href="story.html" class="nav-link text-lg">Our Story</a>
+                    <a href="shop.html" class="nav-link text-lg">Shop</a>
+                    <a href="try-on.html" class="nav-link text-lg">Try On</a>
+                    <a href="community.html" class="nav-link text-lg">Your Reweave</a>
+                    <a href="impact.html" class="nav-link text-lg">Impact</a>
+                    <a href="journal.html" class="nav-link text-lg">Journal</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20">
+        <!-- Hero Section -->
+        <section class="relative h-screen flex items-center justify-center overflow-hidden">
+            <!-- Background Image (fallback for video) -->
+            <div class="absolute inset-0 w-full h-full">
+                <div class="w-full h-full bg-gradient-to-br from-indigo to-navy flex items-center justify-center">
+                    <div class="text-center text-white">
+                        <h1 class="text-6xl font-display font-bold mb-4">Where Culture Moves</h1>
+                        <p class="text-xl text-sand">Designed for Movement. Rooted in Meaning.</p>
+                    </div>
+                </div>
+                <div class="absolute inset-0 hero-overlay"></div>
+            </div>
+
+            <!-- Hero Content -->
+            <div class="relative z-10 text-center text-white px-4 max-w-4xl mx-auto">
+                <h1 class="text-5xl md:text-7xl font-display font-bold mb-6 animate-fade-in">
+                    Where Culture Moves
+                </h1>
+                <p class="text-xl md:text-2xl mb-8 text-sand animate-slide-up">
+                    Designed for Movement. Rooted in Meaning.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up">
+                    <a href="#shop" class="btn btn-primary text-lg px-8 py-4">
+                        Shop Collection
+                    </a>
+                    <a href="#try-on" class="btn btn-outline text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-indigo">
+                        Try It On
+                    </a>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-float">
+                <div class="w-6 h-10 border-2 border-white rounded-full flex justify-center">
+                    <div class="w-1 h-3 bg-white rounded-full mt-2 animate-bounce"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pillars Section -->
+        <section class="section-padding bg-ivory">
+            <div class="container-custom">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-display font-bold text-indigo mb-6">
+                        Our Pillars
+                    </h2>
+                    <p class="text-xl text-pebble max-w-3xl mx-auto">
+                        Reweave stands on three fundamental pillars that guide everything we do.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Culture Pillar -->
+                    <div class="card p-8 text-center group hover:shadow-strong transition-all duration-500 bg-gradient-to-br from-ivory to-sand border border-sage/20">
+                        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-indigo to-navy flex items-center justify-center text-2xl">
+                            🎨
+                        </div>
+                        <h3 class="text-2xl font-display font-semibold text-indigo mb-4">
+                            Culture
+                        </h3>
+                        <p class="text-pebble mb-6 leading-relaxed">
+                            We celebrate and preserve traditional craftsmanship and cultural heritage through our designs and production methods.
+                        </p>
+                        <a href="#story" class="btn btn-outline group-hover:bg-sage group-hover:text-white transition-all duration-300">
+                            Learn More
+                        </a>
+                    </div>
+
+                    <!-- Community Pillar -->
+                    <div class="card p-8 text-center group hover:shadow-strong transition-all duration-500 bg-gradient-to-br from-ivory to-sand border border-sage/20">
+                        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-sage to-terracotta flex items-center justify-center text-2xl">
+                            🤝
+                        </div>
+                        <h3 class="text-2xl font-display font-semibold text-indigo mb-4">
+                            Community
+                        </h3>
+                        <p class="text-pebble mb-6 leading-relaxed">
+                            We empower local artisans and communities by providing fair wages, training, and sustainable livelihoods.
+                        </p>
+                        <a href="#community" class="btn btn-outline group-hover:bg-sage group-hover:text-white transition-all duration-300">
+                            Join Us
+                        </a>
+                    </div>
+
+                    <!-- Sustainability Pillar -->
+                    <div class="card p-8 text-center group hover:shadow-strong transition-all duration-500 bg-gradient-to-br from-ivory to-sand border border-sage/20">
+                        <div class="w-16 h-16 mx-auto mb-6 rounded-full bg-gradient-to-br from-gold to-sage flex items-center justify-center text-2xl">
+                            🌱
+                        </div>
+                        <h3 class="text-2xl font-display font-semibold text-indigo mb-4">
+                            Sustainability
+                        </h3>
+                        <p class="text-pebble mb-6 leading-relaxed">
+                            We're committed to environmental responsibility through sustainable materials, ethical production, and waste reduction.
+                        </p>
+                        <a href="#impact" class="btn btn-outline group-hover:bg-sage group-hover:text-white transition-all duration-300">
+                            Our Impact
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Product Section -->
+        <section class="section-padding bg-gradient-to-br from-sand to-ivory">
+            <div class="container-custom">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <div class="order-2 lg:order-1">
+                        <h2 class="text-4xl md:text-5xl font-display font-bold text-indigo mb-6">
+                            Featured Product
+                        </h2>
+                        <h3 class="text-2xl font-display font-semibold text-brown mb-4">
+                            Batik Pickleball Tote
+                        </h3>
+                        <p class="text-lg text-pebble mb-6 leading-relaxed">
+                            Handcrafted by skilled artisans using reclaimed textiles, this versatile tote combines traditional weaving techniques with modern design.
+                        </p>
+                        <div class="flex items-center space-x-4 mb-8">
+                            <span class="text-3xl font-bold text-indigo">$89</span>
+                            <div class="flex items-center space-x-2">
+                                <div class="flex text-gold">
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                                    </svg>
+                                </div>
+                                <span class="text-pebble">(24 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-4">
+                            <a href="#shop" class="btn btn-primary text-lg px-8 py-4">
+                                View Details
+                            </a>
+                            <a href="#try-on" class="btn btn-secondary text-lg px-8 py-4">
+                                Try It On
+                            </a>
+                        </div>
+                    </div>
+                    <div class="order-1 lg:order-2">
+                        <div class="relative">
+                            <div class="aspect-square rounded-2xl overflow-hidden shadow-strong">
+                                <img 
+                                    src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" 
+                                    alt="Batik Pickleball Tote"
+                                    class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                                />
+                            </div>
+                            <div class="absolute -top-4 -right-4 bg-gold text-brown px-4 py-2 rounded-full font-semibold text-sm">
+                                Best Seller
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community CTA Section -->
+        <section class="section-padding bg-indigo text-white">
+            <div class="container-custom text-center">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">
+                    Join Our Community
+                </h2>
+                <p class="text-xl text-sand mb-8 max-w-3xl mx-auto">
+                    Share your style, connect with like-minded individuals, and be part of the sustainable fashion movement.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <a href="#try-on" class="btn bg-white text-indigo hover:bg-sand text-lg px-8 py-4">
+                        Try On Our Products
+                    </a>
+                    <a href="#community" class="btn border-2 border-white text-white hover:bg-white hover:text-indigo text-lg px-8 py-4">
+                        View Community Gallery
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Newsletter Section -->
+        <section class="section-padding bg-gradient-to-br from-sage to-terracotta text-white">
+            <div class="container-custom text-center">
+                <h2 class="text-4xl md:text-5xl font-display font-bold mb-6">
+                    Stay Connected
+                </h2>
+                <p class="text-xl text-sand mb-8 max-w-2xl mx-auto">
+                    Get the latest updates on our collections, artisan stories, and sustainable fashion insights.
+                </p>
+                <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-4">
+                    <input 
+                        type="email" 
+                        placeholder="Enter your email address"
+                        class="flex-1 px-4 py-3 rounded-xl border border-pebble focus:border-sage focus:ring-2 focus:ring-sage/20 transition-colors duration-300 text-brown placeholder-pebble"
+                        required
+                    />
+                    <button 
+                        type="submit"
+                        class="btn bg-gold text-brown hover:bg-white hover:text-indigo px-8 py-3"
+                    >
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-navy text-ivory">
+        <div class="container-custom">
+            <div class="py-16">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Brand -->
+                    <div class="lg:col-span-2">
+                        <div class="flex items-center space-x-3 mb-6">
+                            <div class="w-10 h-10 bg-gold rounded-lg flex items-center justify-center">
+                                <span class="text-brown font-bold text-xl">R</span>
+                            </div>
+                            <span class="text-2xl font-display font-bold text-ivory">
+                                Reweave
+                            </span>
+                        </div>
+                        <p class="text-pebble mb-6 max-w-md">
+                            Where culture moves with purpose. Sustainable fashion that connects 
+                            heritage, community, and environmental responsibility.
+                        </p>
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-sage/20 rounded-lg flex items-center justify-center hover:bg-sage/30 transition-colors duration-300">
+                                <span class="sr-only">Instagram</span>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 6.62 5.367 11.987 11.988 11.987 6.62 0 11.987-5.367 11.987-11.987C24.014 5.367 18.637.001 12.017.001zM8.449 16.988c-1.297 0-2.448-.49-3.323-1.297C4.198 14.895 3.708 13.744 3.708 12.447s.49-2.448 1.297-3.323c.875-.807 2.026-1.297 3.323-1.297s2.448.49 3.323 1.297c.807.875 1.297 2.026 1.297 3.323s-.49 2.448-1.297 3.323c-.875.807-2.026 1.297-3.323 1.297z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-sage/20 rounded-lg flex items-center justify-center hover:bg-sage/30 transition-colors duration-300">
+                                <span class="sr-only">Facebook</span>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-sage/20 rounded-lg flex items-center justify-center hover:bg-sage/30 transition-colors duration-300">
+                                <span class="sr-only">Twitter</span>
+                                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div>
+                        <h3 class="text-lg font-display font-semibold mb-4">Quick Links</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#story" class="text-pebble hover:text-ivory transition-colors duration-300">Our Story</a></li>
+                            <li><a href="#shop" class="text-pebble hover:text-ivory transition-colors duration-300">Shop</a></li>
+                            <li><a href="#try-on" class="text-pebble hover:text-ivory transition-colors duration-300">Try On</a></li>
+                            <li><a href="#community" class="text-pebble hover:text-ivory transition-colors duration-300">Community</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Support -->
+                    <div>
+                        <h3 class="text-lg font-display font-semibold mb-4">Support</h3>
+                        <ul class="space-y-2">
+                            <li><a href="#impact" class="text-pebble hover:text-ivory transition-colors duration-300">Impact</a></li>
+                            <li><a href="#journal" class="text-pebble hover:text-ivory transition-colors duration-300">Journal</a></li>
+                            <li><a href="#" class="text-pebble hover:text-ivory transition-colors duration-300">Contact</a></li>
+                            <li><a href="#" class="text-pebble hover:text-ivory transition-colors duration-300">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="border-t border-sage/20 py-6">
+                <div class="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
+                    <p class="text-pebble text-sm">
+                        © 2024 Reweave. All rights reserved.
+                    </p>
+                    <div class="flex space-x-6">
+                        <a href="#" class="text-pebble hover:text-ivory transition-colors duration-300 text-sm">Privacy Policy</a>
+                        <a href="#" class="text-pebble hover:text-ivory transition-colors duration-300 text-sm">Terms of Service</a>
+                        <a href="#" class="text-pebble hover:text-ivory transition-colors duration-300 text-sm">Accessibility</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            const line1 = document.getElementById('menu-line-1');
+            const line2 = document.getElementById('menu-line-2');
+            const line3 = document.getElementById('menu-line-3');
+            
+            if (mobileMenu.classList.contains('max-h-0')) {
+                mobileMenu.classList.remove('max-h-0', 'opacity-0');
+                mobileMenu.classList.add('max-h-96', 'opacity-100');
+                line1.classList.add('rotate-45', 'translate-y-1.5');
+                line2.classList.add('opacity-0');
+                line3.classList.add('-rotate-45', '-translate-y-1.5');
+            } else {
+                mobileMenu.classList.add('max-h-0', 'opacity-0');
+                mobileMenu.classList.remove('max-h-96', 'opacity-100');
+                line1.classList.remove('rotate-45', 'translate-y-1.5');
+                line2.classList.remove('opacity-0');
+                line3.classList.remove('-rotate-45', '-translate-y-1.5');
+            }
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Newsletter form submission
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = this.querySelector('input[type="email"]').value;
+            alert('Thank you for subscribing! We\'ll keep you updated with our latest stories.');
+            this.reset();
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-fade-in');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections
+        document.querySelectorAll('section').forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html>

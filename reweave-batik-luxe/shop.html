@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop — Reweave</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>tailwind.config={theme:{extend:{colors:{indigo:'#1A2741',sand:'#E5D6BF',sage:'#9BA48C',brown:'#3A2E27',gold:'#C4A96A',terracotta:'#8C4B36',ivory:'#FAF7F2',pebble:'#B1ABA2',navy:'#0E1824',text:'#2E2B28'},fontFamily:{display:['Playfair Display','serif'],body:['Inter','sans-serif']},boxShadow:{soft:'0 4px 10px rgba(0,0,0,0.05)'}}}};</script>
+  <style>.container-custom{max-width:1200px;margin:0 auto;padding:0 20px}.nav-link{color:#1A2741;font-weight:500;padding:8px 0;text-decoration:none;transition:all .3s}.nav-link:hover{color:#8C4B36}.nav-link.active{color:#C4A96A}.card{background:#fff;border-radius:16px;box-shadow:0 4px 10px rgba(0,0,0,.05);padding:16px}</style>
+</head>
+<body class="bg-ivory text-text font-body">
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/95 backdrop-blur-md shadow-soft">
+    <div class="container-custom">
+      <div class="flex items-center justify-between h-20">
+        <a href="index-fixed.html" class="flex items-center space-x-3"><div class="w-10 h-10 bg-indigo rounded-lg flex items-center justify-center"><span class="text-white font-bold text-xl">R</span></div><span class="text-2xl font-display font-bold text-indigo">Reweave</span></a>
+        <nav class="hidden lg:flex items-center space-x-8">
+          <a class="nav-link" href="index-fixed.html">Home</a>
+          <a class="nav-link" href="story.html">Our Story</a>
+          <a class="nav-link active" href="shop.html">Shop</a>
+          <a class="nav-link" href="try-on.html">Try On</a>
+          <a class="nav-link" href="community.html">Your Reweave</a>
+          <a class="nav-link" href="impact.html">Impact</a>
+          <a class="nav-link" href="journal.html">Journal</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+  <main class="pt-24">
+    <section class="container-custom py-6">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+        <input class="w-full md:w-1/2 border border-pebble rounded-xl px-4 py-3" placeholder="Search products..." />
+        <div class="flex items-center gap-3">
+          <label class="text-pebble">Sort</label>
+          <select class="border border-pebble rounded-xl px-3 py-2">
+            <option>Featured</option>
+            <option>Price: Low to High</option>
+            <option>Price: High to Low</option>
+          </select>
+        </div>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="product.html" class="card block hover:shadow-xl transition"><img class="w-full h-56 object-cover rounded-xl mb-3" src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?auto=format&fit=crop&w=800&q=80" alt="Batik Tote" /><div class="flex items-center justify-between"><h3 class="font-display text-indigo text-xl">Batik Pickleball Tote</h3><span class="text-indigo font-semibold">$89</span></div><p class="text-pebble text-sm mt-1">Handcrafted with reclaimed textiles</p></a>
+        <div class="card"><img class="w-full h-56 object-cover rounded-xl mb-3" src="https://images.unsplash.com/photo-1537832816519-689ad163238b?auto=format&fit=crop&w=800&q=80" alt="Backpack" /><div class="flex items-center justify-between"><h3 class="font-display text-indigo text-xl">Heritage Backpack</h3><span class="text-indigo font-semibold">$129</span></div><p class="text-pebble text-sm mt-1">Timeless and durable</p></div>
+        <div class="card"><img class="w-full h-56 object-cover rounded-xl mb-3" src="https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=800&q=80" alt="Crossbody" /><div class="flex items-center justify-between"><h3 class="font-display text-indigo text-xl">Artisan Crossbody</h3><span class="text-indigo font-semibold">$79</span></div><p class="text-pebble text-sm mt-1">Everyday adventures</p></div>
+      </div>
+    </section>
+  </main>
+  <footer class="bg-navy text-ivory mt-16"><div class="container-custom py-10 text-sm text-pebble">© 2024 Reweave.</div></footer>
+</body>
+</html>
+

@@ -1,0 +1,249 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&display=swap');
+
+/* CSS Variables for Batik Luxe Design System */
+:root {
+  /* Primary Colors */
+  --color-indigo: #1A2741;
+  --color-sand: #E5D6BF;
+  --color-sage: #9BA48C;
+  --color-brown: #3A2E27;
+  --color-gold: #C4A96A;
+  --color-terracotta: #8C4B36;
+  --color-ivory: #FAF7F2;
+  --color-pebble: #B1ABA2;
+  --color-navy: #0E1824;
+  --color-text: #2E2B28;
+  
+  /* Typography */
+  --font-display: 'Playfair Display', 'Canela', 'Neue Haas Grotesk Display', serif;
+  --font-body: 'Inter', 'Public Sans', sans-serif;
+  
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4rem;
+  
+  /* Shadows */
+  --shadow-soft: 0 4px 10px rgba(0,0,0,0.05);
+  --shadow-medium: 0 8px 25px rgba(0,0,0,0.1);
+  --shadow-strong: 0 12px 40px rgba(0,0,0,0.15);
+  
+  /* Transitions */
+  --transition-fast: 200ms ease-in-out;
+  --transition-normal: 300ms ease-in-out;
+  --transition-slow: 500ms ease-in-out;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-ivory);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-indigo);
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: var(--spacing-md);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+}
+
+h2 {
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+h4 {
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+}
+
+p {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-text);
+}
+
+/* Component Classes */
+.btn {
+  @apply inline-flex items-center justify-center px-6 py-3 rounded-xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.btn-primary {
+  @apply bg-sage text-white hover:bg-terracotta focus:ring-sage;
+}
+
+.btn-secondary {
+  @apply bg-gold text-brown hover:bg-terracotta hover:text-white focus:ring-gold;
+}
+
+.btn-outline {
+  @apply border-2 border-indigo text-indigo hover:bg-indigo hover:text-white focus:ring-indigo;
+}
+
+.btn-ghost {
+  @apply text-indigo hover:bg-sand focus:ring-sage;
+}
+
+/* Card Components */
+.card {
+  @apply bg-white rounded-2xl shadow-soft overflow-hidden transition-all duration-300 hover:shadow-medium;
+}
+
+.card-luxury {
+  @apply bg-gradient-to-br from-ivory to-sand border border-sage/20 shadow-strong;
+}
+
+/* Navigation */
+.nav-link {
+  @apply text-indigo hover:text-terracotta transition-colors duration-300 font-medium;
+}
+
+.nav-link.active {
+  @apply text-gold;
+}
+
+/* Hero Sections */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--color-indigo) 0%, var(--color-navy) 100%);
+}
+
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(26, 39, 65, 0.8) 0%, rgba(14, 24, 36, 0.9) 100%);
+}
+
+/* Product Cards */
+.product-card {
+  @apply bg-white rounded-xl overflow-hidden shadow-soft transition-all duration-300 hover:shadow-medium hover:-translate-y-1;
+}
+
+.product-card:hover .product-image {
+  @apply scale-105;
+}
+
+.product-image {
+  @apply transition-transform duration-500;
+}
+
+/* Community Gallery */
+.gallery-item {
+  @apply relative overflow-hidden rounded-xl shadow-soft transition-all duration-300 hover:shadow-medium;
+}
+
+.gallery-item:hover {
+  @apply -translate-y-1;
+}
+
+/* Impact Dashboard */
+.metric-card {
+  @apply bg-white rounded-xl p-6 shadow-soft border-l-4 border-sage;
+}
+
+.metric-value {
+  @apply text-3xl font-bold text-indigo;
+}
+
+.metric-label {
+  @apply text-pebble text-sm uppercase tracking-wide;
+}
+
+/* Animations */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.8s ease-out;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Loading States */
+.loading-spinner {
+  @apply animate-spin rounded-full h-8 w-8 border-b-2 border-sage;
+}
+
+/* Form Elements */
+.form-input {
+  @apply w-full px-4 py-3 rounded-xl border border-pebble focus:border-sage focus:ring-2 focus:ring-sage/20 transition-colors duration-300;
+}
+
+.form-textarea {
+  @apply w-full px-4 py-3 rounded-xl border border-pebble focus:border-sage focus:ring-2 focus:ring-sage/20 transition-colors duration-300 resize-none;
+}
+
+/* Utility Classes */
+.text-balance {
+  text-wrap: balance;
+}
+
+.container-custom {
+  @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+.section-padding {
+  @apply py-16 lg:py-24;
+}
+
+/* Responsive Typography */
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2.5rem;
+  }
+  
+  h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-ivory: #0E1824;
+    --color-text: #FAF7F2;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}

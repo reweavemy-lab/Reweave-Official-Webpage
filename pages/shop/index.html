@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Shop Page Specific Styles */
+        .shop-container {
+            padding: 120px 0 80px;
+        }
+        
+        .shop-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .shop-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .shop-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--earth-brown);
+        }
+        
+        .shop-layout {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .filter-sidebar {
+            flex: 0 0 250px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            align-self: flex-start;
+            position: sticky;
+            top: 100px;
+        }
+        
+        .filter-group {
+            margin-bottom: 25px;
+        }
+        
+        .filter-group h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .filter-option {
+            margin-bottom: 10px;
+        }
+        
+        .filter-option label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        
+        .filter-option input {
+            margin-right: 10px;
+        }
+        
+        .products-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-img {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .product-card:hover .product-img img {
+            transform: scale(1.1);
+        }
+        
+        .quick-actions {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .product-card:hover .quick-actions {
+            opacity: 1;
+        }
+        
+        .quick-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .quick-action-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .product-info {
+            padding: 20px;
+        }
+        
+        .product-name {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--primary);
+        }
+        
+        .product-material {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            margin-bottom: 10px;
+        }
+        
+        .product-price {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+            gap: 10px;
+        }
+        
+        .pagination a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+        }
+        
+        .pagination a.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .pagination a:hover:not(.active) {
+            background-color: #f0f0f0;
+        }
+        
+        /* Shop Controls */
+        .shop-controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .search-container {
+            position: relative;
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .search-input {
+            width: 100%;
+            padding: 12px 45px 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--earth-brown);
+        }
+        
+        .view-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .sort-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .sort-container label {
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .sort-select {
+            padding: 8px 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            background-color: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        
+        .view-toggle {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .view-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid #e0e0e0;
+            background-color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .view-btn.active,
+        .view-btn:hover {
+            border-color: var(--primary);
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .results-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding: 15px 0;
+            border-top: 1px solid #e0e0e0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+        }
+        
+        .breadcrumb a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Enhanced Product Cards */
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .product-badge:not(.new):not(.sale) {
+            background-color: var(--accent);
+            color: white;
+        }
+        
+        .product-badge.new {
+            background-color: #28a745;
+            color: white;
+        }
+        
+        .product-badge.sale {
+            background-color: #dc3545;
+            color: white;
+        }
+        
+        .product-rating {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        
+        .stars {
+            display: flex;
+            gap: 2px;
+        }
+        
+        .stars i {
+            font-size: 0.9rem;
+            color: #ffc107;
+        }
+        
+        .rating-count {
+            font-size: 0.8rem;
+            color: var(--earth-brown);
+        }
+        
+        .product-price {
+            margin: 10px 0;
+        }
+        
+        .current-price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .original-price {
+            font-size: 1rem;
+            color: #999;
+            text-decoration: line-through;
+            margin-left: 8px;
+        }
+        
+        .product-sustainability {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.8rem;
+            color: #28a745;
+            margin-top: 8px;
+        }
+        
+        .product-sustainability i {
+            font-size: 0.9rem;
+        }
+        
+        /* List View Styles */
+        .products-grid.list-view {
+            display: block;
+        }
+        
+        .products-grid.list-view .product-card {
+            display: flex;
+            margin-bottom: 20px;
+            max-width: none;
+        }
+        
+        .products-grid.list-view .product-img {
+            flex: 0 0 200px;
+            height: 150px;
+        }
+        
+        .products-grid.list-view .product-info {
+            flex: 1;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .products-grid.list-view .product-name {
+            font-size: 1.3rem;
+        }
+        
+        .products-grid.list-view .product-material {
+            font-size: 1rem;
+        }
+        
+        .products-grid.list-view .product-price {
+            font-size: 1.3rem;
+        }
+        
+        /* Loading State */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 200px;
+            font-size: 1.1rem;
+            color: var(--earth-brown);
+        }
+        
+        .loading i {
+            margin-right: 10px;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--earth-brown);
+        }
+        
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: #ddd;
+        }
+        
+        .no-results h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        @media (max-width: 992px) {
+            .shop-layout {
+                flex-direction: column;
+            }
+            
+            .filter-sidebar {
+                flex: 0 0 auto;
+                position: static;
+                margin-bottom: 30px;
+            }
+            
+            .shop-controls {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .search-container {
+                max-width: none;
+            }
+            
+            .view-controls {
+                justify-content: space-between;
+            }
+            
+            .results-info {
+                flex-direction: column;
+                gap: 10px;
+                text-align: center;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .products-grid.list-view .product-card {
+                flex-direction: column;
+            }
+            
+            .products-grid.list-view .product-img {
+                flex: 0 0 auto;
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <a href="../../index.html">Reweave</a>
+            </div>
+            <nav>
+                <ul class="nav-menu">
+                    <li><a href="../story/index.html">Our Story</a></li>
+                    <li><a href="index.html">Shop</a></li>
+                    <li><a href="../tryon/index.html">Try On</a></li>
+                    <li><a href="../community/index.html">Community</a></li>
+                    <li><a href="../impact/index.html">Impact</a></li>
+                    <li><a href="../journal/index.html">Journal</a></li>
+                </ul>
+                <div class="mobile-menu-btn">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Shop Section -->
+    <section class="shop-container">
+        <div class="container">
+            <div class="shop-header">
+                <h1>Shop Collection</h1>
+                <p>Discover our handcrafted, sustainable products made with love by skilled artisans.</p>
+                
+                <!-- Search and Controls -->
+                <div class="shop-controls">
+                    <div class="search-container">
+                        <input type="text" id="search-input" placeholder="Search products..." class="search-input">
+                        <i class="fas fa-search search-icon"></i>
+                    </div>
+                    <div class="view-controls">
+                        <div class="sort-container">
+                            <label for="sort-select">Sort by:</label>
+                            <select id="sort-select" class="sort-select">
+                                <option value="featured">Featured</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="newest">Newest First</option>
+                                <option value="popular">Most Popular</option>
+                            </select>
+                        </div>
+                        <div class="view-toggle">
+                            <button class="view-btn active" data-view="grid" title="Grid View">
+                                <i class="fas fa-th"></i>
+                            </button>
+                            <button class="view-btn" data-view="list" title="List View">
+                                <i class="fas fa-list"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Results Info -->
+                <div class="results-info">
+                    <span id="results-count">6 products found</span>
+                    <div class="breadcrumb">
+                        <a href="../../index.html">Home</a> > <span>Shop</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="shop-layout">
+                <!-- Filter Sidebar -->
+                <div class="filter-sidebar">
+                    <form id="filter-form">
+                        <div class="filter-group">
+                            <h3>Collection</h3>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="collection" value="all" checked>
+                                    All Collections
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="collection" value="summer">
+                                    Summer 2023
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="collection" value="artisan">
+                                    Artisan Series
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="collection" value="heritage">
+                                    Heritage Line
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h3>Material</h3>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="material" value="all" checked>
+                                    All Materials
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="material" value="cotton">
+                                    Reclaimed Cotton
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="material" value="hemp">
+                                    Hemp Blend
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="material" value="bamboo">
+                                    Bamboo Fiber
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h3>Color</h3>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="color" value="all" checked>
+                                    All Colors
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="color" value="natural">
+                                    Natural
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="color" value="indigo">
+                                    Indigo
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="color" value="earth">
+                                    Earth Tones
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="filter-group">
+                            <h3>Use Case</h3>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="use-case" value="all" checked>
+                                    All Use Cases
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="use-case" value="work">
+                                    Work
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="use-case" value="life">
+                                    Life
+                                </label>
+                            </div>
+                            <div class="filter-option">
+                                <label>
+                                    <input type="radio" name="use-case" value="play">
+                                    Play
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                
+                <!-- Products Grid -->
+                <div class="products-grid">
+                    <!-- Product 1 -->
+                    <div class="product-card" data-collection="artisan" data-material="cotton" data-color="natural" data-use-case="life">
+                        <div class="product-img">
+                            <img src="/Users/howiesim/Documents/Reweave Official Webpage/images/Gemini_Generated_Image_j8e9c1j8e9c1j8e9.png" alt="Artisan Tote">
+                            <div class="quick-actions">
+                                <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
+                                    <i class="fas fa-tshirt"></i>
+                                </a>
+                                <a href="#" class="quick-action-btn" title="Add to Wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-badge">Best Seller</div>
+                            <h3 class="product-name">Reweave Tote</h3>
+                            <p class="product-material">Reclaimed Cotton</p>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(24)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">$89.00</span>
+                                <span class="original-price">$120.00</span>
+                            </div>
+                            <div class="product-sustainability">
+                                <i class="fas fa-leaf"></i>
+                                <span>500g waste saved</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 2 -->
+                    <div class="product-card" data-collection="heritage" data-material="hemp" data-color="indigo" data-use-case="work">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Heritage Backpack">
+                            <div class="quick-actions">
+                                <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
+                                    <i class="fas fa-tshirt"></i>
+                                </a>
+                                <a href="#" class="quick-action-btn" title="Add to Wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-badge new">New</div>
+                            <h3 class="product-name">Heritage Backpack</h3>
+                            <p class="product-material">Hemp Blend</p>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-count">(18)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">$129.00</span>
+                            </div>
+                            <div class="product-sustainability">
+                                <i class="fas fa-leaf"></i>
+                                <span>750g waste saved</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 3 -->
+                    <div class="product-card" data-collection="summer" data-material="bamboo" data-color="earth" data-use-case="play">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Summer Crossbody">
+                            <div class="quick-actions">
+                                <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
+                                    <i class="fas fa-tshirt"></i>
+                                </a>
+                                <a href="#" class="quick-action-btn" title="Add to Wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Summer Crossbody</h3>
+                            <p class="product-material">Bamboo Fiber</p>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(31)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">$79.00</span>
+                            </div>
+                            <div class="product-sustainability">
+                                <i class="fas fa-leaf"></i>
+                                <span>300g waste saved</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 4 -->
+                    <div class="product-card" data-collection="artisan" data-material="cotton" data-color="natural" data-use-case="work">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1491637639811-60e2756cc1c7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Artisan Laptop Sleeve">
+                            <div class="quick-actions">
+                                <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
+                                    <i class="fas fa-tshirt"></i>
+                                </a>
+                                <a href="#" class="quick-action-btn" title="Add to Wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Artisan Laptop Sleeve</h3>
+                            <p class="product-material">Reclaimed Cotton</p>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-count">(12)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">$59.00</span>
+                            </div>
+                            <div class="product-sustainability">
+                                <i class="fas fa-leaf"></i>
+                                <span>200g waste saved</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 5 -->
+                    <div class="product-card" data-collection="heritage" data-material="hemp" data-color="earth" data-use-case="life">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1547949003-9792a18a2601?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Heritage Weekender">
+                            <div class="quick-actions">
+                                <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
+                                    <i class="fas fa-tshirt"></i>
+                                </a>
+                                <a href="#" class="quick-action-btn" title="Add to Wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <div class="product-badge sale">Sale</div>
+                            <h3 class="product-name">Heritage Weekender</h3>
+                            <p class="product-material">Hemp Blend</p>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <span class="rating-count">(8)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">$149.00</span>
+                                <span class="original-price">$199.00</span>
+                            </div>
+                            <div class="product-sustainability">
+                                <i class="fas fa-leaf"></i>
+                                <span>1.2kg waste saved</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Product 6 -->
+                    <div class="product-card" data-collection="summer" data-material="bamboo" data-color="indigo" data-use-case="play">
+                        <div class="product-img">
+                            <img src="https://images.unsplash.com/photo-1575486234793-6c8e816fce4f?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Summer Mini Tote">
+                            <div class="quick-actions">
+                                <a href="../tryon/index.html" class="quick-action-btn" title="Try On">
+                                    <i class="fas fa-tshirt"></i>
+                                </a>
+                                <a href="#" class="quick-action-btn" title="Add to Wishlist">
+                                    <i class="far fa-heart"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">Summer Mini Tote</h3>
+                            <p class="product-material">Bamboo Fiber</p>
+                            <div class="product-rating">
+                                <div class="stars">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="far fa-star"></i>
+                                </div>
+                                <span class="rating-count">(15)</span>
+                            </div>
+                            <div class="product-price">
+                                <span class="current-price">$69.00</span>
+                            </div>
+                            <div class="product-sustainability">
+                                <i class="fas fa-leaf"></i>
+                                <span>250g waste saved</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pagination -->
+            <div class="pagination">
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#"><i class="fas fa-chevron-right"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Reweave</h3>
+                    <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Shop</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">All Products</a></li>
+                        <li><a href="index.html">New Arrivals</a></li>
+                        <li><a href="index.html">Best Sellers</a></li>
+                        <li><a href="index.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>About</h3>
+                    <ul class="footer-links">
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                        <li><a href="../story/index.html#team">Our Team</a></li>
+                        <li><a href="../story/index.html#artisans">Artisans</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Shipping & Returns</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Reweave. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // Shop Page JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            const searchInput = document.getElementById('search-input');
+            const sortSelect = document.getElementById('sort-select');
+            const viewButtons = document.querySelectorAll('.view-btn');
+            const productsGrid = document.querySelector('.products-grid');
+            const filterForm = document.getElementById('filter-form');
+            const resultsCount = document.getElementById('results-count');
+            
+            let allProducts = Array.from(document.querySelectorAll('.product-card'));
+            let filteredProducts = [...allProducts];
+            
+            // Search functionality
+            searchInput.addEventListener('input', function() {
+                filterProducts();
+            });
+            
+            // Sort functionality
+            sortSelect.addEventListener('change', function() {
+                sortProducts();
+            });
+            
+            // View toggle functionality
+            viewButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    viewButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    if (this.dataset.view === 'list') {
+                        productsGrid.classList.add('list-view');
+                    } else {
+                        productsGrid.classList.remove('list-view');
+                    }
+                });
+            });
+            
+            // Filter functionality
+            filterForm.addEventListener('change', function() {
+                filterProducts();
+            });
+            
+            function filterProducts() {
+                const searchTerm = searchInput.value.toLowerCase();
+                const collectionFilter = document.querySelector('input[name="collection"]:checked').value;
+                const materialFilter = document.querySelector('input[name="material"]:checked').value;
+                const colorFilter = document.querySelector('input[name="color"]:checked').value;
+                const useCaseFilter = document.querySelector('input[name="use-case"]:checked').value;
+                
+                filteredProducts = allProducts.filter(product => {
+                    const name = product.querySelector('.product-name').textContent.toLowerCase();
+                    const material = product.querySelector('.product-material').textContent.toLowerCase();
+                    const collection = product.dataset.collection;
+                    const materialData = product.dataset.material;
+                    const color = product.dataset.color;
+                    const useCase = product.dataset.useCase;
+                    
+                    const matchesSearch = name.includes(searchTerm) || material.includes(searchTerm);
+                    const matchesCollection = collectionFilter === 'all' || collection === collectionFilter;
+                    const matchesMaterial = materialFilter === 'all' || materialData === materialFilter;
+                    const matchesColor = colorFilter === 'all' || color === colorFilter;
+                    const matchesUseCase = useCaseFilter === 'all' || useCase === useCaseFilter;
+                    
+                    return matchesSearch && matchesCollection && matchesMaterial && matchesColor && matchesUseCase;
+                });
+                
+                displayProducts();
+                updateResultsCount();
+            }
+            
+            function sortProducts() {
+                const sortBy = sortSelect.value;
+                
+                filteredProducts.sort((a, b) => {
+                    switch(sortBy) {
+                        case 'price-low':
+                            return getPrice(a) - getPrice(b);
+                        case 'price-high':
+                            return getPrice(b) - getPrice(a);
+                        case 'newest':
+                            return b.dataset.newest - a.dataset.newest;
+                        case 'popular':
+                            return getRating(b) - getRating(a);
+                        default:
+                            return 0;
+                    }
+                });
+                
+                displayProducts();
+            }
+            
+            function getPrice(product) {
+                const priceText = product.querySelector('.current-price').textContent;
+                return parseFloat(priceText.replace('$', ''));
+            }
+            
+            function getRating(product) {
+                const ratingCount = product.querySelector('.rating-count').textContent;
+                return parseInt(ratingCount.replace(/[()]/g, ''));
+            }
+            
+            function displayProducts() {
+                // Clear current products
+                productsGrid.innerHTML = '';
+                
+                if (filteredProducts.length === 0) {
+                    productsGrid.innerHTML = `
+                        <div class="no-results">
+                            <i class="fas fa-search"></i>
+                            <h3>No products found</h3>
+                            <p>Try adjusting your search or filter criteria</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // Add filtered products
+                filteredProducts.forEach(product => {
+                    productsGrid.appendChild(product);
+                });
+            }
+            
+            function updateResultsCount() {
+                const count = filteredProducts.length;
+                resultsCount.textContent = `${count} product${count !== 1 ? 's' : ''} found`;
+            }
+            
+            // Initialize
+            updateResultsCount();
+        });
+    </script>
+</body>
+</html>
