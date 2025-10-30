@@ -34,8 +34,8 @@ The Reweave website is a content + commerce platform that:
 
 1. Clone the repository
 ```bash
-git clone https://github.com/your-org/reweave-website.git
-cd reweave-website
+[git clone https://github.com/your-org/reweave-website.git
+cd reweave-website](https://github.com/reweavemy-lab/Reweave-Official-Webpage.git)
 ```
 
 2. Install dependencies
