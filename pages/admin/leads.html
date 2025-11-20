@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Leads Admin • Reweave</title>
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <style>
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border:1px solid var(--border-gray); padding:8px; font-size:14px; }
+    th { background: var(--luxury-gray); text-align:left; }
+  </style>
+</head>
+<body>
+  <header class="luxury-header">
+    <div class="header-container">
+      <div class="logo-center"><a href="../../onepage.html">REWEAVE</a></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 style="margin-bottom:16px;">Leads</h1>
+    <div style="margin-bottom:12px; display:flex; gap:8px;">
+      <button class="btn" id="refresh">Refresh</button>
+      <button class="btn btn-light" id="exportCsv">Export CSV</button>
+    </div>
+    <table id="leadsTable">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Interest</th>
+          <th>Source</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script>
+    async function loadLeads() {
+      const tbody = document.querySelector('#leadsTable tbody');
+      tbody.innerHTML = '<tr><td colspan="5">Loading…</td></tr>';
+      try {
+        const res = await fetch('http://localhost:3001/api/leads');
+        const data = await res.json();
+        if (!data.ok) throw new Error('Failed to load');
+        tbody.innerHTML = '';
+        data.leads.sort((a,b)=>b.ts-a.ts).forEach(l => {
+          const tr = document.createElement('tr');
+          const time = new Date(l.ts).toLocaleString();
+          tr.innerHTML = `<td>${time}</td><td>${l.name||''}</td><td>${l.phone||''}</td><td>${l.interest||''}</td><td>${l.source||''}</td>`;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="5">Could not reach backend. Is it running?</td></tr>';
+      }
+    }
+    function exportCsv() {
+      fetch('http://localhost:3001/api/leads').then(r=>r.json()).then(data=>{
+        const rows = [['Time','Name','Phone','Interest','Source']];
+        (data.leads||[]).forEach(l => rows.push([new Date(l.ts).toISOString(), l.name||'', l.phone||'', l.interest||'', l.source||'']));
+        const csv = rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'leads.csv'; a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+    document.getElementById('refresh').addEventListener('click', loadLeads);
+    document.getElementById('exportCsv').addEventListener('click', exportCsv);
+    loadLeads();
+  </script>
+</body>
+</html>

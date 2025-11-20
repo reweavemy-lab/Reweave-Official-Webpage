@@ -1,0 +1,19 @@
+# Optional redirect rules for cleaner URLs
+# Uncomment the lines you want to use by removing the # symbol
+
+# Redirect /account to /account.html
+# RewriteRule ^account$ account.html [L]
+
+# Redirect /login to /account.html (shows login tab)
+# RewriteRule ^login$ account.html [L]
+
+# Redirect /signup to /account.html (shows signup tab)  
+# RewriteRule ^signup$ account.html [L]
+
+# Optional: Force HTTPS
+# RewriteEngine On
+# RewriteCond %{HTTPS} off
+# RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Optional: Prevent directory listing
+# Options -Indexes

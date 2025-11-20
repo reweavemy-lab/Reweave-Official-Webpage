@@ -1,0 +1,17 @@
+{
+  "version": 2,
+  "public": true,
+  "name": "reweave-authentication",
+  "builds": [
+    {
+      "src": "direct-upload-solution.html",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/direct-upload-solution.html"
+    }
+  ]
+}

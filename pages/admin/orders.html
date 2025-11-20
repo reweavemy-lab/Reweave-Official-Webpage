@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Orders | Reweave Admin</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    .container { max-width: 900px; margin: 40px auto; padding: 0 16px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 20px; margin-bottom: 16px; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border:1px solid #eee; padding:6px 8px; text-align:left; }
+    .header { display:flex; align-items:center; justify-content:space-between; padding: 12px 16px; border-bottom:1px solid #eee; }
+    .header a.brand { display:flex; align-items:center; gap:8px; text-decoration:none; color:#111; font-weight:700; }
+    .muted { color:#666; font-size: 0.9em; }
+  </style>
+  <script>
+    const API = 'http://localhost:3001';
+
+    async function fetchJSON(path) {
+      const res = await fetch(`${API}${path}`);
+      return res.json();
+    }
+
+    async function loadOrders() {
+      const out = await fetchJSON('/api/orders?all=1');
+      const tbody = document.getElementById('ordersBody');
+      tbody.innerHTML = '';
+      if (!out.ok) return;
+      (out.orders || []).slice().reverse().forEach(o => {
+        const tr = document.createElement('tr');
+        const t = new Date(o.created_at).toLocaleString();
+        const items = (o.items || []).map(i => `${i.name || i.productId || i.id || 'item'} x${i.qty || 1}`).join('; ');
+        tr.innerHTML = `<td>${o.id}</td><td>${o.user_id || '-'}</td><td>${t}</td><td>${o.status}</td><td>${o.currency || 'MYR'} ${o.total}</td><td>${items}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    window.addEventListener('DOMContentLoaded', loadOrders);
+  </script>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="/onepage.html">
+      <img src="/images/Reweave logo.png" alt="Reweave" style="height:28px;" />
+      <span>Reweave Admin</span>
+    </a>
+    <nav>
+      <a href="/pages/admin/analytics.html">Analytics</a>
+      <a href="/pages/admin/events.html">Events</a>
+      <a href="/pages/admin/leads.html">Leads</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Orders</h1>
+    <p class="muted">Showing all orders (dev mode). In production, restrict to authenticated staff.</p>
+    <section class="card">
+      <table>
+        <thead>
+          <tr><th>Order ID</th><th>User ID</th><th>Created</th><th>Status</th><th>Total</th><th>Items</th></tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+    </section>
+  </main>
+</body>
+</html>

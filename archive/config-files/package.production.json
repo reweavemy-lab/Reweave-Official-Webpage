@@ -1,0 +1,187 @@
+{
+  "name": "reweave-ecommerce-production",
+  "version": "1.0.0",
+  "description": "Reweave E-Commerce Platform - Production Deployment",
+  "private": true,
+  "scripts": {
+    "build": "tsc && vite build",
+    "build:production": "vite build --mode production",
+    "build:analyze": "vite build --mode production && npx vite-bundle-analyzer",
+    "build:backend": "cd api && pnpm run build",
+    "build:frontend": "vite build --mode production",
+    "build:all": "pnpm run build:backend && pnpm run build:frontend",
+    
+    "start": "vite preview",
+    "start:production": "NODE_ENV=production pnpm run preview",
+    "start:backend": "cd api && pnpm start",
+    "start:frontend": "serve -s dist -l 5173",
+    
+    "deploy": "./scripts/deploy.sh deploy",
+    "deploy:staging": "./scripts/deploy.sh deploy --staging",
+    "deploy:rollback": "./scripts/deploy.sh rollback",
+    "deploy:health-check": "./scripts/deploy.sh health-check",
+    "deploy:status": "./scripts/deploy.sh status",
+    "deploy:cleanup": "./scripts/deploy.sh cleanup",
+    
+    "backup": "./scripts/backup.sh backup",
+    "backup:restore": "./scripts/backup.sh restore",
+    "backup:verify": "./scripts/backup.sh verify",
+    "backup:list": "./scripts/backup.sh list",
+    "backup:status": "./scripts/backup.sh status",
+    
+    "db:migrate": "cd api && pnpm run db:migrate",
+    "db:rollback": "cd api && pnpm run db:rollback",
+    "db:seed": "cd api && pnpm run db:seed",
+    "db:reset": "cd api && pnpm run db:reset",
+    "db:backup": "./scripts/backup.sh backup",
+    
+    "ssl:generate": "sudo certbot --nginx -d reweave.shop -d www.reweave.shop -d admin.reweave.shop -d api.reweave.shop",
+    "ssl:renew": "sudo certbot renew --dry-run",
+    
+    "pm2:start": "cd api && pm2 start ecosystem.config.js --env production",
+    "pm2:stop": "cd api && pm2 stop ecosystem.config.js",
+    "pm2:restart": "cd api && pm2 restart ecosystem.config.js",
+    "pm2:reload": "cd api && pm2 reload ecosystem.config.js",
+    "pm2:logs": "cd api && pm2 logs",
+    "pm2:status": "cd api && pm2 status",
+    "pm2:monitor": "cd api && pm2 monitor",
+    
+    "nginx:test": "sudo nginx -t",
+    "nginx:reload": "sudo nginx -s reload",
+    "nginx:restart": "sudo systemctl restart nginx",
+    "nginx:status": "sudo systemctl status nginx",
+    
+    "security:audit": "pnpm audit && cd api && pnpm audit",
+    "security:fix": "pnpm audit --fix && cd api && pnpm audit --fix",
+    "security:scan": "npx snyk test",
+    
+    "performance:analyze": "npx lighthouse-ci https://reweave.shop",
+    "performance:bundle": "npx vite-bundle-analyzer",
+    "performance:audit": "npx lighthouse https://reweave.shop --output=json --output-path=./lighthouse-report.json",
+    
+    "monitor:logs": "tail -f /var/log/reweave/*.log",
+    "monitor:api": "tail -f /var/log/reweave/api.log",
+    "monitor:nginx": "tail -f /var/log/nginx/reweave-access.log",
+    "monitor:errors": "tail -f /var/log/reweave/*error*.log",
+    
+    "test": "vitest",
+    "test:unit": "vitest run",
+    "test:integration": "vitest run --config vitest.integration.config.ts",
+    "test:coverage": "vitest run --coverage",
+    "test:api": "cd api && pnpm test",
+    
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint:fix": "eslint . --ext ts,tsx --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    
+    "type-check": "tsc --noEmit",
+    "type-check:watch": "tsc --noEmit --watch",
+    
+    "clean": "rm -rf dist node_modules/.cache",
+    "clean:all": "rm -rf dist node_modules api/dist api/node_modules",
+    
+    "docker:build": "docker build -t reweave-ecommerce .",
+    "docker:run": "docker run -p 3000:3000 -p 5173:5173 reweave-ecommerce",
+    "docker:compose": "docker-compose up -d",
+    
+    "setup:production": "pnpm install && pnpm run build:all && pnpm run deploy",
+    "setup:staging": "pnpm install && pnpm run build:all && pnpm run deploy:staging",
+    
+    "health:check": "curl -f https://api.reweave.shop/health && echo 'API OK' && curl -f https://reweave.shop && echo 'Frontend OK'",
+    "health:api": "curl -f https://api.reweave.shop/health",
+    "health:frontend": "curl -f https://reweave.shop",
+    "health:admin": "curl -f https://admin.reweave.shop",
+    
+    "docs:generate": "typedoc src --out docs",
+    "docs:serve": "serve docs -l 8080",
+    
+    "changelog:generate": "conventional-changelog -p angular -i CHANGELOG.md -s",
+    "release:patch": "npm version patch && pnpm run changelog:generate && git add CHANGELOG.md && git commit -m 'chore: update changelog'",
+    "release:minor": "npm version minor && pnpm run changelog:generate && git add CHANGELOG.md && git commit -m 'chore: update changelog'",
+    "release:major": "npm version major && pnpm run changelog:generate && git add CHANGELOG.md && git commit -m 'chore: update changelog'"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.0.18",
+    "@hookform/resolvers": "^3.3.2",
+    "@stripe/stripe-js": "^2.1.11",
+    "@supabase/supabase-js": "^2.38.4",
+    "axios": "^1.6.2",
+    "chart.js": "^4.4.0",
+    "clsx": "^2.0.0",
+    "date-fns": "^2.30.0",
+    "lucide-react": "^0.294.0",
+    "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2",
+    "react-quill": "^2.0.0",
+    "react-router-dom": "^6.20.1",
+    "serve": "^14.2.1",
+    "zod": "^3.22.4",
+    "zustand": "^4.4.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.4",
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@typescript-eslint/eslint-plugin": "^6.14.0",
+    "@typescript-eslint/parser": "^6.14.0",
+    "@vitejs/plugin-react": "^4.2.1",
+    "autoprefixer": "^10.4.16",
+    "conventional-changelog-cli": "^4.1.0",
+    "eslint": "^8.55.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.5",
+    "postcss": "^8.4.32",
+    "prettier": "^3.1.1",
+    "tailwindcss": "^3.3.6",
+    "typedoc": "^0.25.4",
+    "typescript": "^5.2.2",
+    "vite": "^5.0.8",
+    "vite-plugin-compression": "^0.5.1",
+    "vite-plugin-purgecss": "^0.2.12",
+    "vite-bundle-analyzer": "^0.7.0",
+    "vitest": "^1.0.4"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@8.12.0",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/your-org/reweave-ecommerce.git"
+  },
+  "keywords": [
+    "ecommerce",
+    "batik",
+    "malaysia",
+    "react",
+    "typescript",
+    "nodejs",
+    "postgresql",
+    "supabase",
+    "production",
+    "deployment"
+  ],
+  "author": "Reweave Team <hello@reweave.my>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/your-org/reweave-ecommerce/issues"
+  },
+  "homepage": "https://reweave.my",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Guest Checkout • Reweave</title>
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <style>
+    :root {
+      --primary-black: #000000;
+      --primary-white: #ffffff;
+      --luxury-gray: #f8f8f8;
+      --text-gray: #666666;
+      --border-gray: #e5e5e5;
+      --hover-gray: #f0f0f0;
+      --success: #2e7d32;
+      --error: #d32f2f;
+    }
+    body { 
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; 
+      color: var(--primary-black); 
+      background: var(--primary-white); 
+      margin: 0;
+      padding: 0;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+    .page-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 300; margin: 16px 0 8px; letter-spacing: 1px; }
+    .subtext { color: var(--text-gray); font-size: 14px; font-weight: 300; }
+
+    .checkout-grid { display: grid; grid-template-columns: 1fr 400px; gap: 32px; margin-top: 24px; }
+    @media (max-width: 980px) { .checkout-grid { grid-template-columns: 1fr; } }
+
+    /* Form Styles */
+    .form-section {
+      background: var(--primary-white);
+      border: 1px solid var(--border-gray);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+    
+    .form-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin: 0 0 20px;
+      letter-spacing: 1px;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--primary-black);
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      transition: border-color 0.3s ease;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-black);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    
+    @media (max-width: 600px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Order Summary */
+    .order-summary {
+      position: sticky;
+      top: 24px;
+      background: var(--luxury-gray);
+      border: 1px solid var(--border-gray);
+      border-radius: 12px;
+      padding: 24px;
+      height: fit-content;
+    }
+    
+    .order-summary h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin: 0 0 20px;
+      letter-spacing: 1px;
+    }
+    
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      font-size: 14px;
+    }
+    
+    .summary-item.total {
+      border-top: 1px solid var(--border-gray);
+      margin-top: 12px;
+      padding-top: 16px;
+      font-weight: 600;
+    }
+    
+    .cart-items {
+      margin-bottom: 20px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 0;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border-gray);
+    }
+    
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    /* Payment Section */
+    .payment-methods {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    
+    .payment-method {
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .payment-method:hover {
+      border-color: var(--primary-black);
+      background: var(--hover-gray);
+    }
+    
+    .payment-method.selected {
+      border-color: var(--primary-black);
+      background: var(--primary-black);
+      color: var(--primary-white);
+    }
+    
+    .payment-method i {
+      font-size: 24px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-block;
+      padding: 14px 24px;
+      background: var(--primary-black);
+      color: var(--primary-white);
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: center;
+      width: 100%;
+    }
+    
+    .btn:hover {
+      background: var(--primary-white);
+      color: var(--primary-black);
+      border: 1px solid var(--primary-black);
+    }
+    
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .btn-secondary {
+      background: var(--primary-white);
+      color: var(--primary-black);
+      border: 1px solid var(--border-gray);
+    }
+    
+    .btn-secondary:hover {
+      background: var(--primary-black);
+      color: var(--primary-white);
+    }
+
+    /* Messages */
+    .message {
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+    
+    .message.success {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+    }
+    
+    .message.error {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+    }
+    
+    .message.info {
+      background: #d1ecf1;
+      color: #0c5460;
+      border: 1px solid #bee5eb;
+    }
+
+    /* Loading */
+    .loading {
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid var(--primary-black);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-right: 10px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* Order Confirmation */
+    .order-confirmation {
+      display: none;
+      text-align: center;
+      padding: 40px;
+    }
+    
+    .order-confirmation h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+    
+    .order-number {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--success);
+      margin-bottom: 24px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .container { padding: 16px; }
+      .form-section { padding: 20px; }
+      .order-summary { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="luxury-header">
+    <div class="header-container">
+      <div class="header-left">
+        <button class="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i><span>Menu</span></button>
+      </div>
+      <div class="logo-center"><a href="/">REWEAVE</a></div>
+      <div class="header-right">
+        <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">Guest Checkout</h1>
+    <p class="subtext">Complete your purchase without creating an account</p>
+
+    <div id="message"></div>
+
+    <div class="checkout-grid">
+      <!-- Checkout Form -->
+      <div class="checkout-form">
+        <!-- Contact Information -->
+        <div class="form-section">
+          <h3>Contact Information</h3>
+          <div class="form-group">
+            <label for="email">Email Address *</label>
+            <input type="email" id="email" required placeholder="your@email.com">
+          </div>
+          <div class="form-group">
+            <label for="phone">Phone Number *</label>
+            <input type="tel" id="phone" required placeholder="+60 12 345 6789">
+          </div>
+        </div>
+
+        <!-- Shipping Address -->
+        <div class="form-section">
+          <h3>Shipping Address</h3>
+          <div class="form-group">
+            <label for="fullName">Full Name *</label>
+            <input type="text" id="fullName" required placeholder="John Doe">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="country">Country *</label>
+              <select id="country" required>
+                <option value="">Select Country</option>
+                <option value="MY" selected>Malaysia</option>
+                <option value="SG">Singapore</option>
+                <option value="ID">Indonesia</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="postalCode">Postal Code *</label>
+              <input type="text" id="postalCode" required placeholder="50000">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address1">Address Line 1 *</label>
+            <input type="text" id="address1" required placeholder="123 Jalan Example">
+          </div>
+          <div class="form-group">
+            <label for="address2">Address Line 2</label>
+            <input type="text" id="address2" placeholder="Apartment, suite, etc. (optional)">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="city">City *</label>
+              <input type="text" id="city" required placeholder="Kuala Lumpur">
+            </div>
+            <div class="form-group">
+              <label for="state">State *</label>
+              <select id="state" required>
+                <option value="">Select State</option>
+                <option value="KUL">Kuala Lumpur</option>
+                <option value="SEL">Selangor</option>
+                <option value="PNG">Penang</option>
+                <option value="JHR">Johor</option>
+                <option value="PRK">Perak</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Payment Method -->
+        <div class="form-section">
+          <h3>Payment Method</h3>
+          <div class="payment-methods">
+            <div class="payment-method" data-method="fpx">
+              <i class="fas fa-university"></i>
+              <div>FPX Bank Transfer</div>
+            </div>
+            <div class="payment-method" data-method="card">
+              <i class="fas fa-credit-card"></i>
+              <div>Credit/Debit Card</div>
+            </div>
+            <div class="payment-method" data-method="grab">
+              <i class="fas fa-mobile-alt"></i>
+              <div>GrabPay</div>
+            </div>
+            <div class="payment-method" data-method="touchngo">
+              <i class="fas fa-wallet"></i>
+              <div>Touch 'n Go</div>
+            </div>
+          </div>
+          
+          <!-- Payment Form Fields -->
+          <div id="paymentFields" style="display: none;">
+            <div class="form-group">
+              <label for="cardNumber">Card Number</label>
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="expiry">Expiry Date</label>
+                <input type="text" id="expiry" placeholder="MM/YY">
+              </div>
+              <div class="form-group">
+                <label for="cvv">CVV</label>
+                <input type="text" id="cvv" placeholder="123">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Notes -->
+        <div class="form-section">
+          <h3>Order Notes (Optional)</h3>
+          <div class="form-group">
+            <label for="notes">Special instructions for delivery</label>
+            <textarea id="notes" rows="3" placeholder="e.g., Leave at doorstep, call before delivery"></textarea>
+          </div>
+        </div>
+
+        <!-- Place Order Button -->
+        <button type="submit" class="btn" id="placeOrderBtn">
+          <span id="btnText">Place Order</span>
+        </button>
+      </div>
+
+      <!-- Order Summary -->
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="summary-item">
+          <span>Subtotal</span>
+          <span id="subtotal">RM 0.00</span>
+        </div>
+        <div class="summary-item">
+          <span>Shipping</span>
+          <span id="shipping">RM 10.00</span>
+        </div>
+        <div class="summary-item">
+          <span>Tax (6%)</span>
+          <span id="tax">RM 0.00</span>
+        </div>
+        <div class="summary-item total">
+          <span>Total</span>
+          <span id="total">RM 0.00</span>
+        </div>
+        
+        <!-- Order Confirmation -->
+        <div class="order-confirmation" id="orderConfirmation">
+          <i class="fas fa-check-circle" style="font-size: 48px; color: var(--success); margin-bottom: 16px;"></i>
+          <h2>Order Confirmed!</h2>
+          <div class="order-number" id="orderNumber"></div>
+          <p>Thank you for your purchase. We've sent a confirmation email with your order details.</p>
+          <button class="btn btn-secondary" onclick="window.location.href='/onepage.html'" style="margin-top: 16px;">
+            Continue Shopping
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    // Initialize Supabase
+    const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    // State
+    let cart = [];
+    let selectedPaymentMethod = '';
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCart();
+      setupEventListeners();
+      updateCartDisplay();
+    });
+
+    // Load cart from localStorage
+    function loadCart() {
+      cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Payment method selection
+      document.querySelectorAll('.payment-method').forEach(method => {
+        method.addEventListener('click', function() {
+          document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+          this.classList.add('selected');
+          selectedPaymentMethod = this.dataset.method;
+          
+          // Show/hide payment fields
+          const paymentFields = document.getElementById('paymentFields');
+          if (selectedPaymentMethod === 'card') {
+            paymentFields.style.display = 'block';
+          } else {
+            paymentFields.style.display = 'none';
+          }
+        });
+      });
+
+      // Form submission
+      document.getElementById('placeOrderBtn').addEventListener('click', placeOrder);
+    }
+
+    // Update cart display
+    function updateCartDisplay() {
+      const cartItems = document.getElementById('cartItems');
+      const subtotalEl = document.getElementById('subtotal');
+      const taxEl = document.getElementById('tax');
+      const totalEl = document.getElementById('total');
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = '<p style="text-align: center; color: var(--text-gray);">Your cart is empty</p>';
+        subtotalEl.textContent = 'RM 0.00';
+        taxEl.textContent = 'RM 0.00';
+        totalEl.textContent = 'RM 0.00';
+        return;
+      }
+
+      let subtotal = 0;
+      cartItems.innerHTML = '';
+
+      cart.forEach(item => {
+        const itemTotal = (item.price || 0) * (item.qty || 1);
+        subtotal += itemTotal;
+
+        const itemEl = document.createElement('div');
+        itemEl.className = 'cart-item';
+        itemEl.innerHTML = `
+          <div>
+            <div style="font-weight: 500;">${item.name}</div>
+            <div style="font-size: 12px; color: var(--text-gray);">${item.variant || ''}</div>
+          </div>
+          <div style="text-align: right;">
+            <div>RM ${itemTotal.toFixed(2)}</div>
+            <div style="font-size: 12px; color: var(--text-gray);">Qty: ${item.qty || 1}</div>
+          </div>
+        `;
+        cartItems.appendChild(itemEl);
+      });
+
+      const tax = subtotal * 0.06; // 6% tax
+      const shipping = 10; // Fixed shipping
+      const total = subtotal + tax + shipping;
+
+      subtotalEl.textContent = `RM ${subtotal.toFixed(2)}`;
+      taxEl.textContent = `RM ${tax.toFixed(2)}`;
+      totalEl.textContent = `RM ${total.toFixed(2)}`;
+    }
+
+    // Generate order number
+    function generateOrderNumber() {
+      const timestamp = Date.now().toString().slice(-8);
+      const random = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+      return `RW${timestamp}${random}`;
+    }
+
+    // Place order
+    async function placeOrder() {
+      // Validate form
+      const email = document.getElementById('email').value;
+      const phone = document.getElementById('phone').value;
+      const fullName = document.getElementById('fullName').value;
+      const address1 = document.getElementById('address1').value;
+      const city = document.getElementById('city').value;
+      const state = document.getElementById('state').value;
+      const postalCode = document.getElementById('postalCode').value;
+      const country = document.getElementById('country').value;
+
+      if (!email || !phone || !fullName || !address1 || !city || !state || !postalCode || !country) {
+        showMessage('Please fill in all required fields', 'error');
+        return;
+      }
+
+      if (!selectedPaymentMethod) {
+        showMessage('Please select a payment method', 'error');
+        return;
+      }
+
+      if (cart.length === 0) {
+        showMessage('Your cart is empty', 'error');
+        return;
+      }
+
+      // Show loading
+      const btn = document.getElementById('placeOrderBtn');
+      const btnText = document.getElementById('btnText');
+      btn.disabled = true;
+      btnText.innerHTML = '<span class="loading"></span>Processing...';
+
+      try {
+        // Calculate totals
+        const subtotal = cart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0);
+        const tax = subtotal * 0.06;
+        const shipping = 10;
+        const total = subtotal + tax + shipping;
+
+        // Generate order number
+        const orderNumber = generateOrderNumber();
+
+        // Create order data
+        const orderData = {
+          order_number: orderNumber,
+          email: email,
+          phone: phone,
+          full_name: fullName,
+          address_line1: address1,
+          address_line2: document.getElementById('address2').value,
+          city: city,
+          state: state,
+          postal_code: postalCode,
+          country: country,
+          order_notes: document.getElementById('notes').value,
+          items: cart,
+          subtotal: subtotal,
+          tax: tax,
+          shipping: shipping,
+          total: total,
+          payment_method: selectedPaymentMethod,
+          status: 'pending',
+          created_at: new Date().toISOString(),
+          guest_session_id: localStorage.getItem('guestSessionId') || generateGuestSessionId()
+        };
+
+        // Store in Supabase
+        const { data, error } = await supabase
+          .from('guest_orders')
+          .insert([orderData])
+          .select();
+
+        if (error) {
+          throw error;
+        }
+
+        // Success - show confirmation
+        showOrderConfirmation(orderNumber);
+        
+        // Clear cart
+        localStorage.removeItem('cart');
+        
+        // Store order number for tracking
+        localStorage.setItem('lastOrderNumber', orderNumber);
+
+      } catch (error) {
+        console.error('Order error:', error);
+        showMessage('Failed to place order. Please try again.', 'error');
+      } finally {
+        btn.disabled = false;
+        btnText.textContent = 'Place Order';
+      }
+    }
+
+    // Generate guest session ID
+    function generateGuestSessionId() {
+      const sessionId = 'guest_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+      localStorage.setItem('guestSessionId', sessionId);
+      return sessionId;
+    }
+
+    // Show message
+    function showMessage(text, type) {
+      const message = document.getElementById('message');
+      message.innerHTML = `<div class="message ${type}">${text}</div>`;
+      setTimeout(() => {
+        message.innerHTML = '';
+      }, 5000);
+    }
+
+    // Show order confirmation
+    function showOrderConfirmation(orderNumber) {
+      document.querySelector('.checkout-form').style.display = 'none';
+      document.querySelector('.order-summary').style.display = 'none';
+      
+      const confirmation = document.getElementById('orderConfirmation');
+      confirmation.style.display = 'block';
+      document.getElementById('orderNumber').textContent = `Order #${orderNumber}`;
+    }
+
+    // Update cart count in header
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const badge = document.querySelector('.cart-count');
+      if (badge) badge.textContent = String(count);
+    }
+
+    updateCartCount();
+  </script>
+</body>
+</html>

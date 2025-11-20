@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Artisans - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <style>
+        /* Artisan Page Specific Styles */
+        .artisan-hero {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), 
+                              url('https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+            background-size: cover;
+            background-position: center;
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+        }
+        
+        .artisan-hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+        
+        .artisan-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .artisan-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .artisan-filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: #f5f5f5;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: #3a5a40;
+            color: white;
+        }
+        
+        .artisan-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .artisan-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s;
+        }
+        
+        .artisan-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .artisan-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .artisan-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .artisan-card:hover .artisan-image img {
+            transform: scale(1.05);
+        }
+        
+        .artisan-info {
+            padding: 1.5rem;
+        }
+        
+        .artisan-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .artisan-location {
+            color: #666;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .artisan-specialty {
+            margin-bottom: 1rem;
+            font-weight: 600;
+            color: #3a5a40;
+        }
+        
+        .artisan-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .artisan-link {
+            display: inline-block;
+            color: #3a5a40;
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+        }
+        
+        .artisan-link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #3a5a40;
+            transform: scaleX(0);
+            transform-origin: bottom right;
+            transition: transform 0.3s;
+        }
+        
+        .artisan-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: bottom left;
+        }
+        
+        .featured-artisan {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin: 4rem 0;
+            align-items: center;
+        }
+        
+        .featured-image {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .featured-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+        
+        .featured-content {
+            flex: 1;
+            min-width: 300px;
+        }
+        
+        .featured-content h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #3a5a40;
+        }
+        
+        .featured-specialty {
+            font-weight: 600;
+            color: #3a5a40;
+            margin-bottom: 1rem;
+        }
+        
+        .featured-description {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .featured-quote {
+            font-style: italic;
+            padding: 1rem 0;
+            border-left: 3px solid #3a5a40;
+            padding-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .featured-products {
+            margin-top: 2rem;
+        }
+        
+        .product-mini {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            align-items: center;
+        }
+        
+        .product-mini-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+        
+        .product-mini-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .product-mini-info h4 {
+            margin-bottom: 0.3rem;
+        }
+        
+        .product-mini-price {
+            color: #3a5a40;
+            font-weight: 600;
+        }
+        
+        .technique-section {
+            padding: 4rem 0;
+            background-color: #f9f9f9;
+        }
+        
+        .technique-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .technique-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.05);
+        }
+        
+        .technique-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #3a5a40;
+        }
+        
+        .technique-origin {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        
+        .technique-description {
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .featured-artisan {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <a href="/">Reweave</a>
+                </div>
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="../shop/index.html">Shop</a></li>
+                        <li><a href="../story/index.html">Our Story</a></li>
+                        <li><a href="../tryon/index.html">Try On</a></li>
+                        <li><a href="../community/index.html">Community</a></li>
+                        <li><a href="../impact/index.html">Impact</a></li>
+                        <li><a href="../journal/index.html">Journal</a></li>
+                    </ul>
+                </nav>
+                <div class="header-actions">
+                    <button class="icon-btn search-toggle">
+                        <span class="material-icons">search</span>
+                    </button>
+                    <a href="#" class="icon-btn">
+                        <span class="material-icons">favorite_border</span>
+                    </a>
+                    <a href="../cart/index.html" class="icon-btn cart-toggle">
+                        <span class="material-icons">shopping_bag</span>
+                        <span class="cart-count">0</span>
+                    </a>
+                    <button class="mobile-menu-toggle">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="artisan-hero">
+            <div class="artisan-hero-content">
+                <h1>Meet Our Artisans</h1>
+                <p>The skilled hands and creative minds behind every Reweave piece.</p>
+            </div>
+        </section>
+
+        <section class="container">
+            <div class="section-intro">
+                <h2 class="section-title">The Heart of Reweave</h2>
+                <p class="section-description">Our artisans are the soul of Reweave. Each with their own unique story and specialized craft, they bring generations of knowledge and skill to every piece they create. By choosing Reweave, you're directly supporting these talented individuals and helping preserve cultural traditions that might otherwise be lost.</p>
+            </div>
+
+            <div class="artisan-filters">
+                <button class="filter-btn active" data-filter="all">All Regions</button>
+                <button class="filter-btn" data-filter="india">India</button>
+                <button class="filter-btn" data-filter="peru">Peru</button>
+                <button class="filter-btn" data-filter="guatemala">Guatemala</button>
+                <button class="filter-btn" data-filter="morocco">Morocco</button>
+                <button class="filter-btn" data-filter="thailand">Thailand</button>
+            </div>
+
+            <div class="featured-artisan">
+                <div class="featured-image">
+                    <img src="https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Priya Collective">
+                </div>
+                <div class="featured-content">
+                    <h2>Priya Collective</h2>
+                    <div class="artisan-location">
+                        <span class="material-icons">location_on</span>
+                        <span>Gujarat, India</span>
+                    </div>
+                    <div class="featured-specialty">Specialty: Hand Block Printing & Natural Dyeing</div>
+                    <p class="featured-description">The Priya Collective is a women-led cooperative of 35 artisans specializing in traditional block printing techniques using natural dyes. Founded in 2010, the collective has revitalized ancient printing methods while providing sustainable livelihoods for women in rural Gujarat.</p>
+                    <div class="featured-quote">
+                        "Each print tells a story of our heritage. When I create, I feel connected to my grandmother and all the women who came before me. This is not just our livelihood—it's our legacy."
+                        <div>— Meena, Lead Artisan</div>
+                    </div>
+                    <h3>Featured Products</h3>
+                    <div class="featured-products">
+                        <div class="product-mini">
+                            <div class="product-mini-image">
+                                <img src="https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Handwoven Cotton Dress">
+                            </div>
+                            <div class="product-mini-info">
+                                <h4>Handwoven Cotton Dress</h4>
+                                <div class="product-mini-price">$129.00</div>
+                            </div>
+                        </div>
+                        <div class="product-mini">
+                            <div class="product-mini-image">
+                                <img src="https://images.pexels.com/photos/6626967/pexels-photo-6626967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Block Print Scarf">
+                            </div>
+                            <div class="product-mini-info">
+                                <h4>Block Print Scarf</h4>
+                                <div class="product-mini-price">$49.00</div>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="../shop/product-detail.html" class="btn btn-primary">Shop Priya Collection</a>
+                </div>
+            </div>
+
+            <div class="artisan-grid">
+                <div class="artisan-card" data-region="peru">
+                    <div class="artisan-image">
+                        <img src="https://images.pexels.com/photos/6626967/pexels-photo-6626967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Andean Weavers Cooperative">
+                    </div>
+                    <div class="artisan-info">
+                        <h3 class="artisan-name">Andean Weavers Cooperative</h3>
+                        <div class="artisan-location">
+                            <span class="material-icons">location_on</span>
+                            <span>Cusco, Peru</span>
+                        </div>
+                        <div class="artisan-specialty">Specialty: Alpaca Weaving</div>
+                        <p class="artisan-description">This cooperative of 20 families preserves traditional Andean weaving techniques dating back to the Inca civilization, working primarily with alpaca wool and natural dyes.</p>
+                        <a href="#" class="artisan-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="artisan-card" data-region="guatemala">
+                    <div class="artisan-image">
+                        <img src="https://images.pexels.com/photos/6626963/pexels-photo-6626963.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Maya Traditions">
+                    </div>
+                    <div class="artisan-info">
+                        <h3 class="artisan-name">Maya Traditions</h3>
+                        <div class="artisan-location">
+                            <span class="material-icons">location_on</span>
+                            <span>Lake Atitlán, Guatemala</span>
+                        </div>
+                        <div class="artisan-specialty">Specialty: Backstrap Loom Weaving</div>
+                        <p class="artisan-description">A collective of indigenous Maya women who create intricate textiles using the traditional backstrap loom, a technique passed down through generations for over 2,000 years.</p>
+                        <a href="#" class="artisan-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="artisan-card" data-region="morocco">
+                    <div class="artisan-image">
+                        <img src="https://images.pexels.com/photos/6626968/pexels-photo-6626968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Atlas Weavers">
+                    </div>
+                    <div class="artisan-info">
+                        <h3 class="artisan-name">Atlas Weavers</h3>
+                        <div class="artisan-location">
+                            <span class="material-icons">location_on</span>
+                            <span>Marrakech, Morocco</span>
+                        </div>
+                        <div class="artisan-specialty">Specialty: Berber Rug Making</div>
+                        <p class="artisan-description">A family-run workshop specializing in traditional Berber rug making techniques, using hand-spun wool and natural dyes to create geometric patterns with cultural significance.</p>
+                        <a href="#" class="artisan-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="artisan-card" data-region="thailand">
+                    <div class="artisan-image">
+                        <img src="https://images.pexels.com/photos/6626979/pexels-photo-6626979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Hmong Heritage Collective">
+                    </div>
+                    <div class="artisan-info">
+                        <h3 class="artisan-name">Hmong Heritage Collective</h3>
+                        <div class="artisan-location">
+                            <span class="material-icons">location_on</span>
+                            <span>Chiang Mai, Thailand</span>
+                        </div>
+                        <div class="artisan-specialty">Specialty: Batik and Indigo Dyeing</div>
+                        <p class="artisan-description">A group of Hmong artisans preserving their cultural heritage through traditional batik and indigo dyeing techniques, creating textiles with symbolic patterns and motifs.</p>
+                        <a href="#" class="artisan-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="artisan-card" data-region="india">
+                    <div class="artisan-image">
+                        <img src="https://images.pexels.com/photos/6626892/pexels-photo-6626892.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Kantha Stitchers">
+                    </div>
+                    <div class="artisan-info">
+                        <h3 class="artisan-name">Kantha Stitchers</h3>
+                        <div class="artisan-location">
+                            <span class="material-icons">location_on</span>
+                            <span>West Bengal, India</span>
+                        </div>
+                        <div class="artisan-specialty">Specialty: Kantha Embroidery</div>
+                        <p class="artisan-description">A women's cooperative specializing in Kantha embroidery, a traditional running stitch technique that transforms recycled saris into beautiful textiles and accessories.</p>
+                        <a href="#" class="artisan-link">Learn More</a>
+                    </div>
+                </div>
+                <div class="artisan-card" data-region="india">
+                    <div class="artisan-image">
+                        <img src="https://images.pexels.com/photos/6626974/pexels-photo-6626974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Ikat Masters">
+                    </div>
+                    <div class="artisan-info">
+                        <h3 class="artisan-name">Ikat Masters</h3>
+                        <div class="artisan-location">
+                            <span class="material-icons">location_on</span>
+                            <span>Odisha, India</span>
+                        </div>
+                        <div class="artisan-specialty">Specialty: Ikat Weaving</div>
+                        <p class="artisan-description">A family of master weavers practicing the intricate ikat technique, where threads are resist-dyed before weaving to create complex patterns with incredible precision.</p>
+                        <a href="#" class="artisan-link">Learn More</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="technique-section">
+            <div class="container">
+                <h2 class="section-title">Traditional Techniques</h2>
+                <p class="section-description">Our artisans employ ancient techniques that have been refined over generations, creating pieces that are not only beautiful but also culturally significant.</p>
+                
+                <div class="technique-grid">
+                    <div class="technique-card">
+                        <h3 class="technique-title">Block Printing</h3>
+                        <div class="technique-origin">Origin: India, 12th Century</div>
+                        <p class="technique-description">A method of printing patterns on textiles using carved wooden blocks. Each color requires a separate block, and the process demands precision and patience. Natural dyes are created from plants, minerals, and insects.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h3 class="technique-title">Backstrap Loom Weaving</h3>
+                        <div class="technique-origin">Origin: Mesoamerica, Pre-Columbian Era</div>
+                        <p class="technique-description">A portable loom that attaches to the weaver's body, allowing for intricate control over tension and pattern. This ancient technique creates textiles with complex geometric designs and symbolic motifs.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h3 class="technique-title">Ikat</h3>
+                        <div class="technique-origin">Origin: Multiple regions, dating back centuries</div>
+                        <p class="technique-description">A resist-dyeing technique where yarns are bound and dyed before weaving, creating patterns with characteristic feathered edges. Requires meticulous planning and mathematical precision.</p>
+                    </div>
+                    <div class="technique-card">
+                        <h3 class="technique-title">Kantha Embroidery</h3>
+                        <div class="technique-origin">Origin: Bengal region, 1st Century</div>
+                        <p class="technique-description">A running stitch technique traditionally used to repurpose old saris into quilts. The simple stitch creates texture and patterns, often telling stories through motifs and designs.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Support Artisan Craftsmanship</h2>
+                    <p>Every purchase directly supports our artisan partners and helps preserve traditional crafts for future generations.</p>
+                    <div class="cta-buttons">
+                        <a href="../shop/index.html" class="btn btn-primary">Shop Artisan-Made</a>
+                        <a href="../impact/index.html" class="btn btn-secondary">Learn About Our Impact</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="luxury-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Help</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Client Advisor: 1800 814 930</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Product Care</a></li>
+                        <li><a href="#">Delivery, Returns & Exchanges</a></li>
+                        <li><a href="#">Stores</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Repairs</a></li>
+                        <li><a href="#">Personalisation</a></li>
+                        <li><a href="#">Art of Gifting</a></li>
+                        <li><a href="#">Download our Apps</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Reweave</h4>
+                    <ul class="footer-links">
+                        <li><a href="../story/index.html">Fashion & Craft</a></li>
+                        <li><a href="../culture/index.html">Arts & Culture</a></li>
+                        <li><a href="../story/index.html">Our Maison</a></li>
+                        <li><a href="../impact/index.html">Sustainability</a></li>
+                        <li><a href="../journal/index.html">Latest News</a></li>
+                        <li><a href="../story/index.html#careers">Careers</a></li>
+                        <li><a href="../community/index.html">Foundation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sign up for emails</a></li>
+                        <li><a href="#">Follow Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-sub">
+                <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+                <div class="footer-legal">
+                    <a href="#">Sitemap</a>
+                    <a href="#">Legal & Privacy</a>
+                </div>
+            </div>
+
+            <div class="footer-brand">REWEAVE</div>
+        </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Filter functionality
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const artisanCards = document.querySelectorAll('.artisan-card');
+            
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Update active button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Filter artisans
+                    const filter = this.getAttribute('data-filter');
+                    
+                    artisanCards.forEach(card => {
+                        if (filter === 'all' || card.getAttribute('data-region') === filter) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

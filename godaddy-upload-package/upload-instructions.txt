@@ -1,0 +1,59 @@
+# GoDaddy File Manager Upload Instructions
+
+## Step-by-Step Process:
+
+### 1. Access GoDaddy Hosting
+- Log into GoDaddy.com
+- Go to "My Products" → "Web Hosting" 
+- Click "Manage" next to your hosting plan
+
+### 2. Open File Manager
+- Look for "File Manager" in the hosting dashboard
+- Click to open (opens in new tab/window)
+- You should see folders like public_html, etc.
+
+### 3. Navigate to Correct Folder
+- Double-click "public_html" folder
+- This is your website's root directory
+- You should see your existing website files here
+
+### 4. Upload account.html
+- Click "Upload" button (usually at top)
+- Drag and drop account.html OR click "Select File"
+- Wait for upload to complete (green checkmark)
+
+### 5. Verify Upload
+- account.html should now appear in file list
+- File size should be ~15-20KB
+- Permissions should be 644 (readable)
+
+### 6. Test Immediately
+- Open new browser tab
+- Go to: https://reweave.shop/account.html
+- Should see purple login/signup form
+
+## Common Issues:
+
+**Upload Button Missing:**
+- Look for "+" icon or "New File" button
+- Right-click in empty space → "Upload Files"
+
+**Wrong Folder:**
+- Must be in public_html, not a subfolder
+- If in doubt, look for index.html (your homepage)
+
+**File Not Found After Upload:**
+- Check spelling: account.html (lowercase)
+- Try refreshing File Manager
+- Check if file permissions are set correctly
+
+**Still Getting 404:**
+- Clear browser cache (Ctrl+Shift+R)
+- Try different browser/incognito mode
+- Check if file actually uploaded (look in File Manager)
+
+## Need Help?
+If File Manager isn't working:
+1. Try FTP method (get FTP credentials from GoDaddy)
+2. Contact GoDaddy support for hosting help
+3. Alternative: Use cPanel if available in your hosting

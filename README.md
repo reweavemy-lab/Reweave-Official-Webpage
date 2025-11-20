@@ -1,76 +1,52 @@
-# Reweave Official Website
+# Reweave Authentication System
 
-This is the official website for Reweave, a sustainable fashion brand that connects culture, community, and sustainability.
+## Main Files (Keep in Root)
 
-## Project Overview
+### account.html
+- **Purpose**: Complete authentication system with login/signup functionality
+- **Features**: 
+  - Direct Supabase integration
+  - User registration and login
+  - Password reset functionality
+  - User profile display
+  - Responsive design
+- **Usage**: Deploy this file to enable user authentication on your website
 
-The Reweave website is a content + commerce platform that:
-- Tells Reweave's story
-- Sells products
-- Supports an AI try-on feature
-- Hosts a community gallery
-- Reports impact metrics
+### index.html
+- **Purpose**: Main landing page (existing)
+- **Status**: Keep as-is for now
 
-## Tech Stack
+## Archive Structure
 
-- **Frontend, SSR**: Next.js (React) with Tailwind CSS
-- **Backend**: Node.js serverless functions (Next.js API routes)
-- **CMS**: Sanity or Strapi for content and editorial flows
-- **E-commerce / Payments**: Headless Shopify or custom product + Stripe (with iPay88 for Malaysian payments)
-- **Media storage**: Cloudinary (images) + AWS S3 for raw uploads
-- **Auth**: NextAuth (email + magic link) or Auth0
-- **AI try-on**: TensorFlow.js / MediaPipe for in-browser pose segmentation
-- **Hosting / Deployment**: Vercel
-- **Analytics**: Google Analytics 4
+All development files, deployment packages, and test files have been organized into the `archive/` folder:
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- Git
-
-### Installation
-
-1. Clone the repository
-```bash
-[git clone https://github.com/your-org/reweave-website.git
-cd reweave-website](https://github.com/reweavemy-lab/Reweave-Official-Webpage.git)
+```
+archive/
+├── backend-files/          # All backend API code
+├── config-files/         # Configuration files (package.json, etc.)
+├── deployment-packages/  # Ready-to-deploy packages for different platforms
+├── development-files/    # Test files and development versions
+├── docs/                 # Documentation and design files
+├── reweave-batik-luxe/   # Frontend project files
+└── scripts/              # Deployment and backup scripts
 ```
 
-2. Install dependencies
-```bash
-npm install
-```
+## Quick Deployment
 
-3. Run the development server
-```bash
-npm run dev
-```
+1. **Upload account.html** to your web server
+2. **Configure DNS** to point to your authentication page
+3. **Test authentication** - users can now create accounts and log in
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+## Supabase Configuration
 
-## Project Structure
+The authentication system connects directly to Supabase with:
+- URL: `https://dkpaeiyixdwzjpvvszyy.supabase.co`
+- Anonymous key provided in the code
+- Email confirmation enabled
+- Password reset functionality
 
-- `/app` - Next.js App Router pages and layouts
-- `/components` - Reusable React components
-- `/lib` - Utility functions and shared code
-- `/public` - Static assets
-- `/styles` - Global styles and Tailwind configuration
-- `/api` - API routes for serverless functions
+## Next Steps
 
-## Features
-
-- Homepage with hero video/carousel
-- Our Story page with timeline and team profiles
-- Shop/Collection pages with filters
-- Product detail pages with high-res images and videos
-- AI Try-On feature for virtual product testing
-- Community Hub for user-submitted content
-- Impact Dashboard showing sustainability metrics
-- Journal/Blog for events and product features
-- Contact, B2B, and FAQ pages
-
-## License
-
-All rights reserved © Reweave
+- Deploy `account.html` to your live domain
+- Test user registration and login functionality
+- Customize styling if needed (all CSS is embedded in the HTML file)

@@ -1,0 +1,43 @@
+[
+  {
+    "id": "luxe-mini",
+    "name": "Reweave Luxe Mini",
+    "description": "Elegant mini bag with handcrafted textile options.",
+    "images": [
+      "/images/Reweave logo.png"
+    ],
+    "category": "bags",
+    "tags": ["luxe", "mini", "songket", "batik"],
+    "variants": [
+      { "sku": "LM-SNG-001", "option": "Songket", "price": 129, "stock": 10 },
+      { "sku": "LM-BTK-001", "option": "Batik/Cotton", "price": 119, "stock": 25 }
+    ]
+  },
+  {
+    "id": "luxe-petite",
+    "name": "Reweave Luxe Petite",
+    "description": "Petite bag with premium fabrics and timeless design.",
+    "images": [
+      "/images/Reweave_logo-removebg-preview.png"
+    ],
+    "category": "bags",
+    "tags": ["luxe", "petite", "songket", "batik"],
+    "variants": [
+      { "sku": "LP-SNG-001", "option": "Songket", "price": 129, "stock": 8 },
+      { "sku": "LP-BTK-001", "option": "Batik/Cotton", "price": 119, "stock": 20 }
+    ]
+  },
+  {
+    "id": "pickle-tote",
+    "name": "Reweave Pickleball Tote",
+    "description": "Functional tote designed for style and sport.",
+    "images": [
+      "/images/Gemini_Generated_Image_mwmxxemwmxxemwmx.png"
+    ],
+    "category": "bags",
+    "tags": ["pickleball", "tote"],
+    "variants": [
+      { "sku": "PT-STD-001", "option": "Standard", "price": 149, "stock": 12 }
+    ]
+  }
+]

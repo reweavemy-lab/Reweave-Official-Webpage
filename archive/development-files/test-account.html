@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test Account | Reweave</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+    .form-container { background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+    input, button { display: block; width: 100%; margin: 10px 0; padding: 10px; }
+    button { background: #007bff; color: white; border: none; cursor: pointer; }
+    button:hover { background: #0056b3; }
+    .hidden { display: none; }
+    .success { color: green; }
+    .error { color: red; }
+    .user-info { background: #e8f5e8; padding: 15px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>Reweave Account Test</h1>
+  
+  <div id="authSection" class="form-container">
+    <h2>Create Account / Login</h2>
+    <form id="testForm">
+      <input type="text" id="testName" placeholder="Your Name" required />
+      <input type="email" id="testEmail" placeholder="Your Email" required />
+      <input type="password" id="testPassword" placeholder="Password" required />
+      <button type="submit">Create Account</button>
+    </form>
+    <div id="message"></div>
+  </div>
+
+  <div id="accountSection" class="form-container hidden">
+    <h2>Account Created!</h2>
+    <div class="user-info">
+      <p><strong>Name:</strong> <span id="displayName"></span></p>
+      <p><strong>Email:</strong> <span id="displayEmail"></span></p>
+      <p><strong>User ID:</strong> <span id="displayUserId"></span></p>
+    </div>
+    <button onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    // Simple client-side authentication
+    function showMessage(text, type = 'success') {
+      const msgDiv = document.getElementById('message');
+      msgDiv.innerHTML = `<p class="${type}">${text}</p>`;
+      setTimeout(() => { msgDiv.innerHTML = ''; }, 3000);
+    }
+
+    function createAccount(name, email, password) {
+      // Generate random user ID
+      const userId = 'user_' + Math.random().toString(36).substr(2, 9);
+      const token = 'token_' + Math.random().toString(36).substr(2, 9);
+      
+      const user = {
+        userId: userId,
+        name: name,
+        email: email,
+        token: token,
+        createdAt: new Date().toISOString()
+      };
+      
+      // Save to localStorage
+      localStorage.setItem('reweave_user', JSON.stringify(user));
+      
+      return user;
+    }
+
+    function showAccount(user) {
+      document.getElementById('displayName').textContent = user.name;
+      document.getElementById('displayEmail').textContent = user.email;
+      document.getElementById('displayUserId').textContent = user.userId;
+      
+      document.getElementById('authSection').classList.add('hidden');
+      document.getElementById('accountSection').classList.remove('hidden');
+    }
+
+    function logout() {
+      localStorage.removeItem('reweave_user');
+      document.getElementById('authSection').classList.remove('hidden');
+      document.getElementById('accountSection').classList.add('hidden');
+      document.getElementById('testForm').reset();
+      showMessage('Logged out successfully');
+    }
+
+    function checkExistingSession() {
+      const savedUser = localStorage.getItem('reweave_user');
+      if (savedUser) {
+        try {
+          const user = JSON.parse(savedUser);
+          showAccount(user);
+          showMessage('Welcome back!');
+        } catch (e) {
+          localStorage.removeItem('reweave_user');
+        }
+      }
+    }
+
+    // Form submission
+    document.getElementById('testForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('testName').value;
+      const email = document.getElementById('testEmail').value;
+      const password = document.getElementById('testPassword').value;
+      
+      if (!name || !email || !password) {
+        showMessage('Please fill in all fields', 'error');
+        return;
+      }
+      
+      const user = createAccount(name, email, password);
+      showAccount(user);
+      showMessage('Account created successfully! Welcome to Reweave!', 'success');
+      
+      // Clear form
+      this.reset();
+    });
+
+    // Check for existing session on page load
+    checkExistingSession();
+  </script>
+</body>
+</html>

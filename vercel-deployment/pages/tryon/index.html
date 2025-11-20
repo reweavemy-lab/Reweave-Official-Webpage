@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Try-On - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Try-On Page Specific Styles */
+        .tryon-container {
+            padding: 120px 0 80px;
+        }
+        
+        .tryon-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .tryon-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .tryon-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--earth-brown);
+        }
+        
+        .tryon-layout {
+            display: flex;
+            gap: 30px;
+        }
+        
+        .tryon-preview {
+            flex: 1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .tryon-options {
+            flex: 0 0 300px;
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .upload-container {
+            border: 2px dashed #ddd;
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .upload-container:hover {
+            border-color: var(--primary);
+        }
+        
+        .upload-icon {
+            font-size: 48px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .upload-text {
+            margin-bottom: 20px;
+        }
+        
+        .upload-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 5px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .upload-btn:hover {
+            background-color: #2d4832;
+        }
+        
+        .camera-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .camera-btn:hover {
+            background-color: #8fa077;
+        }
+        
+        .preview-container {
+            width: 100%;
+            height: 400px;
+            background-color: #f5f5f5;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 18px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .product-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: none;
+        }
+        
+        .option-group {
+            margin-bottom: 25px;
+        }
+        
+        .option-group h3 {
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .product-selector {
+            margin-bottom: 20px;
+        }
+        
+        .product-option {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .product-option:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .product-option.selected {
+            background-color: #e8f0e0;
+        }
+        
+        .product-option img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+            margin-right: 15px;
+        }
+        
+        .product-option-info h4 {
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        
+        .product-option-info p {
+            font-size: 0.8rem;
+            color: var(--earth-brown);
+        }
+        
+        .size-selector, .color-selector {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .size-option, .color-option {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .size-option:hover, .color-option:hover {
+            border-color: var(--primary);
+        }
+        
+        .size-option.selected, .color-option.selected {
+            border-color: var(--primary);
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .color-option {
+            border-radius: 50%;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .action-buttons .btn {
+            flex: 1;
+            text-align: center;
+        }
+        
+        @media (max-width: 992px) {
+            .tryon-layout {
+                flex-direction: column;
+            }
+            
+            .tryon-options {
+                flex: 0 0 auto;
+            }
+        }
+        
+        /* Enhanced Try-On Styles */
+        .image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .upload-success {
+            text-align: center;
+            color: white;
+        }
+        
+        .upload-success i {
+            font-size: 2rem;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        
+        .loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .try-on-result {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .result-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            color: white;
+            padding: 20px;
+        }
+        
+        .result-info h3 {
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+        
+        .result-info p {
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .action-buttons {
+            display: none;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .action-buttons.show {
+            display: flex;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="luxury-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-btn" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                    <span>Menu</span>
+                </button>
+                <button class="search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </div>
+            <div class="logo-center">
+                <a href="../../index.html">REWEAVE</a>
+            </div>
+            <div class="header-right">
+                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
+                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
+                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+            </div>
+        </div>
+        <nav class="hidden-nav">
+            <div class="nav-content">
+                <button class="close-nav" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                    <span>Close</span>
+                </button>
+                <div class="nav-categories">
+                    <div class="nav-section">
+                        <h3>New</h3>
+                        <ul>
+                            <li><a href="../shop/index.html">Latest Arrivals</a></li>
+                            <li><a href="../shop/index.html">Limited Edition</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Bags and Accessories</h3>
+                        <ul>
+                            <li><a href="../shop/index.html">Totes</a></li>
+                            <li><a href="../shop/index.html">Slings</a></li>
+                            <li><a href="../shop/index.html">Accessories</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="../story/index.html">Our Story</a></li>
+                            <li><a href="../community/index.html">Community</a></li>
+                            <li><a href="../impact/index.html">Impact</a></li>
+                            <li><a href="../journal/index.html">Journal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" aria-hidden="true">
+        <div class="search-panel">
+            <div class="search-header">
+                <button class="search-close" aria-label="Close Search">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3>Search</h3>
+            </div>
+            <div class="search-body">
+                <div class="search-input-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search products, stories, categories..." aria-label="Search input" />
+                </div>
+                <div class="search-suggestions">
+                    <p>Popular searches:</p>
+                    <div class="tags">
+                        <a href="../shop/index.html">Batik</a>
+                        <a href="../shop/index.html">Handbags</a>
+                        <a href="../shop/index.html">Artisan</a>
+                        <a href="../journal/index.html">Journal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-backdrop"></div>
+    </div>
+
+    <!-- Try-On Section -->
+    <section class="tryon-container">
+        <div class="container">
+            <div class="tryon-header">
+                <h1>Virtual Try-On</h1>
+                <p>See how our products look on you before you buy. Upload a photo or use your camera to try on our sustainable bags.</p>
+            </div>
+            
+            <div class="tryon-layout">
+                <!-- Try-On Preview -->
+                <div class="tryon-preview">
+                    <div class="upload-container" id="upload-area">
+                        <div class="upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="upload-text">
+                            <h3>Upload Your Photo</h3>
+                            <p>Drag and drop your image here or click to browse</p>
+                        </div>
+                        <label for="image-upload" class="upload-btn">Choose File</label>
+                        <input type="file" id="image-upload" accept="image/*" style="display: none;">
+                    </div>
+                    
+                    <div class="camera-container">
+                        <button id="camera-btn" class="camera-btn">
+                            <i class="fas fa-camera"></i> Use Camera
+                        </button>
+                    </div>
+                    
+                    <div class="preview-container" id="preview-container">
+                        <span>Your preview will appear here</span>
+                        <div class="product-overlay" id="product-overlay"></div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <a href="#" class="btn">Share to Community</a>
+                        <a href="../shop/index.html" class="btn btn-outline">Shop This Look</a>
+                    </div>
+                </div>
+                
+                <!-- Try-On Options -->
+                <div class="tryon-options">
+                    <div class="option-group">
+                        <h3>Select Product</h3>
+                        <div class="product-selector">
+                            <div class="product-option selected">
+                                <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Artisan Tote">
+                                <div class="product-option-info">
+                                    <h4>Artisan Tote</h4>
+                                    <p>$89.00</p>
+                                </div>
+                            </div>
+                            <div class="product-option">
+                                <img src="https://images.unsplash.com/photo-1590874103328-eac38a683ce7?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Heritage Backpack">
+                                <div class="product-option-info">
+                                    <h4>Heritage Backpack</h4>
+                                    <p>$129.00</p>
+                                </div>
+                            </div>
+                            <div class="product-option">
+                                <img src="https://images.unsplash.com/photo-1544816155-12df9643f363?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Summer Crossbody">
+                                <div class="product-option-info">
+                                    <h4>Summer Crossbody</h4>
+                                    <p>$79.00</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3>Size</h3>
+                        <div class="size-selector">
+                            <div class="size-option">S</div>
+                            <div class="size-option selected">M</div>
+                            <div class="size-option">L</div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3>Color</h3>
+                        <div class="color-selector">
+                            <div class="color-option selected" style="background-color: #e0c9a6;"></div>
+                            <div class="color-option" style="background-color: #5d7599;"></div>
+                            <div class="color-option" style="background-color: #6b705c;"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3>Strap Length</h3>
+                        <input type="range" min="1" max="100" value="50" class="slider" id="strap-length">
+                    </div>
+                    
+                    <div class="option-group">
+                        <h3>Position</h3>
+                        <div class="position-options">
+                            <button class="btn btn-outline">Left Shoulder</button>
+                            <button class="btn">Right Shoulder</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="luxury-footer">
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-column">
+            <h4>Help</h4>
+            <ul class="footer-links">
+              <li><a href="#">Client Advisor: 1800 814 930</a></li>
+              <li><a href="#">FAQ</a></li>
+              <li><a href="#">Product Care</a></li>
+              <li><a href="#">Delivery, Returns & Exchanges</a></li>
+              <li><a href="#">Stores</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Services</h4>
+            <ul class="footer-links">
+              <li><a href="#">Repairs</a></li>
+              <li><a href="#">Personalisation</a></li>
+              <li><a href="#">Art of Gifting</a></li>
+              <li><a href="#">Download our Apps</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>About Reweave</h4>
+            <ul class="footer-links">
+              <li><a href="../story/index.html">Fashion & Craft</a></li>
+              <li><a href="../culture/index.html">Arts & Culture</a></li>
+              <li><a href="../story/index.html">Our Maison</a></li>
+              <li><a href="../impact/index.html">Sustainability</a></li>
+              <li><a href="../journal/index.html">Latest News</a></li>
+              <li><a href="../story/index.html#careers">Careers</a></li>
+              <li><a href="../community/index.html">Foundation</a></li>
+            </ul>
+          </div>
+          <div class="footer-column">
+            <h4>Connect</h4>
+            <ul class="footer-links">
+              <li><a href="#">Sign up for emails</a></li>
+              <li><a href="#">Follow Us</a></li>
+            </ul>
+          </div>
+        </div>
+    
+        <div class="footer-sub">
+          <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+          <div class="footer-legal">
+            <a href="#">Sitemap</a>
+            <a href="#">Legal & Privacy</a>
+          </div>
+        </div>
+    
+        <div class="footer-brand">REWEAVE</div>
+      </div>
+    </footer>
+
+    <script src="../../js/main.js"></script>
+    <script>
+        // Enhanced AI Try-On functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadArea = document.getElementById('upload-area');
+            const fileInput = document.getElementById('image-upload');
+            const cameraBtn = document.getElementById('camera-btn');
+            const previewContainer = document.getElementById('preview-container');
+            const productOverlay = document.getElementById('product-overlay');
+            const tryOnBtn = document.getElementById('try-on-btn');
+            const downloadBtn = document.getElementById('download-btn');
+            const shareBtn = document.getElementById('share-btn');
+            
+            let currentImage = null;
+            let selectedProduct = null;
+            let selectedSize = null;
+            let selectedColor = null;
+            
+            // Handle file upload
+            if (fileInput) {
+                fileInput.addEventListener('change', function(e) {
+                    handleImageUpload(e.target.files[0]);
+                });
+            }
+            
+            // Enhanced drag and drop
+            if (uploadArea) {
+                uploadArea.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    uploadArea.style.borderColor = 'var(--primary)';
+                    uploadArea.style.backgroundColor = 'rgba(58, 90, 64, 0.1)';
+                });
+                
+                uploadArea.addEventListener('dragleave', function() {
+                    uploadArea.style.borderColor = '#ddd';
+                    uploadArea.style.backgroundColor = 'transparent';
+                });
+                
+                uploadArea.addEventListener('drop', function(e) {
+                    e.preventDefault();
+                    uploadArea.style.borderColor = '#ddd';
+                    uploadArea.style.backgroundColor = 'transparent';
+                    
+                    if (e.dataTransfer.files.length) {
+                        handleImageUpload(e.dataTransfer.files[0]);
+                    }
+                });
+                
+                uploadArea.addEventListener('click', function() {
+                    fileInput.click();
+                });
+            }
+            
+            // Enhanced camera functionality
+            if (cameraBtn) {
+                cameraBtn.addEventListener('click', function() {
+                    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                        alert('Camera access is not supported by your browser. Please use the file upload option.');
+                        return;
+                    }
+                    
+                    navigator.mediaDevices.getUserMedia({ video: true })
+                        .then(stream => {
+                            // Create video element
+                            const video = document.createElement('video');
+                            video.srcObject = stream;
+                            video.autoplay = true;
+                            video.style.width = '100%';
+                            video.style.height = '100%';
+                            video.style.objectFit = 'cover';
+                            
+                            // Replace upload area with video
+                            uploadArea.innerHTML = '';
+                            uploadArea.appendChild(video);
+                            
+                            // Add capture button
+                            const captureBtn = document.createElement('button');
+                            captureBtn.textContent = 'Capture Photo';
+                            captureBtn.className = 'btn';
+                            captureBtn.style.position = 'absolute';
+                            captureBtn.style.bottom = '20px';
+                            captureBtn.style.left = '50%';
+                            captureBtn.style.transform = 'translateX(-50%)';
+                            
+                            captureBtn.addEventListener('click', function() {
+                                // Capture photo
+                                const canvas = document.createElement('canvas');
+                                canvas.width = video.videoWidth;
+                                canvas.height = video.videoHeight;
+                                const ctx = canvas.getContext('2d');
+                                ctx.drawImage(video, 0, 0);
+                                
+                                // Stop camera
+                                stream.getTracks().forEach(track => track.stop());
+                                
+                                // Convert to blob and handle
+                                canvas.toBlob(function(blob) {
+                                    handleImageUpload(blob);
+                                });
+                            });
+                            
+                            uploadArea.appendChild(captureBtn);
+                        })
+                        .catch(error => {
+                            console.error('Error accessing camera:', error);
+                            alert('Could not access camera: ' + error.message);
+                        });
+                });
+            }
+            
+            // Product selection with enhanced functionality
+            const productOptions = document.querySelectorAll('.product-option');
+            productOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    productOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedProduct = this.dataset.product;
+                    updateTryOnButton();
+                });
+            });
+            
+            // Size selection
+            const sizeOptions = document.querySelectorAll('.size-option');
+            sizeOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    sizeOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedSize = this.dataset.size;
+                    updateTryOnButton();
+                });
+            });
+            
+            // Color selection
+            const colorOptions = document.querySelectorAll('.color-option');
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    colorOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    selectedColor = this.dataset.color;
+                    updateTryOnButton();
+                });
+            });
+            
+            // Try-on button functionality
+            if (tryOnBtn) {
+                tryOnBtn.addEventListener('click', function() {
+                    if (!currentImage) {
+                        alert('Please upload an image first.');
+                        return;
+                    }
+                    
+                    if (!selectedProduct) {
+                        alert('Please select a product to try on.');
+                        return;
+                    }
+                    
+                    performTryOn();
+                });
+            }
+            
+            // Download functionality
+            if (downloadBtn) {
+                downloadBtn.addEventListener('click', function() {
+                    if (productOverlay && productOverlay.style.display !== 'none') {
+                        const canvas = document.createElement('canvas');
+                        const ctx = canvas.getContext('2d');
+                        const img = previewContainer.querySelector('img');
+                        
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+                        
+                        ctx.drawImage(img, 0, 0);
+                        
+                        // Add product overlay to canvas
+                        const overlayImg = productOverlay.querySelector('img');
+                        if (overlayImg) {
+                            ctx.drawImage(overlayImg, 0, 0);
+                        }
+                        
+                        // Download
+                        const link = document.createElement('a');
+                        link.download = 'try-on-result.png';
+                        link.href = canvas.toDataURL();
+                        link.click();
+                    }
+                });
+            }
+            
+            // Share functionality
+            if (shareBtn) {
+                shareBtn.addEventListener('click', function() {
+                    if (navigator.share) {
+                        navigator.share({
+                            title: 'Check out my Reweave try-on!',
+                            text: 'I just tried on this amazing sustainable fashion piece!',
+                            url: window.location.href
+                        });
+                    } else {
+                        // Fallback to copying URL
+                        navigator.clipboard.writeText(window.location.href).then(() => {
+                            alert('Link copied to clipboard!');
+                        });
+                    }
+                });
+            }
+            
+            // Enhanced image upload handler
+            function handleImageUpload(file) {
+                if (!file) return;
+                
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                    alert('Please upload an image file.');
+                    return;
+                }
+                
+                // Validate file size (max 10MB)
+                if (file.size > 10 * 1024 * 1024) {
+                    alert('Image file is too large. Please choose a file smaller than 10MB.');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(event) {
+                    currentImage = event.target.result;
+                    
+                    // Display the uploaded image
+                    previewContainer.innerHTML = `
+                        <img src="${event.target.result}" alt="User uploaded image" style="width: 100%; height: 100%; object-fit: contain;">
+                        <div class="image-overlay">
+                            <div class="upload-success">
+                                <i class="fas fa-check-circle"></i>
+                                <p>Image uploaded successfully!</p>
+                            </div>
+                        </div>
+                    `;
+                    
+                    // Reset product overlay
+                    if (productOverlay) {
+                        productOverlay.style.display = 'none';
+                        productOverlay.innerHTML = '';
+                    }
+                    
+                    updateTryOnButton();
+                };
+                reader.readAsDataURL(file);
+            }
+            
+            // Update try-on button state
+            function updateTryOnButton() {
+                if (tryOnBtn) {
+                    if (currentImage && selectedProduct) {
+                        tryOnBtn.disabled = false;
+                        tryOnBtn.textContent = 'Try On Now';
+                    } else {
+                        tryOnBtn.disabled = true;
+                        tryOnBtn.textContent = 'Upload Image & Select Product';
+                    }
+                }
+            }
+            
+            // Perform try-on simulation
+            function performTryOn() {
+                if (!currentImage || !selectedProduct) return;
+                
+                // Show loading state
+                if (productOverlay) {
+                    productOverlay.style.display = 'block';
+                    productOverlay.innerHTML = `
+                        <div class="loading-overlay">
+                            <div class="spinner"></div>
+                            <p>Processing your try-on...</p>
+                        </div>
+                    `;
+                }
+                
+                // Simulate AI processing
+                setTimeout(() => {
+                    if (productOverlay) {
+                        productOverlay.innerHTML = `
+                            <div class="try-on-result">
+                                <img src="https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Try-on result" style="width: 100%; height: 100%; object-fit: cover;">
+                                <div class="result-overlay">
+                                    <div class="result-info">
+                                        <h3>Try-On Complete!</h3>
+                                        <p>Product: ${selectedProduct}</p>
+                                        ${selectedSize ? `<p>Size: ${selectedSize}</p>` : ''}
+                                        ${selectedColor ? `<p>Color: ${selectedColor}</p>` : ''}
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }
+                    
+                    // Enable action buttons
+                    if (downloadBtn) downloadBtn.style.display = 'inline-block';
+                    if (shareBtn) shareBtn.style.display = 'inline-block';
+                }, 2000);
+            }
+        });
+    </script>
+    <script src="../../script.js"></script>
+</body>
+</html>

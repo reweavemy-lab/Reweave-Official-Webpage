@@ -1,0 +1,14 @@
+{
+  "name": "reweave-shopping",
+  "version": "1.0.0",
+  "description": "Reweave Shopping Experience - Sustainable Fashion, Reimagined",
+  "main": "index.html",
+  "scripts": {
+    "dev": "echo 'Static deployment - no dev server needed'",
+    "build": "echo 'Static deployment - no build needed'",
+    "start": "echo 'Static deployment - no start needed'"
+  },
+  "keywords": ["fashion", "sustainable", "batik", "songket", "luxury"],
+  "author": "Reweave",
+  "license": "MIT"
+}

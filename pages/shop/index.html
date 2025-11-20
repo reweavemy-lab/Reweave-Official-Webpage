@@ -498,6 +498,26 @@
                 height: 200px;
             }
         }
+        /* Cart Drawer */
+        .cart-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); display: none; z-index: 999; }
+        .cart-backdrop.show { display: block; }
+        .cart-drawer { position: fixed; right: 0; top: 0; height: 100%; width: 360px; max-width: 90vw; background: #fff; box-shadow: -8px 0 24px rgba(0,0,0,0.08); transform: translateX(100%); transition: transform 0.25s ease; z-index: 1000; display: flex; flex-direction: column; }
+        .cart-drawer.open { transform: translateX(0); }
+        .cart-drawer header { padding: 16px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; }
+        .cart-drawer header h3 { margin: 0; font-size: 1.1rem; letter-spacing: .02em; }
+        .cart-drawer header button { background: none; border: none; font-size: 1.2rem; cursor: pointer; }
+        .cart-items { flex: 1; overflow: auto; padding: 12px 16px; }
+        .cart-item { display: grid; grid-template-columns: 64px 1fr auto; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid #f2f2f2; }
+        .cart-item img { width: 64px; height: 64px; object-fit: cover; border-radius: 8px; }
+        .cart-item h4 { margin: 0; font-size: .95rem; }
+        .cart-item .options { color: #777; font-size: .85rem; margin-top: 4px; }
+        .cart-item .qty { color: #555; font-size: .85rem; }
+        .cart-item .price { font-weight: 600; }
+        .cart-footer { border-top: 1px solid #eee; padding: 16px; }
+        .cart-total { display: flex; justify-content: space-between; margin-bottom: 12px; font-weight: 600; }
+        .cart-actions { display: flex; gap: 10px; }
+        .btn-primary { background: #111; color: #fff; border: none; padding: 10px 12px; border-radius: 8px; cursor: pointer; }
+        .btn-secondary { background: #fff; color: #111; border: 1px solid #e0e0e0; padding: 10px 12px; border-radius: 8px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -517,7 +537,7 @@
             </div>
             <!-- Center: Logo -->
             <div class="logo-center">
-                <a href="../../index.html">REWEAVE</a>
+                <a href="/onepage.html">REWEAVE</a>
             </div>
             <!-- Right: Utilities -->
             <div class="header-right">
@@ -570,6 +590,23 @@
             </div>
         </nav>
     </header>
+
+    <!-- Cart Drawer -->
+    <div class="cart-backdrop" id="cart-backdrop"></div>
+    <aside class="cart-drawer" id="cart-drawer" aria-hidden="true">
+      <header>
+        <h3>Your Bag</h3>
+        <button id="cart-close" aria-label="Close">&times;</button>
+      </header>
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-footer">
+        <div class="cart-total"><span>Subtotal</span><span id="cart-subtotal">RM 0.00</span></div>
+        <div class="cart-actions">
+          <a class="btn-secondary" href="../cart/index.html">View Cart</a>
+          <a class="btn-primary" href="../cart/index.html">Checkout</a>
+        </div>
+      </div>
+    </aside>
 
     <!-- Search Overlay -->
     <div class="search-overlay" aria-hidden="true">
@@ -762,7 +799,7 @@
                 </div>
                 
                 <!-- Products Grid -->
-                <div class="products-grid">
+                <div class="products-grid" id="products-grid">
                     <!-- Product 1 -->
                     <div class="product-card" data-collection="artisan" data-material="cotton" data-color="natural" data-use-case="life">
                         <div class="product-img">
@@ -1079,135 +1116,203 @@
     <script src="../../js/main.js"></script>
     <script src="../../script.js"></script>
     <script>
-        // Shop Page JavaScript
-        document.addEventListener('DOMContentLoaded', function() {
-            const searchInput = document.getElementById('search-input');
-            const sortSelect = document.getElementById('sort-select');
-            const viewButtons = document.querySelectorAll('.view-btn');
-            const productsGrid = document.querySelector('.products-grid');
-            const filterForm = document.getElementById('filter-form');
-            const resultsCount = document.getElementById('results-count');
-            
-            let allProducts = Array.from(document.querySelectorAll('.product-card'));
-            let filteredProducts = [...allProducts];
-            
-            // Search functionality
-            searchInput.addEventListener('input', function() {
-                filterProducts();
-            });
-            
-            // Sort functionality
-            sortSelect.addEventListener('change', function() {
-                sortProducts();
-            });
-            
-            // View toggle functionality
-            viewButtons.forEach(btn => {
-                btn.addEventListener('click', function() {
-                    viewButtons.forEach(b => b.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    if (this.dataset.view === 'list') {
-                        productsGrid.classList.add('list-view');
-                    } else {
-                        productsGrid.classList.remove('list-view');
-                    }
-                });
-            });
-            
-            // Filter functionality
-            filterForm.addEventListener('change', function() {
-                filterProducts();
-            });
-            
-            function filterProducts() {
-                const searchTerm = searchInput.value.toLowerCase();
-                const collectionFilter = document.querySelector('input[name="collection"]:checked').value;
-                const materialFilter = document.querySelector('input[name="material"]:checked').value;
-                const colorFilter = document.querySelector('input[name="color"]:checked').value;
-                const useCaseFilter = document.querySelector('input[name="use-case"]:checked').value;
-                
-                filteredProducts = allProducts.filter(product => {
-                    const name = product.querySelector('.product-name').textContent.toLowerCase();
-                    const material = product.querySelector('.product-material').textContent.toLowerCase();
-                    const collection = product.dataset.collection;
-                    const materialData = product.dataset.material;
-                    const color = product.dataset.color;
-                    const useCase = product.dataset.useCase;
-                    
-                    const matchesSearch = name.includes(searchTerm) || material.includes(searchTerm);
-                    const matchesCollection = collectionFilter === 'all' || collection === collectionFilter;
-                    const matchesMaterial = materialFilter === 'all' || materialData === materialFilter;
-                    const matchesColor = colorFilter === 'all' || color === colorFilter;
-                    const matchesUseCase = useCaseFilter === 'all' || useCase === useCaseFilter;
-                    
-                    return matchesSearch && matchesCollection && matchesMaterial && matchesColor && matchesUseCase;
-                });
-                
-                displayProducts();
-                updateResultsCount();
+      // Dynamic Shop Page Logic
+      document.addEventListener('DOMContentLoaded', () => {
+        const API_PRODUCTS = 'http://localhost:3001/api/products';
+        const productsGrid = document.getElementById('products-grid');
+        const searchInput = document.getElementById('search-input');
+        const sortSelect = document.getElementById('sort-select');
+        const viewButtons = document.querySelectorAll('.view-btn');
+        const resultsCount = document.getElementById('results-count');
+        const cartBtn = document.querySelector('.cart-btn');
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartBackdrop = document.getElementById('cart-backdrop');
+        const cartClose = document.getElementById('cart-close');
+        const cartItems = document.getElementById('cart-items');
+        const cartSubtotal = document.getElementById('cart-subtotal');
+
+        let allProducts = [];
+        let filteredProducts = [];
+
+        // Helpers
+        const slug = s => (s || '').toString().toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$|_/g,'');
+        const getCart = () => JSON.parse(localStorage.getItem('cart') || '[]');
+        const setCart = c => localStorage.setItem('cart', JSON.stringify(c));
+        const formatMYR = v => `RM ${Number(v || 0).toFixed(2)}`;
+
+        function updateCartCount() {
+          const cart = getCart();
+          const count = cart.reduce((sum, i) => sum + (i.qty || 1), 0);
+          const el = document.querySelector('.cart-count');
+          if (el) el.textContent = count;
+        }
+
+        function renderCartDrawer() {
+          const cart = getCart();
+          if (!cart.length) {
+            cartItems.innerHTML = '<p style="color:#777">Your bag is empty.</p>';
+            cartSubtotal.textContent = formatMYR(0);
+            return;
+          }
+          let total = 0;
+          cartItems.innerHTML = cart.map(i => {
+            const line = (i.price || 0) * (i.qty || 1);
+            total += line;
+            return `
+              <div class="cart-item">
+                <img src="${i.image}" alt="${i.name}">
+                <div>
+                  <h4>${i.name}</h4>
+                  ${i.options ? `<div class="options">${i.options}</div>` : ''}
+                  <div class="qty">Qty: ${i.qty || 1}</div>
+                </div>
+                <div class="price">${formatMYR(line)}</div>
+              </div>
+            `;
+          }).join('');
+          cartSubtotal.textContent = formatMYR(total);
+        }
+
+        function openCart() { cartDrawer.classList.add('open'); cartBackdrop.classList.add('show'); cartDrawer.setAttribute('aria-hidden','false'); renderCartDrawer(); }
+        function closeCart() { cartDrawer.classList.remove('open'); cartBackdrop.classList.remove('show'); cartDrawer.setAttribute('aria-hidden','true'); }
+
+        cartBtn?.addEventListener('click', openCart);
+        cartClose.addEventListener('click', closeCart);
+        cartBackdrop.addEventListener('click', closeCart);
+
+        function buildCard(p) {
+          const minVariant = (p.variants || [])[0] || { price: p.price || 0, options: {}, sku: p.id };
+          const minPrice = (p.variants || []).reduce((m, v) => Math.min(m, Number(v.price || 0)), Number(minVariant.price || 0));
+          const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/600x600?text=Reweave';
+          const collection = slug((p.categories && p.categories[0]) || 'all');
+          const color = slug((minVariant.options && (minVariant.options.Color || minVariant.options.color)) || 'multi');
+          const detailHref = `product-detail.html?sku=${encodeURIComponent(minVariant.sku || p.id)}`;
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'product-card';
+          wrapper.dataset.collection = collection;
+          wrapper.dataset.color = color;
+          wrapper.innerHTML = `
+            <div class="product-img">
+              <a href="${detailHref}"><img src="${firstImage}" alt="${p.name}"></a>
+              <div class="quick-actions">
+                <a href="../tryon/index.html" class="quick-action-btn" title="Try On"><i class="fas fa-tshirt"></i></a>
+                <button class="quick-action-btn" title="Add to Wishlist"><i class="far fa-heart"></i></button>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="product-name"><a href="${detailHref}" style="color:inherit;text-decoration:none;">${p.name}</a></h3>
+              <p class="product-material">${(p.description || '').slice(0,80)}</p>
+              <div class="product-price"><span class="current-price">${formatMYR(minPrice)}</span></div>
+              <div class="item-actions" style="display:flex;gap:10px;margin-top:12px;">
+                <button class="item-btn primary add-to-bag" data-id="${p.id}" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;background:#111;color:#fff;">Add to Bag</button>
+                <a href="${detailHref}" class="item-btn secondary" style="display:inline-block;padding:8px 12px;border-radius:8px;font-size:0.9rem;background:#fff;color:#111;border:1px solid #e0e0e0;">View</a>
+              </div>
+            </div>
+          `;
+
+          // Make the whole card clickable (excluding interactive elements)
+          wrapper.style.cursor = 'pointer';
+          wrapper.addEventListener('click', function(e) {
+            const isInteractive = !!(e.target.closest('button') || e.target.closest('a') || e.target.closest('.quick-actions'));
+            if (isInteractive) return;
+            window.location.href = detailHref;
+          });
+
+          const addBtn = wrapper.querySelector('.add-to-bag');
+          addBtn.addEventListener('click', () => {
+            const cart = getCart();
+            const options = [];
+            if (minVariant.options) {
+              Object.entries(minVariant.options).forEach(([k,v]) => options.push(`${k}: ${v}`));
             }
-            
-            function sortProducts() {
-                const sortBy = sortSelect.value;
-                
-                filteredProducts.sort((a, b) => {
-                    switch(sortBy) {
-                        case 'price-low':
-                            return getPrice(a) - getPrice(b);
-                        case 'price-high':
-                            return getPrice(b) - getPrice(a);
-                        case 'newest':
-                            return b.dataset.newest - a.dataset.newest;
-                        case 'popular':
-                            return getRating(b) - getRating(a);
-                        default:
-                            return 0;
-                    }
-                });
-                
-                displayProducts();
-            }
-            
-            function getPrice(product) {
-                const priceText = product.querySelector('.current-price').textContent;
-                return parseFloat(priceText.replace('$', ''));
-            }
-            
-            function getRating(product) {
-                const ratingCount = product.querySelector('.rating-count').textContent;
-                return parseInt(ratingCount.replace(/[()]/g, ''));
-            }
-            
-            function displayProducts() {
-                // Clear current products
-                productsGrid.innerHTML = '';
-                
-                if (filteredProducts.length === 0) {
-                    productsGrid.innerHTML = `
-                        <div class="no-results">
-                            <i class="fas fa-search"></i>
-                            <h3>No products found</h3>
-                            <p>Try adjusting your search or filter criteria</p>
-                        </div>
-                    `;
-                    return;
-                }
-                
-                // Add filtered products
-                filteredProducts.forEach(product => {
-                    productsGrid.appendChild(product);
-                });
-            }
-            
-            function updateResultsCount() {
-                const count = filteredProducts.length;
-                resultsCount.textContent = `${count} product${count !== 1 ? 's' : ''} found`;
-            }
-            
-            // Initialize
-            updateResultsCount();
+            const item = {
+              id: minVariant.sku || p.id,
+              name: p.name,
+              price: Number(minVariant.price || minPrice),
+              qty: 1,
+              image: firstImage,
+              options: options.join(' • '),
+              addon: false
+            };
+            const existing = cart.find(i => i.id === item.id && i.options === item.options);
+            if (existing) existing.qty += 1; else cart.push(item);
+            setCart(cart);
+            updateCartCount();
+            openCart();
+          });
+
+          return wrapper;
+        }
+
+        function renderProducts(list) {
+          productsGrid.innerHTML = '';
+          if (!list.length) {
+            productsGrid.innerHTML = `
+              <div class="no-results">
+                <i class="fas fa-search"></i>
+                <h3>No products found</h3>
+                <p>Try adjusting your search or sort</p>
+              </div>`;
+            resultsCount.textContent = '0 products found';
+            return;
+          }
+          list.forEach(p => productsGrid.appendChild(buildCard(p)));
+          resultsCount.textContent = `${list.length} product${list.length !== 1 ? 's' : ''} found`;
+        }
+
+        function applySearchSort() {
+          const term = (searchInput.value || '').toLowerCase();
+          filteredProducts = allProducts.filter(p => {
+            const hay = [p.name, p.description, ...(p.tags || []), ...(p.categories || [])].join(' ').toLowerCase();
+            return hay.includes(term);
+          });
+          const mode = sortSelect.value;
+          filteredProducts.sort((a,b) => {
+            const aMin = (a.variants||[]).reduce((m,v)=>Math.min(m,Number(v.price||0)), Number((a.variants||[])[0]?.price||a.price||0));
+            const bMin = (b.variants||[]).reduce((m,v)=>Math.min(m,Number(v.price||0)), Number((b.variants||[])[0]?.price||b.price||0));
+            if (mode === 'price-low') return aMin - bMin;
+            if (mode === 'price-high') return bMin - aMin;
+            return 0; // featured/newest/popular not implemented yet
+          });
+          renderProducts(filteredProducts);
+        }
+
+        // View toggle
+        viewButtons.forEach(btn => {
+          btn.addEventListener('click', function() {
+            viewButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            if (this.dataset.view === 'list') productsGrid.classList.add('list-view');
+            else productsGrid.classList.remove('list-view');
+          });
         });
+
+        // Wire search/sort
+        searchInput.addEventListener('input', applySearchSort);
+        sortSelect.addEventListener('change', applySearchSort);
+
+        // Initial fetch
+        productsGrid.innerHTML = '<p style="color:#777">Loading products...</p>';
+        fetch(API_PRODUCTS)
+          .then(r => r.json())
+          .then(data => {
+            allProducts = Array.isArray(data) ? data : (data.products || []);
+            applySearchSort();
+          })
+          .catch(err => {
+            console.error('Failed to load products', err);
+            productsGrid.innerHTML = '<p style="color:#c00">Failed to load products.</p>';
+          })
+          .finally(() => updateCartCount());
+
+        function updateCartCount() { // ensure defined after fetch
+          const cart = getCart();
+          const count = cart.reduce((sum, i) => sum + (i.qty || 1), 0);
+          const el = document.querySelector('.cart-count');
+          if (el) el.textContent = count;
+        }
+      });
     </script>
 </body>
 </html>

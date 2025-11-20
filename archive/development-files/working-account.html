@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account | Reweave - Working Authentication</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .auth-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 450px;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .auth-header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 30px;
+      text-align: center;
+    }
+    
+    .auth-header h1 {
+      font-size: 28px;
+      font-weight: 300;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+    
+    .auth-header p {
+      opacity: 0.9;
+      font-size: 14px;
+      font-weight: 300;
+    }
+    
+    .auth-tabs {
+      display: flex;
+      background: #f8f9fa;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .auth-tab {
+      flex: 1;
+      padding: 16px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 500;
+      color: #6c757d;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .auth-tab.active {
+      color: #667eea;
+      background: white;
+    }
+    
+    .auth-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: #667eea;
+    }
+    
+    .auth-content {
+      padding: 40px 30px;
+    }
+    
+    .auth-form {
+      display: none;
+    }
+    
+    .auth-form.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-label {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      color: #495057;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    
+    .form-input {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+    
+    .form-input:focus {
+      outline: none;
+      border-color: #667eea;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .form-input.error {
+      border-color: #dc3545;
+      background: #fff5f5;
+    }
+    
+    .btn-primary {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 10px;
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .btn-secondary {
+      width: 100%;
+      padding: 12px;
+      background: none;
+      color: #667eea;
+      border: 1px solid #667eea;
+      border-radius: 8px;
+      font-size: 13px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 12px;
+    }
+    
+    .btn-secondary:hover {
+      background: #667eea;
+      color: white;
+    }
+    
+    .error-message {
+      background: #f8d7da;
+      color: #721c24;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      display: none;
+    }
+    
+    .error-message.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    
+    .success-message {
+      background: #d4edda;
+      color: #155724;
+      padding: 12px 16px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      display: none;
+    }
+    
+    .success-message.show {
+      display: block;
+      animation: slideIn 0.3s ease;
+    }
+    
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+    
+    .loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 20px;
+      height: 20px;
+      margin: -10px 0 0 -10px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .debug-info {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.8);
+      color: white;
+      padding: 10px;
+      border-radius: 5px;
+      font-family: monospace;
+      font-size: 12px;
+      max-width: 300px;
+      z-index: 1000;
+    }
+    
+    .debug-info.hidden {
+      display: none;
+    }
+    
+    .checkbox-group {
+      margin: 16px 0;
+    }
+    
+    .checkbox-group label {
+      display: flex;
+      align-items: center;
+      font-size: 13px;
+      color: #6c757d;
+      cursor: pointer;
+    }
+    
+    .checkbox-group input[type="checkbox"] {
+      width: auto;
+      margin-right: 8px;
+    }
+    
+    .form-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #6c757d;
+    }
+    
+    .form-footer a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .form-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .user-info {
+      background: #f8f9fa;
+      padding: 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    
+    .user-info h3 {
+      color: #495057;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    
+    .user-info p {
+      margin-bottom: 8px;
+      font-size: 14px;
+    }
+    
+    .user-info strong {
+      color: #667eea;
+    }
+    
+    .feature-list {
+      background: white;
+      border: 1px solid #e9ecef;
+      border-radius: 8px;
+      padding: 20px;
+      margin-top: 20px;
+    }
+    
+    .feature-list h4 {
+      color: #495057;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+    
+    .feature-list ul {
+      list-style: none;
+      padding: 0;
+    }
+    
+    .feature-list li {
+      padding: 6px 0;
+      font-size: 13px;
+      color: #6c757d;
+      position: relative;
+      padding-left: 20px;
+    }
+    
+    .feature-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: #28a745;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Debug Info Panel -->
+  <div id="debugPanel" class="debug-info hidden">
+    <div><strong>Debug Info:</strong></div>
+    <div id="debugContent"></div>
+    <button onclick="toggleDebug()" style="margin-top: 5px; font-size: 10px;">Hide</button>
+  </div>
+
+  <div class="auth-container">
+    <div class="auth-header">
+      <h1>Reweave</h1>
+      <p>Authentic Malaysian Batik</p>
+    </div>
+    
+    <div class="auth-tabs">
+      <button class="auth-tab active" onclick="switchTab('login')">Log In</button>
+      <button class="auth-tab" onclick="switchTab('signup')">Sign Up</button>
+    </div>
+    
+    <div class="auth-content">
+      <!-- Login Form -->
+      <div id="loginForm" class="auth-form active">
+        <div id="loginError" class="error-message"></div>
+        <div id="loginSuccess" class="success-message"></div>
+        
+        <form onsubmit="handleLogin(event)">
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="loginEmail" class="form-input" placeholder="your@email.com" required />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required />
+          </div>
+          
+          <button type="submit" class="btn-primary" id="loginBtn">Log In</button>
+        </form>
+        
+        <div class="form-footer">
+          <p>Don't have an account? <a href="#" onclick="switchTab('signup'); return false;">Sign up here</a></p>
+        </div>
+      </div>
+      
+      <!-- Signup Form -->
+      <div id="signupForm" class="auth-form">
+        <div id="signupError" class="error-message"></div>
+        <div id="signupSuccess" class="success-message"></div>
+        
+        <form onsubmit="handleSignup(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="signupName" class="form-input" placeholder="Your full name" required />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="signupEmail" class="form-input" placeholder="your@email.com" required />
+          </div>
+          
+          <div class="form-group">
+            <label class="form-label">Password</label>
+            <input type="password" id="signupPassword" class="form-input" placeholder="••••••••" required />
+          </div>
+          
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" id="signupMarketing" />
+              I want to receive updates about new products and promotions
+            </label>
+          </div>
+          
+          <button type="submit" class="btn-primary" id="signupBtn">Create Account</button>
+        </form>
+        
+        <div class="form-footer">
+          <p>Already have an account? <a href="#" onclick="switchTab('login'); return false;">Log in here</a></p>
+        </div>
+      </div>
+      
+      <!-- Account View -->
+      <div id="accountView" class="auth-form">
+        <div class="user-info">
+          <h3>Welcome back!</h3>
+          <p><strong>Name:</strong> <span id="userName"></span></p>
+          <p><strong>Email:</strong> <span id="userEmail"></span></p>
+          <p><strong>Member since:</strong> <span id="userSince"></span></p>
+        </div>
+        
+        <button class="btn-secondary" onclick="handleLogout()">Sign Out</button>
+        
+        <div class="feature-list">
+          <h4>Your Account Benefits:</h4>
+          <ul>
+            <li>Track your orders</li>
+            <li>Save your favorite products</li>
+            <li>Exclusive member discounts</li>
+            <li>Early access to new collections</li>
+            <li>Personalized recommendations</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Debug functionality
+    let debugMode = false;
+    
+    function toggleDebug() {
+      debugMode = !debugMode;
+      const panel = document.getElementById('debugPanel');
+      panel.classList.toggle('hidden', !debugMode);
+      if (debugMode) {
+        updateDebugInfo('Debug mode enabled');
+      }
+    }
+    
+    function updateDebugInfo(message) {
+      if (debugMode) {
+        const debugContent = document.getElementById('debugContent');
+        const timestamp = new Date().toLocaleTimeString();
+        debugContent.innerHTML += `<div>[${timestamp}] ${message}</div>`;
+        debugContent.scrollTop = debugContent.scrollHeight;
+      }
+      console.log(message);
+    }
+    
+    // Initialize debug mode (press 'd' to toggle)
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'd' && e.ctrlKey) {
+        toggleDebug();
+      }
+    });
+    
+    // Authentication state
+    let currentUser = null;
+    
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', () => {
+      updateDebugInfo('Page loaded, initializing authentication...');
+      checkExistingSession();
+      
+      // Add visual feedback for debugging
+      if (window.location.hostname === 'localhost' || window.location.hostname.includes('test')) {
+        toggleDebug();
+      }
+    });
+    
+    function switchTab(tab) {
+      updateDebugInfo(`Switching to ${tab} tab`);
+      
+      // Update tab styles
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Update form visibility
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      
+      if (tab === 'login') {
+        document.getElementById('loginForm').classList.add('active');
+      } else if (tab === 'signup') {
+        document.getElementById('signupForm').classList.add('active');
+      }
+      
+      // Clear messages
+      hideMessages();
+    }
+    
+    function hideMessages() {
+      document.querySelectorAll('.error-message, .success-message').forEach(msg => {
+        msg.classList.remove('show');
+      });
+    }
+    
+    function showMessage(elementId, message, type = 'error') {
+      updateDebugInfo(`Showing ${type} message: ${message}`);
+      hideMessages();
+      
+      const element = document.getElementById(elementId);
+      element.textContent = message;
+      element.classList.add('show');
+      
+      setTimeout(() => {
+        element.classList.remove('show');
+      }, 5000);
+    }
+    
+    function setLoading(buttonId, loading = true) {
+      const button = document.getElementById(buttonId);
+      if (loading) {
+        button.classList.add('loading');
+        button.disabled = true;
+      } else {
+        button.classList.remove('loading');
+        button.disabled = false;
+      }
+    }
+    
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    function validatePassword(password) {
+      return password.length >= 6;
+    }
+    
+    async function handleLogin(event) {
+      event.preventDefault();
+      updateDebugInfo('Login attempt started');
+      
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      
+      // Validation
+      if (!email || !password) {
+        showMessage('loginError', 'Please fill in all fields');
+        return;
+      }
+      
+      if (!validateEmail(email)) {
+        showMessage('loginError', 'Please enter a valid email address');
+        return;
+      }
+      
+      if (!validatePassword(password)) {
+        showMessage('loginError', 'Password must be at least 6 characters');
+        return;
+      }
+      
+      setLoading('loginBtn', true);
+      
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        
+        // Create user object
+        currentUser = {
+          userId: 'user_' + Math.random().toString(36).substr(2, 9),
+          email: email,
+          firstName: email.split('@')[0],
+          lastName: 'User',
+          token: 'token_' + Math.random().toString(36).substr(2, 16),
+          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        localStorage.setItem('reweave_user', JSON.stringify(currentUser));
+        updateDebugInfo('User logged in successfully: ' + currentUser.email);
+        
+        showMessage('loginSuccess', 'Welcome back! Login successful!');
+        
+        // Show account view after delay
+        setTimeout(() => {
+          showAccountView();
+        }, 1000);
+        
+      } catch (error) {
+        updateDebugInfo('Login error: ' + error.message);
+        showMessage('loginError', 'Login failed. Please try again.');
+      } finally {
+        setLoading('loginBtn', false);
+      }
+    }
+    
+    async function handleSignup(event) {
+      event.preventDefault();
+      updateDebugInfo('Signup attempt started');
+      
+      const name = document.getElementById('signupName').value.trim();
+      const email = document.getElementById('signupEmail').value.trim();
+      const password = document.getElementById('signupPassword').value;
+      const marketing = document.getElementById('signupMarketing').checked;
+      
+      // Validation
+      if (!name || !email || !password) {
+        showMessage('signupError', 'Please fill in all fields');
+        return;
+      }
+      
+      if (name.length < 2) {
+        showMessage('signupError', 'Name must be at least 2 characters');
+        return;
+      }
+      
+      if (!validateEmail(email)) {
+        showMessage('signupError', 'Please enter a valid email address');
+        return;
+      }
+      
+      if (!validatePassword(password)) {
+        showMessage('signupError', 'Password must be at least 6 characters');
+        return;
+      }
+      
+      setLoading('signupBtn', true);
+      
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        
+        // Create user object
+        const nameParts = name.split(' ');
+        currentUser = {
+          userId: 'user_' + Math.random().toString(36).substr(2, 9),
+          email: email,
+          firstName: nameParts[0],
+          lastName: nameParts.slice(1).join(' ') || 'User',
+          token: 'token_' + Math.random().toString(36).substr(2, 16),
+          marketing: marketing,
+          createdAt: new Date().toISOString(),
+          lastLogin: new Date().toISOString()
+        };
+        
+        // Save to localStorage
+        localStorage.setItem('reweave_user', JSON.stringify(currentUser));
+        updateDebugInfo('User created successfully: ' + currentUser.email);
+        
+        showMessage('signupSuccess', 'Account created successfully! Welcome to Reweave!');
+        
+        // Show account view after delay
+        setTimeout(() => {
+          showAccountView();
+        }, 1500);
+        
+      } catch (error) {
+        updateDebugInfo('Signup error: ' + error.message);
+        showMessage('signupError', 'Account creation failed. Please try again.');
+      } finally {
+        setLoading('signupBtn', false);
+      }
+    }
+    
+    function showAccountView() {
+      updateDebugInfo('Showing account view');
+      
+      // Hide all forms
+      document.querySelectorAll('.auth-form').forEach(f => f.classList.remove('active'));
+      
+      // Show account view
+      document.getElementById('accountView').classList.add('active');
+      
+      // Update user info
+      if (currentUser) {
+        document.getElementById('userName').textContent = currentUser.firstName + ' ' + currentUser.lastName;
+        document.getElementById('userEmail').textContent = currentUser.email;
+        document.getElementById('userSince').textContent = new Date(currentUser.createdAt).toLocaleDateString();
+      }
+      
+      // Update tabs
+      document.querySelectorAll('.auth-tab').forEach(t => t.classList.remove('active'));
+    }
+    
+    function handleLogout() {
+      updateDebugInfo('User logging out');
+      
+      currentUser = null;
+      localStorage.removeItem('reweave_user');
+      
+      // Reset forms
+      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginPassword').value = '';
+      document.getElementById('signupName').value = '';
+      document.getElementById('signupEmail').value = '';
+      document.getElementById('signupPassword').value = '';
+      document.getElementById('signupMarketing').checked = false;
+      
+      // Show login form
+      document.getElementById('accountView').classList.remove('active');
+      document.getElementById('loginForm').classList.add('active');
+      document.querySelector('.auth-tab').classList.add('active');
+      document.querySelectorAll('.auth-tab')[1].classList.remove('active');
+      
+      updateDebugInfo('User logged out successfully');
+    }
+    
+    function checkExistingSession() {
+      updateDebugInfo('Checking for existing session...');
+      
+      try {
+        const savedUser = localStorage.getItem('reweave_user');
+        if (savedUser) {
+          currentUser = JSON.parse(savedUser);
+          updateDebugInfo('Found existing session for: ' + currentUser.email);
+          showAccountView();
+        } else {
+          updateDebugInfo('No existing session found');
+        }
+      } catch (error) {
+        updateDebugInfo('Error checking session: ' + error.message);
+        localStorage.removeItem('reweave_user');
+      }
+    }
+    
+    // Global error handling
+    window.addEventListener('error', (event) => {
+      updateDebugInfo('Global error: ' + event.error.message);
+      console.error('Global error:', event.error);
+    });
+    
+    window.addEventListener('unhandledrejection', (event) => {
+      updateDebugInfo('Unhandled promise rejection: ' + event.reason);
+      console.error('Unhandled promise rejection:', event.reason);
+    });
+  </script>
+</body>
+</html>

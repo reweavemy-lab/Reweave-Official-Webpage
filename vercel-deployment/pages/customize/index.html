@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+      <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customize Your Bag • Reweave</title>
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <!-- Google Fonts (Poppins) -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <!-- Font Awesome for header icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/J6FzG7xOa7bY8dW3vY9y+Z9Z+8ZC1A6pZ4G6tJ1jG4kW0fF7e3lV2C5HnS9JZ7JwYlQ+o6YHg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    /* Minimal styling for the customizer UI */
+    .customize-hero { padding: 40px 20px; text-align: center; }
+    .customize-grid { display: grid; grid-template-columns: 320px 1fr; gap: 24px; padding: 20px; }
+    .customize-panel { border: 1px solid #eee; border-radius: 8px; padding: 16px; background: #fff; }
+    .customize-panel h3 { margin: 0 0 12px; font-weight: 600; }
+    .control-group { margin-bottom: 16px; }
+    .swatch-row { display: flex; gap: 8px; flex-wrap: wrap; }
+    .swatch { width: 28px; height: 28px; border-radius: 50%; border: 1px solid #ccc; cursor: pointer; }
+    .viewer { border: 1px solid #eee; border-radius: 8px; background: #f8f8f8; height: 520px; position: relative; }
+    .viewer canvas { position: absolute; inset: 0; }
+    .btn { display: inline-block; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; background: #fafafa; cursor: pointer; }
+    .btn + .btn { margin-left: 8px; }
+    .select { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 6px; background: #fff; }
+    .note { font-size: 12px; color: #666; }
+    @media (max-width: 900px) {
+      .customize-grid { grid-template-columns: 1fr; }
+      .viewer { height: 420px; }
+    }
+  </style>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+  <!-- Luxury header (consistent with other pages) -->
+  <header class="luxury-header">
+    <div class="header-top">
+      <button class="menu-btn"><i class="fas fa-bars"></i> Menu</button>
+      <button class="search-btn"><i class="fas fa-search"></i> Search</button>
+      <a href="/" class="brand">REWEAVE</a>
+      <div class="header-actions">
+        <a href="tel:+1234567890" class="call-link">Call Us</a>
+        <a href="#" class="account-link"><i class="fas fa-user"></i></a>
+        <a href="#" class="wishlist-link"><i class="fas fa-heart"></i></a>
+        <a href="../cart/index.html" class="cart-link"><i class="fas fa-shopping-cart"></i></a>
+      </div>
+    </div>
+
+    <nav class="hidden-nav">
+      <div class="nav-columns">
+        <div class="nav-column">
+          <h3>Reweave</h3>
+          <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="nav-column">
+          <h3>Shop</h3>
+          <ul>
+            <li><a href="../shop/index.html">All Products</a></li>
+            <li><a href="../shop/index.html#new">New Arrivals</a></li>
+            <li><a href="../shop/index.html#best">Best Sellers</a></li>
+            <li><a href="../shop/index.html#sale">Sale</a></li>
+          </ul>
+        </div>
+        <div class="nav-column">
+          <h3>About</h3>
+          <ul>
+            <li><a href="../story/index.html">Our Story</a></li>
+            <li><a href="../impact/index.html">Impact</a></li>
+            <li><a href="../team/index.html">Our Team</a></li>
+            <li><a href="../culture/index.html">Arts & Culture</a></li>
+          </ul>
+        </div>
+        <div class="nav-column">
+          <h3>Support</h3>
+          <ul>
+            <li><a href="../community/index.html">Contact Us</a></li>
+            <li><a href="#">FAQ</a></li>
+            <li><a href="#">Shipping & Returns</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="customize-hero">
+      <h1>Customize Your Bag</h1>
+      <p class="note">Prototype viewer using a placeholder 3D shape. Your final GLB can drop in later.</p>
+    </section>
+
+    <section class="customize-grid">
+      <aside class="customize-panel">
+        <h3>Appearance</h3>
+        <div class="control-group">
+          <label>Body Color</label>
+          <div class="swatch-row">
+            <div class="swatch" data-color="#3a5a40" title="Forest" style="background:#3a5a40"></div>
+            <div class="swatch" data-color="#8b1e3f" title="Burgundy" style="background:#8b1e3f"></div>
+            <div class="swatch" data-color="#1a1a1a" title="Black" style="background:#1a1a1a"></div>
+            <div class="swatch" data-color="#c49b63" title="Camel" style="background:#c49b63"></div>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>Pattern</label>
+          <div>
+            <button class="btn" id="apply-texture-1">Apply Batik A</button>
+            <button class="btn" id="apply-texture-2">Apply Batik B</button>
+            <button class="btn" id="clear-texture">Clear Pattern</button>
+          </div>
+          <p class="note">Using images from your `images/` folder.</p>
+        </div>
+        <div class="control-group">
+          <label>Hardware Finish</label>
+          <select id="hardware-select" class="select">
+            <option value="gold">Gold</option>
+            <option value="silver">Silver</option>
+            <option value="matte">Matte Black</option>
+          </select>
+        </div>
+        <div class="control-group">
+          <label>Components</label>
+          <div>
+            <button class="btn" id="toggle-handles">Toggle Handles</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <label>Model</label>
+          <div>
+            <button class="btn" id="load-demo-glb">Load Demo GLB</button>
+          </div>
+          <p class="note">Optional: loads a public sample model to demonstrate GLB swap.</p>
+        </div>
+      </aside>
+
+      <div class="viewer" id="bag-viewer"></div>
+    </section>
+  </main>
+
+  <footer class="luxury-footer">
+    <div class="footer-columns">
+      <div class="footer-column">
+        <h3>Reweave</h3>
+        <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-facebook"></i></a>
+          <a href="#"><i class="fab fa-x-twitter"></i></a>
+          <a href="#"><i class="fab fa-pinterest"></i></a>
+        </div>
+      </div>
+      <div class="footer-column">
+        <h3>Shop</h3>
+        <ul>
+          <li><a href="../shop/index.html">All Products</a></li>
+          <li><a href="../shop/index.html#new">New Arrivals</a></li>
+          <li><a href="../shop/index.html#best">Best Sellers</a></li>
+          <li><a href="../shop/index.html#sale">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>About</h3>
+        <ul>
+          <li><a href="../story/index.html">Our Story</a></li>
+          <li><a href="../impact/index.html">Impact</a></li>
+          <li><a href="../team/index.html">Our Team</a></li>
+          <li><a href="../culture/index.html">Arts & Culture</a></li>
+        </ul>
+      </div>
+      <div class="footer-column">
+        <h3>Support</h3>
+        <ul>
+          <li><a href="../community/index.html">Contact Us</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping & Returns</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 Reweave. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Luxury header interactions -->
+  <script src="../../script.js"></script>
+
+  <!-- 3D Customizer (Three.js) -->
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'https://unpkg.com/three@0.160.0/examples/jsm/controls/OrbitControls.js';
+    import { GLTFLoader } from 'https://unpkg.com/three@0.160.0/examples/jsm/loaders/GLTFLoader.js';
+    import { RoundedBoxGeometry } from 'https://unpkg.com/three@0.160.0/examples/jsm/geometries/RoundedBoxGeometry.js';
+
+    const container = document.getElementById('bag-viewer');
+    const scene = new THREE.Scene();
+    scene.background = null;
+
+    // Camera & Renderer
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 100);
+    camera.position.set(0.7, 0.7, 1.7);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+
+    // Lighting
+    const hemi = new THREE.HemisphereLight(0xffffff, 0x444444, 0.9);
+    hemi.position.set(0, 1, 0);
+    scene.add(hemi);
+    const dir = new THREE.DirectionalLight(0xffffff, 0.6);
+    dir.position.set(1.5, 2, 1.5);
+    scene.add(dir);
+
+    // Dimensions
+    const BAG_W = 0.80; // width
+    const BAG_H = 0.50; // height
+    const BAG_D = 0.26; // depth
+    const RADIUS = 0.06;
+
+    // Materials
+    const bodyMat = new THREE.MeshPhysicalMaterial({ color: '#2d2d4f', roughness: 0.6, metalness: 0.0, clearcoat: 0.25, clearcoatRoughness: 0.35 });
+    const panelMat = new THREE.MeshPhysicalMaterial({ color: '#111111', roughness: 0.85, metalness: 0.0 });
+    const handleMat = new THREE.MeshPhysicalMaterial({ color: '#2a2a2a', roughness: 0.8, metalness: 0.0 });
+    const hwMat = new THREE.MeshPhysicalMaterial({ color: '#c9a646', metalness: 1.0, roughness: 0.2 }); // hardware
+
+    // Rounded body
+    const bodyGeo = new RoundedBoxGeometry(BAG_W, BAG_H, BAG_D, 4, RADIUS);
+    const body = new THREE.Mesh(bodyGeo, bodyMat);
+    body.position.set(0, BAG_H * 0.5 * 0.9, 0);
+    body.castShadow = true; body.receiveShadow = true;
+    scene.add(body);
+
+    // Diagonal lower panel on front face
+    const panelShape = new THREE.Shape();
+    const panelW = BAG_W * 0.9;
+    const panelH = BAG_H * 0.35;
+    panelShape.moveTo(-panelW/2, -panelH/2);
+    panelShape.lineTo(panelW/2, -panelH/2);
+    panelShape.lineTo(panelW*0.15, panelH/2);
+    panelShape.lineTo(-panelW/2, panelH/2);
+    panelShape.closePath();
+    const panelGeo = new THREE.ExtrudeGeometry(panelShape, { depth: 0.004, bevelEnabled: false });
+    const panel = new THREE.Mesh(panelGeo, panelMat);
+    panel.rotation.y = 0; // facing +Z
+    panel.position.set(0, BAG_H * 0.25, BAG_D/2 + 0.002);
+    scene.add(panel);
+
+    // Top zipper/hardware hint
+    const zipper = new THREE.Mesh(new THREE.CylinderGeometry(0.0025, 0.0025, BAG_W*0.92, 16), hwMat);
+    zipper.rotation.z = Math.PI / 2;
+    zipper.position.set(0, BAG_H*0.52, 0);
+    scene.add(zipper);
+
+    // Handles (arched tubes)
+    function makeHandle(xOffset) {
+      const p0 = new THREE.Vector3(xOffset, BAG_H*0.45, BAG_D*0.12);
+      const p1 = new THREE.Vector3(xOffset, BAG_H*0.70, BAG_D*0.00);
+      const p2 = new THREE.Vector3(xOffset, BAG_H*0.70, -BAG_D*0.00);
+      const p3 = new THREE.Vector3(xOffset, BAG_H*0.45, -BAG_D*0.12);
+      const curve = new THREE.CatmullRomCurve3([p0, p1, p2, p3]);
+      const tubeGeo = new THREE.TubeGeometry(curve, 80, 0.018, 16, false);
+      return new THREE.Mesh(tubeGeo, handleMat);
+    }
+    const handleL = makeHandle(-BAG_W*0.22);
+    const handleR = makeHandle(BAG_W*0.22);
+    scene.add(handleL); scene.add(handleR);
+
+    // Small side pockets (subtle bulges)
+    const pocketGeo = new RoundedBoxGeometry(0.18, 0.16, 0.06, 3, 0.02);
+    const pocketL = new THREE.Mesh(pocketGeo, panelMat);
+    pocketL.position.set(-BAG_W*0.36, BAG_H*0.22, 0);
+    const pocketR = pocketL.clone(); pocketR.position.set(BAG_W*0.36, BAG_H*0.22, 0);
+    scene.add(pocketL, pocketR);
+
+    // Resize handling
+    function onResize() {
+      const w = container.clientWidth, h = container.clientHeight;
+      camera.aspect = w / h; camera.updateProjectionMatrix();
+      renderer.setSize(w, h);
+    }
+    window.addEventListener('resize', onResize);
+
+    // Animation loop
+    function animate() {
+      requestAnimationFrame(animate);
+      controls.update();
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    // Helpers
+    const texLoader = new THREE.TextureLoader();
+    function applyTexture(path) {
+      texLoader.load(path, (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+        bodyMat.map = tex;
+        bodyMat.color.set('#ffffff');
+        bodyMat.needsUpdate = true;
+      });
+    }
+    function clearTexture() {
+      bodyMat.map = null; bodyMat.needsUpdate = true;
+    }
+
+    // Controls wiring
+    document.querySelectorAll('.swatch').forEach(s => {
+      s.addEventListener('click', () => {
+        clearTexture();
+        bodyMat.color.set(s.dataset.color);
+      });
+    });
+    document.getElementById('apply-texture-1').addEventListener('click', () => {
+      applyTexture('../../images/Gemini_Generated_Image_mwmxxemwmxxemwmx.png');
+    });
+    document.getElementById('apply-texture-2').addEventListener('click', () => {
+      applyTexture('../../images/Gemini_Generated_Image_j8e9c1j8e9c1j8e9.png');
+    });
+    document.getElementById('clear-texture').addEventListener('click', clearTexture);
+
+    document.getElementById('toggle-handles').addEventListener('click', () => {
+      const vis = !handleL.visible;
+      handleL.visible = vis; handleR.visible = vis;
+    });
+
+    document.getElementById('hardware-select').addEventListener('change', (e) => {
+      const val = e.target.value;
+      if (val === 'gold') { hwMat.color.set('#c9a646'); hwMat.metalness = 1.0; hwMat.roughness = 0.2; }
+      if (val === 'silver') { hwMat.color.set('#cfd3d6'); hwMat.metalness = 1.0; hwMat.roughness = 0.15; }
+      if (val === 'matte') { hwMat.color.set('#1a1a1a'); hwMat.metalness = 0.2; hwMat.roughness = 0.8; }
+    });
+
+    // Demo GLB load to show swap-in readiness (public sample)
+    let glbRoot = null;
+    function clearPlaceholder() {
+      [body, panel, zipper, handleL, handleR, pocketL, pocketR].forEach(m => scene.remove(m));
+    }
+    document.getElementById('load-demo-glb').addEventListener('click', () => {
+      const loader = new GLTFLoader();
+      loader.load('https://modelviewer.dev/shared-assets/models/Astronaut.glb', (gltf) => {
+        if (glbRoot) scene.remove(glbRoot);
+        clearPlaceholder();
+        glbRoot = gltf.scene; glbRoot.scale.set(1.2, 1.2, 1.2);
+        scene.add(glbRoot);
+      });
+    });
+
+    // Expose a helper to load your future GLB
+    window.loadBagGLB = function(url) {
+      const loader = new GLTFLoader();
+      loader.load(url, (gltf) => {
+        if (glbRoot) scene.remove(glbRoot);
+        clearPlaceholder();
+        glbRoot = gltf.scene; scene.add(glbRoot);
+      });
+    }
+
+    onResize();
+  </script>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Events Admin • Reweave</title>
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <style>
+    .container { max-width: 1000px; margin: 0 auto; padding: 24px; }
+    table { width:100%; border-collapse: collapse; }
+    th, td { border:1px solid var(--border-gray); padding:8px; font-size:14px; }
+    th { background: var(--luxury-gray); text-align:left; }
+    .summary { margin-bottom:12px; font-size:14px; }
+  </style>
+</head>
+<body>
+  <header class="luxury-header">
+    <div class="header-container">
+      <div class="logo-center"><a href="/">REWEAVE</a></div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 style="margin-bottom:16px;">Events</h1>
+    <div style="margin-bottom:12px; display:flex; gap:8px;">
+      <button class="btn" id="refresh">Refresh</button>
+      <button class="btn btn-light" id="exportCsv">Export CSV</button>
+    </div>
+    <div class="summary" id="summary"></div>
+    <table id="eventsTable">
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Type</th>
+          <th>Payload</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </main>
+
+  <script>
+    async function loadEvents() {
+      const tbody = document.querySelector('#eventsTable tbody');
+      const summaryEl = document.getElementById('summary');
+      tbody.innerHTML = '<tr><td colspan="3">Loading…</td></tr>';
+      try {
+        const res = await fetch('http://localhost:3001/api/events');
+        const data = await res.json();
+        if (!data.ok) throw new Error('Failed to load');
+        tbody.innerHTML = '';
+        (data.events || []).sort((a,b)=>b.ts-a.ts).forEach(e => {
+          const tr = document.createElement('tr');
+          const time = new Date(e.ts).toLocaleString();
+          const payload = JSON.stringify(e.payload || {});
+          tr.innerHTML = `<td>${time}</td><td>${e.type}</td><td><code>${payload}</code></td>`;
+          tbody.appendChild(tr);
+        });
+        const sres = await fetch('http://localhost:3001/api/events/summary');
+        const sdata = await sres.json();
+        if (sdata.ok) {
+          summaryEl.textContent = 'Summary: ' + Object.entries(sdata.summary).map(([k,v])=>`${k}: ${v}`).join(' • ');
+        }
+      } catch (e) {
+        tbody.innerHTML = '<tr><td colspan="3">Could not reach backend. Is it running?</td></tr>';
+        summaryEl.textContent = '';
+      }
+    }
+    function exportCsv() {
+      fetch('http://localhost:3001/api/events').then(r=>r.json()).then(data=>{
+        const rows = [['Time','Type','Payload']];
+        (data.events||[]).forEach(e => rows.push([new Date(e.ts).toISOString(), e.type||'', JSON.stringify(e.payload||{})]));
+        const csv = rows.map(r=>r.map(x=>`"${String(x).replace(/"/g,'""')}"`).join(',')).join('\n');
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = 'events.csv'; a.click();
+        URL.revokeObjectURL(url);
+      });
+    }
+    document.getElementById('refresh').addEventListener('click', loadEvents);
+    document.getElementById('exportCsv').addEventListener('click', exportCsv);
+    loadEvents();
+  </script>
+</body>
+</html>

@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Hub - Reweave</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Community Hub Specific Styles */
+        .community-container {
+            padding: 120px 0 80px;
+        }
+        
+        .community-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .community-header h1 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+        
+        .community-header p {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--earth-brown);
+        }
+        
+        .community-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        
+        .filter-btn {
+            padding: 8px 20px;
+            background-color: #f5f5f5;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+        
+        .community-post {
+            background-color: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s;
+        }
+        
+        .community-post:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .post-image {
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .post-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s;
+        }
+        
+        .community-post:hover .post-image img {
+            transform: scale(1.05);
+        }
+        
+        .post-content {
+            padding: 20px;
+        }
+        
+        .post-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        
+        .post-tag {
+            font-size: 0.7rem;
+            padding: 3px 10px;
+            background-color: #f0f0f0;
+            border-radius: 20px;
+            color: var(--earth-brown);
+        }
+        
+        .post-title {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+        
+        .post-meta {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .user-avatar {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 10px;
+        }
+        
+        .user-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .user-name {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+        
+        .post-date {
+            font-size: 0.8rem;
+            color: #999;
+            margin-left: auto;
+        }
+        
+        .post-description {
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+        
+        .post-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 15px;
+            border-top: 1px solid #f0f0f0;
+        }
+        
+        .action-btn {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--earth-brown);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .action-btn i {
+            margin-right: 5px;
+        }
+        
+        .action-btn:hover {
+            color: var(--primary);
+        }
+        
+        .featured-post {
+            grid-column: span 2;
+        }
+        
+        .featured-post .post-image {
+            height: 350px;
+        }
+        
+        .featured-post .post-title {
+            font-size: 1.5rem;
+        }
+        
+        .load-more {
+            display: block;
+            width: 200px;
+            margin: 50px auto 0;
+            padding: 12px 0;
+            text-align: center;
+            background-color: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            border-radius: 5px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .load-more:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .upload-cta {
+            background-color: var(--secondary-light);
+            padding: 60px 0;
+            margin: 80px 0;
+            text-align: center;
+            border-radius: 10px;
+        }
+        
+        .upload-cta h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .upload-cta p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            color: var(--earth-brown);
+        }
+        
+        @media (max-width: 992px) {
+            .community-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .featured-post {
+                grid-column: span 1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .community-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="luxury-header">
+        <div class="header-container">
+            <div class="header-left">
+                <button class="menu-btn" aria-label="Menu">
+                    <i class="fas fa-bars"></i>
+                    <span>Menu</span>
+                </button>
+                <button class="search-btn" aria-label="Search">
+                    <i class="fas fa-search"></i>
+                    <span>Search</span>
+                </button>
+            </div>
+            <div class="logo-center">
+                <a href="/">REWEAVE</a>
+            </div>
+            <div class="header-right">
+                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
+                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
+                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+            </div>
+        </div>
+        <nav class="hidden-nav">
+            <div class="nav-content">
+                <button class="close-nav" aria-label="Close">
+                    <i class="fas fa-times"></i>
+                    <span>Close</span>
+                </button>
+                <div class="nav-categories">
+                    <div class="nav-section">
+                        <h3>New</h3>
+                        <ul>
+                            <li><a href="../shop/index.html">Latest Arrivals</a></li>
+                            <li><a href="../shop/index.html">Limited Edition</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Bags and Accessories</h3>
+                        <ul>
+                            <li><a href="../shop/index.html">Totes</a></li>
+                            <li><a href="../shop/index.html">Slings</a></li>
+                            <li><a href="../shop/index.html">Accessories</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>Collections</h3>
+                        <ul>
+                            <li><a href="../shop/index.html">Batik Heritage</a></li>
+                            <li><a href="../shop/index.html">Artisan Series</a></li>
+                        </ul>
+                    </div>
+                    <div class="nav-section">
+                        <h3>About</h3>
+                        <ul>
+                            <li><a href="../story/index.html">Our Story</a></li>
+                            <li><a href="index.html">Community</a></li>
+                            <li><a href="../impact/index.html">Impact</a></li>
+                            <li><a href="../journal/index.html">Journal</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Search Overlay -->
+    <div class="search-overlay" aria-hidden="true">
+        <div class="search-panel">
+            <div class="search-header">
+                <button class="search-close" aria-label="Close Search">
+                    <i class="fas fa-times"></i>
+                </button>
+                <h3>Search</h3>
+            </div>
+            <div class="search-body">
+                <div class="search-input-wrap">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search products, stories, categories..." aria-label="Search input" />
+                </div>
+                <div class="search-suggestions">
+                    <p>Popular searches:</p>
+                    <div class="tags">
+                        <a href="../shop/index.html">Batik</a>
+                        <a href="../shop/index.html">Handbags</a>
+                        <a href="../shop/index.html">Artisan</a>
+                        <a href="../journal/index.html">Journal</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="search-backdrop"></div>
+    </div>
+
+    <!-- Community Hub Section -->
+    <section class="community-container">
+        <div class="container">
+            <div class="community-header">
+                <h1>Community Hub</h1>
+                <p>Join our global community of conscious consumers and see how others style their Reweave products. Share your own looks and be part of the sustainable fashion movement.</p>
+            </div>
+            
+            <div class="community-filters">
+                <div class="filter-btn active" data-filter="all">All</div>
+                <div class="filter-btn" data-filter="featured">Featured</div>
+                <div class="filter-btn" data-filter="artisan-tote">Artisan Tote</div>
+                <div class="filter-btn" data-filter="heritage-backpack">Heritage Backpack</div>
+                <div class="filter-btn" data-filter="summer-crossbody">Summer Crossbody</div>
+                <div class="filter-btn" data-filter="outfit-inspiration">Outfit Inspiration</div>
+                <div class="filter-btn" data-filter="travel">Travel</div>
+                <div class="filter-btn" data-filter="sustainability">Sustainability</div>
+            </div>
+            
+            <div class="community-grid">
+                <!-- Featured Post -->
+                <div class="community-post featured-post" data-category="featured artisan-tote outfit-inspiration">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1581044777550-4cfa60707c03?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Featured Community Post">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="post-tag">Featured</span>
+                            <span class="post-tag">Artisan Tote</span>
+                            <span class="post-tag">Outfit Inspiration</span>
+                        </div>
+                        <h3 class="post-title">Weekend Market Style with the Artisan Tote</h3>
+                        <div class="post-meta">
+                            <div class="user-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User Avatar">
+                            </div>
+                            <span class="user-name">Emma Johnson</span>
+                            <span class="post-date">2 days ago</span>
+                        </div>
+                        <p class="post-description">I love how versatile the Artisan Tote is! Perfect for weekend farmers markets and carrying all my fresh produce. The natural fibers complement my sustainable lifestyle perfectly.</p>
+                        <div class="post-actions">
+                            <div class="action-btn like-btn">
+                                <i class="far fa-heart"></i>
+                                <span>243</span>
+                            </div>
+                            <div class="action-btn comment-btn">
+                                <i class="far fa-comment"></i>
+                                <span>42</span>
+                            </div>
+                            <div class="action-btn share-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Regular Posts -->
+                <div class="community-post" data-category="heritage-backpack travel">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Community Post">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="post-tag">Heritage Backpack</span>
+                            <span class="post-tag">Travel</span>
+                        </div>
+                        <h3 class="post-title">Mountain Hiking with Heritage Backpack</h3>
+                        <div class="post-meta">
+                            <div class="user-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="User Avatar">
+                            </div>
+                            <span class="user-name">Alex Chen</span>
+                            <span class="post-date">1 week ago</span>
+                        </div>
+                        <p class="post-description">The Heritage Backpack was my trusted companion on a 3-day hiking trip. Durable, comfortable, and surprisingly spacious!</p>
+                        <div class="post-actions">
+                            <div class="action-btn like-btn">
+                                <i class="far fa-heart"></i>
+                                <span>187</span>
+                            </div>
+                            <div class="action-btn comment-btn">
+                                <i class="far fa-comment"></i>
+                                <span>23</span>
+                            </div>
+                            <div class="action-btn share-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="community-post" data-category="summer-crossbody outfit-inspiration">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1485968579580-b6d095142e6e?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Community Post">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="post-tag">Summer Crossbody</span>
+                            <span class="post-tag">Outfit Inspiration</span>
+                        </div>
+                        <h3 class="post-title">Beach Day Essentials</h3>
+                        <div class="post-meta">
+                            <div class="user-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="User Avatar">
+                            </div>
+                            <span class="user-name">Sofia Martinez</span>
+                            <span class="post-date">3 days ago</span>
+                        </div>
+                        <p class="post-description">My Summer Crossbody is perfect for beach days! Just enough room for sunscreen, a book, and my phone. The water-resistant material is a huge plus.</p>
+                        <div class="post-actions">
+                            <div class="action-btn like-btn">
+                                <i class="far fa-heart"></i>
+                                <span>156</span>
+                            </div>
+                            <div class="action-btn comment-btn">
+                                <i class="far fa-comment"></i>
+                                <span>19</span>
+                            </div>
+                            <div class="action-btn share-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="community-post" data-category="artisan-tote sustainability">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1534531173927-aeb928d54385?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Community Post">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="post-tag">Artisan Tote</span>
+                            <span class="post-tag">Sustainability</span>
+                        </div>
+                        <h3 class="post-title">Zero Waste Shopping Made Easy</h3>
+                        <div class="post-meta">
+                            <div class="user-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="User Avatar">
+                            </div>
+                            <span class="user-name">Maya Wilson</span>
+                            <span class="post-date">5 days ago</span>
+                        </div>
+                        <p class="post-description">My Artisan Tote has helped me reduce so much plastic waste! I use it for all my grocery shopping and it holds way more than you'd expect.</p>
+                        <div class="post-actions">
+                            <div class="action-btn like-btn">
+                                <i class="far fa-heart"></i>
+                                <span>201</span>
+                            </div>
+                            <div class="action-btn comment-btn">
+                                <i class="far fa-comment"></i>
+                                <span>31</span>
+                            </div>
+                            <div class="action-btn share-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="community-post" data-category="heritage-backpack sustainability">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1496747611176-843222e1e57c?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Community Post">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="post-tag">Heritage Backpack</span>
+                            <span class="post-tag">Sustainability</span>
+                        </div>
+                        <h3 class="post-title">One Year Later: Still My Favorite Bag</h3>
+                        <div class="post-meta">
+                            <div class="user-avatar">
+                                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="User Avatar">
+                            </div>
+                            <span class="user-name">James Taylor</span>
+                            <span class="post-date">2 weeks ago</span>
+                        </div>
+                        <p class="post-description">It's been a year since I got my Heritage Backpack and it's aging beautifully. The quality is outstanding and it's become even more comfortable with use.</p>
+                        <div class="post-actions">
+                            <div class="action-btn like-btn">
+                                <i class="far fa-heart"></i>
+                                <span>132</span>
+                            </div>
+                            <div class="action-btn comment-btn">
+                                <i class="far fa-comment"></i>
+                                <span>17</span>
+                            </div>
+                            <div class="action-btn share-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="community-post" data-category="summer-crossbody travel">
+                    <div class="post-image">
+                        <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Community Post">
+                    </div>
+                    <div class="post-content">
+                        <div class="post-tags">
+                            <span class="post-tag">Summer Crossbody</span>
+                            <span class="post-tag">Travel</span>
+                        </div>
+                        <h3 class="post-title">Perfect Travel Companion in Italy</h3>
+                        <div class="post-meta">
+                            <div class="user-avatar">
+                                <img src="https://randomuser.me/api/portraits/women/54.jpg" alt="User Avatar">
+                            </div>
+                            <span class="user-name">Olivia Brown</span>
+                            <span class="post-date">1 month ago</span>
+                        </div>
+                        <p class="post-description">Took my Summer Crossbody to Italy and it was perfect! Secure, comfortable, and stylish enough for both day trips and evening dinners.</p>
+                        <div class="post-actions">
+                            <div class="action-btn like-btn">
+                                <i class="far fa-heart"></i>
+                                <span>219</span>
+                            </div>
+                            <div class="action-btn comment-btn">
+                                <i class="far fa-comment"></i>
+                                <span>28</span>
+                            </div>
+                            <div class="action-btn share-btn">
+                                <i class="far fa-share-square"></i>
+                                <span>Share</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="load-more">Load More</button>
+            
+            <div class="upload-cta">
+                <h2>Share Your Reweave Story</h2>
+                <p>Show us how you style your Reweave products and join our community of conscious consumers making a difference.</p>
+                <a href="#" class="btn">Upload Your Photo</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="luxury-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-column">
+                    <h4>Help</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Client Advisor: 1800 814 930</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Product Care</a></li>
+                        <li><a href="#">Delivery, Returns & Exchanges</a></li>
+                        <li><a href="#">Stores</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Repairs</a></li>
+                        <li><a href="#">Personalisation</a></li>
+                        <li><a href="#">Art of Gifting</a></li>
+                        <li><a href="#">Download our Apps</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>About Reweave</h4>
+                    <ul class="footer-links">
+                        <li><a href="../story/index.html">Fashion & Craft</a></li>
+                        <li><a href="../culture/index.html">Arts & Culture</a></li>
+                        <li><a href="../story/index.html">Our Maison</a></li>
+                        <li><a href="../impact/index.html">Sustainability</a></li>
+                        <li><a href="../journal/index.html">Latest News</a></li>
+                        <li><a href="../story/index.html#careers">Careers</a></li>
+                        <li><a href="index.html">Foundation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Sign up for emails</a></li>
+                        <li><a href="#">Follow Us</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-sub">
+                <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
+                <div class="footer-legal">
+                    <a href="#">Sitemap</a>
+                    <a href="#">Legal & Privacy</a>
+                </div>
+            </div>
+
+            <div class="footer-brand">REWEAVE</div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+            const navMenu = document.querySelector('.nav-menu');
+            
+            if (mobileMenuBtn) {
+                mobileMenuBtn.addEventListener('click', function() {
+                    navMenu.classList.toggle('active');
+                });
+            }
+            
+            // Filter functionality
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const communityPosts = document.querySelectorAll('.community-post');
+            
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterBtns.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get filter value
+                    const filterValue = this.getAttribute('data-filter');
+                    
+                    // Filter posts
+                    communityPosts.forEach(post => {
+                        const categories = post.getAttribute('data-category');
+                        
+                        if (filterValue === 'all' || categories.includes(filterValue)) {
+                            post.style.display = 'block';
+                        } else {
+                            post.style.display = 'none';
+                        }
+                    });
+                });
+            });
+            
+            // Like button functionality
+            const likeBtns = document.querySelectorAll('.like-btn');
+            
+            likeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const likeIcon = this.querySelector('i');
+                    const likeCount = this.querySelector('span');
+                    
+                    if (likeIcon.classList.contains('far')) {
+                        likeIcon.classList.remove('far');
+                        likeIcon.classList.add('fas');
+                        likeCount.textContent = parseInt(likeCount.textContent) + 1;
+                    } else {
+                        likeIcon.classList.remove('fas');
+                        likeIcon.classList.add('far');
+                        likeCount.textContent = parseInt(likeCount.textContent) - 1;
+                    }
+                });
+            });
+            
+            // Load more functionality (placeholder)
+            const loadMoreBtn = document.querySelector('.load-more');
+            
+            if (loadMoreBtn) {
+                loadMoreBtn.addEventListener('click', function() {
+                    // This would typically load more posts from a server
+                    // For now, just show a message
+                    alert('In a real implementation, this would load more community posts from the server.');
+                });
+            }
+        });
+    </script>
+    <script src="../../script.js"></script>
+</body>
+</html>

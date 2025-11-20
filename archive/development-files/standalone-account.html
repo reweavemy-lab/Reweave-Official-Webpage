@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Account | Reweave</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #fafafa; color: #111; line-height: 1.6; }
+    .header { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; background: #fff; border-bottom: 1px solid #eee; }
+    .header a.brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #111; font-weight: 700; font-size: 18px; }
+    .header nav a { color: #111; text-decoration: none; margin-left: 20px; font-weight: 500; }
+    .container { max-width: 720px; margin: 40px auto; padding: 0 16px; }
+    .card { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 32px; margin-bottom: 24px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); }
+    h1 { font-family: 'Playfair Display', serif; font-size: 32px; margin-bottom: 24px; text-align: center; }
+    h2 { font-size: 24px; margin-bottom: 20px; }
+    .row { display: flex; gap: 16px; margin-bottom: 16px; }
+    .row > div { flex: 1; }
+    label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 14px; }
+    input { width: 100%; padding: 12px 16px; border: 1px solid #ddd; border-radius: 8px; font-size: 16px; transition: border-color 0.2s; }
+    input:focus { outline: none; border-color: #111; }
+    button { width: 100%; padding: 14px 24px; background: #111; color: #fff; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+    button:hover { background: #333; }
+    button.secondary { background: #fff; color: #111; border: 1px solid #111; }
+    button.secondary:hover { background: #f8f8f8; }
+    .hidden { display: none; }
+    .success-message { background: #d4edda; color: #155724; padding: 16px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #c3e6cb; }
+    .error-message { background: #f8d7da; color: #721c24; padding: 16px; border-radius: 8px; margin-bottom: 20px; border: 1px solid #f5c6cb; }
+    .user-welcome { background: #f8f9fa; padding: 24px; border-radius: 12px; margin: 20px 0; }
+    .user-info { margin: 16px 0; }
+    .user-info p { margin: 8px 0; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 24px; }
+    .tabs button { width: auto; padding: 10px 20px; }
+    @media (max-width: 768px) { .row { flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <a class="brand" href="/onepage.html">
+      <span>Reweave</span>
+    </a>
+    <nav>
+      <a href="/pages/cart/index.html">Cart</a>
+    </nav>
+  </header>
+
+  <main class="container">
+    <h1>Account</h1>
+    
+    <div id="message"></div>
+
+    <section id="authSection" class="card">
+      <div class="tabs">
+        <button onclick="showLogin()">Log In</button>
+        <button class="secondary" onclick="showSignup()">Sign Up</button>
+      </div>
+
+      <!-- Sign Up Form -->
+      <div id="signupForm">
+        <h2>Create Your Account</h2>
+        <form onsubmit="handleSignup(event)">
+          <div class="row">
+            <div>
+              <label for="name">Full Name *</label>
+              <input type="text" id="name" name="name" placeholder="Your full name" required />
+            </div>
+            <div>
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="password">Password *</label>
+              <input type="password" id="password" name="password" placeholder="••••••••" required />
+            </div>
+            <div>
+              <label for="phone">Phone Number</label>
+              <input type="tel" id="phone" name="phone" placeholder="+60 123 456 789" />
+            </div>
+          </div>
+          <button type="submit" style="margin-top: 24px;">Create Account</button>
+        </form>
+        <p style="text-align: center; margin-top: 16px; font-size: 14px; color: #666;">
+          Already have an account? <a href="#" onclick="showLogin(); return false;" style="color: #111; font-weight: 600;">Log In</a>
+        </p>
+      </div>
+
+      <!-- Login Form -->
+      <div id="loginForm" class="hidden">
+        <h2>Welcome Back</h2>
+        <form onsubmit="handleLogin(event)">
+          <div>
+            <label for="loginEmail">Email Address *</label>
+            <input type="email" id="loginEmail" name="email" placeholder="you@example.com" required />
+          </div>
+          <div style="margin-top: 16px;">
+            <label for="loginPassword">Password *</label>
+            <input type="password" id="loginPassword" name="password" placeholder="••••••••" required />
+          </div>
+          <button type="submit" style="margin-top: 24px;">Log In</button>
+        </form>
+        <p style="text-align: center; margin-top: 16px; font-size: 14px; color: #666;">
+          Don't have an account? <a href="#" onclick="showSignup(); return false;" style="color: #111; font-weight: 600;">Sign Up</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- Account Dashboard -->
+    <section id="accountSection" class="card hidden">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+        <h2>My Account</h2>
+        <button class="secondary" onclick="logout()">Logout</button>
+      </div>
+      
+      <div class="user-welcome">
+        <h3>🎉 Welcome to Reweave!</h3>
+        <p>Your account is now active and ready to use.</p>
+      </div>
+
+      <div class="user-info">
+        <p><strong>Name:</strong> <span id="userNameDisplay"></span></p>
+        <p><strong>Email:</strong> <span id="userEmailDisplay"></span></p>
+        <p><strong>Phone:</strong> <span id="userPhoneDisplay">Not provided</span></p>
+      </div>
+
+      <div style="background: #e8f5e8; padding: 20px; border-radius: 12px; margin: 20px 0;">
+        <h4>✨ Account Benefits</h4>
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>Save your favorite products</li>
+          <li>Track your orders and shipments</li>
+          <li>Receive exclusive member offers</li>
+          <li>Early access to new collections</li>
+        </ul>
+      </div>
+
+      <div style="background: #fff3cd; padding: 20px; border-radius: 12px; margin: 20px 0;">
+        <h4>🚀 Coming Soon</h4>
+        <p>We're working on adding more features:</p>
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>Order history tracking</li>
+          <li>Address book management</li>
+          <li>Payment method storage</li>
+          <li>Loyalty points system</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // Client-side authentication system
+    let currentUser = null;
+
+    function showMessage(text, type = 'success') {
+      const messageDiv = document.getElementById('message');
+      const className = type === 'success' ? 'success-message' : 'error-message';
+      messageDiv.innerHTML = `<div class="${className}">${text}</div>`;
+      setTimeout(() => { messageDiv.innerHTML = ''; }, 4000);
+    }
+
+    function showSignup() {
+      document.getElementById('signupForm').classList.remove('hidden');
+      document.getElementById('loginForm').classList.add('hidden');
+    }
+
+    function showLogin() {
+      document.getElementById('loginForm').classList.remove('hidden');
+      document.getElementById('signupForm').classList.add('hidden');
+    }
+
+    function createUserAccount(name, email, password, phone) {
+      const user = {
+        userId: 'user_' + Math.random().toString(36).substr(2, 9),
+        name: name,
+        email: email,
+        phone: phone || '',
+        createdAt: new Date().toISOString(),
+        token: 'token_' + Math.random().toString(36).substr(2, 9)
+      };
+      
+      localStorage.setItem('reweave_user', JSON.stringify(user));
+      return user;
+    }
+
+    function showAccountView(user) {
+      document.getElementById('authSection').classList.add('hidden');
+      document.getElementById('accountSection').classList.remove('hidden');
+      
+      document.getElementById('userNameDisplay').textContent = user.name;
+      document.getElementById('userEmailDisplay').textContent = user.email;
+      document.getElementById('userPhoneDisplay').textContent = user.phone || 'Not provided';
+    }
+
+    function logout() {
+      currentUser = null;
+      localStorage.removeItem('reweave_user');
+      showMessage('Logged out successfully');
+      
+      document.getElementById('accountSection').classList.add('hidden');
+      document.getElementById('authSection').classList.remove('hidden');
+      showSignup();
+      
+      // Clear forms
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('password').value = '';
+      document.getElementById('phone').value = '';
+      document.getElementById('loginEmail').value = '';
+      document.getElementById('loginPassword').value = '';
+    }
+
+    function handleSignup(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+      const phone = document.getElementById('phone').value.trim();
+      
+      if (!name || !email || !password) {
+        showMessage('Please fill in all required fields', 'error');
+        return;
+      }
+      
+      // Validate email format
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showMessage('Please enter a valid email address', 'error');
+        return;
+      }
+      
+      // Validate password length
+      if (password.length < 6) {
+        showMessage('Password must be at least 6 characters long', 'error');
+        return;
+      }
+      
+      // Create account
+      currentUser = createUserAccount(name, email, password, phone);
+      showAccountView(currentUser);
+      showMessage('Account created successfully! Welcome to Reweave!');
+      
+      // Clear form
+      event.target.reset();
+    }
+
+    function handleLogin(event) {
+      event.preventDefault();
+      
+      const email = document.getElementById('loginEmail').value.trim();
+      const password = document.getElementById('loginPassword').value;
+      
+      if (!email || !password) {
+        showMessage('Please enter email and password', 'error');
+        return;
+      }
+      
+      // For demo purposes, create a user from the login info
+      const name = email.split('@')[0];
+      currentUser = createUserAccount(name, email, password, '');
+      showAccountView(currentUser);
+      showMessage('Logged in successfully!');
+      
+      // Clear form
+      event.target.reset();
+    }
+
+    function checkExistingSession() {
+      const savedUser = localStorage.getItem('reweave_user');
+      if (savedUser) {
+        try {
+          currentUser = JSON.parse(savedUser);
+          showAccountView(currentUser);
+          showMessage('Welcome back!');
+        } catch (e) {
+          localStorage.removeItem('reweave_user');
+        }
+      }
+    }
+
+    // Initialize the page
+    document.addEventListener('DOMContentLoaded', function() {
+      checkExistingSession();
+      showSignup(); // Default to signup view
+    });
+  </script>
+</body>
+</html>

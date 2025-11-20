@@ -283,7 +283,7 @@
                 </button>
             </div>
             <div class="logo-center">
-                <a href="../../index.html">REWEAVE</a>
+            <a href="/onepage.html">REWEAVE</a>
             </div>
             <div class="header-right">
                 <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
@@ -621,108 +621,176 @@
     </footer>
     
     <script>
-        // Product Detail Page Specific JavaScript
+        // Product Detail Page: load by SKU and wire cart
         document.addEventListener('DOMContentLoaded', function() {
-            // Thumbnail image click handler
-            const thumbnails = document.querySelectorAll('.thumbnail');
-            const mainImage = document.querySelector('.main-image');
-            
-            thumbnails.forEach(thumbnail => {
-                thumbnail.addEventListener('click', function() {
-                    // Update main image
-                    mainImage.src = this.src;
-                    
-                    // Update active thumbnail
-                    thumbnails.forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                });
-            });
-            
-            // Size selection
-            const sizeOptions = document.querySelectorAll('.size-option');
-            sizeOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    sizeOptions.forEach(o => o.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
-            
-            // Color selection
-            const colorOptions = document.querySelectorAll('.color-option');
-            colorOptions.forEach(option => {
-                option.addEventListener('click', function() {
-                    colorOptions.forEach(o => o.classList.remove('selected'));
-                    this.classList.add('selected');
-                });
-            });
-            
-            // Quantity selector
-            const quantityInput = document.querySelector('.quantity-input');
-            const decreaseBtn = document.querySelector('.decrease');
-            const increaseBtn = document.querySelector('.increase');
-            
-            decreaseBtn.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                if (value > 1) {
-                    quantityInput.value = value - 1;
-                }
-            });
-            
-            increaseBtn.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                if (value < 10) {
-                    quantityInput.value = value + 1;
-                }
-            });
-            
-            // Tab functionality
-            const tabButtons = document.querySelectorAll('.tab-btn');
-            const tabPanes = document.querySelectorAll('.tab-pane');
-            
-            tabButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const tabId = this.getAttribute('data-tab');
-                    
-                    // Update active tab button
-                    tabButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    // Show selected tab content
-                    tabPanes.forEach(pane => pane.classList.remove('active'));
-                    document.getElementById(tabId).classList.add('active');
-                });
-            });
-            
-            // Try On button
-            const tryOnBtn = document.querySelector('.try-on-btn');
-            tryOnBtn.addEventListener('click', function() {
-                window.location.href = '../tryon/index.html';
-            });
-            
-            // Add to Cart functionality wired to localStorage cart
-            const addToCartBtn = document.querySelector('.add-to-cart');
-            addToCartBtn.addEventListener('click', function() {
-                const name = document.querySelector('.product-title').textContent.trim();
-                const priceText = document.querySelector('.product-price').textContent.trim();
-                const price = parseFloat(priceText.replace(/[^0-9.]/g, '')) || 0;
-                const size = document.querySelector('.size-option.selected').textContent.trim();
-                const color = document.querySelector('.color-option.selected').getAttribute('title');
-                const qty = parseInt(document.querySelector('.quantity-input').value, 10) || 1;
-                const image = document.querySelector('.main-image').src;
-                const options = `Color: ${color} • Size: ${size}`;
-                const item = { id: 'dress-001', name, price, qty, image, options, addon: false };
-                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-                const existing = cart.find(i => i.id === item.id && i.options === item.options);
-                if (existing) existing.qty += qty; else cart.push(item);
-                localStorage.setItem('cart', JSON.stringify(cart));
-                window.location.href = '../cart/index.html';
-            });
+            const API_BASE = 'http://localhost:3001/api';
+            const params = new URLSearchParams(window.location.search);
+            const sku = params.get('sku');
+            const legacyId = params.get('id');
 
-            // Navigate to Configure page
+            const mainImage = document.querySelector('.main-image');
+            const thumbnailsWrap = document.querySelector('.image-thumbnails');
+            const titleEl = document.querySelector('.product-title');
+            const priceEl = document.querySelector('.product-price');
+            const descEl = document.querySelector('.product-description');
+            const breadcrumbLast = document.querySelector('.breadcrumb li:last-child');
+            const qtyInput = document.querySelector('.quantity-input');
+            const addBtn = document.querySelector('.add-to-cart');
             const customizeBtn = document.querySelector('.customize-btn');
-            customizeBtn.addEventListener('click', function() {
-                window.location.href = 'configure.html';
-            });
+
+            function formatMYR(n) { return `RM ${Number(n || 0).toFixed(2)}`; }
+            function getCart() { try { return JSON.parse(localStorage.getItem('cart')||'[]'); } catch(e) { return []; } }
+            function setCart(c) { localStorage.setItem('cart', JSON.stringify(c)); }
+            function updateCartCount() {
+                const cart = getCart();
+                const count = cart.reduce((sum, i) => sum + (i.qty || 1), 0);
+                const el = document.querySelector('.cart-count');
+                if (el) el.textContent = count;
+            }
+
+            function renderImages(images) {
+                const imgs = Array.isArray(images) && images.length ? images : ['https://via.placeholder.com/900x900?text=Reweave'];
+                mainImage.src = imgs[0];
+                thumbnailsWrap.innerHTML = imgs.map((src, idx) => `<img src="${src}" alt="Image ${idx+1}" class="thumbnail ${idx===0?'active':''}">`).join('');
+                const thumbnails = thumbnailsWrap.querySelectorAll('.thumbnail');
+                thumbnails.forEach(thumb => {
+                    thumb.addEventListener('click', function() {
+                        mainImage.src = this.src;
+                        thumbnails.forEach(t => t.classList.remove('active'));
+                        this.classList.add('active');
+                    });
+                });
+            }
+
+            function wireTabs() {
+                const tabButtons = document.querySelectorAll('.tab-btn');
+                const tabPanes = document.querySelectorAll('.tab-pane');
+                tabButtons.forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const tabId = this.getAttribute('data-tab');
+                        tabButtons.forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        tabPanes.forEach(p => p.classList.remove('active'));
+                        document.getElementById(tabId).classList.add('active');
+                    });
+                });
+            }
+
+            function wireQuantity() {
+                const decreaseBtn = document.querySelector('.decrease');
+                const increaseBtn = document.querySelector('.increase');
+                decreaseBtn.addEventListener('click', function() {
+                    const v = parseInt(qtyInput.value || '1', 10);
+                    qtyInput.value = Math.max(1, v - 1);
+                });
+                increaseBtn.addEventListener('click', function() {
+                    const v = parseInt(qtyInput.value || '1', 10);
+                    qtyInput.value = Math.min(10, v + 1);
+                });
+            }
+
+            function loadBySku(sku) {
+                // 1) Get variant/inventory by SKU -> productId
+                fetch(`${API_BASE}/inventory/${encodeURIComponent(sku)}`)
+                  .then(r => r.json())
+                  .then(invResp => {
+                    if (!invResp.ok || !invResp.inventory) throw new Error('not_found');
+                    const inv = invResp.inventory;
+                    // 2) Get product by productId
+                    return fetch(`${API_BASE}/products/${encodeURIComponent(inv.productId)}`).then(r => r.json()).then(prodResp => ({ inv, prodResp }));
+                  })
+                  .then(({ inv, prodResp }) => {
+                    const p = prodResp.product || prodResp.products || prodResp;
+                    titleEl.textContent = p.title || p.name || 'Product';
+                    priceEl.textContent = formatMYR(inv.price || (p.price || 0));
+                    descEl.innerHTML = `<p>${(p.description || '').trim()}</p>`;
+                    if (breadcrumbLast) breadcrumbLast.textContent = (p.title || p.name || sku);
+                    renderImages(p.images || []);
+                    updateCartCount();
+                    addBtn.addEventListener('click', function() {
+                        const cart = getCart();
+                        const qty = parseInt(qtyInput.value || '1', 10);
+                        const optionsArr = [];
+                        const opt = inv.options || {};
+                        Object.entries(opt).forEach(([k,v]) => optionsArr.push(`${k}: ${v}`));
+                        const item = {
+                            id: inv.sku,
+                            name: (p.title || p.name || 'Product'),
+                            price: Number(inv.price || 0),
+                            qty,
+                            image: mainImage.src,
+                            options: optionsArr.join(' • '),
+                            addon: false
+                        };
+                        const existing = cart.find(i => i.id === item.id && i.options === item.options);
+                        if (existing) existing.qty += qty; else cart.push(item);
+                        setCart(cart);
+                        updateCartCount();
+                        window.location.href = '../cart/index.html';
+                    });
+                    customizeBtn.addEventListener('click', function() {
+                        // Pass product id for preselection
+                        const pid = p.id || p.productId || '';
+                        window.location.href = `configure.html?productId=${encodeURIComponent(pid)}`;
+                    });
+                  })
+                  .catch(err => {
+                    console.error('Failed to load SKU', err);
+                    titleEl.textContent = 'Not Found';
+                    priceEl.textContent = formatMYR(0);
+                    descEl.innerHTML = '<p>We couldn\'t find this item. Please go back to the shop.</p>';
+                    renderImages([]);
+                  });
+            }
+
+            function loadById(id) {
+                fetch(`${API_BASE}/products/${encodeURIComponent(id)}`)
+                  .then(r => r.json())
+                  .then(resp => {
+                    const p = resp.product || resp.products || resp;
+                    titleEl.textContent = p.title || p.name || 'Product';
+                    const v0 = (p.variants || [])[0];
+                    priceEl.textContent = formatMYR((v0 && v0.price) || p.price || 0);
+                    descEl.innerHTML = `<p>${(p.description || '').trim()}</p>`;
+                    if (breadcrumbLast) breadcrumbLast.textContent = (p.title || p.name || id);
+                    renderImages(p.images || []);
+                    updateCartCount();
+                    addBtn.addEventListener('click', function() {
+                        const cart = getCart();
+                        const qty = parseInt(qtyInput.value || '1', 10);
+                        const item = {
+                            id: (v0 && v0.sku) || id,
+                            name: (p.title || p.name || 'Product'),
+                            price: Number((v0 && v0.price) || p.price || 0),
+                            qty,
+                            image: mainImage.src,
+                            options: '',
+                            addon: false
+                        };
+                        const existing = cart.find(i => i.id === item.id && i.options === item.options);
+                        if (existing) existing.qty += qty; else cart.push(item);
+                        setCart(cart);
+                        updateCartCount();
+                        window.location.href = '../cart/index.html';
+                    });
+                    customizeBtn.addEventListener('click', function() {
+                        const pid = p.id || id;
+                        window.location.href = `configure.html?productId=${encodeURIComponent(pid)}`;
+                    });
+                  })
+                  .catch(err => {
+                    console.error('Failed to load product id', err);
+                    titleEl.textContent = 'Not Found';
+                    priceEl.textContent = formatMYR(0);
+                    descEl.innerHTML = '<p>We couldn\'t find this item. Please go back to the shop.</p>';
+                    renderImages([]);
+                  });
+            }
+
+            // Kick off
+            wireTabs();
+            wireQuantity();
+            if (sku) loadBySku(sku); else if (legacyId) loadById(legacyId); else loadById('luxe-mini');
         });
     </script>
 <script src="../../script.js"></script>

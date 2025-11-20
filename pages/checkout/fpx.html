@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FPX Checkout • Reweave</title>
+  <link rel="stylesheet" href="../../css/styles.css" />
+  <style>
+    .container { max-width: 900px; margin: 0 auto; padding: 24px; }
+    .checkout-card { border:1px solid var(--border-gray); border-radius:14px; padding:16px; background:#fff; }
+    .bank-grid { display:grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap:12px; }
+    .bank { border:1px solid var(--border-gray); border-radius:10px; padding:10px; cursor:pointer; }
+    .bank[aria-selected="true"] { border-color: var(--primary-black); }
+    .summary { margin-top: 16px; font-size: 14px; color: var(--text-gray); }
+    .actions { display:flex; gap:12px; margin-top: 16px; }
+  </style>
+</head>
+<body>
+  <header class="luxury-header">
+    <div class="header-container">
+      <div class="logo-center"><a href="/onepage.html">REWEAVE</a></div>
+      <div class="header-right">
+        <button class="utility-btn cart-btn" aria-label="Cart" onclick="window.location.href='../cart/index.html'"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <h1 class="page-title">FPX Bank Transfer</h1>
+    <p class="subtext">Select your bank to proceed. This is a placeholder flow for FPX integration. We can wire to Billplz/iPay88/MOLPay based on your provider.</p>
+
+    <section class="checkout-card">
+      <div id="orderInfo" style="margin-bottom:12px;"></div>
+      <div class="bank-grid" id="bankGrid" role="listbox" aria-label="Banks">
+        <button class="bank" data-bank="Maybank" aria-selected="false">Maybank</button>
+        <button class="bank" data-bank="CIMB" aria-selected="false">CIMB</button>
+        <button class="bank" data-bank="RHB" aria-selected="false">RHB</button>
+        <button class="bank" data-bank="Public Bank" aria-selected="false">Public Bank</button>
+        <button class="bank" data-bank="Hong Leong" aria-selected="false">Hong Leong</button>
+        <button class="bank" data-bank="Bank Islam" aria-selected="false">Bank Islam</button>
+      </div>
+      <div class="summary">You will be redirected to a secure FPX page to complete payment. For production, we’ll attach order id, callback URLs, and signature.</div>
+      <div class="actions">
+        <button class="btn" id="proceedBtn">Proceed</button>
+        <button class="btn btn-outline" onclick="history.back()">Back</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="luxury-footer">
+    <div class="container" style="text-align:center;">
+      <div class="footer-brand" style="margin-bottom:8px;">REWEAVE</div>
+      <p class="subtext">FPX, Visa, Mastercard • 30‑day returns • Support: +65 6123 4567</p>
+    </div>
+  </footer>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <script>
+    function formatMYR(n) { return `RM ${Number(n).toFixed(2)}`; }
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const badge = document.querySelector('.cart-count');
+      if (badge) badge.textContent = String(count);
+    }
+    updateCartCount();
+
+    const params = new URLSearchParams(location.search);
+    const id = params.get('id');
+    const name = params.get('name');
+    const price = Number(params.get('price') || 0);
+    const variant = params.get('variant');
+    document.getElementById('orderInfo').textContent = `${name} • ${variant} • ${formatMYR(price)}`;
+
+    document.querySelectorAll('.bank').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.bank').forEach(b => b.setAttribute('aria-selected', 'false'));
+        btn.setAttribute('aria-selected', 'true');
+      });
+    });
+
+    document.getElementById('proceedBtn').addEventListener('click', () => {
+      const bank = document.querySelector('.bank[aria-selected="true"]')?.getAttribute('data-bank');
+      if (!bank) { alert('Please select a bank'); return; }
+      // Placeholder redirect
+      alert(`Redirecting to FPX for ${bank}... (placeholder)`);
+      // In production, replace with provider redirect and signed params
+    });
+  </script>
+  <script src="../../js/main.js"></script>
+</body>
+</html>

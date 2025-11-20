@@ -1,0 +1,1000 @@
+[
+  {
+    "id": "evt_1763395781728",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763395781728,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396029746",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396029746,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396031077",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396031077,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396034715",
+    "type": "cookie_accept",
+    "payload": {},
+    "ts": 1763396034715,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396042496",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396042496,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396051085",
+    "type": "lead_modal_open",
+    "payload": {
+      "source": "return_visitor"
+    },
+    "ts": 1763396051085,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396157302",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396157302,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396484940",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396484940,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396504955",
+    "type": "lead_modal_open",
+    "payload": {
+      "source": "return_visitor"
+    },
+    "ts": 1763396504955,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396509176",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396509176,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396543567",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396543567,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763396544262",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763396544262,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397002643",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397002643,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397003933",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397003933,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397013511",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397013511,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397015275",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397015275,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397018427",
+    "type": "sticky_show",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "variant": "Indigo",
+      "price": 149
+    },
+    "ts": 1763397018427,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397018429",
+    "type": "swatch_change",
+    "payload": {
+      "id": "pickle-tote",
+      "color": "Indigo"
+    },
+    "ts": 1763397018429,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397018431",
+    "type": "sticky_show",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "variant": "Indigo",
+      "price": 149
+    },
+    "ts": 1763397018431,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397019079",
+    "type": "sticky_show",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "variant": "Matte Black",
+      "price": 149
+    },
+    "ts": 1763397019079,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397019081",
+    "type": "swatch_change",
+    "payload": {
+      "id": "pickle-tote",
+      "color": "Matte Black"
+    },
+    "ts": 1763397019081,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397019083",
+    "type": "sticky_show",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "variant": "Matte Black",
+      "price": 149
+    },
+    "ts": 1763397019083,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397020321",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Olive",
+      "price": 129
+    },
+    "ts": 1763397020321,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397020323",
+    "type": "swatch_change",
+    "payload": {
+      "id": "luxe-mini",
+      "color": "Olive"
+    },
+    "ts": 1763397020323,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397020325",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Olive",
+      "price": 129
+    },
+    "ts": 1763397020325,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397021616",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Matte Black",
+      "price": 129
+    },
+    "ts": 1763397021616,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397021618",
+    "type": "swatch_change",
+    "payload": {
+      "id": "luxe-mini",
+      "color": "Matte Black"
+    },
+    "ts": 1763397021618,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397021620",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Matte Black",
+      "price": 129
+    },
+    "ts": 1763397021620,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397022198",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Matte Black",
+      "price": 119
+    },
+    "ts": 1763397022198,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397022200",
+    "type": "material_change",
+    "payload": {
+      "id": "luxe-mini",
+      "material": "Batik/Cotton",
+      "price": 119
+    },
+    "ts": 1763397022200,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397022201",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Matte Black",
+      "price": 119
+    },
+    "ts": 1763397022201,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397023162",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397023162,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397023164",
+    "type": "material_change",
+    "payload": {
+      "id": "luxe-petite",
+      "material": "Batik/Cotton",
+      "price": 119
+    },
+    "ts": 1763397023164,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397023165",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397023165,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397024018",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Matte Black",
+      "price": 119
+    },
+    "ts": 1763397024018,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397024021",
+    "type": "swatch_change",
+    "payload": {
+      "id": "luxe-petite",
+      "color": "Matte Black"
+    },
+    "ts": 1763397024021,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397024023",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Matte Black",
+      "price": 119
+    },
+    "ts": 1763397024023,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397024553",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Indigo",
+      "price": 119
+    },
+    "ts": 1763397024553,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397024556",
+    "type": "swatch_change",
+    "payload": {
+      "id": "luxe-petite",
+      "color": "Indigo"
+    },
+    "ts": 1763397024556,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397024558",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Indigo",
+      "price": 119
+    },
+    "ts": 1763397024558,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397033524",
+    "type": "lead_modal_open",
+    "payload": {
+      "source": "return_visitor"
+    },
+    "ts": 1763397033524,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397056053",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397056053,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397058374",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Olive",
+      "price": 129
+    },
+    "ts": 1763397058374,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397058376",
+    "type": "swatch_change",
+    "payload": {
+      "id": "luxe-mini",
+      "color": "Olive"
+    },
+    "ts": 1763397058376,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397058378",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Olive",
+      "price": 129
+    },
+    "ts": 1763397058378,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397058924",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Matte Black",
+      "price": 129
+    },
+    "ts": 1763397058924,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397058927",
+    "type": "swatch_change",
+    "payload": {
+      "id": "luxe-mini",
+      "color": "Matte Black"
+    },
+    "ts": 1763397058927,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397058930",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Songket \u2022 Matte Black",
+      "price": 129
+    },
+    "ts": 1763397058930,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397059658",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Matte Black",
+      "price": 119
+    },
+    "ts": 1763397059658,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397059661",
+    "type": "material_change",
+    "payload": {
+      "id": "luxe-mini",
+      "material": "Batik/Cotton",
+      "price": 119
+    },
+    "ts": 1763397059661,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397059663",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Matte Black",
+      "price": 119
+    },
+    "ts": 1763397059663,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397332959",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397332959,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397339067",
+    "type": "add_to_cart",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "price": 149,
+      "options": "Color: Deep Plum"
+    },
+    "ts": 1763397339067,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397339070",
+    "type": "sticky_show",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "variant": "Deep Plum",
+      "price": 149
+    },
+    "ts": 1763397339070,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397339072",
+    "type": "add_to_cart_click",
+    "payload": {
+      "id": "pickle-tote"
+    },
+    "ts": 1763397339072,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397339074",
+    "type": "sticky_show",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "variant": "Deep Plum",
+      "price": 149
+    },
+    "ts": 1763397339074,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397342180",
+    "type": "add_to_cart",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "price": 149,
+      "options": "Color: Deep Plum"
+    },
+    "ts": 1763397342180,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397342183",
+    "type": "checkout_initiate",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "price": 149,
+      "variant": "Deep Plum"
+    },
+    "ts": 1763397342183,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397348943",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397348943,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397469492",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397469492,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397475622",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397475622,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397479756",
+    "type": "add_to_cart",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "price": 149,
+      "options": "Color: Deep Plum"
+    },
+    "ts": 1763397479756,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397479759",
+    "type": "buy_now_click",
+    "payload": {
+      "id": "pickle-tote"
+    },
+    "ts": 1763397479759,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397479761",
+    "type": "sticky_show",
+    "payload": {
+      "id": "pickle-tote",
+      "name": "Reweave Pickleball Tote",
+      "variant": "Deep Plum",
+      "price": 149
+    },
+    "ts": 1763397479761,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397486883",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397486883,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397489505",
+    "type": "lead_modal_open",
+    "payload": {
+      "source": "return_visitor"
+    },
+    "ts": 1763397489505,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397502590",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397502590,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397515952",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397515952,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397522302",
+    "type": "add_to_cart",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "price": 129,
+      "options": "Material: Songket \u2022 Color: Deep Plum"
+    },
+    "ts": 1763397522302,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397522310",
+    "type": "buy_now_click",
+    "payload": {
+      "id": "luxe-petite"
+    },
+    "ts": 1763397522310,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397525200",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397525200,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397528082",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397528082,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397528084",
+    "type": "material_change",
+    "payload": {
+      "id": "luxe-petite",
+      "material": "Batik/Cotton",
+      "price": 119
+    },
+    "ts": 1763397528084,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397528085",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397528085,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397528890",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Songket \u2022 Deep Plum",
+      "price": 129
+    },
+    "ts": 1763397528890,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397528896",
+    "type": "material_change",
+    "payload": {
+      "id": "luxe-petite",
+      "material": "Songket",
+      "price": 129
+    },
+    "ts": 1763397528896,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397528910",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-petite",
+      "name": "Reweave Luxe Petite",
+      "variant": "Songket \u2022 Deep Plum",
+      "price": 129
+    },
+    "ts": 1763397528910,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397598953",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397598953,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397610775",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397610775,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397615118",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397615118,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397615126",
+    "type": "material_change",
+    "payload": {
+      "id": "luxe-mini",
+      "material": "Batik/Cotton",
+      "price": 119
+    },
+    "ts": 1763397615126,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397615130",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397615130,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397616396",
+    "type": "add_to_cart",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "price": 119,
+      "options": "Material: Batik/Cotton \u2022 Color: Deep Plum"
+    },
+    "ts": 1763397616396,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397616399",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397616399,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397616402",
+    "type": "add_to_cart_click",
+    "payload": {
+      "id": "luxe-mini"
+    },
+    "ts": 1763397616402,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397616404",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397616404,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397618602",
+    "type": "add_to_cart",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "price": 119,
+      "options": "Material: Batik/Cotton \u2022 Color: Deep Plum"
+    },
+    "ts": 1763397618602,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397618604",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397618604,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397618606",
+    "type": "add_to_cart_click",
+    "payload": {
+      "id": "luxe-mini"
+    },
+    "ts": 1763397618606,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397618608",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397618608,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Trae/1.104.3 Chrome/138.0.7204.251 Electron/37.6.1 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397625087",
+    "type": "page_view",
+    "payload": {
+      "page": "onepage"
+    },
+    "ts": 1763397625087,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397628609",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397628609,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397628612",
+    "type": "material_change",
+    "payload": {
+      "id": "luxe-mini",
+      "material": "Batik/Cotton",
+      "price": 119
+    },
+    "ts": 1763397628612,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  },
+  {
+    "id": "evt_1763397628616",
+    "type": "sticky_show",
+    "payload": {
+      "id": "luxe-mini",
+      "name": "Reweave Luxe Mini",
+      "variant": "Batik/Cotton \u2022 Deep Plum",
+      "price": 119
+    },
+    "ts": 1763397628616,
+    "ua": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36"
+  }
+]

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard – KPIs</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; margin: 2rem; }
+    h1 { margin-bottom: 1rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; background: #fff; }
+    .label { color: #555; font-size: 0.9rem; }
+    .value { font-size: 1.6rem; font-weight: 600; margin-top: 0.25rem; }
+    .section { margin-top: 2rem; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { border: 1px solid #eee; padding: 0.5rem; text-align: left; }
+    th { background: #f9f9f9; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .small { font-size: 0.85rem; color: #666; }
+  </style>
+</head>
+<body>
+  <h1>Admin Dashboard</h1>
+  <p class="small">Key business metrics from orders, leads, events, and wishlist.</p>
+
+  <div id="kpis" class="grid"></div>
+
+  <div class="section">
+    <h2>Last 7 Days</h2>
+    <div class="grid" id="last7"></div>
+  </div>
+
+  <div class="section">
+    <h2>Top Products</h2>
+    <table id="topProducts">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Count (Paid Orders)</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="section">
+    <h2>Recent Orders (latest 10)</h2>
+    <table id="recentOrders">
+      <thead>
+        <tr>
+          <th>Order ID</th>
+          <th>Status</th>
+          <th>Total (MYR)</th>
+          <th>Created</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <script>
+    const API = 'http://localhost:3001';
+
+    async function fetchJSON(url) {
+      const res = await fetch(url, { credentials: 'include' });
+      return res.json();
+    }
+
+    function fmt(n, digits = 2) {
+      return Number(n || 0).toLocaleString(undefined, { minimumFractionDigits: digits, maximumFractionDigits: digits });
+    }
+
+    function renderKPIs(metrics) {
+      const kpis = document.getElementById('kpis');
+      const cards = [
+        { label: 'Revenue (paid)', value: `MYR ${fmt(metrics.revenue.total)}` },
+        { label: 'Paid Orders', value: metrics.orders.paid },
+        { label: 'Pending Payments', value: metrics.orders.pending },
+        { label: 'Failed Payments', value: metrics.orders.failed },
+        { label: 'Avg Order Value', value: `MYR ${fmt(metrics.revenue.aov)}` },
+        { label: 'Total Orders', value: metrics.orders.total },
+        { label: 'Leads', value: metrics.leads.total },
+        { label: 'Events', value: metrics.events.total },
+        { label: 'Wishlist Items', value: metrics.wishlist.items_total },
+        { label: 'Users with Wishlist', value: metrics.wishlist.users_with_wishlist },
+        { label: 'Conversion (paid/leads)', value: `${fmt(metrics.conversion.paid_over_leads, 2)}` },
+      ];
+      kpis.innerHTML = cards.map(c => `
+        <div class="card">
+          <div class="label">${c.label}</div>
+          <div class="value">${c.value}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderLast7(metrics) {
+      const last7 = document.getElementById('last7');
+      const rev = metrics.revenue.last7days || {};
+      const ord = metrics.revenue.orders_last7days || {};
+      const days = Object.keys(rev);
+      last7.innerHTML = days.map(d => `
+        <div class="card">
+          <div class="label">${d}</div>
+          <div class="value">MYR ${fmt(rev[d])}</div>
+          <div class="small">Orders: ${ord[d] || 0}</div>
+        </div>
+      `).join('');
+    }
+
+    function renderTopProducts(metrics) {
+      const tbody = document.querySelector('#topProducts tbody');
+      const rows = (metrics.top_products || []).map(tp => `
+        <tr>
+          <td class="mono">${tp.productId}</td>
+          <td>${tp.count}</td>
+        </tr>
+      `);
+      tbody.innerHTML = rows.join('');
+    }
+
+    async function renderRecentOrders() {
+      const data = await fetchJSON(`${API}/api/orders?all=1`);
+      const orders = (data.orders || []).sort((a, b) => (b.created_at || 0) - (a.created_at || 0)).slice(0, 10);
+      const tbody = document.querySelector('#recentOrders tbody');
+      const rows = orders.map(o => {
+        const dt = o.created_at ? new Date(o.created_at) : null;
+        const ds = dt ? dt.toLocaleString() : '-';
+        return `
+          <tr>
+            <td class="mono">${o.id}</td>
+            <td>${o.status}</td>
+            <td>${fmt(o.total)}</td>
+            <td>${ds}</td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = rows.join('');
+    }
+
+    async function init() {
+      const res = await fetchJSON(`${API}/api/analytics/metrics`);
+      if (!res.ok) {
+        document.body.innerHTML = '<p>Failed to load metrics.</p>';
+        return;
+      }
+      const m = res.metrics;
+      renderKPIs(m);
+      renderLast7(m);
+      renderTopProducts(m);
+      renderRecentOrders();
+    }
+
+    init();
+    // Auto-refresh every 30s
+    setInterval(init, 30000);
+  </script>
+</body>
+</html>
