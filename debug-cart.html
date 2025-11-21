@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart Debug</title>
+</head>
+<body>
+    <h1>Cart Debug Tool</h1>
+    <button onclick="checkCart()">Check Cart Data</button>
+    <button onclick="clearCart()">Clear Cart</button>
+    <pre id="output"></pre>
+    
+    <script>
+        function checkCart() {
+            const cart = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
+            const output = document.getElementById('output');
+            
+            let html = '<h2>Cart Contents:</h2>';
+            html += `<p>Total items: ${cart.length}</p>`;
+            
+            if (cart.length === 0) {
+                html += '<p>Cart is empty</p>';
+            } else {
+                html += '<table border="1" cellpadding="5">';
+                html += '<tr><th>Index</th><th>Name</th><th>Price (raw)</th><th>Price (type)</th><th>Quantity</th><th>All Fields</th></tr>';
+                
+                cart.forEach((item, i) => {
+                    html += `<tr>`;
+                    html += `<td>${i}</td>`;
+                    html += `<td>${item.name || 'N/A'}</td>`;
+                    html += `<td>${item.price !== undefined ? item.price : 'UNDEFINED'}</td>`;
+                    html += `<td>${typeof item.price}</td>`;
+                    html += `<td>${item.quantity || item.qty || 0}</td>`;
+                    html += `<td>${JSON.stringify(item, null, 2)}</td>`;
+                    html += `</tr>`;
+                });
+                
+                html += '</table>';
+                
+                // Calculate totals
+                let subtotal = 0;
+                cart.forEach(item => {
+                    const price = parseFloat(item.price) || 0;
+                    const qty = item.quantity || item.qty || 1;
+                    subtotal += price * qty;
+                });
+                
+                html += `<h3>Calculated Subtotal: RM ${subtotal.toFixed(2)}</h3>`;
+            }
+            
+            output.innerHTML = html;
+            
+            // Also log to console
+            console.log('Cart data:', cart);
+            cart.forEach((item, i) => {
+                console.log(`Item ${i}:`, item);
+            });
+        }
+        
+        function clearCart() {
+            localStorage.removeItem('reweave-cart');
+            alert('Cart cleared!');
+            checkCart();
+        }
+        
+        // Auto-check on load
+        window.onload = checkCart;
+    </script>
+</body>
+</html>
+

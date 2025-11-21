@@ -124,8 +124,10 @@
 
     /* Checkout Form Styles */
     .checkout-form-container {
-      grid-column: 1 / -1;
-      margin-top: 24px;
+      width: 100%;
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding: 0 24px;
       animation: slideDown 0.3s ease-out;
     }
     
@@ -254,7 +256,67 @@
     .form-actions .btn {
       flex: 1;
     }
+
+    /* Upselling Section */
+    .upselling-section {
+      margin-top: 60px;
+      padding: 40px 0;
+      background: #fafafa;
+    }
     
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-black);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .recommended-products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+    
+    .recommended-product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .recommended-product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    
+    .recommended-product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f5f5f5;
+    }
+    
+    .recommended-product-info {
+      padding: 16px;
+    }
+    
+    .recommended-product-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--primary-black);
+      margin-bottom: 8px;
+    }
+    
+    .recommended-product-price {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-black);
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .container { padding: 16px; }
@@ -262,6 +324,14 @@
       .form-card { padding: 20px; }
       .form-actions {
         flex-direction: column;
+      }
+      .recommended-products {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
+      }
+      .upselling-section {
+        margin-top: 40px;
+        padding: 30px 0;
       }
     }
     
@@ -429,93 +499,6 @@
         <!-- Cart items will be populated here -->
       </div>
 
-      <!-- Checkout Form (initially hidden) -->
-      <div class="checkout-form-container" id="checkoutFormContainer" style="display: none;">
-        <div class="form-card">
-          <div class="form-header">
-            <h2>Delivery Information</h2>
-            <button class="close-btn" onclick="closeCheckout()" aria-label="Close checkout form">
-              <i class="fas fa-times"></i>
-            </button>
-          </div>
-          
-          <form id="checkoutForm" onsubmit="handleCheckout(event)">
-            <!-- Contact Information -->
-            <div class="form-section">
-              <h3>Contact Details</h3>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="fullName">Full Name *</label>
-                  <input type="text" id="fullName" name="fullName" required placeholder="John Doe" />
-                </div>
-                <div class="form-group">
-                  <label for="email">Email Address *</label>
-                  <input type="email" id="email" name="email" required placeholder="john@example.com" />
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="phone">Phone Number *</label>
-                  <input type="tel" id="phone" name="phone" required placeholder="+60 12-345-6789" />
-                </div>
-              </div>
-            </div>
-
-            <!-- Shipping Address -->
-            <div class="form-section">
-              <h3>Shipping Address</h3>
-              <div class="form-group">
-                <label for="address">Street Address *</label>
-                <input type="text" id="address" name="address" required placeholder="123 Main Street" />
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="city">City *</label>
-                  <input type="text" id="city" name="city" required placeholder="Kuala Lumpur" />
-                </div>
-                <div class="form-group">
-                  <label for="state">State *</label>
-                  <input type="text" id="state" name="state" required placeholder="Selangor" />
-                </div>
-              </div>
-              <div class="form-row">
-                <div class="form-group">
-                  <label for="postcode">Postal Code *</label>
-                  <input type="text" id="postcode" name="postcode" required placeholder="50000" pattern="[0-9]{5}" />
-                </div>
-                <div class="form-group">
-                  <label for="country">Country *</label>
-                  <select id="country" name="country" required>
-                    <option value="MY" selected>Malaysia</option>
-                    <option value="SG">Singapore</option>
-                    <option value="ID">Indonesia</option>
-                    <option value="TH">Thailand</option>
-                    <option value="PH">Philippines</option>
-                    <option value="VN">Vietnam</option>
-                    <option value="OTHER">Other</option>
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <!-- Delivery Instructions (Optional) -->
-            <div class="form-section">
-              <h3>Delivery Instructions (Optional)</h3>
-              <div class="form-group">
-                <label for="instructions">Special Instructions</label>
-                <textarea id="instructions" name="instructions" rows="3" placeholder="Leave at door, call before delivery, etc."></textarea>
-              </div>
-            </div>
-
-            <!-- Form Actions -->
-            <div class="form-actions">
-              <button type="button" class="btn btn-secondary" onclick="closeCheckout()">Back to Cart</button>
-              <button type="submit" class="btn" id="submitCheckoutBtn">Complete Order</button>
-            </div>
-          </form>
-        </div>
-      </div>
-
       <!-- Summary -->
       <div class="summary">
         <h3>Order Summary</h3>
@@ -556,6 +539,103 @@
           <p style="font-size: 12px; color: var(--text-gray); margin: 0;">
             <i class="fas fa-info-circle"></i> No account needed! Complete your purchase as a guest.
           </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Checkout Form (initially hidden, appears when clicking Proceed to Checkout) -->
+    <div class="checkout-form-container" id="checkoutFormContainer" style="display: none;">
+      <div class="form-card">
+        <div class="form-header">
+          <h2>Delivery Information</h2>
+          <button class="close-btn" onclick="closeCheckout()" aria-label="Close checkout form">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <form id="checkoutForm" onsubmit="handleCheckout(event)">
+          <!-- Contact Information -->
+          <div class="form-section">
+            <h3>Contact Details</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="John Doe" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+60 12-345-6789" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="form-section">
+            <h3>Shipping Address</h3>
+            <div class="form-group">
+              <label for="address">Street Address *</label>
+              <input type="text" id="address" name="address" required placeholder="123 Main Street" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required placeholder="Kuala Lumpur" />
+              </div>
+              <div class="form-group">
+                <label for="state">State *</label>
+                <input type="text" id="state" name="state" required placeholder="Selangor" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="postcode">Postal Code *</label>
+                <input type="text" id="postcode" name="postcode" required placeholder="50000" pattern="[0-9]{5}" />
+              </div>
+              <div class="form-group">
+                <label for="country">Country *</label>
+                <select id="country" name="country" required>
+                  <option value="MY" selected>Malaysia</option>
+                  <option value="SG">Singapore</option>
+                  <option value="ID">Indonesia</option>
+                  <option value="TH">Thailand</option>
+                  <option value="PH">Philippines</option>
+                  <option value="VN">Vietnam</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Instructions (Optional) -->
+          <div class="form-section">
+            <h3>Delivery Instructions (Optional)</h3>
+            <div class="form-group">
+              <label for="instructions">Special Instructions</label>
+              <textarea id="instructions" name="instructions" rows="3" placeholder="Leave at door, call before delivery, etc."></textarea>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeCheckout()">Back to Cart</button>
+            <button type="submit" class="btn" id="submitCheckoutBtn">Complete Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Upselling / Recommended Products Section -->
+    <div class="upselling-section" id="upsellingSection" style="display: none;">
+      <div class="container">
+        <h2 class="section-title">You May Also Like</h2>
+        <div class="recommended-products" id="recommendedProducts">
+          <!-- Recommended products will be loaded here -->
         </div>
       </div>
     </div>
@@ -784,12 +864,95 @@
       if (badge) badge.textContent = String(count);
     }
 
+    // Load recommended products for upselling
+    async function loadRecommendedProducts() {
+      const upsellingSection = document.getElementById('upsellingSection');
+      const recommendedProducts = document.getElementById('recommendedProducts');
+      
+      if (!upsellingSection || !recommendedProducts) return;
+      
+      try {
+        // Get current cart product IDs to exclude them
+        const cartProductIds = cart.map(item => item.productId || item.id).filter(Boolean);
+        
+        // Load Supabase client from shared script
+        const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
+        
+        if (typeof supabase === 'undefined') {
+          console.warn('Supabase not available for recommended products');
+          return;
+        }
+        
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // Fetch products (excluding items already in cart)
+        const { data, error } = await supabaseClient
+          .from('product_variants')
+          .select('id, product_id, variant_name, price, color, image, is_active, products(title, description, category)')
+          .eq('is_active', true)
+          .limit(4);
+        
+        if (error) {
+          console.error('Error loading recommended products:', error);
+          return;
+        }
+        
+        if (!data || data.length === 0) {
+          return;
+        }
+        
+        // Filter out products already in cart and get unique products
+        const uniqueProducts = [];
+        const seenProductIds = new Set();
+        
+        for (const variant of data) {
+          const productId = variant.product_id || variant.id;
+          if (!cartProductIds.includes(productId) && !seenProductIds.has(productId)) {
+            seenProductIds.add(productId);
+            uniqueProducts.push(variant);
+            if (uniqueProducts.length >= 4) break;
+          }
+        }
+        
+        if (uniqueProducts.length === 0) {
+          return;
+        }
+        
+        // Render recommended products
+        recommendedProducts.innerHTML = uniqueProducts.map(variant => {
+          const product = variant.products || {};
+          const price = variant.price ? (typeof variant.price === 'string' ? variant.price : `RM ${variant.price.toFixed(2)}`) : 'RM 0.00';
+          const image = variant.image || 'images/placeholder.png';
+          const name = product.title || variant.variant_name || 'Product';
+          
+          return `
+            <div class="recommended-product-card" onclick="window.location.href='/pages/shop/index.html'">
+              <img src="${image}" alt="${name}" class="recommended-product-image" onerror="this.src='images/placeholder.png'">
+              <div class="recommended-product-info">
+                <div class="recommended-product-name">${name}</div>
+                <div class="recommended-product-price">${price}</div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        // Show upselling section
+        upsellingSection.style.display = 'block';
+      } catch (err) {
+        console.error('Error in loadRecommendedProducts:', err);
+      }
+    }
+
     // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
       initCart();
       
       // Update cart count on page load
       updateCartCount();
+      
+      // Load recommended products after a short delay
+      setTimeout(loadRecommendedProducts, 500);
     });
 
     // Mobile menu functionality
@@ -971,10 +1134,13 @@
     </div>
   </footer>
 
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
   <!-- Shared Scripts -->
   <script src="../../vercel-deployment/shared/script.js"></script>
   
   <!-- AI Chatbot Widget -->
-  <script src="../../vercel-deployment/shared/chatbot.js"></script>
+  <script src="/vercel-deployment/shared/chatbot.js"></script>
 </body>
 </html>

@@ -105,7 +105,7 @@
       border-radius: var(--border-radius-large);
       box-shadow: var(--shadow-heavy);
     }
-    
+
     .products {
       padding: 80px 0;
       background: var(--primary-white);
@@ -270,22 +270,22 @@
 <body>
   <!-- Standardized Header -->
   <!-- Standardized Header Component for Reweave -->
-<header class="header">
-  <div class="header-container">
-    <div class="nav-left">
+  <header class="header">
+    <div class="header-container">
+      <div class="nav-left">
       <button class="nav-btn" title="AI Try-On">AI Try-On</button>
-    </div>
-    
-    <a href="/" class="logo">REWEAVE</a>
-    
-    <div class="nav-right">
+      </div>
+      
+      <a href="/" class="logo">REWEAVE</a>
+      
+      <div class="nav-right">
       <button class="nav-btn cart-btn">
-        <i class="fas fa-shopping-bag"></i>
-        <span class="cart-count" id="cartCount">0</span>
-      </button>
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <!-- Hero Section -->
   <section class="hero">
@@ -340,10 +340,10 @@
 
   <!-- Standardized Footer -->
   <!-- Standardized Footer Component for Reweave -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-brand">REWEAVE</div>
-    <div class="footer-text">
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">REWEAVE</div>
+      <div class="footer-text">
       Sustainable fashion, reimagined. Crafting heritage into modern essentials.
     </div>
     <div class="footer-links">
@@ -357,9 +357,9 @@
       <span class="trust-badge">Visa</span>
       <span class="trust-badge">Mastercard</span>
       <span class="trust-badge">30-day Returns</span>
+      </div>
     </div>
-  </div>
-</footer>
+  </footer>
 
   <!-- JavaScript -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -497,16 +497,16 @@
               console.log('Price field - original:', originalPrice, 'cleaned:', variant.price, 'Type:', typeof variant.price);
             }
             
-            if (!groupedProducts[variant.product_id]) {
-              groupedProducts[variant.product_id] = {
-                id: variant.product_id,
+          if (!groupedProducts[variant.product_id]) {
+            groupedProducts[variant.product_id] = {
+              id: variant.product_id,
                 title: variant.products?.title || 'Product',
                 description: variant.products?.description || '',
                 category: variant.products?.category || '',
-                variants: []
-              };
-            }
-            groupedProducts[variant.product_id].variants.push(variant);
+              variants: []
+            };
+          }
+          groupedProducts[variant.product_id].variants.push(variant);
           } catch (err) {
             console.error('Error processing variant:', variant, err);
           }
@@ -787,16 +787,16 @@
       });
       
       // Add smooth scrolling for anchor links
-      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-          }
-        });
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
       });
-      
+    });
+    
       // Close menu when clicking outside
       document.addEventListener('click', function(e) {
         const mobileMenu = document.getElementById('mobileMenu');
@@ -849,6 +849,6 @@
   </script>
   
   <!-- AI Chatbot Widget -->
-  <script src="vercel-deployment/shared/chatbot.js"></script>
+  <script src="/vercel-deployment/shared/chatbot.js"></script>
 </body>
 </html>

@@ -361,50 +361,40 @@
             </div>
 
             <div style="width:100%;max-width:1200px;margin:0 auto;">
-                <div id="tryon-error" style="display:none;background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:30px;text-align:center;margin-bottom:20px;">
+                <div id="tryon-error" style="display:block;background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:30px;text-align:center;margin-bottom:20px;">
                     <i class="fas fa-exclamation-triangle" style="font-size:3rem;color:#ffc107;margin-bottom:15px;"></i>
-                    <h3 style="margin-bottom:10px;color:#856404;">AI Try-On Service Not Running</h3>
-                    <p style="color:#856404;margin-bottom:20px;">To use the AI Try-On feature, you need to start the Streamlit application.</p>
+                    <h3 style="margin-bottom:10px;color:#856404;">AI Try-On Service</h3>
+                    <p style="color:#856404;margin-bottom:20px;">The AI Try-On feature is currently being set up. Please check back soon!</p>
                     <div style="background:white;border-radius:8px;padding:20px;text-align:left;max-width:600px;margin:0 auto;">
-                        <h4 style="margin-bottom:15px;">Setup Instructions:</h4>
-                        <ol style="line-height:1.8;color:#333;">
-                            <li>Clone the AI Try-On repository:
-                                <pre style="background:#f8f9fa;padding:10px;border-radius:5px;margin-top:5px;overflow-x:auto;font-size:0.9rem;"><code>gh repo clone reweavemy-lab/Reweave-AI-Try-On
-cd Reweave-AI-Try-On</code></pre>
-                            </li>
-                            <li>Install dependencies and run the Streamlit app:
-                                <pre style="background:#f8f9fa;padding:10px;border-radius:5px;margin-top:5px;overflow-x:auto;font-size:0.9rem;"><code>pip install -r requirements.txt
-streamlit run app.py</code></pre>
-                            </li>
-                            <li>The app will be available at <code>http://localhost:8501</code></li>
-                            <li>Refresh this page once the Streamlit app is running</li>
-                        </ol>
+                        <h4 style="margin-bottom:15px;">Coming Soon:</h4>
+                        <p style="color:#333;line-height:1.8;">Our AI Try-On feature will allow you to virtually try on our products using advanced AI technology. This feature will be available shortly.</p>
                     </div>
-                    <a href="http://localhost:8501/" target="_blank" class="btn" style="margin-top:20px;">Try Opening in New Tab</a>
                 </div>
-                <iframe id="ai-tryon-frame" src="http://localhost:8501/" style="width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
-                <div style="text-align:center;margin-top:16px;">
-                    <a href="http://localhost:8501/" target="_blank" class="btn">Open in new tab</a>
-                </div>
+                <!-- Iframe only loads on localhost, stays hidden in production -->
+                <iframe id="ai-tryon-frame" src="about:blank" style="display:none;width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
             </div>
             
             <script>
-                // Check if Streamlit server is running
-                window.addEventListener('load', function() {
+                // Only try to load localhost Streamlit app if we're on localhost
+                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                
+                if (isLocalhost) {
+                    // Only on localhost: try to load the Streamlit app
                     const iframe = document.getElementById('ai-tryon-frame');
                     const errorDiv = document.getElementById('tryon-error');
-                    let hasLoaded = false;
                     
-                    // Set timeout to show error if iframe doesn't load
+                    iframe.src = 'http://localhost:8501/';
+                    iframe.style.display = 'block';
+                    errorDiv.style.display = 'none';
+                    
+                    let hasLoaded = false;
                     let loadTimeout = setTimeout(function() {
                         if (!hasLoaded) {
-                            // Iframe hasn't loaded after 3 seconds, likely connection refused
                             errorDiv.style.display = 'block';
                             iframe.style.display = 'none';
                         }
                     }, 3000);
                     
-                    // Clear timeout and hide error if iframe loads successfully
                     iframe.addEventListener('load', function() {
                         hasLoaded = true;
                         clearTimeout(loadTimeout);
@@ -412,14 +402,14 @@ streamlit run app.py</code></pre>
                         iframe.style.display = 'block';
                     });
                     
-                    // Also handle iframe errors
                     iframe.addEventListener('error', function() {
                         hasLoaded = false;
                         clearTimeout(loadTimeout);
                         errorDiv.style.display = 'block';
                         iframe.style.display = 'none';
                     });
-                });
+                }
+                // For production (reweave.shop): iframe stays hidden with src="about:blank", error message is shown
             </script>
 
             <div class="tryon-layout" style="display:none;">
@@ -859,6 +849,6 @@ streamlit run app.py</code></pre>
     <script src="../../script.js"></script>
     
     <!-- AI Chatbot Widget -->
-    <script src="../../vercel-deployment/shared/chatbot.js"></script>
+    <script src="/vercel-deployment/shared/chatbot.js"></script>
 </body>
 </html>
