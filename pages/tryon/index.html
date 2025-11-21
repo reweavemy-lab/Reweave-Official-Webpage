@@ -368,7 +368,7 @@
                             <i class="fas fa-magic" style="font-size:4rem;margin-bottom:20px;opacity:0.9;"></i>
                             <h2 style="font-size:2rem;margin-bottom:15px;font-weight:600;">AI Try-On Experience</h2>
                             <p style="font-size:1.1rem;margin-bottom:30px;opacity:0.95;">Click to launch our AI-powered virtual try-on</p>
-                            <button class="btn" style="background:white;color:#667eea;padding:15px 40px;font-size:1.1rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:transform 0.2s;">
+                            <button class="btn" style="background:white;color:#667eea;padding:15px 40px;font-size:1.1rem;font-weight:600;border:none;border-radius:8px;cursor:pointer;box-shadow:0 4px 15px rgba(0,0,0,0.2);transition:transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                                 <i class="fas fa-play" style="margin-right:10px;"></i>Launch Try-On
                             </button>
                         </div>
@@ -393,6 +393,11 @@
                     const overlay = document.getElementById('tryon-overlay');
                     const iframe = document.getElementById('tryon-embed-frame');
                     
+                    if (!overlay || !iframe) {
+                        console.error('Overlay or iframe element not found!');
+                        return;
+                    }
+                    
                     // Try to load with embed parameter
                     iframe.src = streamlitUrl + '?embed=true';
                     overlay.style.display = 'block';
@@ -401,48 +406,22 @@
                     document.body.style.overflow = 'hidden';
                     
                     // Close on escape key
-                    document.addEventListener('keydown', function escapeHandler(e) {
+                    const escapeHandler = function(e) {
                         if (e.key === 'Escape') {
                             closeTryOnEmbed();
                             document.removeEventListener('keydown', escapeHandler);
                         }
-                    });
+                    };
+                    document.addEventListener('keydown', escapeHandler);
                 }
                 
                 function closeTryOnEmbed() {
                     const overlay = document.getElementById('tryon-overlay');
                     const iframe = document.getElementById('tryon-embed-frame');
                     
-                    overlay.style.display = 'none';
-                    iframe.src = 'about:blank';
+                    if (overlay) overlay.style.display = 'none';
+                    if (iframe) iframe.src = 'about:blank';
                     document.body.style.overflow = '';
-                }
-                
-                // Also try direct iframe embedding as fallback
-                const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                if (!isLocalhost) {
-                    // Try to create a hidden iframe to test if embedding works
-                    const testIframe = document.createElement('iframe');
-                    testIframe.style.display = 'none';
-                    testIframe.src = streamlitUrl + '?embed=true';
-                    testIframe.onload = function() {
-                        // If iframe loads successfully, replace placeholder with iframe
-                        const placeholder = document.getElementById('embed-placeholder');
-                        const container = document.getElementById('embed-container');
-                        if (placeholder && container) {
-                            placeholder.style.display = 'none';
-                            testIframe.style.display = 'block';
-                            testIframe.style.width = '100%';
-                            testIframe.style.height = '100%';
-                            testIframe.style.border = 'none';
-                            container.appendChild(testIframe);
-                        }
-                    };
-                    testIframe.onerror = function() {
-                        // Iframe failed, keep the click-to-open functionality
-                        console.log('Iframe embedding not supported, using popup overlay');
-                    };
-                    document.body.appendChild(testIframe);
                 }
             </script>
 
