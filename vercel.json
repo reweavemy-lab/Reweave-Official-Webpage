@@ -1,4 +1,6 @@
 {
+  "buildCommand": "echo 'Static site - no build required'",
+  "outputDirectory": ".",
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
     { "source": "/tryon", "destination": "/vercel-deployment/pages/tryon/index.html" },

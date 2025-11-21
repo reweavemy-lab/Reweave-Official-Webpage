@@ -1,0 +1,13 @@
+{
+  "name": "reweave-official-webpage",
+  "version": "1.0.0",
+  "description": "Reweave Official Website - Sustainable Fashion, Reimagined",
+  "scripts": {
+    "build": "echo 'Static site - no build required'",
+    "dev": "echo 'Static site - use local server'"
+  },
+  "keywords": ["fashion", "sustainable", "batik", "songket"],
+  "author": "Reweave",
+  "license": "MIT"
+}
+
