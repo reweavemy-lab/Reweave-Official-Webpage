@@ -376,9 +376,10 @@
             <script>
                 // Determine the correct URL based on environment
                 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                // Use Vercel proxy route /ai/ which rewrites to https://ai.reweave.shop/
-                // This allows us to proxy through Vercel if the Streamlit app is deployed
-                const aiTryOnUrl = isLocalhost ? 'http://localhost:8501/' : '/ai/';
+                // Use localhost for development, Streamlit Cloud URL for production
+                const aiTryOnUrl = isLocalhost 
+                    ? 'http://localhost:8501/' 
+                    : 'https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/';
                 
                 const iframe = document.getElementById('ai-tryon-frame');
                 const errorDiv = document.getElementById('tryon-error');
