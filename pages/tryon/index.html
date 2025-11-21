@@ -363,45 +363,82 @@
             <div style="width:100%;max-width:1200px;margin:0 auto;">
                 <div id="tryon-error" style="display:none;background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:30px;text-align:center;margin-bottom:20px;">
                     <i class="fas fa-exclamation-triangle" style="font-size:3rem;color:#ffc107;margin-bottom:15px;"></i>
-                    <h3 style="margin-bottom:10px;color:#856404;">AI Try-On Service Unavailable</h3>
-                    <p style="color:#856404;margin-bottom:20px;">The AI Try-On feature is currently unavailable. Please check back soon!</p>
-                    <div style="background:white;border-radius:8px;padding:20px;text-align:left;max-width:600px;margin:0 auto;">
-                        <h4 style="margin-bottom:15px;">Troubleshooting:</h4>
-                        <p style="color:#333;line-height:1.8;">If you're seeing this message, the AI Try-On service may be temporarily unavailable. Please try again later or contact support.</p>
+                    <h3 style="margin-bottom:10px;color:#856404;">AI Try-On Service</h3>
+                    <p style="color:#856404;margin-bottom:20px;">Having trouble loading? Click the button below to open AI Try-On in a new window.</p>
+                    <a href="https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/" target="_blank" class="btn" style="display:inline-block;margin-top:15px;">
+                        <i class="fas fa-external-link-alt"></i> Open AI Try-On
+                    </a>
+                </div>
+                <div id="iframe-container" style="position:relative;">
+                    <iframe id="ai-tryon-frame" src="about:blank" style="display:block;width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
+                    <div id="iframe-overlay" style="position:absolute;top:20px;right:20px;">
+                        <a href="https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/" target="_blank" class="btn" style="background:rgba(79,0,237,0.9);color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:14px;">
+                            <i class="fas fa-external-link-alt"></i> Open in New Tab
+                        </a>
                     </div>
                 </div>
-                <iframe id="ai-tryon-frame" src="about:blank" style="display:block;width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
             </div>
             
             <script>
                 // Determine the correct URL based on environment
                 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                // Use localhost for development, Streamlit Cloud URL with embed parameter for production
-                // The ?embed=true parameter is REQUIRED for Streamlit Cloud iframe embedding
+                // Try different embed parameter formats - Streamlit Cloud may require ?embedded=true
+                const streamlitUrl = 'https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/';
                 const aiTryOnUrl = isLocalhost 
                     ? 'http://localhost:8501/' 
-                    : 'https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/?embed=true';
+                    : streamlitUrl + '?embedded=true';
                 
                 const iframe = document.getElementById('ai-tryon-frame');
                 const errorDiv = document.getElementById('tryon-error');
+                const iframeContainer = document.getElementById('iframe-container');
                 
                 // Set iframe source
                 iframe.src = aiTryOnUrl;
                 
                 let hasLoaded = false;
+                let redirectDetected = false;
                 let loadTimeout = setTimeout(function() {
                     if (!hasLoaded) {
-                        // Show error if iframe hasn't loaded after 5 seconds
+                        // If iframe hasn't loaded, show error with link to open in new tab
                         errorDiv.style.display = 'block';
                         iframe.style.display = 'none';
+                        iframeContainer.style.display = 'none';
                     }
-                }, 5000);
+                }, 3000);
                 
+                // Check for redirect loops by monitoring iframe location
                 iframe.addEventListener('load', function() {
-                    hasLoaded = true;
-                    clearTimeout(loadTimeout);
-                    errorDiv.style.display = 'none';
-                    iframe.style.display = 'block';
+                    try {
+                        // Try to access iframe content (will fail if cross-origin, which is expected)
+                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                        hasLoaded = true;
+                        clearTimeout(loadTimeout);
+                        errorDiv.style.display = 'none';
+                        iframe.style.display = 'block';
+                    } catch (e) {
+                        // Cross-origin is expected - check if URL changed (redirect)
+                        try {
+                            const iframeUrl = iframe.contentWindow.location.href;
+                            if (iframeUrl.includes('share.streamlit.io') && iframeUrl !== aiTryOnUrl) {
+                                redirectDetected = true;
+                                // Show error and suggest opening in new tab
+                                errorDiv.style.display = 'block';
+                                iframe.style.display = 'none';
+                                iframeContainer.style.display = 'none';
+                            } else {
+                                hasLoaded = true;
+                                clearTimeout(loadTimeout);
+                                errorDiv.style.display = 'none';
+                                iframe.style.display = 'block';
+                            }
+                        } catch (e2) {
+                            // Can't access iframe URL due to CORS - assume it loaded
+                            hasLoaded = true;
+                            clearTimeout(loadTimeout);
+                            errorDiv.style.display = 'none';
+                            iframe.style.display = 'block';
+                        }
+                    }
                 });
                 
                 iframe.addEventListener('error', function() {
@@ -409,6 +446,7 @@
                     clearTimeout(loadTimeout);
                     errorDiv.style.display = 'block';
                     iframe.style.display = 'none';
+                    iframeContainer.style.display = 'none';
                 });
             </script>
 
