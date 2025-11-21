@@ -8,7 +8,7 @@ let cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 document.addEventListener('DOMContentLoaded', function() {
     initializeHeader();
     updateCartCount();
-    initializeMobileMenu();
+    // initializeMobileMenu(); // Removed - menus no longer used
     initializeSearch();
     initializeCart();
     initializeAnalytics();
@@ -28,21 +28,31 @@ function initializeHeader() {
     
     // Environment-aware navigation targets
     const isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
-    const HOME_URL = isLocal ? '/vercel-deployment/index.html' : '/';
-    const TRYON_URL = isLocal ? '/vercel-deployment/pages/tryon/index.html' : '/tryon';
-    const CART_URL = isLocal ? '/vercel-deployment/pages/cart/index.html' : '/cart';
+    const HOME_URL = isLocal ? '/' : '/';
+    const TRYON_URL = isLocal ? '/pages/tryon/index.html' : '/tryon';
+    const CART_URL = isLocal ? '/pages/cart/index.html' : '/cart';
 
     const logoLink = document.querySelector('a.logo');
     if (logoLink) logoLink.setAttribute('href', HOME_URL);
 
     const tryonBtn = document.querySelector('button[title="AI Try-On"]');
     if (tryonBtn) {
-        tryonBtn.onclick = function(){ window.location.href = TRYON_URL; };
+        // Remove any existing onclick and set new one
+        tryonBtn.removeAttribute('onclick');
+        tryonBtn.onclick = function(e){ 
+            e.preventDefault();
+            window.location.href = TRYON_URL; 
+        };
     }
 
     const cartBtn = document.querySelector('.cart-btn');
     if (cartBtn) {
-        cartBtn.onclick = function(){ window.location.href = CART_URL; };
+        // Remove any existing onclick and set new one
+        cartBtn.removeAttribute('onclick');
+        cartBtn.onclick = function(e){ 
+            e.preventDefault();
+            window.location.href = CART_URL; 
+        };
     }
 
     // Add scroll behavior
@@ -225,35 +235,124 @@ function initializeCart() {
 }
 
 function addToCart(button) {
+    // Handle both button element and string ID
+    if (typeof button === 'string') {
+        // If it's a string ID, find the button element
+        button = document.getElementById(`cart-${button}`) || document.querySelector(`[data-product-id="${button}"]`);
+        if (!button) {
+            console.error('Button not found for ID:', button);
+            showToast('Product button not found', 'error');
+            return;
+        }
+    }
+    
+    // Ensure button is an element
+    if (!button || !button.dataset) {
+        console.error('Invalid button element:', button);
+        showToast('Invalid product button', 'error');
+        return;
+    }
+    
     const productId = button.dataset.productId;
     const productName = button.dataset.productName;
-    const productPrice = parseFloat(button.dataset.productPrice);
+    // Try multiple ways to get the price
+    let productPrice = button.dataset.productPrice;
+    if (!productPrice) {
+        // Try camelCase version
+        productPrice = button.dataset.productprice;
+    }
+    if (!productPrice) {
+        // Try getting attribute directly
+        productPrice = button.getAttribute('data-product-price');
+    }
+    
+    // Clean price - remove "RM " prefix if present and parse
+    if (typeof productPrice === 'string') {
+        productPrice = productPrice.replace(/RM\s*/gi, '').trim();
+    }
+    productPrice = parseFloat(productPrice);
+    
+    // Validate parsed price - ensure it's never NaN
+    if (isNaN(productPrice) || productPrice <= 0) {
+        const rawPrice = button.dataset.productPrice || button.getAttribute('data-product-price');
+        console.error('Invalid price after parsing:', {
+            raw: rawPrice,
+            rawType: typeof rawPrice,
+            parsed: productPrice,
+            button: button,
+            allAttributes: Array.from(button.attributes).map(attr => `${attr.name}="${attr.value}"`)
+        });
+        // Don't add item with invalid price - show error instead
+        showToast('Product price is invalid. Please refresh the page.', 'error');
+        return;
+    }
     const productImage = button.dataset.productImage;
     const variant = button.dataset.variant || 'default';
     
+    console.log('addToCart - Product data:', {
+        productId,
+        productName,
+        rawPrice: button.dataset.productPrice || button.getAttribute('data-product-price'),
+        parsedPrice: productPrice,
+        productImage,
+        variant,
+        allDataset: Object.keys(button.dataset)
+    });
+    
     if (!productId || !productName) {
+        console.error('Missing product data:', { productId, productName, productPrice });
         showToast('Product information missing', 'error');
         return;
+    }
+    
+    if (productPrice === 0 || isNaN(productPrice)) {
+        console.error('Invalid price - Raw:', button.dataset.productPrice, 'Attribute:', button.getAttribute('data-product-price'), 'Parsed:', productPrice);
+        console.error('Button element:', button);
+        console.error('All data attributes:', button.dataset);
+        // Don't block adding to cart, but log the issue
+        console.warn('Adding item with price 0 - this may be a data attribute issue');
     }
     
     // Check if item already exists in cart
     const existingItem = cart.find(item => item.id === productId && item.variant === variant);
     
     if (existingItem) {
-        existingItem.quantity += 1;
+        // Update both quantity fields for compatibility
+        existingItem.quantity = (existingItem.quantity || existingItem.qty || 0) + 1;
+        existingItem.qty = existingItem.quantity;
     } else {
-        cart.push({
+        const cartItem = {
             id: productId,
             name: productName,
-            price: productPrice,
+            price: productPrice,  // Ensure this is a number, not string
             image: productImage,
             variant: variant,
-            quantity: 1
-        });
+            quantity: 1,
+            qty: 1  // Store both for compatibility with cart page
+        };
+        console.log('Adding item to cart:', cartItem);
+        console.log('Price being stored:', productPrice, 'Type:', typeof productPrice);
+        
+        // Warn if price is invalid, but still add the item
+        if (!productPrice || productPrice === 0 || isNaN(productPrice)) {
+            console.error('WARNING: Adding item with invalid price:', productPrice);
+            console.error('Button data:', {
+                dataset: button.dataset,
+                attributes: Array.from(button.attributes).map(attr => ({ name: attr.name, value: attr.value }))
+            });
+            showToast('Warning: Item price may be missing', 'warning');
+        }
+        
+        cart.push(cartItem);
     }
     
     // Save to localStorage
     localStorage.setItem('reweave-cart', JSON.stringify(cart));
+    const savedCart = JSON.parse(localStorage.getItem('reweave-cart'));
+    console.log('Cart saved to localStorage. Items:', savedCart.length);
+    savedCart.forEach((item, i) => {
+        console.log(`  Saved item ${i}:`, { name: item.name, price: item.price, priceType: typeof item.price });
+    });
     
     // Update cart count
     cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);

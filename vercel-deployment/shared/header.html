@@ -2,35 +2,16 @@
 <header class="header">
   <div class="header-container">
     <div class="nav-left">
-      <button class="nav-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i> Menu
-      </button>
-      <button class="nav-btn" onclick="window.location.href='/vercel-deployment/pages/tryon/index.html'" title="AI Try-On">AI Try-On</button>
+      <button class="nav-btn" title="AI Try-On">AI Try-On</button>
     </div>
     
     <a href="/" class="logo">REWEAVE</a>
     
     <div class="nav-right">
-      <button class="nav-btn cart-btn" onclick="window.location.href='/vercel-deployment/pages/cart/index.html'">
+      <button class="nav-btn cart-btn">
         <i class="fas fa-shopping-bag"></i>
         <span class="cart-count" id="cartCount">0</span>
       </button>
     </div>
   </div>
 </header>
-
-<!-- Mobile Menu -->
-  <div class="mobile-menu" id="mobileMenu">
-    <div class="menu-header">
-      <h3>Menu</h3>
-      <button class="nav-btn" onclick="toggleMenu()">
-        <i class="fas fa-times"></i>
-      </button>
-    </div>
-    <div class="menu-section">
-      <div class="menu-title">Navigate</div>
-      <a href="/" class="menu-link">Home</a>
-      <a href="/tryon" class="menu-link">AI Try-On</a>
-      <a href="/cart" class="menu-link">Cart</a>
-  </div>
-  </div>

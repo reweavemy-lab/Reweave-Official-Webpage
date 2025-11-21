@@ -5,7 +5,7 @@
   <link rel="icon" type="image/x-icon" href="../../images/Reweave logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Cart • Reweave</title>
-  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../vercel-deployment/shared/styles.css" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
@@ -122,10 +122,147 @@
       color: var(--primary-black);
     }
 
+    /* Checkout Form Styles */
+    .checkout-form-container {
+      grid-column: 1 / -1;
+      margin-top: 24px;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .form-card {
+      background: var(--primary-white);
+      border: 1px solid var(--border-gray);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-gray);
+    }
+    
+    .form-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--text-gray);
+      cursor: pointer;
+      padding: 4px 8px;
+      transition: color 0.3s ease;
+    }
+    
+    .close-btn:hover {
+      color: var(--primary-black);
+    }
+    
+    .form-section {
+      margin-bottom: 32px;
+    }
+    
+    .form-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin: 0 0 20px;
+      letter-spacing: 1px;
+      color: var(--primary-black);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--primary-black);
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-black);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-gray);
+    }
+    
+    .form-actions .btn {
+      flex: 1;
+    }
+    
     /* Responsive */
     @media (max-width: 768px) {
       .container { padding: 16px; }
       .summary { padding: 20px; }
+      .form-card { padding: 20px; }
+      .form-actions {
+        flex-direction: column;
+      }
     }
     
     /* Header Styles */
@@ -264,58 +401,22 @@
   </style>
 </head>
 <body>
-  <!-- Luxury header (standardized) -->
-  <header class="luxury-header">
+  <!-- Standardized Header Component for Reweave -->
+  <header class="header">
     <div class="header-container">
-      <div class="header-left">
-        <button class="menu-btn" aria-label="Menu" onclick="toggleMenu()"><i class="fas fa-bars"></i><span>Menu</span></button>
+      <div class="nav-left">
+        <button class="nav-btn" title="AI Try-On" onclick="window.location.href='/pages/tryon/index.html'">AI Try-On</button>
       </div>
-    <div class="logo-center"><a href="/">REWEAVE</a></div>
-      <div class="header-right">
-        <button class="utility-btn" aria-label="Account" onclick="window.location.href='../account/index.html'"><i class="fas fa-user"></i></button>
-        <button class="utility-btn cart-btn" aria-label="Cart" onclick="window.location.href='/cart.html'"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+      
+      <a href="/" class="logo">REWEAVE</a>
+      
+      <div class="nav-right">
+        <button class="nav-btn cart-btn">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
       </div>
     </div>
-    <nav class="hidden-nav" id="mobileMenu">
-      <div class="nav-content">
-        <button class="close-nav" aria-label="Close" onclick="toggleMenu()"><i class="fas fa-times"></i><span>Close</span></button>
-        <div class="nav-categories">
-          <div class="nav-section">
-            <h3>New</h3>
-            <ul>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Latest Arrivals</a></li>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Limited Edition</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Bags and Accessories</h3>
-            <ul>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Totes</a></li>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Slings</a></li>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Pouches</a></li>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Wallets</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Collections</h3>
-            <ul>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Reweave Luxe</a></li>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Reweave Pickleball</a></li>
-              <li><a href="../shop/index.html" onclick="toggleMenu()">Batik Series</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Our Story</h3>
-            <ul>
-              <li><a href="../story/index.html" onclick="toggleMenu()">About Us</a></li>
-              <li><a href="../impact/index.html" onclick="toggleMenu()">Impact</a></li>
-              <li><a href="../culture/index.html" onclick="toggleMenu()">Culture</a></li>
-              <li><a href="../journal/index.html" onclick="toggleMenu()">Journal</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
   </header>
 
   <main class="container">
@@ -326,6 +427,93 @@
       <!-- Items list -->
       <div class="items-card" id="cartItems">
         <!-- Cart items will be populated here -->
+      </div>
+
+      <!-- Checkout Form (initially hidden) -->
+      <div class="checkout-form-container" id="checkoutFormContainer" style="display: none;">
+        <div class="form-card">
+          <div class="form-header">
+            <h2>Delivery Information</h2>
+            <button class="close-btn" onclick="closeCheckout()" aria-label="Close checkout form">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <form id="checkoutForm" onsubmit="handleCheckout(event)">
+            <!-- Contact Information -->
+            <div class="form-section">
+              <h3>Contact Details</h3>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="fullName">Full Name *</label>
+                  <input type="text" id="fullName" name="fullName" required placeholder="John Doe" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Email Address *</label>
+                  <input type="email" id="email" name="email" required placeholder="john@example.com" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="phone">Phone Number *</label>
+                  <input type="tel" id="phone" name="phone" required placeholder="+60 12-345-6789" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Shipping Address -->
+            <div class="form-section">
+              <h3>Shipping Address</h3>
+              <div class="form-group">
+                <label for="address">Street Address *</label>
+                <input type="text" id="address" name="address" required placeholder="123 Main Street" />
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">City *</label>
+                  <input type="text" id="city" name="city" required placeholder="Kuala Lumpur" />
+                </div>
+                <div class="form-group">
+                  <label for="state">State *</label>
+                  <input type="text" id="state" name="state" required placeholder="Selangor" />
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="postcode">Postal Code *</label>
+                  <input type="text" id="postcode" name="postcode" required placeholder="50000" pattern="[0-9]{5}" />
+                </div>
+                <div class="form-group">
+                  <label for="country">Country *</label>
+                  <select id="country" name="country" required>
+                    <option value="MY" selected>Malaysia</option>
+                    <option value="SG">Singapore</option>
+                    <option value="ID">Indonesia</option>
+                    <option value="TH">Thailand</option>
+                    <option value="PH">Philippines</option>
+                    <option value="VN">Vietnam</option>
+                    <option value="OTHER">Other</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Delivery Instructions (Optional) -->
+            <div class="form-section">
+              <h3>Delivery Instructions (Optional)</h3>
+              <div class="form-group">
+                <label for="instructions">Special Instructions</label>
+                <textarea id="instructions" name="instructions" rows="3" placeholder="Leave at door, call before delivery, etc."></textarea>
+              </div>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="form-actions">
+              <button type="button" class="btn btn-secondary" onclick="closeCheckout()">Back to Cart</button>
+              <button type="submit" class="btn" id="submitCheckoutBtn">Complete Order</button>
+            </div>
+          </form>
+        </div>
       </div>
 
       <!-- Summary -->
@@ -360,7 +548,7 @@
         </div>
 
         <!-- Checkout buttons -->
-        <a href="../checkout/guest.html" class="btn" id="checkoutBtn">Proceed to Checkout</a>
+        <button class="btn" id="checkoutBtn" onclick="showCheckout()">Proceed to Checkout</button>
         <a href="../shop/index.html" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
 
         <!-- Guest checkout info -->
@@ -386,6 +574,21 @@
       
       cart = JSON.parse(cartData || '[]');
       console.log('Parsed cart data:', cart);
+      
+      // Debug: Log each item's price
+      if (cart.length > 0) {
+        console.log('Cart items with prices:');
+        cart.forEach((item, i) => {
+          console.log(`  Item ${i}:`, {
+            name: item.name,
+            id: item.id,
+            price: item.price,
+            priceType: typeof item.price,
+            allKeys: Object.keys(item),
+            fullItem: item
+          });
+        });
+      }
       
       // If cart is empty, show a message and hide checkout
       if (cart.length === 0) {
@@ -422,6 +625,13 @@
       cartItems.innerHTML = cart.map((item, index) => {
         // Clean price data - remove RM prefix and convert to number
         let price = item.price || 0;
+        console.log(`Cart item ${index}:`, {
+          name: item.name,
+          rawPrice: item.price,
+          priceType: typeof item.price,
+          allFields: Object.keys(item)
+        });
+        
         if (typeof price === 'string') {
           price = price.replace(/RM\s*/g, ''); // Remove RM prefix
           price = parseFloat(price) || 0;
@@ -429,7 +639,12 @@
           price = parseFloat(price) || 0;
         }
         
-        const qty = parseInt(item.qty || 1);
+        if (price === 0 || isNaN(price)) {
+          console.error(`Item ${index} (${item.name}) has invalid price:`, item);
+        }
+        
+        // Support both 'qty' and 'quantity' field names
+        const qty = parseInt(item.qty || item.quantity || 1);
         const itemTotal = price * qty;
         
         return `
@@ -460,9 +675,12 @@
 
     // Update quantity
     function updateQuantity(index, change) {
-      const currentQty = parseInt(cart[index].qty || 1);
+      // Support both 'qty' and 'quantity' field names
+      const currentQty = parseInt(cart[index].qty || cart[index].quantity || 1);
       const newQty = Math.max(1, currentQty + change);
+      // Update both fields for compatibility
       cart[index].qty = newQty;
+      cart[index].quantity = newQty;
       saveCart();
       renderCart();
       updateSummary();
@@ -471,7 +689,9 @@
     // Set quantity directly
     function setQuantity(index, qty) {
       const newQty = Math.max(1, parseInt(qty) || 1);
+      // Update both fields for compatibility
       cart[index].qty = newQty;
+      cart[index].quantity = newQty;
       saveCart();
       renderCart();
       updateSummary();
@@ -496,8 +716,22 @@
       console.log('Updating summary with cart:', cart);
       
       const subtotal = cart.reduce((sum, item) => {
-        const itemTotal = (item.price || 0) * (item.qty || 1);
-        console.log(`Item: ${item.name}, Price: ${item.price}, Qty: ${item.qty}, Total: ${itemTotal}`);
+        // Support both 'qty' and 'quantity' field names
+        const qty = item.qty || item.quantity || 1;
+        
+        // Get price - handle multiple formats
+        let price = item.price;
+        if (price === null || price === undefined) {
+          console.warn(`Item ${item.name} has no price field. Available fields:`, Object.keys(item));
+          price = 0;
+        } else if (typeof price === 'string') {
+          price = parseFloat(price.replace(/RM\s*/g, '')) || 0;
+        } else {
+          price = parseFloat(price) || 0;
+        }
+        
+        const itemTotal = price * qty;
+        console.log(`Item: ${item.name}, Raw Price: ${item.price}, Parsed Price: ${price}, Qty: ${qty}, Total: ${itemTotal}`);
         return sum + itemTotal;
       }, 0);
       
@@ -544,7 +778,8 @@
 
     // Update cart count in header
     function updateCartCount() {
-      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      // Support both 'qty' and 'quantity' field names
+      const count = cart.reduce((sum, item) => sum + (item.qty || item.quantity || 1), 0);
       const badge = document.querySelector('.cart-count');
       if (badge) badge.textContent = String(count);
     }
@@ -558,67 +793,130 @@
     });
 
     // Mobile menu functionality
-    function toggleMenu() {
-      const mobileMenu = document.getElementById('mobileMenu');
-      mobileMenu.classList.toggle('active');
-      
-      // Add/remove overlay
-      if (mobileMenu.classList.contains('active')) {
-        addOverlay();
-      } else {
-        removeOverlay();
+
+    // Checkout Form Functions
+    function showCheckout() {
+      const checkoutForm = document.getElementById('checkoutFormContainer');
+      if (checkoutForm) {
+        checkoutForm.style.display = 'block';
+        // Scroll to form
+        checkoutForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Hide checkout button
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        if (checkoutBtn) {
+          checkoutBtn.style.display = 'none';
+        }
       }
     }
-    
-    function addOverlay() {
-      const overlay = document.createElement('div');
-      overlay.id = 'menuOverlay';
-      overlay.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 1999;
-        cursor: pointer;
-      `;
-      overlay.onclick = toggleMenu;
-      document.body.appendChild(overlay);
-    }
-    
-    function removeOverlay() {
-      const overlay = document.getElementById('menuOverlay');
-      if (overlay) {
-        overlay.remove();
+
+    function closeCheckout() {
+      const checkoutForm = document.getElementById('checkoutFormContainer');
+      if (checkoutForm) {
+        checkoutForm.style.display = 'none';
+        // Show checkout button again
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        if (checkoutBtn && cart.length > 0) {
+          checkoutBtn.style.display = 'block';
+        }
       }
     }
-    
-    // Close menu when clicking outside or on links
-    document.addEventListener('DOMContentLoaded', function() {
-      // Close menu when clicking on links
-      document.querySelectorAll('.hidden-nav a').forEach(link => {
-        link.addEventListener('click', toggleMenu);
-      });
+
+    function handleCheckout(event) {
+      event.preventDefault();
       
-      // Close menu on escape key
-      document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape') {
-          const mobileMenu = document.getElementById('mobileMenu');
-          mobileMenu.classList.remove('active');
-          removeOverlay();
-        }
-      });
+      // Get form data
+      const formData = {
+        contact: {
+          fullName: document.getElementById('fullName').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value
+        },
+        shipping: {
+          address: document.getElementById('address').value,
+          city: document.getElementById('city').value,
+          state: document.getElementById('state').value,
+          postcode: document.getElementById('postcode').value,
+          country: document.getElementById('country').value,
+          instructions: document.getElementById('instructions').value
+        },
+        order: {
+          items: cart,
+          subtotal: calculateSubtotal(),
+          shipping: parseFloat(document.getElementById('shipping').textContent.replace('RM ', '')),
+          tax: parseFloat(document.getElementById('tax').textContent.replace('RM ', '')),
+          total: parseFloat(document.getElementById('total').textContent.replace('RM ', '')),
+          promoCode: promoCode || null,
+          promoDiscount: promoDiscount
+        },
+        timestamp: new Date().toISOString()
+      };
+
+      // Disable submit button
+      const submitBtn = document.getElementById('submitCheckoutBtn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+      }
+
+      // Save order data to localStorage (for now - you can send to backend later)
+      localStorage.setItem('reweave-order', JSON.stringify(formData));
       
-      // Close menu when window is resized to desktop
-      window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-          const mobileMenu = document.getElementById('mobileMenu');
-          mobileMenu.classList.remove('active');
-          removeOverlay();
+      // Log order data (for debugging)
+      console.log('Order submitted:', formData);
+
+      // Simulate processing delay
+      setTimeout(() => {
+        // Show success message
+        const total = formData.order.total.toFixed(2);
+        if (confirm('Order placed successfully!\n\nOrder Total: RM ' + total + '\n\nYou will receive a confirmation email shortly.\n\nClick OK to clear cart and return home.')) {
+          // Clear cart
+          cart = [];
+          localStorage.removeItem('reweave-cart');
+          
+          // Redirect to home
+          window.location.href = '/';
+        } else {
+          // Keep cart and reload
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Complete Order';
+          }
         }
-      });
-    });
+      }, 1000);
+
+      // In production, you would send this to your backend:
+      // fetch('/api/orders', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify(formData)
+      // })
+      // .then(response => response.json())
+      // .then(data => {
+      //   // Handle success
+      //   window.location.href = '/order-confirmation?id=' + data.orderId;
+      // })
+      // .catch(error => {
+      //   // Handle error
+      //   alert('Error placing order. Please try again.');
+      //   if (submitBtn) {
+      //     submitBtn.disabled = false;
+      //     submitBtn.textContent = 'Complete Order';
+      //   }
+      // });
+    }
+
+    function calculateSubtotal() {
+      return cart.reduce((sum, item) => {
+        let price = item.price || 0;
+        if (typeof price === 'string') {
+          price = parseFloat(price.replace(/RM\s*/g, '')) || 0;
+        } else {
+          price = parseFloat(price) || 0;
+        }
+        const qty = parseInt(item.qty || item.quantity || 1);
+        return sum + (price * qty);
+      }, 0);
+    }
   </script>
   
   <!-- Toast Notification Container -->
@@ -651,7 +949,32 @@
     };
   </script>
   
+  <!-- Standardized Footer Component for Reweave -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">REWEAVE</div>
+      <div class="footer-text">
+        Sustainable fashion, reimagined. Crafting heritage into modern essentials.
+      </div>
+      <div class="footer-links">
+        <a href="../story/index.html" class="footer-link">Our Story</a>
+        <a href="../impact/index.html" class="footer-link">Sustainability</a>
+        <a href="../community/index.html" class="footer-link">Community</a>
+        <a href="../team/index.html" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-trust">
+        <span class="trust-badge">FPX Available</span>
+        <span class="trust-badge">Visa</span>
+        <span class="trust-badge">Mastercard</span>
+        <span class="trust-badge">30-day Returns</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Shared Scripts -->
+  <script src="../../vercel-deployment/shared/script.js"></script>
+  
   <!-- AI Chatbot Widget -->
-  <script id="shieldbase-chatbot-widget">(function(){window.SbaiConfig={apiBase:"https://demo.sbai.cloud",appId:"ca61bc90-3fb9-4cde-a7ed-aef28d127c1a"};function initChatWidget(){if(document.getElementById('sbai-chat-btn'))return;var chatBtn=document.createElement("div");chatBtn.id="sbai-chat-btn";chatBtn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 16 16" fill="white"><path d="M8.006 0a8.006 8.006 0 0 0-6.829 3.826 7.995 7.995 0 0 0-.295 7.818l-.804 2.402a1.48 1.48 0 0 0 1.877 1.876l2.403-.8a8.006 8.006 0 0 0 11.42-5.25 7.994 7.994 0 0 0-4.28-9.066A8.007 8.007 0 0 0 8.006 0Zm0 14.22a6.226 6.226 0 0 1-3.116-.836.89.89 0 0 0-.727-.074l-2.207.736.736-2.206a.888.888 0 0 0-.074-.727A6.218 6.218 0 0 1 7.19 1.831a6.227 6.227 0 0 1 6.565 3.784 6.218 6.218 0 0 1-1.96 7.318 6.227 6.227 0 0 1-3.789 1.286Z"></path></svg>';Object.assign(chatBtn.style,{position:"fixed",bottom:"20px",right:"20px",width:"60px",height:"60px",borderRadius:"50%",backgroundColor:"#4F00ED",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontSize:"24px",cursor:"pointer",zIndex:"9999",transition:"all 0.3s ease",boxShadow:"0 4px 12px rgba(79, 0, 237, 0.4)",border:"none"});var chatContainer=document.createElement("div");chatContainer.id="sbai-chat-container";Object.assign(chatContainer.style,{position:"fixed",right:"20px",bottom:"90px",width:"400px",height:"600px",maxWidth:"calc(100vw - 40px)",maxHeight:"calc(100vh - 120px)",borderRadius:"16px",boxShadow:"0 8px 32px rgba(0, 0, 0, 0.12)",zIndex:"9998",opacity:"0",visibility:"hidden",transform:"translateY(20px)",transition:"all 0.3s ease",backgroundColor:"white",overflow:"hidden"});document.body.appendChild(chatBtn);document.body.appendChild(chatContainer);var isOpen=false;chatBtn.addEventListener("click",function(){isOpen=!isOpen;if(isOpen){chatContainer.style.opacity="1";chatContainer.style.visibility="visible";chatContainer.style.transform="translateY(0)";chatBtn.style.transform="rotate(45deg)";chatBtn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 16 16" fill="white"><path d="M3.293 3.293a1 1 0 0 1 1.414 0L8 6.586l3.293-3.293a1 1 0 1 1 1.414 1.414L9.414 8l3.293 3.293a1 1 0 0 1-1.414 1.414L8 9.414l-3.293 3.293a1 1 0 0 1-1.414-1.414L6.586 8 3.293 4.707a1 1 0 0 1 0-1.414z"/></svg>'}else{chatContainer.style.opacity="0";chatContainer.style.visibility="hidden";chatContainer.style.transform="translateY(20px)";chatBtn.style.transform="rotate(0deg)";chatBtn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 16 16" fill="white"><path d="M8.006 0a8.006 8.006 0 0 0-6.829 3.826 7.995 7.995 0 0 0-.295 7.818l-.804 2.402a1.48 1.48 0 0 0 1.877 1.876l2.403-.8a8.006 8.006 0 0 0 11.42-5.25 7.994 7.994 0 0 0-4.28-9.066A8.007 8.007 0 0 0 8.006 0Zm0 14.22a6.226 6.226 0 0 1-3.116-.836.89.89 0 0 0-.727-.074l-2.207.736.736-2.206a.888.888 0 0 0-.074-.727A6.218 6.218 0 0 1 7.19 1.831a6.227 6.227 0 0 1 6.565 3.784 6.218 6.218 0 0 1-1.96 7.318 6.227 6.227 0 0 1-3.789 1.286Z"></path></svg>'}});var script=document.createElement("script");script.src="https://demo.sbai.cloud/widget.js";script.async=true;script.onload=function(){window.SbaiChat.init({apiBase:window.SbaiConfig.apiBase,appId:window.SbaiConfig.appId,container:chatContainer,theme:{primaryColor:"#4F00ED",borderRadius:"16px"}})};document.head.appendChild(script)}initChatWidget();})();</script>
+  <script src="../../vercel-deployment/shared/chatbot.js"></script>
 </body>
 </html>

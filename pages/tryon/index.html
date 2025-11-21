@@ -5,9 +5,9 @@
         <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI Try-On - Reweave</title>
-    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../vercel-deployment/shared/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
     <style>
         /* Try-On Page Specific Styles */
         .tryon-container {
@@ -335,92 +335,23 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="luxury-header">
+    <!-- Standardized Header Component for Reweave -->
+    <header class="header">
         <div class="header-container">
-            <div class="header-left">
-                <button class="menu-btn" aria-label="Menu">
-                    <i class="fas fa-bars"></i>
-                    <span>Menu</span>
-                </button>
-                <button class="search-btn" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                    <span>Search</span>
-                </button>
+            <div class="nav-left">
+                <button class="nav-btn" title="AI Try-On">AI Try-On</button>
             </div>
-            <div class="logo-center">
-                <a href="../../index.html">REWEAVE</a>
-            </div>
-            <div class="header-right">
-                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
-                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
-                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
-                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
+            
+            <a href="/" class="logo">REWEAVE</a>
+            
+            <div class="nav-right">
+                <button class="nav-btn cart-btn">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cartCount">0</span>
+                </button>
             </div>
         </div>
-        <nav class="hidden-nav">
-            <div class="nav-content">
-                <button class="close-nav" aria-label="Close">
-                    <i class="fas fa-times"></i>
-                    <span>Close</span>
-                </button>
-                <div class="nav-categories">
-                    <div class="nav-section">
-                        <h3>New</h3>
-                        <ul>
-                            <li><a href="../shop/index.html">Latest Arrivals</a></li>
-                            <li><a href="../shop/index.html">Limited Edition</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>Bags and Accessories</h3>
-                        <ul>
-                            <li><a href="../shop/index.html">Totes</a></li>
-                            <li><a href="../shop/index.html">Slings</a></li>
-                            <li><a href="../shop/index.html">Accessories</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>About</h3>
-                        <ul>
-                            <li><a href="../story/index.html">Our Story</a></li>
-                            <li><a href="../community/index.html">Community</a></li>
-                            <li><a href="../impact/index.html">Impact</a></li>
-                            <li><a href="../journal/index.html">Journal</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
     </header>
-
-    <!-- Search Overlay -->
-    <div class="search-overlay" aria-hidden="true">
-        <div class="search-panel">
-            <div class="search-header">
-                <button class="search-close" aria-label="Close Search">
-                    <i class="fas fa-times"></i>
-                </button>
-                <h3>Search</h3>
-            </div>
-            <div class="search-body">
-                <div class="search-input-wrap">
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search products, stories, categories..." aria-label="Search input" />
-                </div>
-                <div class="search-suggestions">
-                    <p>Popular searches:</p>
-                    <div class="tags">
-                        <a href="../shop/index.html">Batik</a>
-                        <a href="../shop/index.html">Handbags</a>
-                        <a href="../shop/index.html">Artisan</a>
-                        <a href="../journal/index.html">Journal</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="search-backdrop"></div>
-    </div>
 
     <section class="tryon-container">
         <div class="container">
@@ -430,11 +361,66 @@
             </div>
 
             <div style="width:100%;max-width:1200px;margin:0 auto;">
+                <div id="tryon-error" style="display:none;background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:30px;text-align:center;margin-bottom:20px;">
+                    <i class="fas fa-exclamation-triangle" style="font-size:3rem;color:#ffc107;margin-bottom:15px;"></i>
+                    <h3 style="margin-bottom:10px;color:#856404;">AI Try-On Service Not Running</h3>
+                    <p style="color:#856404;margin-bottom:20px;">To use the AI Try-On feature, you need to start the Streamlit application.</p>
+                    <div style="background:white;border-radius:8px;padding:20px;text-align:left;max-width:600px;margin:0 auto;">
+                        <h4 style="margin-bottom:15px;">Setup Instructions:</h4>
+                        <ol style="line-height:1.8;color:#333;">
+                            <li>Clone the AI Try-On repository:
+                                <pre style="background:#f8f9fa;padding:10px;border-radius:5px;margin-top:5px;overflow-x:auto;font-size:0.9rem;"><code>gh repo clone reweavemy-lab/Reweave-AI-Try-On
+cd Reweave-AI-Try-On</code></pre>
+                            </li>
+                            <li>Install dependencies and run the Streamlit app:
+                                <pre style="background:#f8f9fa;padding:10px;border-radius:5px;margin-top:5px;overflow-x:auto;font-size:0.9rem;"><code>pip install -r requirements.txt
+streamlit run app.py</code></pre>
+                            </li>
+                            <li>The app will be available at <code>http://localhost:8501</code></li>
+                            <li>Refresh this page once the Streamlit app is running</li>
+                        </ol>
+                    </div>
+                    <a href="http://localhost:8501/" target="_blank" class="btn" style="margin-top:20px;">Try Opening in New Tab</a>
+                </div>
                 <iframe id="ai-tryon-frame" src="http://localhost:8501/" style="width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
                 <div style="text-align:center;margin-top:16px;">
-                    <a href="http://localhost:8501/" class="btn">Open in new tab</a>
+                    <a href="http://localhost:8501/" target="_blank" class="btn">Open in new tab</a>
                 </div>
             </div>
+            
+            <script>
+                // Check if Streamlit server is running
+                window.addEventListener('load', function() {
+                    const iframe = document.getElementById('ai-tryon-frame');
+                    const errorDiv = document.getElementById('tryon-error');
+                    let hasLoaded = false;
+                    
+                    // Set timeout to show error if iframe doesn't load
+                    let loadTimeout = setTimeout(function() {
+                        if (!hasLoaded) {
+                            // Iframe hasn't loaded after 3 seconds, likely connection refused
+                            errorDiv.style.display = 'block';
+                            iframe.style.display = 'none';
+                        }
+                    }, 3000);
+                    
+                    // Clear timeout and hide error if iframe loads successfully
+                    iframe.addEventListener('load', function() {
+                        hasLoaded = true;
+                        clearTimeout(loadTimeout);
+                        errorDiv.style.display = 'none';
+                        iframe.style.display = 'block';
+                    });
+                    
+                    // Also handle iframe errors
+                    iframe.addEventListener('error', function() {
+                        hasLoaded = false;
+                        clearTimeout(loadTimeout);
+                        errorDiv.style.display = 'block';
+                        iframe.style.display = 'none';
+                    });
+                });
+            </script>
 
             <div class="tryon-layout" style="display:none;">
                 <div class="tryon-preview">
@@ -531,63 +517,30 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="luxury-footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-column">
-            <h4>Help</h4>
-            <ul class="footer-links">
-              <li><a href="#">Client Advisor: 1800 814 930</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Product Care</a></li>
-              <li><a href="#">Delivery, Returns & Exchanges</a></li>
-              <li><a href="#">Stores</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Services</h4>
-            <ul class="footer-links">
-              <li><a href="#">Repairs</a></li>
-              <li><a href="#">Personalisation</a></li>
-              <li><a href="#">Art of Gifting</a></li>
-              <li><a href="#">Download our Apps</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>About Reweave</h4>
-            <ul class="footer-links">
-              <li><a href="../story/index.html">Fashion & Craft</a></li>
-              <li><a href="../culture/index.html">Arts & Culture</a></li>
-              <li><a href="../story/index.html">Our Maison</a></li>
-              <li><a href="../impact/index.html">Sustainability</a></li>
-              <li><a href="../journal/index.html">Latest News</a></li>
-              <li><a href="../story/index.html#careers">Careers</a></li>
-              <li><a href="../community/index.html">Foundation</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Connect</h4>
-            <ul class="footer-links">
-              <li><a href="#">Sign up for emails</a></li>
-              <li><a href="#">Follow Us</a></li>
-            </ul>
-          </div>
+    <!-- Standardized Footer Component for Reweave -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">REWEAVE</div>
+            <div class="footer-text">
+                Sustainable fashion, reimagined. Crafting heritage into modern essentials.
+            </div>
+            <div class="footer-links">
+                <a href="../story/index.html" class="footer-link">Our Story</a>
+                <a href="../impact/index.html" class="footer-link">Sustainability</a>
+                <a href="../community/index.html" class="footer-link">Community</a>
+                <a href="../team/index.html" class="footer-link">Contact</a>
+            </div>
+            <div class="footer-trust">
+                <span class="trust-badge">FPX Available</span>
+                <span class="trust-badge">Visa</span>
+                <span class="trust-badge">Mastercard</span>
+                <span class="trust-badge">30-day Returns</span>
+            </div>
         </div>
-    
-        <div class="footer-sub">
-          <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
-          <div class="footer-legal">
-            <a href="#">Sitemap</a>
-            <a href="#">Legal & Privacy</a>
-          </div>
-        </div>
-    
-        <div class="footer-brand">REWEAVE</div>
-      </div>
     </footer>
 
-    <script src="../../js/main.js"></script>
+    <!-- Shared Scripts -->
+    <script src="../../vercel-deployment/shared/script.js"></script>
     <script>
         // Enhanced AI Try-On functionality
         document.addEventListener('DOMContentLoaded', function() {
@@ -904,5 +857,8 @@
         });
     </script>
     <script src="../../script.js"></script>
+    
+    <!-- AI Chatbot Widget -->
+    <script src="../../vercel-deployment/shared/chatbot.js"></script>
 </body>
 </html>
