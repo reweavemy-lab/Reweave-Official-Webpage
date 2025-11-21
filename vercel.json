@@ -6,8 +6,7 @@
     { "source": "/tryon", "destination": "/pages/tryon/index.html" },
     { "source": "/cart", "destination": "/pages/cart/index.html" },
     { "source": "/pages/(.*)", "destination": "/pages/$1" },
-    { "source": "/vercel-deployment/(.*)", "destination": "/vercel-deployment/$1" },
-    { "source": "/shared/(.*)", "destination": "/vercel-deployment/shared/$1" },
+    { "source": "/shared/(.*)", "destination": "/shared/$1" },
     { "source": "/ai/(.*)", "destination": "https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/$1" }
   ]
 }
