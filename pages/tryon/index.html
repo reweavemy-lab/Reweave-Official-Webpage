@@ -370,9 +370,9 @@
                     </a>
                 </div>
                 <div id="iframe-container" style="position:relative;">
-                    <iframe id="ai-tryon-frame" src="about:blank" style="display:block;width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
-                    <div id="iframe-overlay" style="position:absolute;top:20px;right:20px;">
-                        <a href="https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/" target="_blank" class="btn" style="background:rgba(79,0,237,0.9);color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:14px;">
+                    <iframe id="ai-tryon-frame" src="about:blank" style="display:block;width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);" loading="lazy"></iframe>
+                    <div id="iframe-overlay" style="position:absolute;top:20px;right:20px;z-index:10;">
+                        <a href="https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/" target="_blank" class="btn" style="background:rgba(79,0,237,0.9);color:white;padding:10px 20px;border-radius:8px;text-decoration:none;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,0.2);">
                             <i class="fas fa-external-link-alt"></i> Open in New Tab
                         </a>
                     </div>
@@ -382,71 +382,87 @@
             <script>
                 // Determine the correct URL based on environment
                 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-                // Try different embed parameter formats - Streamlit Cloud may require ?embedded=true
-                const streamlitUrl = 'https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app/';
-                const aiTryOnUrl = isLocalhost 
-                    ? 'http://localhost:8501/' 
-                    : streamlitUrl + '?embedded=true';
+                
+                // Try multiple approaches for embedding Streamlit
+                const streamlitBaseUrl = 'https://reweave-ai-try-on-nwuappplx28vde2yqwhpilz.streamlit.app';
+                
+                // Try different URL formats - Streamlit official docs say ?embed=true
+                // First try using Vercel proxy route which might help with CORS/redirects
+                let aiTryOnUrl;
+                if (isLocalhost) {
+                    aiTryOnUrl = 'http://localhost:8501/';
+                } else {
+                    // Try Vercel proxy route first (might avoid redirect issues)
+                    // Then fallback to direct URL with embed parameter
+                    aiTryOnUrl = '/ai/?embed=true';
+                }
                 
                 const iframe = document.getElementById('ai-tryon-frame');
                 const errorDiv = document.getElementById('tryon-error');
                 const iframeContainer = document.getElementById('iframe-container');
                 
+                // Add sandbox attributes to allow necessary features
+                iframe.setAttribute('sandbox', 'allow-same-origin allow-scripts allow-forms allow-popups allow-popups-to-escape-sandbox');
+                iframe.setAttribute('allow', 'camera; microphone; geolocation');
+                
                 // Set iframe source
                 iframe.src = aiTryOnUrl;
                 
                 let hasLoaded = false;
-                let redirectDetected = false;
-                let loadTimeout = setTimeout(function() {
-                    if (!hasLoaded) {
-                        // If iframe hasn't loaded, show error with link to open in new tab
+                let attempts = 0;
+                const maxAttempts = 2;
+                const urlsToTry = [
+                    '/ai/?embed=true',  // Try Vercel proxy first
+                    streamlitBaseUrl + '/?embed=true',  // Direct with embed
+                    streamlitBaseUrl + '/?embedded=true',  // Alternative parameter
+                    streamlitBaseUrl + '/'  // Direct without parameters
+                ];
+                
+                function tryLoadUrl(urlIndex) {
+                    if (urlIndex >= urlsToTry.length) {
+                        // All URLs failed, show error
                         errorDiv.style.display = 'block';
                         iframe.style.display = 'none';
                         iframeContainer.style.display = 'none';
+                        return;
                     }
-                }, 3000);
-                
-                // Check for redirect loops by monitoring iframe location
-                iframe.addEventListener('load', function() {
-                    try {
-                        // Try to access iframe content (will fail if cross-origin, which is expected)
-                        const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    
+                    iframe.src = urlsToTry[urlIndex];
+                    attempts++;
+                    
+                    const loadTimeout = setTimeout(function() {
+                        if (!hasLoaded && attempts < maxAttempts) {
+                            // Try next URL
+                            tryLoadUrl(urlIndex + 1);
+                        } else if (!hasLoaded) {
+                            // All attempts failed
+                            errorDiv.style.display = 'block';
+                            iframe.style.display = 'none';
+                            iframeContainer.style.display = 'none';
+                        }
+                    }, 4000);
+                    
+                    iframe.addEventListener('load', function onLoad() {
                         hasLoaded = true;
                         clearTimeout(loadTimeout);
                         errorDiv.style.display = 'none';
                         iframe.style.display = 'block';
-                    } catch (e) {
-                        // Cross-origin is expected - check if URL changed (redirect)
-                        try {
-                            const iframeUrl = iframe.contentWindow.location.href;
-                            if (iframeUrl.includes('share.streamlit.io') && iframeUrl !== aiTryOnUrl) {
-                                redirectDetected = true;
-                                // Show error and suggest opening in new tab
-                                errorDiv.style.display = 'block';
-                                iframe.style.display = 'none';
-                                iframeContainer.style.display = 'none';
-                            } else {
-                                hasLoaded = true;
-                                clearTimeout(loadTimeout);
-                                errorDiv.style.display = 'none';
-                                iframe.style.display = 'block';
-                            }
-                        } catch (e2) {
-                            // Can't access iframe URL due to CORS - assume it loaded
-                            hasLoaded = true;
-                            clearTimeout(loadTimeout);
-                            errorDiv.style.display = 'none';
-                            iframe.style.display = 'block';
-                        }
-                    }
-                });
+                        iframeContainer.style.display = 'block';
+                        iframe.removeEventListener('load', onLoad);
+                    }, { once: true });
+                }
+                
+                // Start trying URLs
+                tryLoadUrl(0);
                 
                 iframe.addEventListener('error', function() {
-                    hasLoaded = false;
-                    clearTimeout(loadTimeout);
-                    errorDiv.style.display = 'block';
-                    iframe.style.display = 'none';
-                    iframeContainer.style.display = 'none';
+                    if (attempts < maxAttempts) {
+                        tryLoadUrl(attempts);
+                    } else {
+                        errorDiv.style.display = 'block';
+                        iframe.style.display = 'none';
+                        iframeContainer.style.display = 'none';
+                    }
                 });
             </script>
 
