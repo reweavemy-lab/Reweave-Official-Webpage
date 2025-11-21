@@ -3,8 +3,8 @@
   "outputDirectory": ".",
   "rewrites": [
     { "source": "/", "destination": "/index.html" },
-    { "source": "/tryon", "destination": "/vercel-deployment/pages/tryon/index.html" },
-    { "source": "/cart", "destination": "/vercel-deployment/pages/cart/index.html" },
+    { "source": "/tryon", "destination": "/pages/tryon/index.html" },
+    { "source": "/cart", "destination": "/pages/cart/index.html" },
     { "source": "/pages/(.*)", "destination": "/pages/$1" },
     { "source": "/vercel-deployment/(.*)", "destination": "/vercel-deployment/$1" },
     { "source": "/shared/(.*)", "destination": "/vercel-deployment/shared/$1" },
