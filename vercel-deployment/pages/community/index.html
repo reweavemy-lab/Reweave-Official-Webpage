@@ -5,7 +5,7 @@
         <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Community Hub - Reweave</title>
-    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../../archive/development-files/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -250,70 +250,69 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="luxury-header">
-        <div class="header-container">
-            <div class="header-left">
-                <button class="menu-btn" aria-label="Menu">
-                    <i class="fas fa-bars"></i>
-                    <span>Menu</span>
-                </button>
-                <button class="search-btn" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                    <span>Search</span>
-                </button>
-            </div>
-            <div class="logo-center">
-                <a href="/">REWEAVE</a>
-            </div>
-            <div class="header-right">
-                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
-                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
-                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
-                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
-            </div>
-        </div>
-        <nav class="hidden-nav">
-            <div class="nav-content">
-                <button class="close-nav" aria-label="Close">
-                    <i class="fas fa-times"></i>
-                    <span>Close</span>
-                </button>
-                <div class="nav-categories">
-                    <div class="nav-section">
-                        <h3>New</h3>
-                        <ul>
-                            <li><a href="../shop/index.html">Latest Arrivals</a></li>
-                            <li><a href="../shop/index.html">Limited Edition</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>Bags and Accessories</h3>
-                        <ul>
-                            <li><a href="../shop/index.html">Totes</a></li>
-                            <li><a href="../shop/index.html">Slings</a></li>
-                            <li><a href="../shop/index.html">Accessories</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>Collections</h3>
-                        <ul>
-                            <li><a href="../shop/index.html">Batik Heritage</a></li>
-                            <li><a href="../shop/index.html">Artisan Series</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>About</h3>
-                        <ul>
-                            <li><a href="../story/index.html">Our Story</a></li>
-                            <li><a href="index.html">Community</a></li>
-                            <li><a href="../impact/index.html">Impact</a></li>
-                            <li><a href="../journal/index.html">Journal</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- Standardized Header Component for Reweave -->
+<header class="header">
+  <div class="header-container">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i> Menu
+      </button>
+      <button class="nav-btn" onclick="window.location.href='pages/tryon/index.html'" title="AI Try-On">AI Try-On</button>
+    </div>
+    
+    <a href="/index.html" class="logo">REWEAVE</a>
+    
+    <div class="nav-right">
+      <button class="nav-btn cart-btn" onclick="window.location.href = '/pages/cart/index.html'"">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <button class="nav-btn" onclick="toggleMenu()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Shop</div>
+    <a href="pages/shop/index.html" class="menu-link">Shop All</a>
+    <a href="pages/shop/index.html#new-arrivals" class="menu-link">New Arrivals</a>
+    <a href="pages/shop/index.html#batik-heritage" class="menu-link">Batik Heritage</a>
+    <a href="pages/shop/index.html#songket-collection" class="menu-link">Songket Collection</a>
+    <a href="pages/shop/index.html#accessories" class="menu-link">Accessories</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Our Story</div>
+    <a href="pages/story/index.html" class="menu-link">About Reweave</a>
+    <a href="pages/artisan/index.html" class="menu-link">Artisan Craft</a>
+    <a href="pages/culture/index.html" class="menu-link">Cultural Heritage</a>
+    <a href="pages/impact/index.html" class="menu-link">Sustainability</a>
+    <a href="pages/community/index.html" class="menu-link">Community</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Experience</div>
+    <a href="pages/tryon/index.html" class="menu-link">AI Try-On</a>
+    <a href="pages/customize/index.html" class="menu-link">Customize</a>
+    <a href="pages/journal/index.html" class="menu-link">Journal</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Support</div>
+    <a href="pages/team/index.html" class="menu-link">Contact Us</a>
+    <a href="#" class="menu-link">Shipping & Returns</a>
+    <a href="#" class="menu-link">Size Guide</a>
+    <a href="#" class="menu-link">Care Instructions</a>
+  </div>
+</div>
 
     <!-- Search Overlay -->
     <div class="search-overlay" aria-hidden="true">
@@ -588,60 +587,27 @@
     </section>
 
     <!-- Footer -->
-    <footer class="luxury-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h4>Help</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Client Advisor: 1800 814 930</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Product Care</a></li>
-                        <li><a href="#">Delivery, Returns & Exchanges</a></li>
-                        <li><a href="#">Stores</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Repairs</a></li>
-                        <li><a href="#">Personalisation</a></li>
-                        <li><a href="#">Art of Gifting</a></li>
-                        <li><a href="#">Download our Apps</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>About Reweave</h4>
-                    <ul class="footer-links">
-                        <li><a href="../story/index.html">Fashion & Craft</a></li>
-                        <li><a href="../culture/index.html">Arts & Culture</a></li>
-                        <li><a href="../story/index.html">Our Maison</a></li>
-                        <li><a href="../impact/index.html">Sustainability</a></li>
-                        <li><a href="../journal/index.html">Latest News</a></li>
-                        <li><a href="../story/index.html#careers">Careers</a></li>
-                        <li><a href="index.html">Foundation</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Connect</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Sign up for emails</a></li>
-                        <li><a href="#">Follow Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-sub">
-                <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
-                <div class="footer-legal">
-                    <a href="#">Sitemap</a>
-                    <a href="#">Legal & Privacy</a>
-                </div>
-            </div>
-
-            <div class="footer-brand">REWEAVE</div>
-        </div>
-    </footer>
+    <!-- Standardized Footer Component for Reweave -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">REWEAVE</div>
+    <div class="footer-text">
+      Sustainable fashion, reimagined. Crafting heritage into modern essentials.
+    </div>
+    <div class="footer-links">
+      <a href="pages/story/index.html" class="footer-link">Our Story</a>
+      <a href="pages/impact/index.html" class="footer-link">Sustainability</a>
+      <a href="pages/community/index.html" class="footer-link">Community</a>
+      <a href="pages/team/index.html" class="footer-link">Contact</a>
+    </div>
+    <div class="footer-trust">
+      <span class="trust-badge">FPX Available</span>
+      <span class="trust-badge">Visa</span>
+      <span class="trust-badge">Mastercard</span>
+      <span class="trust-badge">30-day Returns</span>
+    </div>
+  </div>
+</footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -715,6 +681,8 @@
             }
         });
     </script>
-    <script src="../../script.js"></script>
+    <script src="../../../archive/development-files/script.js"></script>
+
+  <script src="/shared/script.js"></script>
 </body>
 </html>

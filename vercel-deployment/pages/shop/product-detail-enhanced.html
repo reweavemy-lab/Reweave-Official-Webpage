@@ -1,0 +1,1067 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail • Reweave</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Discover handcrafted sustainable fashion at Reweave. Heritage Songket and Batik pieces for modern life.">
+  <meta property="og:title" content="Product Detail • Reweave">
+  <meta property="og:description" content="Handcrafted sustainable fashion with heritage Songket and Batik.">
+  <meta property="og:type" content="product">
+  <meta name="twitter:card" content="summary_large_image">
+  
+  <style>
+    /* Product Detail Specific Styles */
+    .product-detail-container {
+      padding: 140px 0 80px;
+      min-height: 100vh;
+    }
+    
+    .product-detail-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+      max-width: var(--container-max-width);
+      margin: 0 auto;
+      padding: 0 var(--container-padding);
+    }
+    
+    .product-images {
+      position: sticky;
+      top: 140px;
+    }
+    
+    .main-image {
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      border-radius: var(--border-radius-large);
+      margin-bottom: 20px;
+      cursor: zoom-in;
+      transition: var(--transition);
+    }
+    
+    .main-image:hover {
+      transform: scale(1.02);
+    }
+    
+    .thumbnail-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+    
+    .thumbnail {
+      width: 100%;
+      height: 80px;
+      object-fit: cover;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: var(--transition);
+    }
+    
+    .thumbnail:hover,
+    .thumbnail.active {
+      border-color: var(--primary-black);
+      transform: scale(1.05);
+    }
+    
+    .product-info {
+      padding-top: 20px;
+    }
+    
+    .product-title {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 300;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    
+    .product-price {
+      font-size: 1.5rem;
+      color: var(--text-gray);
+      margin-bottom: 20px;
+      font-weight: 300;
+    }
+    
+    .product-sku {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      margin-bottom: 20px;
+      opacity: 0.7;
+    }
+    
+    .product-description {
+      font-size: 1rem;
+      line-height: 1.7;
+      margin-bottom: 30px;
+      color: var(--text-gray);
+    }
+    
+    .product-features {
+      margin-bottom: 30px;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      font-size: 0.9rem;
+      color: var(--text-gray);
+    }
+    
+    .feature-item i {
+      color: var(--success);
+      width: 16px;
+    }
+    
+    .variant-selector {
+      margin-bottom: 30px;
+    }
+    
+    .variant-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      margin-bottom: 12px;
+      font-weight: 300;
+    }
+    
+    .variant-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .variant-option {
+      padding: 8px 16px;
+      border: 1px solid var(--border-gray);
+      background: var(--primary-white);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+      font-weight: 300;
+    }
+    
+    .variant-option:hover,
+    .variant-option.selected {
+      background: var(--primary-black);
+      color: var(--primary-white);
+      border-color: var(--primary-black);
+    }
+    
+    .variant-option.unavailable {
+      opacity: 0.5;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+    
+    .quantity-selector {
+      margin-bottom: 30px;
+    }
+    
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+    
+    .quantity-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid var(--border-gray);
+      background: var(--primary-white);
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+    
+    .quantity-btn:hover {
+      background: var(--luxury-gray);
+    }
+    
+    .quantity-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    
+    .quantity-input {
+      width: 60px;
+      text-align: center;
+      border: 1px solid var(--border-gray);
+      border-radius: var(--border-radius);
+      padding: 8px;
+      font-size: 1rem;
+      font-weight: 300;
+    }
+    
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .action-buttons .btn {
+      flex: 1;
+      padding: 15px 24px;
+      font-size: 1rem;
+    }
+    
+    .try-on-section {
+      background: var(--luxury-gray);
+      padding: 20px;
+      border-radius: var(--border-radius-large);
+      margin-bottom: 30px;
+    }
+    
+    .try-on-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+    
+    .try-on-description {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      margin-bottom: 15px;
+    }
+    
+    .try-on-btn {
+      background: var(--accent-purple);
+      color: var(--primary-white);
+      border: none;
+      padding: 10px 20px;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+    
+    .try-on-btn:hover {
+      background: #5a6fd8;
+    }
+    
+    .product-meta {
+      border-top: 1px solid var(--border-gray);
+      padding-top: 30px;
+    }
+    
+    .meta-section {
+      margin-bottom: 20px;
+    }
+    
+    .meta-title {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+      font-weight: 300;
+    }
+    
+    .meta-content {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      line-height: 1.6;
+    }
+    
+    .loading-state {
+      text-align: center;
+      padding: 100px 0;
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border-gray);
+      border-top: 3px solid var(--primary-black);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 20px;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .error-state {
+      text-align: center;
+      padding: 100px 0;
+    }
+    
+    .error-icon {
+      font-size: 3rem;
+      color: var(--error);
+      margin-bottom: 20px;
+    }
+    
+    .zoom-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 10000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: zoom-out;
+    }
+    
+    .zoom-modal.active {
+      display: flex;
+    }
+    
+    .zoom-image {
+      max-width: 90%;
+      max-height: 90%;
+      object-fit: contain;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .product-detail-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+      
+      .product-images {
+        position: static;
+      }
+      
+      .main-image {
+        height: 400px;
+      }
+      
+      .product-title {
+        font-size: 2rem;
+      }
+      
+      .action-buttons {
+        flex-direction: column;
+      }
+      
+      .thumbnail-grid {
+        grid-template-columns: repeat(6, 1fr);
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .main-image {
+        height: 300px;
+      }
+      
+      .product-title {
+        font-size: 1.8rem;
+      }
+      
+      .thumbnail-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      
+      .action-buttons .btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Standardized Header -->
+  <header class="header">
+    <div class="header-container">
+      <div class="nav-left">
+        <button class="nav-btn" onclick="toggleMenu()">
+          <i class="fas fa-bars"></i> Menu
+        </button>
+        <button class="nav-btn" onclick="window.location.href='../tryon/index.html'" title="AI Try-On">AI Try-On</button>
+      </div>
+      
+      <a href="/index.html" class="logo">REWEAVE</a>
+      
+      <div class="nav-right">
+        <button class="nav-btn cart-btn" onclick="window.location.href='../cart/index.html'">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <div class="menu-header">
+      <h3>Menu</h3>
+      <button class="nav-btn" onclick="toggleMenu()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <div class="menu-section">
+      <div class="menu-title">Shop</div>
+      <a href="index.html" class="menu-link">Shop All</a>
+      <a href="index.html#new-arrivals" class="menu-link">New Arrivals</a>
+      <a href="index.html#batik-heritage" class="menu-link">Batik Heritage</a>
+      <a href="index.html#songket-collection" class="menu-link">Songket Collection</a>
+      <a href="index.html#accessories" class="menu-link">Accessories</a>
+    </div>
+    
+    <div class="menu-section">
+      <div class="menu-title">Our Story</div>
+      <a href="../story/index.html" class="menu-link">About Reweave</a>
+      <a href="../artisan/index.html" class="menu-link">Artisan Craft</a>
+      <a href="../culture/index.html" class="menu-link">Cultural Heritage</a>
+      <a href="../impact/index.html" class="menu-link">Sustainability</a>
+      <a href="../community/index.html" class="menu-link">Community</a>
+    </div>
+    
+    <div class="menu-section">
+      <div class="menu-title">Experience</div>
+      <a href="../tryon/index.html" class="menu-link">AI Try-On</a>
+      <a href="../customize/index.html" class="menu-link">Customize</a>
+      <a href="../journal/index.html" class="menu-link">Journal</a>
+    </div>
+    
+    <div class="menu-section">
+      <div class="menu-title">Support</div>
+      <a href="../team/index.html" class="menu-link">Contact Us</a>
+      <a href="#" class="menu-link">Shipping & Returns</a>
+      <a href="#" class="menu-link">Size Guide</a>
+      <a href="#" class="menu-link">Care Instructions</a>
+    </div>
+  </div>
+
+  <!-- Product Detail Container -->
+  <div class="product-detail-container">
+    <div id="loadingState" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>Loading product details...</p>
+    </div>
+    
+    <div id="errorState" class="error-state" style="display: none;">
+      <div class="error-icon">
+        <i class="fas fa-exclamation-triangle"></i>
+      </div>
+      <h3>Product Not Found</h3>
+      <p>The product you're looking for could not be found.</p>
+      <a href="index.html" class="btn" style="margin-top: 20px;">Continue Shopping</a>
+    </div>
+    
+    <div id="productDetail" class="product-detail-grid" style="display: none;">
+      <!-- Product Images -->
+      <div class="product-images">
+        <img id="mainImage" class="main-image" src="" alt="" onclick="openZoomModal()">
+        <div id="thumbnailGrid" class="thumbnail-grid"></div>
+      </div>
+      
+      <!-- Product Information -->
+      <div class="product-info">
+        <h1 id="productTitle" class="product-title"></h1>
+        <div id="productPrice" class="product-price"></div>
+        <div id="productSku" class="product-sku"></div>
+        <div id="productDescription" class="product-description"></div>
+        
+        <!-- Product Features -->
+        <div id="productFeatures" class="product-features"></div>
+        
+        <!-- Variant Selection -->
+        <div id="variantSelector" class="variant-selector">
+          <div class="variant-title">Color</div>
+          <div id="variantOptions" class="variant-options"></div>
+        </div>
+        
+        <!-- Quantity Selector -->
+        <div class="quantity-selector">
+          <div class="variant-title">Quantity</div>
+          <div class="quantity-controls">
+            <button id="decreaseQty" class="quantity-btn" onclick="updateQuantity(-1)">
+              <i class="fas fa-minus"></i>
+            </button>
+            <input id="quantityInput" type="number" class="quantity-input" value="1" min="1" max="10" onchange="validateQuantity()">
+            <button id="increaseQty" class="quantity-btn" onclick="updateQuantity(1)">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+        </div>
+        
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button id="addToCartBtn" class="btn" onclick="addToCart()">
+            <i class="fas fa-shopping-bag"></i> Add to Cart
+          </button>
+          <button id="buyNowBtn" class="btn btn-outline" onclick="buyNow()">
+            Buy Now
+          </button>
+        </div>
+        
+        <!-- Try-On Section -->
+        <div class="try-on-section">
+          <div class="try-on-title">
+            <i class="fas fa-magic"></i> AI Try-On Experience
+          </div>
+          <div class="try-on-description">
+            See how this piece looks on you with our AI-powered virtual try-on technology.
+          </div>
+          <button id="tryOnBtn" class="try-on-btn" onclick="openTryOn()">
+            Try It On
+          </button>
+        </div>
+        
+        <!-- Product Meta Information -->
+        <div class="product-meta">
+          <div class="meta-section">
+            <div class="meta-title">Material & Craft</div>
+            <div id="materialContent" class="meta-content"></div>
+          </div>
+          
+          <div class="meta-section">
+            <div class="meta-title">Sustainability</div>
+            <div id="sustainabilityContent" class="meta-content"></div>
+          </div>
+          
+          <div class="meta-section">
+            <div class="meta-title">Care Instructions</div>
+            <div id="careContent" class="meta-content">
+              Hand wash recommended. Dry flat. Iron on low heat. Store in a cool, dry place.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Standardized Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">REWEAVE</div>
+      <div class="footer-text">
+        Sustainable fashion, reimagined. Crafting heritage into modern essentials.
+      </div>
+      <div class="footer-links">
+        <a href="../story/index.html" class="footer-link">Our Story</a>
+        <a href="../impact/index.html" class="footer-link">Sustainability</a>
+        <a href="../community/index.html" class="footer-link">Community</a>
+        <a href="../team/index.html" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-trust">
+        <span class="trust-badge">FPX Available</span>
+        <span class="trust-badge">Visa</span>
+        <span class="trust-badge">Mastercard</span>
+        <span class="trust-badge">30-day Returns</span>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- Zoom Modal -->
+  <div id="zoomModal" class="zoom-modal" onclick="closeZoomModal()">
+    <img id="zoomImage" class="zoom-image" src="" alt="">
+  </div>
+
+  <!-- JavaScript -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="/shared/script.js"></script>
+  <script>
+    // Global variables
+    let currentProduct = null;
+    let currentVariant = null;
+    let currentQuantity = 1;
+    let allVariants = [];
+    let selectedImageIndex = 0;
+    
+    // Supabase configuration
+    const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
+    const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadProduct();
+      
+      // Add event listeners
+      document.getElementById('quantityInput').addEventListener('change', validateQuantity);
+      
+      // Close zoom modal on escape key
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          closeZoomModal();
+        }
+      });
+    });
+    
+    // Load product based on SKU from URL
+    async function loadProduct() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const sku = urlParams.get('sku');
+      const productId = urlParams.get('product');
+      const variantId = urlParams.get('variant');
+      
+      if (!sku && !productId) {
+        showError('No product specified');
+        return;
+      }
+      
+      try {
+        let query = supabaseClient
+          .from('product_variants')
+          .select('*, products(title, description, category, material, sustainability, care_instructions, images)')
+          .eq('is_active', true);
+        
+        if (sku) {
+          query = query.eq('sku', sku);
+        } else if (productId) {
+          query = query.eq('product_id', productId);
+        }
+        
+        const { data, error } = await query;
+        
+        if (error) {
+          console.error('Error loading product:', error);
+          showError('Failed to load product');
+          return;
+        }
+        
+        if (!data || data.length === 0) {
+          showError('Product not found');
+          return;
+        }
+        
+        // Group variants by product
+        const productData = data[0].products;
+        allVariants = data;
+        
+        // Set current product
+        currentProduct = {
+          id: productData.product_id,
+          title: productData.title,
+          description: productData.description,
+          category: productData.category,
+          material: productData.material,
+          sustainability: productData.sustainability,
+          care_instructions: productData.care_instructions,
+          images: productData.images || []
+        };
+        
+        // Select variant (preselect based on URL parameter or first available)
+        if (variantId) {
+          currentVariant = allVariants.find(v => v.id === variantId);
+        } else if (sku) {
+          currentVariant = allVariants.find(v => v.sku === sku);
+        } else {
+          currentVariant = allVariants[0];
+        }
+        
+        if (!currentVariant) {
+          currentVariant = allVariants[0];
+        }
+        
+        renderProduct();
+        
+        // Track product view
+        trackEvent('view_product', {
+          product_id: currentProduct.id,
+          product_name: currentProduct.title,
+          variant_id: currentVariant.id,
+          variant_color: currentVariant.color,
+          price: currentVariant.price
+        });
+        
+      } catch (error) {
+        console.error('Error loading product:', error);
+        showError('Failed to load product');
+      }
+    }
+    
+    function renderProduct() {
+      // Hide loading state
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('errorState').style.display = 'none';
+      document.getElementById('productDetail').style.display = 'grid';
+      
+      // Set product information
+      document.getElementById('productTitle').textContent = currentProduct.title;
+      document.getElementById('productPrice').textContent = `RM ${Number(currentVariant.price || 0).toFixed(2)}`;
+      document.getElementById('productSku').textContent = `SKU: ${currentVariant.sku}`;
+      document.getElementById('productDescription').textContent = currentProduct.description;
+      
+      // Set images
+      const images = currentProduct.images.length > 0 ? currentProduct.images : [currentVariant.image];
+      document.getElementById('mainImage').src = images[0];
+      document.getElementById('mainImage').alt = currentProduct.title;
+      
+      // Render thumbnails
+      const thumbnailGrid = document.getElementById('thumbnailGrid');
+      thumbnailGrid.innerHTML = '';
+      images.forEach((image, index) => {
+        const thumbnail = document.createElement('img');
+        thumbnail.src = image;
+        thumbnail.alt = `${currentProduct.title} ${index + 1}`;
+        thumbnail.className = `thumbnail ${index === 0 ? 'active' : ''}`;
+        thumbnail.onclick = () => selectImage(index, images);
+        thumbnailGrid.appendChild(thumbnail);
+      });
+      
+      // Render variant options
+      renderVariants();
+      
+      // Set product features
+      const featuresHtml = [
+        { icon: 'fa-leaf', text: 'Sustainable materials' },
+        { icon: 'fa-hands', text: 'Handcrafted quality' },
+        { icon: 'fa-shipping-fast', text: 'Free shipping above RM150' },
+        { icon: 'fa-undo', text: '30-day returns' }
+      ].map(feature => `
+        <div class="feature-item">
+          <i class="fas ${feature.icon}"></i>
+          <span>${feature.text}</span>
+        </div>
+      `).join('');
+      document.getElementById('productFeatures').innerHTML = featuresHtml;
+      
+      // Set meta information
+      document.getElementById('materialContent').textContent = currentProduct.material || 'Premium heritage fabrics';
+      document.getElementById('sustainabilityContent').textContent = currentProduct.sustainability || 'Ethically sourced and environmentally conscious production';
+      
+      // Update try-on button
+      const tryOnBtn = document.getElementById('tryOnBtn');
+      tryOnBtn.onclick = () => openTryOn();
+      
+      // Update action buttons
+      updateActionButtons();
+      
+      // Inject JSON-LD structured data
+      injectStructuredData();
+    }
+    
+    function renderVariants() {
+      const variantOptions = document.getElementById('variantOptions');
+      variantOptions.innerHTML = '';
+      
+      // Group variants by color
+      const colorVariants = {};
+      allVariants.forEach(variant => {
+        if (!colorVariants[variant.color]) {
+          colorVariants[variant.color] = [];
+        }
+        colorVariants[variant.color].push(variant);
+      });
+      
+      Object.keys(colorVariants).forEach(color => {
+        const variants = colorVariants[color];
+        const isAvailable = variants.some(v => v.stock > 0);
+        const isSelected = currentVariant.color === color;
+        
+        const option = document.createElement('button');
+        option.className = `variant-option ${isSelected ? 'selected' : ''} ${!isAvailable ? 'unavailable' : ''}`;
+        option.textContent = color;
+        option.onclick = () => selectVariant(color);
+        option.disabled = !isAvailable;
+        
+        variantOptions.appendChild(option);
+      });
+    }
+    
+    function selectVariant(color) {
+      const variant = allVariants.find(v => v.color === color && v.stock > 0);
+      if (!variant) return;
+      
+      currentVariant = variant;
+      
+      // Update UI
+      document.getElementById('productPrice').textContent = `RM ${Number(variant.price || 0).toFixed(2)}`;
+      document.getElementById('productSku').textContent = `SKU: ${variant.sku}`;
+      
+      // Update variant selection UI
+      document.querySelectorAll('.variant-option').forEach(option => {
+        option.classList.remove('selected');
+        if (option.textContent === color) {
+          option.classList.add('selected');
+        }
+      });
+      
+      // Update main image if different
+      if (variant.image !== document.getElementById('mainImage').src) {
+        document.getElementById('mainImage').src = variant.image;
+        document.getElementById('mainImage').alt = `${currentProduct.title} - ${color}`;
+      }
+      
+      // Update URL without reloading
+      const url = new URL(window.location);
+      url.searchParams.set('variant', variant.id);
+      url.searchParams.set('sku', variant.sku);
+      window.history.replaceState({}, '', url);
+      
+      // Update action buttons
+      updateActionButtons();
+      
+      // Track variant selection
+      trackEvent('select_variant', {
+        product_id: currentProduct.id,
+        variant_id: variant.id,
+        variant_color: color,
+        price: variant.price
+      });
+    }
+    
+    function selectImage(index, images) {
+      selectedImageIndex = index;
+      document.getElementById('mainImage').src = images[index];
+      
+      // Update thumbnail active state
+      document.querySelectorAll('.thumbnail').forEach((thumb, i) => {
+        thumb.classList.toggle('active', i === index);
+      });
+    }
+    
+    function updateQuantity(change) {
+      const input = document.getElementById('quantityInput');
+      const newValue = parseInt(input.value) + change;
+      
+      if (newValue >= 1 && newValue <= 10) {
+        input.value = newValue;
+        currentQuantity = newValue;
+        validateQuantity();
+      }
+    }
+    
+    function validateQuantity() {
+      const input = document.getElementById('quantityInput');
+      const value = parseInt(input.value);
+      
+      if (isNaN(value) || value < 1) {
+        input.value = 1;
+        currentQuantity = 1;
+      } else if (value > 10) {
+        input.value = 10;
+        currentQuantity = 10;
+      } else {
+        currentQuantity = value;
+      }
+      
+      // Update button states
+      document.getElementById('decreaseQty').disabled = currentQuantity <= 1;
+      document.getElementById('increaseQty').disabled = currentQuantity >= 10;
+    }
+    
+    function updateActionButtons() {
+      const addToCartBtn = document.getElementById('addToCartBtn');
+      const buyNowBtn = document.getElementById('buyNowBtn');
+      
+      const isAvailable = currentVariant.stock > 0;
+      
+      addToCartBtn.disabled = !isAvailable;
+      buyNowBtn.disabled = !isAvailable;
+      
+      if (!isAvailable) {
+        addToCartBtn.innerHTML = '<i class="fas fa-times"></i> Out of Stock';
+        buyNowBtn.textContent = 'Out of Stock';
+      } else {
+        addToCartBtn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+        buyNowBtn.textContent = 'Buy Now';
+      }
+    }
+    
+    function addToCart() {
+      if (!currentVariant || currentVariant.stock <= 0) {
+        showToast('This item is out of stock', 'error');
+        return;
+      }
+      
+      // Add to cart using the shared cart functionality
+      const cartItem = {
+        id: currentVariant.sku,
+        name: `${currentProduct.title} - ${currentVariant.color}`,
+        price: Number(currentVariant.price || 0),
+        quantity: currentQuantity,
+        image: currentVariant.image,
+        variant: currentVariant.color,
+        product_id: currentProduct.id,
+        variant_id: currentVariant.id
+      };
+      
+      // Use the shared addToCart function
+      const button = document.createElement('button');
+      button.dataset.productId = cartItem.id;
+      button.dataset.productName = cartItem.name;
+      button.dataset.productPrice = cartItem.price;
+      button.dataset.productImage = cartItem.image;
+      button.dataset.variant = cartItem.variant;
+      
+      // Add multiple items if quantity > 1
+      for (let i = 0; i < currentQuantity; i++) {
+        window.Reweave.addToCart(button);
+      }
+      
+      // Track add to cart event
+      trackEvent('add_to_cart', {
+        product_id: currentProduct.id,
+        product_name: currentProduct.title,
+        variant_id: currentVariant.id,
+        variant_color: currentVariant.color,
+        price: currentVariant.price,
+        quantity: currentQuantity
+      });
+      
+      showToast(`${currentQuantity} item(s) added to cart`, 'success');
+    }
+    
+    function buyNow() {
+      if (!currentVariant || currentVariant.stock <= 0) {
+        showToast('This item is out of stock', 'error');
+        return;
+      }
+      
+      // Add to cart first
+      addToCart();
+      
+      // Track buy now event
+      trackEvent('buy_now', {
+        product_id: currentProduct.id,
+        product_name: currentProduct.title,
+        variant_id: currentVariant.id,
+        variant_color: currentVariant.color,
+        price: currentVariant.price,
+        quantity: currentQuantity
+      });
+      
+      // Redirect to cart with checkout parameter
+      setTimeout(() => {
+        window.location.href = '../cart/index.html?checkout=true';
+      }, 1000);
+    }
+    
+    function openTryOn() {
+      if (!currentProduct || !currentVariant) return;
+      
+      const tryOnUrl = `../tryon/index.html?product=${encodeURIComponent(currentProduct.title)}&variant=${encodeURIComponent(currentVariant.color)}&image=${encodeURIComponent(currentVariant.image)}`;
+      
+      // Track try-on event
+      trackEvent('tryon_open', {
+        product_id: currentProduct.id,
+        product_name: currentProduct.title,
+        variant_id: currentVariant.id,
+        variant_color: currentVariant.color
+      });
+      
+      window.location.href = tryOnUrl;
+    }
+    
+    function openZoomModal() {
+      const mainImage = document.getElementById('mainImage');
+      const zoomModal = document.getElementById('zoomModal');
+      const zoomImage = document.getElementById('zoomImage');
+      
+      zoomImage.src = mainImage.src;
+      zoomImage.alt = mainImage.alt;
+      zoomModal.classList.add('active');
+      
+      // Prevent body scroll
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeZoomModal() {
+      const zoomModal = document.getElementById('zoomModal');
+      zoomModal.classList.remove('active');
+      
+      // Restore body scroll
+      document.body.style.overflow = '';
+    }
+    
+    function injectStructuredData() {
+      // Remove existing structured data
+      document.querySelectorAll('script[type="application/ld+json"]').forEach(script => {
+        if (script.id !== 'organization-schema' && script.id !== 'website-schema') {
+          script.remove();
+        }
+      });
+      
+      // Product Schema
+      const productSchema = {
+        '@context': 'https://schema.org/',
+        '@type': 'Product',
+        name: currentProduct.title,
+        image: currentVariant.image,
+        description: currentProduct.description,
+        sku: currentVariant.sku,
+        brand: {
+          '@type': 'Brand',
+          name: 'Reweave'
+        },
+        category: currentProduct.category,
+        offers: {
+          '@type': 'Offer',
+          priceCurrency: 'MYR',
+          price: Number(currentVariant.price || 0),
+          availability: currentVariant.stock > 0 ? 'https://schema.org/InStock' : 'https://schema.org/OutOfStock',
+          seller: {
+            '@type': 'Organization',
+            name: 'Reweave'
+          }
+        },
+        aggregateRating: {
+          '@type': 'AggregateRating',
+          ratingValue: '4.8',
+          reviewCount: '24'
+        }
+      };
+      
+      const productScript = document.createElement('script');
+      productScript.type = 'application/ld+json';
+      productScript.textContent = JSON.stringify(productSchema);
+      document.head.appendChild(productScript);
+      
+      // Breadcrumb Schema
+      const breadcrumbSchema = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://www.reweave.shop'
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Shop',
+            item: 'https://www.reweave.shop/pages/shop/index.html'
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: currentProduct.title
+          }
+        ]
+      };
+      
+      const breadcrumbScript = document.createElement('script');
+      breadcrumbScript.type = 'application/ld+json';
+      breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
+      document.head.appendChild(breadcrumbScript);
+    }
+    
+    function showError(message) {
+      document.getElementById('loadingState').style.display = 'none';
+      document.getElementById('errorState').style.display = 'block';
+      document.getElementById('productDetail').style.display = 'none';
+      
+      const errorState = document.getElementById('errorState');
+      errorState.querySelector('p').textContent = message;
+    }
+  </script>
+</body>
+</html>

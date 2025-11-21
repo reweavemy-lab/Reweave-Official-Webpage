@@ -308,7 +308,7 @@
         <button class="nav-btn" onclick="toggleMenu()">
           <i class="fas fa-bars"></i> Menu
         </button>
-
+        <button class="nav-btn" onclick="window.location.href='/tryon'" title="AI Try-On">AI Try-On</button>
       </div>
       
       <a href="/" class="logo">REWEAVE</a>
@@ -317,7 +317,7 @@
         <button class="nav-btn" onclick="window.location.href='pages/account/index.html'">
           <i class="fas fa-user"></i>
         </button>
-        <button class="nav-btn cart-btn" onclick="window.location.href='cart.html'">
+        <button class="nav-btn cart-btn" onclick="window.location.href='/cart'">
           <i class="fas fa-shopping-bag"></i>
           <span class="cart-count" id="cartCount">0</span>
         </button>
@@ -650,6 +650,20 @@
         header.style.boxShadow = 'none';
       }
     });
+  </script>
+  <script>
+    (function(){
+      var isLocal = (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+      var HOME_URL = isLocal ? '/vercel-deployment/index.html' : '/';
+      var TRYON_URL = isLocal ? '/vercel-deployment/pages/tryon/index.html' : '/tryon';
+      var CART_URL = isLocal ? '/vercel-deployment/pages/cart/index.html' : '/cart';
+      var logo = document.querySelector('a.logo');
+      if (logo) logo.setAttribute('href', HOME_URL);
+      var tryonBtn = document.querySelector('button[title="AI Try-On"]');
+      if (tryonBtn) tryonBtn.onclick = function(){ window.location.href = TRYON_URL; };
+      var cartBtn = document.querySelector('.cart-btn');
+      if (cartBtn) cartBtn.onclick = function(){ window.location.href = CART_URL; };
+    })();
   </script>
   
   <!-- Toast Notification Container -->

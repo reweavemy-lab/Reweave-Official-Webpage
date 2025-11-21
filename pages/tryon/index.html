@@ -422,16 +422,21 @@
         <div class="search-backdrop"></div>
     </div>
 
-    <!-- Try-On Section -->
     <section class="tryon-container">
         <div class="container">
             <div class="tryon-header">
                 <h1>Virtual Try-On</h1>
-                <p>See how our products look on you before you buy. Upload a photo or use your camera to try on our sustainable bags.</p>
+                <p>See how our products look on you before you buy.</p>
             </div>
-            
-            <div class="tryon-layout">
-                <!-- Try-On Preview -->
+
+            <div style="width:100%;max-width:1200px;margin:0 auto;">
+                <iframe id="ai-tryon-frame" src="http://localhost:8501/" style="width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
+                <div style="text-align:center;margin-top:16px;">
+                    <a href="http://localhost:8501/" class="btn">Open in new tab</a>
+                </div>
+            </div>
+
+            <div class="tryon-layout" style="display:none;">
                 <div class="tryon-preview">
                     <div class="upload-container" id="upload-area">
                         <div class="upload-icon">
@@ -702,6 +707,21 @@
                     updateTryOnButton();
                 });
             });
+
+            const params = new URLSearchParams(window.location.search);
+            const preselectProduct = params.get('product');
+            if (preselectProduct) {
+                productOptions.forEach(opt => {
+                    const nameEl = opt.querySelector('h4');
+                    const name = nameEl ? nameEl.textContent.trim() : '';
+                    if (name && name.toLowerCase() === preselectProduct.toLowerCase()) {
+                        productOptions.forEach(o => o.classList.remove('selected'));
+                        opt.classList.add('selected');
+                        selectedProduct = name;
+                        updateTryOnButton();
+                    }
+                });
+            }
             
             // Size selection
             const sizeOptions = document.querySelectorAll('.size-option');

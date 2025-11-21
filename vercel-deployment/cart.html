@@ -5,7 +5,7 @@
   <link rel="icon" type="image/x-icon" href="images/Reweave logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Cart • Reweave</title>
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="../archive/development-files/css/styles.css" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <style>
@@ -160,62 +160,70 @@
   </style>
 </head>
 <body>
-  <!-- Luxury header (standardized) -->
-  <header class="luxury-header">
-    <div class="header-container">
-      <div class="header-left">
-        <button class="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i><span>Menu</span></button>
-        <button class="search-btn" aria-label="Search"><i class="fas fa-search"></i><span>Search</span></button>
-      </div>
-    <div class="logo-center"><a href="/">REWEAVE</a></div>
-      <div class="header-right">
-
-        <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
-        <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
-        <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
-      </div>
+  <!-- Homepage-style header -->
+  <!-- Standardized Header Component for Reweave -->
+<header class="header">
+  <div class="header-container">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i> Menu
+      </button>
+      <button class="nav-btn" onclick="window.location.href='pages/tryon/index.html'" title="AI Try-On">AI Try-On</button>
     </div>
-    <nav class="hidden-nav">
-      <div class="nav-content">
-        <button class="close-nav" aria-label="Close"><i class="fas fa-times"></i><span>Close</span></button>
-        <div class="nav-categories">
-          <div class="nav-section">
-            <h3>New</h3>
-            <ul>
-              <li><a href="../shop/index.html">Latest Arrivals</a></li>
-              <li><a href="../shop/index.html">Limited Edition</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Bags and Accessories</h3>
-            <ul>
-              <li><a href="../shop/index.html">Totes</a></li>
-              <li><a href="../shop/index.html">Slings</a></li>
-              <li><a href="../shop/index.html">Pouches</a></li>
-              <li><a href="../shop/index.html">Wallets</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Collections</h3>
-            <ul>
-              <li><a href="../shop/index.html">Reweave Luxe</a></li>
-              <li><a href="../shop/index.html">Reweave Pickleball</a></li>
-              <li><a href="../shop/index.html">Batik Series</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Our Story</h3>
-            <ul>
-              <li><a href="../story/index.html">About Us</a></li>
-              <li><a href="../impact/index.html">Impact</a></li>
-              <li><a href="../culture/index.html">Culture</a></li>
-              <li><a href="../journal/index.html">Journal</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+    
+    <a href="/index.html" class="logo">REWEAVE</a>
+    
+    <div class="nav-right">
+      <button class="nav-btn cart-btn" onclick="window.location.href = '/pages/cart/index.html'"">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <button class="nav-btn" onclick="toggleMenu()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Shop</div>
+    <a href="pages/shop/index.html" class="menu-link">Shop All</a>
+    <a href="pages/shop/index.html#new-arrivals" class="menu-link">New Arrivals</a>
+    <a href="pages/shop/index.html#batik-heritage" class="menu-link">Batik Heritage</a>
+    <a href="pages/shop/index.html#songket-collection" class="menu-link">Songket Collection</a>
+    <a href="pages/shop/index.html#accessories" class="menu-link">Accessories</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Our Story</div>
+    <a href="pages/story/index.html" class="menu-link">About Reweave</a>
+    <a href="pages/artisan/index.html" class="menu-link">Artisan Craft</a>
+    <a href="pages/culture/index.html" class="menu-link">Cultural Heritage</a>
+    <a href="pages/impact/index.html" class="menu-link">Sustainability</a>
+    <a href="pages/community/index.html" class="menu-link">Community</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Experience</div>
+    <a href="pages/tryon/index.html" class="menu-link">AI Try-On</a>
+    <a href="pages/customize/index.html" class="menu-link">Customize</a>
+    <a href="pages/journal/index.html" class="menu-link">Journal</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Support</div>
+    <a href="pages/team/index.html" class="menu-link">Contact Us</a>
+    <a href="#" class="menu-link">Shipping & Returns</a>
+    <a href="#" class="menu-link">Size Guide</a>
+    <a href="#" class="menu-link">Care Instructions</a>
+  </div>
+</div>
 
   <main class="container">
     <h1 class="page-title">Your Cart</h1>
@@ -260,7 +268,7 @@
 
         <!-- Checkout buttons -->
         <a href="../checkout/guest.html" class="btn" id="checkoutBtn">Proceed to Checkout</a>
-        <a href="www.reweave.shop" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        <a href="index.html#products" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
 
         <!-- Guest checkout info -->
         <div style="margin-top: 16px; padding: 12px; background: var(--primary-white); border: 1px solid var(--border-gray); border-radius: 8px;">
@@ -271,18 +279,51 @@
       </div>
     </div>
   </main>
+  <!-- Standardized Footer Component for Reweave -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">REWEAVE</div>
+    <div class="footer-text">
+      Sustainable fashion, reimagined. Crafting heritage into modern essentials.
+    </div>
+    <div class="footer-links">
+      <a href="pages/story/index.html" class="footer-link">Our Story</a>
+      <a href="pages/impact/index.html" class="footer-link">Sustainability</a>
+      <a href="pages/community/index.html" class="footer-link">Community</a>
+      <a href="pages/team/index.html" class="footer-link">Contact</a>
+    </div>
+    <div class="footer-trust">
+      <span class="trust-badge">FPX Available</span>
+      <span class="trust-badge">Visa</span>
+      <span class="trust-badge">Mastercard</span>
+      <span class="trust-badge">30-day Returns</span>
+    </div>
+  </div>
+</footer>
+  <section class="container" style="margin-top:24px;">
+    <h3 style="font-family: 'Playfair Display', serif; font-weight:300; letter-spacing:1px;">You might also like</h3>
+    <div id="upsellGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px;"></div>
+  </section>
 
   <script>
     // Cart functionality
     let cart = [];
     let promoDiscount = 0;
     let promoCode = '';
+    const API_PRODUCTS = '/api/products.json';
 
     // Initialize cart - use reweave-cart key from main site
     function initCart() {
-      cart = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
+      cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart = cart.map(i => ({
+        ...i,
+        price: typeof i.price === 'string' ? parseFloat(String(i.price).replace(/[^0-9.]/g,'')) || 0 : Number(i.price || 0),
+        qty: Number(i.qty || 1)
+      }));
+      localStorage.setItem('cart', JSON.stringify(cart));
       renderCart();
       updateSummary();
+      loadUpsell();
     }
 
     // Render cart items
@@ -295,7 +336,7 @@
             <i class="fas fa-shopping-bag"></i>
             <h3>Your cart is empty</h3>
             <p>Add some beautiful items to get started</p>
-            <a href="www.reweave.shop" class="btn" style="margin-top: 16px;">Continue Shopping</a>
+            <a href="pages/shop/index.html" class="btn" style="margin-top: 16px;">Continue Shopping</a>
           </div>
         `;
         document.getElementById('checkoutBtn').style.display = 'none';
@@ -310,7 +351,7 @@
           <div class="item-main">
             <h3>${item.name}</h3>
             <div class="item-meta">${item.variant || ''}</div>
-            <div class="item-meta">RM ${(item.price || 0).toFixed(2)}</div>
+            <div class="item-meta">RM ${Number(item.price || 0).toFixed(2)}</div>
           </div>
           <div class="item-actions">
             <div class="qty">
@@ -319,7 +360,7 @@
               <button onclick="updateQuantity(${index}, 1)">+</button>
             </div>
             <div style="text-align: right; min-width: 80px;">
-              <div style="font-weight: 500;">RM ${((item.price || 0) * (item.qty || 1)).toFixed(2)}</div>
+              <div style="font-weight: 500;">RM ${Number((item.price || 0) * (item.qty || 1)).toFixed(2)}</div>
               <div class="link-muted" onclick="removeItem(${index})">Remove</div>
             </div>
           </div>
@@ -356,21 +397,21 @@
 
     // Save cart to localStorage
     function saveCart() {
-      localStorage.setItem('reweave-cart', JSON.stringify(cart));
+      localStorage.setItem('cart', JSON.stringify(cart));
     }
 
     // Update summary
     function updateSummary() {
-      const subtotal = cart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0);
+      const subtotal = cart.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.qty || 1), 0);
       const shipping = 10; // Fixed shipping
       const tax = subtotal * 0.06; // 6% tax
       const discount = promoDiscount > 0 ? subtotal * promoDiscount : 0;
       const total = subtotal + shipping + tax - discount;
 
-      document.getElementById('subtotal').textContent = `RM ${subtotal.toFixed(2)}`;
-      document.getElementById('shipping').textContent = `RM ${shipping.toFixed(2)}`;
-      document.getElementById('tax').textContent = `RM ${tax.toFixed(2)}`;
-      document.getElementById('total').textContent = `RM ${total.toFixed(2)}`;
+      document.getElementById('subtotal').textContent = formatMYR(subtotal);
+      document.getElementById('shipping').textContent = formatMYR(shipping);
+      document.getElementById('tax').textContent = formatMYR(tax);
+      document.getElementById('total').textContent = formatMYR(total);
 
       // Show promo savings if applied
       const promoNotice = document.getElementById('promoNotice');
@@ -403,7 +444,7 @@
 
     // Update cart count in header
     function updateCartCount() {
-      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const count = cart.reduce((sum, item) => sum + Number(item.qty || 1), 0);
       const badge = document.querySelector('.cart-count');
       if (badge) badge.textContent = String(count);
     }
@@ -426,6 +467,143 @@
         closeNav.addEventListener('click', () => hiddenNav.classList.remove('active'));
       }
     });
+    function loadUpsell() {
+      const grid = document.getElementById('upsellGrid');
+      if (!grid) return;
+      grid.innerHTML = '<p style="color:#777">Loading recommendations...</p>';
+      fetch(API_PRODUCTS)
+        .then(r => r.json())
+        .then(data => {
+          const list = Array.isArray(data) ? data : (data.products || []);
+          const picks = list.slice(0, 4);
+          grid.innerHTML = picks.map(p => {
+            const minVariant = (p.variants || [])[0] || { price: p.price || 0, options: {}, sku: p.id };
+            const minPrice = (p.variants || []).reduce((m, v) => Math.min(m, Number(v.price || 0)), Number(minVariant.price || 0));
+            const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
+            return `
+              <div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;">
+                <img src="${firstImage}" alt="${p.name}" style="width:72px;height:72px;border-radius:8px;object-fit:cover;" />
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:500;">${p.name}</div>
+                  <div style="font-size:13px;color:#666;">RM ${Number(minPrice).toFixed(2)}</div>
+                </div>
+                <button data-id="${p.id}" data-price="${Number(minVariant.price || minPrice)}" data-image="${firstImage}" data-name="${p.name}" class="btn btn-secondary" style="width:auto;">Add</button>
+              </div>
+            `;
+          }).join('');
+          Array.from(grid.querySelectorAll('button')).forEach(btn => {
+            btn.addEventListener('click', () => {
+              const item = {
+                id: btn.getAttribute('data-id'),
+                name: btn.getAttribute('data-name'),
+                price: Number(btn.getAttribute('data-price') || 0),
+                qty: 1,
+                image: btn.getAttribute('data-image') || '',
+                options: '',
+                addon: true
+              };
+              const cur = JSON.parse(localStorage.getItem('cart') || '[]');
+              const existing = cur.find(i => i.id === item.id && i.options === item.options);
+              if (existing) existing.qty += 1; else cur.push(item);
+              localStorage.setItem('cart', JSON.stringify(cur));
+              cart = cur;
+              renderCart();
+              updateSummary();
+              updateCartCount();
+            });
+          });
+        })
+        .catch(() => {
+          const picks = [
+            { id: 'mock-1', name: 'Batik Sling Small', price: 189, images: ['https://via.placeholder.com/300x300?text=Batik+Sling'] },
+            { id: 'mock-2', name: 'Songket Tote', price: 259, images: ['https://via.placeholder.com/300x300?text=Songket+Tote'] },
+            { id: 'mock-3', name: 'Canvas Pouch', price: 69, images: ['https://via.placeholder.com/300x300?text=Canvas+Pouch'] },
+            { id: 'mock-4', name: 'Leather Wallet', price: 129, images: ['https://via.placeholder.com/300x300?text=Leather+Wallet'] }
+          ];
+          grid.innerHTML = picks.map(p => {
+            const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
+            return `
+              <div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;">
+                <img src="${firstImage}" alt="${p.name}" style="width:72px;height:72px;border-radius:8px;object-fit:cover;" />
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:500;">${p.name}</div>
+                  <div style="font-size:13px;color:#666;">RM ${Number(p.price||0).toFixed(2)}</div>
+                </div>
+                <button data-id="${p.id}" data-price="${Number(p.price || 0)}" data-image="${firstImage}" data-name="${p.name}" class="btn btn-secondary" style="width:auto;">Add</button>
+              </div>
+            `;
+          }).join('');
+          Array.from(grid.querySelectorAll('button')).forEach(btn => {
+            btn.addEventListener('click', () => {
+              const item = {
+                id: btn.getAttribute('data-id'),
+                name: btn.getAttribute('data-name'),
+                price: Number(btn.getAttribute('data-price') || 0),
+                qty: 1,
+                image: btn.getAttribute('data-image') || '',
+                options: '',
+                addon: true
+              };
+              const cur = JSON.parse(localStorage.getItem('cart') || '[]');
+              const existing = cur.find(i => i.id === item.id && i.options === item.options);
+              if (existing) existing.qty += 1; else cur.push(item);
+              localStorage.setItem('cart', JSON.stringify(cur));
+              cart = cur;
+              renderCart();
+              updateSummary();
+              updateCartCount();
+            });
+          });
+        });
+    }
+    function loadUpsell() {
+      const grid = document.getElementById('upsellGrid');
+      if (!grid) return;
+      grid.innerHTML = '<p style="color:#777">Loading recommendations...</p>';
+      fetch(API_PRODUCTS)
+        .then(r => r.json())
+        .then(data => {
+          const list = Array.isArray(data) ? data : (data.products || []);
+          const picks = list.slice(0, 4);
+          grid.innerHTML = picks.map(p => {
+            const minVariant = (p.variants || [])[0] || { price: p.price || 0, options: {}, sku: p.id };
+            const minPrice = (p.variants || []).reduce((m, v) => Math.min(m, Number(v.price || 0)), Number(minVariant.price || 0));
+            const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
+            return `
+              <div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;">
+                <img src="${firstImage}" alt="${p.name}" style="width:72px;height:72px;border-radius:8px;object-fit:cover;" />
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:500;">${p.name}</div>
+                  <div style="font-size:13px;color:#666;">${formatMYR(minPrice)}</div>
+                </div>
+                <button data-id="${p.id}" data-price="${Number(minVariant.price || minPrice)}" data-image="${firstImage}" data-name="${p.name}" class="btn btn-secondary" style="width:auto;">Add</button>
+              </div>
+            `;
+          }).join('');
+          Array.from(grid.querySelectorAll('button')).forEach(btn => {
+            btn.addEventListener('click', () => {
+              const item = {
+                id: btn.getAttribute('data-id'),
+                name: btn.getAttribute('data-name'),
+                price: Number(btn.getAttribute('data-price') || 0),
+                qty: 1,
+                image: btn.getAttribute('data-image') || '',
+                options: '',
+                addon: true
+              };
+              const cur = JSON.parse(localStorage.getItem('cart') || '[]');
+              const existing = cur.find(i => i.id === item.id && i.options === item.options);
+              if (existing) existing.qty += 1; else cur.push(item);
+              localStorage.setItem('cart', JSON.stringify(cur));
+              cart = cur;
+              renderCart();
+              updateSummary();
+              updateCartCount();
+            });
+          });
+        })
+        .catch(() => { grid.innerHTML = ''; });
+    }
   </script>
   
   <!-- Toast Notification Container -->
@@ -433,29 +611,23 @@
   
   <!-- Toast Notification Script -->
   <script>
-    // Toast notification system
+    const API_PRODUCTS = 'http://localhost:3001/api/products';
+    const formatMYR = v => `RM ${Number(v || 0).toFixed(2)}`;
     function showToast(message, type = 'info', duration = 3000) {
       const container = document.getElementById('toastContainer');
       const toast = document.createElement('div');
       toast.className = `toast ${type}`;
       toast.textContent = message;
-      
       container.appendChild(toast);
-      
-      // Trigger animation
       setTimeout(() => toast.classList.add('show'), 10);
-      
-      // Remove after duration
       setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 300);
       }, duration);
     }
-    
-    // Override alert function to use toast
-    window.alert = function(message) {
-      showToast(message, 'success');
-    };
+    window.alert = function(message) { showToast(message, 'success'); };
   </script>
+
+  <script src="/shared/script.js"></script>
 </body>
 </html>

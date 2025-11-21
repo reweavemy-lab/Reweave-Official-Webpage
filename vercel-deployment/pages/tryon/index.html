@@ -2,13 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Try-On - Reweave</title>
-    <link rel="stylesheet" href="../../css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link rel="icon" type="image/png" href="../../images/Reweave_logo-removebg-preview.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Try-On - Reweave</title>
+  <link rel="stylesheet" href="../../shared/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <link rel="preconnect" href="http://localhost:8501">
+    <link rel="dns-prefetch" href="//api.reweave.my">
+  <style>
         /* Try-On Page Specific Styles */
         .tryon-container {
             padding: 120px 0 80px;
@@ -332,67 +340,28 @@
         .action-buttons.show {
             display: flex;
         }
-    </style>
+
+        /* Wardrobe Mirror & Outfit Co-Pilot */
+        .feature-section { margin-top: 40px; }
+        .feature-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+        .feature-header h2 { font-size:1.6rem; font-family: var(--font-serif); font-weight:300; letter-spacing:1px; }
+        .feature-grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; }
+        .feature-card { border:1px solid #e0e0e0; border-radius:10px; padding:12px; background:#fff; display:flex; gap:12px; align-items:center; }
+        .feature-thumb { width:72px; height:72px; border-radius:8px; background:#f8f8f8; overflow:hidden; }
+        .feature-thumb img { width:100%; height:100%; object-fit:cover; }
+        .feature-info { flex:1; }
+        .feature-info .name { font-size:14px; font-weight:500; }
+        .feature-info .price { font-size:13px; color:#666; }
+        .feature-actions { display:flex; gap:8px; }
+        .feature-actions .btn { padding:8px 10px; border-radius:8px; font-size:12px; width:auto; }
+        @media (max-width: 980px){ .feature-grid { grid-template-columns:1fr; } }
+        .sales-voice { font-size:13px; color:#333; margin-top:6px; }
+  </style>
+  <script>window.REWEAVE_API_BASE = 'http://127.0.0.1:3002';</script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="luxury-header">
-        <div class="header-container">
-            <div class="header-left">
-                <button class="menu-btn" aria-label="Menu">
-                    <i class="fas fa-bars"></i>
-                    <span>Menu</span>
-                </button>
-                <button class="search-btn" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                    <span>Search</span>
-                </button>
-            </div>
-            <div class="logo-center">
-                <a href="../../index.html">REWEAVE</a>
-            </div>
-            <div class="header-right">
-                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
-                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
-                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
-                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
-            </div>
-        </div>
-        <nav class="hidden-nav">
-            <div class="nav-content">
-                <button class="close-nav" aria-label="Close">
-                    <i class="fas fa-times"></i>
-                    <span>Close</span>
-                </button>
-                <div class="nav-categories">
-                    <div class="nav-section">
-                        <h3>New</h3>
-                        <ul>
-                            <li><a href="../shop/index.html">Latest Arrivals</a></li>
-                            <li><a href="../shop/index.html">Limited Edition</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>Bags and Accessories</h3>
-                        <ul>
-                            <li><a href="../shop/index.html">Totes</a></li>
-                            <li><a href="../shop/index.html">Slings</a></li>
-                            <li><a href="../shop/index.html">Accessories</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>About</h3>
-                        <ul>
-                            <li><a href="../story/index.html">Our Story</a></li>
-                            <li><a href="../community/index.html">Community</a></li>
-                            <li><a href="../impact/index.html">Impact</a></li>
-                            <li><a href="../journal/index.html">Journal</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
+    <!-- Standardized Header Component for Reweave -->
+    <div id="header-container"></div>
 
     <!-- Search Overlay -->
     <div class="search-overlay" aria-hidden="true">
@@ -422,16 +391,66 @@
         <div class="search-backdrop"></div>
     </div>
 
-    <!-- Try-On Section -->
     <section class="tryon-container">
         <div class="container">
             <div class="tryon-header">
                 <h1>Virtual Try-On</h1>
-                <p>See how our products look on you before you buy. Upload a photo or use your camera to try on our sustainable bags.</p>
+                <p>See how our products look on you before you buy.</p>
             </div>
-            
-            <div class="tryon-layout">
-                <!-- Try-On Preview -->
+
+            <div style="width:100%;max-width:1200px;margin:0 auto;">
+                <div id="streamlit-container" style="position:relative;">
+                    <iframe id="ai-tryon-frame" src="http://localhost:8501/" loading="lazy" style="width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
+                    <div id="streamlit-loading" style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(255,255,255,0.9);display:flex;align-items:center;justify-content:center;border-radius:12px;">
+                        <div style="text-align:center;">
+                            <div class="spinner" style="margin:0 auto 20px;"></div>
+                            <p>Loading AI Try-On Experience...</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="text-align:center;margin-top:16px;">
+                    <a id="openStreamlitTab" href="#" class="btn" target="_blank">Open in new tab</a>
+                    <button id="refresh-streamlit" class="btn btn-outline">Refresh Try-On</button>
+                </div>
+            </div>
+
+            <div class="feature-section" id="wardrobe-mirror">
+                <div class="feature-header">
+                    <h2>Wardrobe Mirror</h2>
+                    <div>
+                        <input id="mirrorInput" type="file" accept="image/*" multiple style="display:none;" />
+                        <button class="btn btn-outline" onclick="document.getElementById('mirrorInput').click()">Upload Wardrobe Photos</button>
+                        <button class="btn" id="mirrorSuggest">Suggest Matches</button>
+                    </div>
+                </div>
+                <div id="mirrorPreview" style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;"></div>
+                <div class="feature-grid" id="mirrorSuggestions"></div>
+            </div>
+
+            <div class="feature-section" id="outfit-copilot">
+                <div class="feature-header">
+                    <h2>Outfit Co‑Pilot</h2>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;">
+                    <select id="copilotOccasion" class="select">
+                        <option value="work">Work</option>
+                        <option value="casual">Casual</option>
+                        <option value="evening">Evening</option>
+                    </select>
+                    <select id="copilotPalette" class="select">
+                        <option value="neutral">Neutral</option>
+                        <option value="warm">Warm</option>
+                        <option value="cool">Cool</option>
+                    </select>
+                    <input id="copilotBudget" type="number" class="select" placeholder="Budget (RM)" />
+                </div>
+                <div style="margin-bottom:12px;">
+                    <button class="btn" id="copilotRecommend">Recommend Outfit</button>
+                </div>
+                <div class="feature-grid" id="copilotSuggestions"></div>
+            </div>
+
+            <div class="tryon-layout" style="display:none;">
                 <div class="tryon-preview">
                     <div class="upload-container" id="upload-area">
                         <div class="upload-icon">
@@ -526,66 +545,165 @@
         </div>
     </section>
 
-    <!-- Footer -->
-    <footer class="luxury-footer">
-      <div class="container">
-        <div class="footer-grid">
-          <div class="footer-column">
-            <h4>Help</h4>
-            <ul class="footer-links">
-              <li><a href="#">Client Advisor: 1800 814 930</a></li>
-              <li><a href="#">FAQ</a></li>
-              <li><a href="#">Product Care</a></li>
-              <li><a href="#">Delivery, Returns & Exchanges</a></li>
-              <li><a href="#">Stores</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Services</h4>
-            <ul class="footer-links">
-              <li><a href="#">Repairs</a></li>
-              <li><a href="#">Personalisation</a></li>
-              <li><a href="#">Art of Gifting</a></li>
-              <li><a href="#">Download our Apps</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>About Reweave</h4>
-            <ul class="footer-links">
-              <li><a href="../story/index.html">Fashion & Craft</a></li>
-              <li><a href="../culture/index.html">Arts & Culture</a></li>
-              <li><a href="../story/index.html">Our Maison</a></li>
-              <li><a href="../impact/index.html">Sustainability</a></li>
-              <li><a href="../journal/index.html">Latest News</a></li>
-              <li><a href="../story/index.html#careers">Careers</a></li>
-              <li><a href="../community/index.html">Foundation</a></li>
-            </ul>
-          </div>
-          <div class="footer-column">
-            <h4>Connect</h4>
-            <ul class="footer-links">
-              <li><a href="#">Sign up for emails</a></li>
-              <li><a href="#">Follow Us</a></li>
-            </ul>
-          </div>
-        </div>
-    
-        <div class="footer-sub">
-          <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
-          <div class="footer-legal">
-            <a href="#">Sitemap</a>
-            <a href="#">Legal & Privacy</a>
-          </div>
-        </div>
-    
-        <div class="footer-brand">REWEAVE</div>
-      </div>
-    </footer>
+    <!-- Standardized Footer Component for Reweave -->
+    <div id="footer-container"></div>
 
-    <script src="../../js/main.js"></script>
+    <script src="../../shared/script.js"></script>
     <script>
-        // Enhanced AI Try-On functionality
+        // Load standardized header and footer
+        async function loadStandardizedComponents() {
+            try {
+                const [headerResponse, footerResponse] = await Promise.all([
+                    fetch('../../shared/header.html'),
+                    fetch('../../shared/footer.html')
+                ]);
+                
+                const headerHtml = await headerResponse.text();
+                const footerHtml = await footerResponse.text();
+                
+                document.getElementById('header-container').innerHTML = headerHtml;
+                document.getElementById('footer-container').innerHTML = footerHtml;
+                
+                // Initialize header functionality
+                initializeHeader();
+            } catch (error) {
+                console.error('Failed to load standardized components:', error);
+            }
+        }
+
+        // Enhanced AI Try-On functionality with Streamlit integration
+        
+        // Streamlit Integration Functions
+        function initializeStreamlitIntegration() {
+            const iframe = document.getElementById('ai-tryon-frame');
+            const loadingDiv = document.getElementById('streamlit-loading');
+            const refreshBtn = document.getElementById('refresh-streamlit');
+            
+            // Hide loading overlay when iframe loads
+            if (iframe) {
+                iframe.addEventListener('load', function() {
+                    if (loadingDiv) {
+                        loadingDiv.style.display = 'none';
+                    }
+                    // Apply product preselection after iframe loads
+                    setTimeout(applyProductPreselection, 1000);
+                });
+                
+                // Handle iframe errors
+                iframe.addEventListener('error', function() {
+                    if (loadingDiv) {
+                        loadingDiv.innerHTML = '<div style="text-align:center;color:#c00;"><p>Failed to load AI Try-On.</p><button onclick="location.reload()" class="btn">Retry</button></div>';
+                    }
+                });
+            }
+            
+            // Refresh button functionality
+            if (refreshBtn) {
+                refreshBtn.addEventListener('click', function() {
+                    if (iframe) {
+                        iframe.src = iframe.src;
+                        if (loadingDiv) {
+                            loadingDiv.style.display = 'flex';
+                        }
+                    }
+                });
+            }
+            
+            // Monitor Streamlit communication
+            window.addEventListener('message', function(event) {
+                // Handle messages from Streamlit app
+                const ORIGIN = window.STREAMLIT_ORIGIN || 'http://localhost:8501';
+                const expectedOrigin = (ORIGIN.startsWith('/')) ? window.location.origin : ORIGIN;
+                if (event.origin === expectedOrigin && event.data) {
+                    handleStreamlitMessage(event.data);
+                }
+            });
+        }
+        
+        function handleStreamlitMessage(data) {
+            // Handle different message types from Streamlit
+            if (data.type === 'tryon_complete') {
+                showToast('Try-on completed successfully!', 'success');
+                trackEvent('ai_tryon_complete', {
+                    product: data.product,
+                    success: true
+                });
+            } else if (data.type === 'tryon_error') {
+                showToast('Try-on failed. Please try again.', 'error');
+                trackEvent('ai_tryon_error', {
+                    error: data.error
+                });
+            } else if (data.type === 'product_selected') {
+                // Update URL with selected product for sharing
+                const url = new URL(window.location);
+                url.searchParams.set('product', data.product);
+                window.history.replaceState({}, '', url);
+            }
+        }
+        
+        function applyProductPreselection() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const productName = urlParams.get('product');
+            const productId = urlParams.get('product_id');
+            const sku = urlParams.get('sku');
+            
+            if (productName || productId || sku) {
+                // Send product preselection to Streamlit iframe
+                const iframe = document.getElementById('ai-tryon-frame');
+                if (iframe && iframe.contentWindow) {
+                    iframe.contentWindow.postMessage({
+                        type: 'preselect_product',
+                        product: productName,
+                        product_id: productId,
+                        sku: sku
+                    }, ((window.STREAMLIT_ORIGIN || 'http://localhost:8501').startsWith('/') ? window.location.origin : (window.STREAMLIT_ORIGIN || 'http://localhost:8501')));
+                }
+                
+                // Also update the local product selection if available
+                updateLocalProductSelection(productName);
+            }
+        }
+        
+        function updateLocalProductSelection(productName) {
+            if (!productName) return;
+            
+            // Find and select the product in the local interface
+            const productOptions = document.querySelectorAll('.product-option');
+            productOptions.forEach(option => {
+                const nameEl = option.querySelector('h4');
+                if (nameEl && nameEl.textContent.toLowerCase().includes(productName.toLowerCase())) {
+                    productOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    selectedProduct = nameEl.textContent.trim();
+                    updateTryOnButton();
+                }
+            });
+        }
+        
+        // Global function to open try-on with product preselection
+        window.openTryOnWithProduct = function(productName, productId, sku) {
+            const url = new URL('/pages/tryon/index.html', window.location.origin);
+            if (productName) url.searchParams.set('product', productName);
+            if (productId) url.searchParams.set('product_id', productId);
+            if (sku) url.searchParams.set('sku', sku);
+            window.location.href = url.toString();
+        };
+        
         document.addEventListener('DOMContentLoaded', function() {
+            // Load standardized components first
+            loadStandardizedComponents();
+            
+            // Streamlit integration and product preselection
+            (function(){
+              const iframe = document.getElementById('ai-tryon-frame');
+              const STREAMLIT_ORIGIN = (location.hostname === 'localhost' || location.hostname === '127.0.0.1') ? 'http://localhost:8501' : '/ai';
+              if (iframe) iframe.src = STREAMLIT_ORIGIN + '/';
+              window.STREAMLIT_ORIGIN = STREAMLIT_ORIGIN;
+              const openBtn = document.getElementById('openStreamlitTab');
+              if (openBtn) openBtn.setAttribute('href', (STREAMLIT_ORIGIN + '/'));
+            })();
+            initializeStreamlitIntegration();
+            
             const uploadArea = document.getElementById('upload-area');
             const fileInput = document.getElementById('image-upload');
             const cameraBtn = document.getElementById('camera-btn');
@@ -700,8 +818,28 @@
                     this.classList.add('selected');
                     selectedProduct = this.dataset.product;
                     updateTryOnButton();
+                    
+                    // Send product selection to Streamlit
+                    const iframe = document.getElementById('ai-tryon-frame');
+                    if (iframe && iframe.contentWindow) {
+                        const nameEl = this.querySelector('h4');
+                        const productName = nameEl ? nameEl.textContent.trim() : '';
+                        iframe.contentWindow.postMessage({
+                            type: 'select_product',
+                            product: productName
+                        }, ((window.STREAMLIT_ORIGIN || 'http://localhost:8501').startsWith('/') ? window.location.origin : (window.STREAMLIT_ORIGIN || 'http://localhost:8501')));
+                    }
                 });
             });
+
+            // Handle product preselection from URL parameters
+            const params = new URLSearchParams(window.location.search);
+            const preselectProduct = params.get('product');
+            if (preselectProduct) {
+                setTimeout(() => {
+                    updateLocalProductSelection(preselectProduct);
+                }, 500);
+            }
             
             // Size selection
             const sizeOptions = document.querySelectorAll('.size-option');
@@ -881,8 +1019,193 @@
                     if (shareBtn) shareBtn.style.display = 'inline-block';
                 }, 2000);
             }
+
+            // Wardrobe Mirror logic
+            const API_PRODUCTS = '/api/products.json';
+            const API_SUGGEST = (window.REWEAVE_API_BASE ? (window.REWEAVE_API_BASE + '/suggest') : null);
+            const mirrorInput = document.getElementById('mirrorInput');
+            const mirrorPreview = document.getElementById('mirrorPreview');
+            const mirrorSuggestBtn = document.getElementById('mirrorSuggest');
+            const mirrorSuggestions = document.getElementById('mirrorSuggestions');
+            let wardrobeImages = [];
+
+            if (mirrorInput) {
+                mirrorInput.addEventListener('change', function(e){
+                    wardrobeImages = Array.from(e.target.files || []);
+                    mirrorPreview.innerHTML = '';
+                    wardrobeImages.slice(0,6).forEach(file => {
+                        const url = URL.createObjectURL(file);
+                        const img = document.createElement('img');
+                        img.src = url; img.style.width='72px'; img.style.height='72px'; img.style.borderRadius='8px'; img.style.objectFit='cover';
+                        mirrorPreview.appendChild(img);
+                    });
+                });
+            }
+
+            function dominantColorNameFromImage(file) {
+                return new Promise(resolve => {
+                    const img = new Image();
+                    img.onload = function(){
+                        const canvas = document.createElement('canvas');
+                        const w = 64, h = 64; canvas.width=w; canvas.height=h;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, w, h);
+                        const data = ctx.getImageData(0,0,w,h).data;
+                        let r=0,g=0,b=0,count=0;
+                        for (let i=0;i<data.length;i+=4){ r+=data[i]; g+=data[i+1]; b+=data[i+2]; count++; }
+                        r=Math.round(r/count); g=Math.round(g/count); b=Math.round(b/count);
+                        // Map to simple names
+                        const max = Math.max(r,g,b), min = Math.min(r,g,b);
+                        const brightness = (r+g+b)/3;
+                        let name='neutral';
+                        if (brightness < 60) name='black';
+                        else if (r>g && r>b) name='red';
+                        else if (g>r && g>b) name='gold';
+                        else if (b>r && b>g) name='blue';
+                        else name='natural';
+                        resolve(name);
+                    };
+                    img.onerror = function(){ resolve('neutral'); };
+                    img.src = URL.createObjectURL(file);
+                });
+            }
+
+            function minPriceFromProduct(p){
+                const minVariant = (p.variants || [])[0] || { price: p.price || 0 };
+                return (p.variants || []).reduce((m,v)=>Math.min(m, Number(v.price||0)), Number(minVariant.price||0));
+            }
+
+            if (mirrorSuggestBtn) {
+                mirrorSuggestBtn.addEventListener('click', async function(){
+                    mirrorSuggestions.innerHTML = '<p style="color:#777">Analyzing wardrobe and fetching matches...</p>';
+                    const colors = [];
+                    for (const f of wardrobeImages.slice(0,3)) { try { colors.push(await dominantColorNameFromImage(f)); } catch {} }
+                    fetch(API_PRODUCTS).then(r=>r.json()).then(async data => {
+                        const list = Array.isArray(data) ? data : (data.products || []);
+                        let picks;
+                        if (API_SUGGEST) {
+                            try {
+                                const res = await fetch(API_SUGGEST, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ mode:'mirror', colors, products:list }) });
+                                const js = await res.json();
+                                picks = (js.suggestions||[]);
+                            } catch { picks = []; }
+                        }
+                        if (!picks || !picks.length) {
+                            const scored = list.map(p => {
+                                const variantColors = (p.variants||[]).map(v => (v.options && (v.options.Color||v.options.color)) || '').map(s=>String(s).toLowerCase());
+                                let score = 0;
+                                colors.forEach(c => { if (variantColors.includes(c)) score += 2; });
+                                if ((p.categories||[]).includes('Bags')) score += 1;
+                                return { p, score };
+                            }).sort((a,b)=>b.score - a.score).slice(0,6).map(x=>x.p);
+                            picks = scored.map(p => ({ product:p, justification: generateJustification(p, { context:'mirror', colors }) }));
+                        } else {
+                            picks = picks.map(s => ({ product: s.product || s, justification: s.justification || generateJustification(s.product||s, { context:'mirror', colors }) }));
+                        }
+                        renderSuggestionGridWithVoice(picks, mirrorSuggestions);
+                    }).catch(()=>{
+                        mirrorSuggestions.innerHTML = '<p style="color:#c00">Could not load products. Try again.</p>';
+                    });
+                });
+            }
+
+            const copilotOccasion = document.getElementById('copilotOccasion');
+            const copilotPalette = document.getElementById('copilotPalette');
+            const copilotBudget = document.getElementById('copilotBudget');
+            const copilotBtn = document.getElementById('copilotRecommend');
+            const copilotSuggestions = document.getElementById('copilotSuggestions');
+
+            if (copilotBtn) {
+                copilotBtn.addEventListener('click', function(){
+                    const occ = (copilotOccasion?.value)||'work';
+                    const pal = (copilotPalette?.value)||'neutral';
+                    const budget = Number((copilotBudget?.value)||0) || 1000;
+                    copilotSuggestions.innerHTML = '<p style="color:#777">Finding outfits...</p>';
+                    fetch(API_PRODUCTS).then(r=>r.json()).then(async data => {
+                        const list = Array.isArray(data) ? data : (data.products || []);
+                        let picks;
+                        if (API_SUGGEST) {
+                            try {
+                                const res = await fetch(API_SUGGEST, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ mode:'copilot', occasion:occ, palette:pal, budget, products:list }) });
+                                const js = await res.json();
+                                picks = (js.suggestions||[]);
+                            } catch { picks = []; }
+                        }
+                        if (!picks || !picks.length) {
+                            let filtered = list;
+                            if (occ === 'work') filtered = list.filter(p => (p.categories||[]).includes('Tote') || (p.categories||[]).includes('Sling'));
+                            if (occ === 'casual') filtered = list.filter(p => (p.categories||[]).includes('Pouch') || (p.categories||[]).includes('Sling'));
+                            if (occ === 'evening') filtered = list.filter(p => (p.categories||[]).includes('Sling'));
+                            filtered = filtered.filter(p => minPriceFromProduct(p) <= budget);
+                            const paletteColors = pal==='warm' ? ['gold','red','natural'] : pal==='cool' ? ['blue','black'] : ['natural','black'];
+                            filtered = filtered.sort((a,b)=>{
+                                const av = (a.variants||[]).map(v=>String((v.options&& (v.options.Color||v.options.color))||'').toLowerCase());
+                                const bv = (b.variants||[]).map(v=>String((v.options&& (v.options.Color||v.options.color))||'').toLowerCase());
+                                const ascore = av.some(c=>paletteColors.includes(c)) ? 1 : 0;
+                                const bscore = bv.some(c=>paletteColors.includes(c)) ? 1 : 0;
+                                return bscore - ascore;
+                            }).slice(0,6);
+                            picks = filtered.map(p => ({ product:p, justification: generateJustification(p, { context:'copilot', occasion:occ, palette:pal, budget }) }));
+                        } else {
+                            picks = picks.map(s => ({ product: s.product || s, justification: s.justification || generateJustification(s.product||s, { context:'copilot', occasion:occ, palette:pal, budget }) }));
+                        }
+                        renderSuggestionGridWithVoice(picks, copilotSuggestions);
+                    }).catch(()=>{ copilotSuggestions.innerHTML = '<p style="color:#c00">Could not load products.</p>'; });
+                });
+            }
+
+            function generateJustification(p, ctx){
+                const price = Number(minPriceFromProduct(p));
+                const colors = (p.variants||[]).map(v=>String((v.options&& (v.options.Color||v.options.color))||'').toLowerCase());
+                const name = p.name || 'This piece';
+                const occ = ctx.occasion || 'everyday';
+                const pal = ctx.palette || 'neutral';
+                const matchColor = (ctx.colors||[]).find(c=>colors.includes(c));
+                const tone = [
+                  `${name} commands attention with refined lines and artisanal detail`,
+                  `A polished silhouette that elevates ${occ} moments effortlessly`,
+                  `Meticulously crafted to deliver enduring presence and utility`
+                ];
+                const colorLine = matchColor ? `The ${matchColor} variant harmonizes with your palette for cohesive styling` : `The palette reads ${pal}, pairing with your wardrobe in confident balance`;
+                const valueLine = ctx.budget ? `Priced at RM ${price.toFixed(2)}, it respects your budget while maintaining luxury codes` : `Priced at RM ${price.toFixed(2)}, it balances craftsmanship and daily ease`;
+                return `${tone[0]}. ${tone[1]}. ${colorLine}. ${valueLine}.`;
+            }
+
+            function renderSuggestionGridWithVoice(items, target){
+                target.innerHTML = items.map(x => {
+                    const p = x.product || x;
+                    const price = minPriceFromProduct(p);
+                    const img = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
+                    const j = x.justification || '';
+                    return `
+                      <div class="feature-card">
+                        <div class="feature-thumb"><img src="${img}" alt="${p.name}" /></div>
+                        <div class="feature-info">
+                          <div class="name">${p.name}</div>
+                          <div class="price">RM ${Number(price).toFixed(2)}</div>
+                          <div class="sales-voice">${j}</div>
+                        </div>
+                        <div class="feature-actions">
+                          <button class="btn btn-secondary" data-action="add" data-id="${p.id}" data-name="${p.name}" data-price="${Number(price)}" data-image="${img}">Add</button>
+                          <button class="btn" data-action="buy" data-id="${p.id}" data-name="${p.name}" data-price="${Number(price)}" data-image="${img}">Buy Now</button>
+                          <button class="btn btn-outline" data-action="try" data-name="${p.name}">Try On</button>
+                        </div>
+                      </div>`;
+                }).join('');
+                Array.from(target.querySelectorAll('button')).forEach(btn => {
+                    btn.addEventListener('click', function(){
+                        const act = this.getAttribute('data-action');
+                        if (act === 'add') {
+                            window.AIShop?.addToCart({ id: this.getAttribute('data-id'), name: this.getAttribute('data-name'), price: Number(this.getAttribute('data-price')||0), qty:1, image:this.getAttribute('data-image')||'' });
+                        } else if (act === 'buy') {
+                            window.AIShop?.buyNow({ id: this.getAttribute('data-id'), name: this.getAttribute('data-name'), price: Number(this.getAttribute('data-price')||0), qty:1, image:this.getAttribute('data-image')||'' });
+                        } else if (act === 'try') {
+                            window.AIShop?.openTryOn(this.getAttribute('data-name'));
+                        }
+                    });
+                });
+            }
         });
     </script>
-    <script src="../../script.js"></script>
 </body>
 </html>

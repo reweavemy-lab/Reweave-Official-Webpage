@@ -4,7 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Guest Checkout • Reweave</title>
-  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../../archive/development-files/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//api.reweave.my">
+  <link rel="preconnect" href="https://dkpaeiyixdwzjpvvszyy.supabase.co">
   <style>
     :root {
       --primary-black: #000000;
@@ -287,17 +295,8 @@
   </style>
 </head>
 <body>
-  <header class="luxury-header">
-    <div class="header-container">
-      <div class="header-left">
-        <button class="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i><span>Menu</span></button>
-      </div>
-      <div class="logo-center"><a href="/">REWEAVE</a></div>
-      <div class="header-right">
-        <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
-      </div>
-    </div>
-  </header>
+  <!-- Standardized Header Component for Reweave -->
+  <div id="header-container"></div>
 
   <main class="container">
     <h1 class="page-title">Guest Checkout</h1>
@@ -313,11 +312,13 @@
           <h3>Contact Information</h3>
           <div class="form-group">
             <label for="email">Email Address *</label>
-            <input type="email" id="email" required placeholder="your@email.com">
+            <input type="email" id="email" required placeholder="your@email.com" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete="email" inputmode="email">
+            <div class="error-message" id="emailError" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
           </div>
           <div class="form-group">
             <label for="phone">Phone Number *</label>
-            <input type="tel" id="phone" required placeholder="+60 12 345 6789">
+            <input type="tel" id="phone" required placeholder="+60 12 345 6789" pattern="[0-9+\s-]{10,15}" autocomplete="tel" inputmode="tel">
+            <div class="error-message" id="phoneError" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
           </div>
         </div>
 
@@ -326,46 +327,47 @@
           <h3>Shipping Address</h3>
           <div class="form-group">
             <label for="fullName">Full Name *</label>
-            <input type="text" id="fullName" required placeholder="John Doe">
+            <input type="text" id="fullName" required placeholder="John Doe" pattern="[a-zA-Z\s]{2,50}" autocomplete="name" inputmode="text">
+            <div class="error-message" id="fullNameError" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
           </div>
           <div class="form-row">
             <div class="form-group">
               <label for="country">Country *</label>
-              <select id="country" required>
+              <select id="country" required onchange="updateStateOptions()" autocomplete="country">
                 <option value="">Select Country</option>
                 <option value="MY" selected>Malaysia</option>
                 <option value="SG">Singapore</option>
                 <option value="ID">Indonesia</option>
               </select>
+              <div class="error-message" id="countryError" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
             </div>
             <div class="form-group">
               <label for="postalCode">Postal Code *</label>
-              <input type="text" id="postalCode" required placeholder="50000">
+              <input type="text" id="postalCode" required placeholder="50000" pattern="[0-9]{5,6}" autocomplete="postal-code" inputmode="numeric">
+              <div class="error-message" id="postalCodeError" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
             </div>
           </div>
           <div class="form-group">
             <label for="address1">Address Line 1 *</label>
-            <input type="text" id="address1" required placeholder="123 Jalan Example">
+            <input type="text" id="address1" required placeholder="123 Jalan Example" maxlength="100" autocomplete="address-line1">
+            <div class="error-message" id="address1Error" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
           </div>
           <div class="form-group">
             <label for="address2">Address Line 2</label>
-            <input type="text" id="address2" placeholder="Apartment, suite, etc. (optional)">
+            <input type="text" id="address2" placeholder="Apartment, suite, etc. (optional)" maxlength="100" autocomplete="address-line2">
           </div>
           <div class="form-row">
             <div class="form-group">
               <label for="city">City *</label>
-              <input type="text" id="city" required placeholder="Kuala Lumpur">
+              <input type="text" id="city" required placeholder="Kuala Lumpur" pattern="[a-zA-Z\s]{2,50}" autocomplete="address-level2">
+              <div class="error-message" id="cityError" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
             </div>
             <div class="form-group">
               <label for="state">State *</label>
-              <select id="state" required>
+              <select id="state" required autocomplete="address-level1">
                 <option value="">Select State</option>
-                <option value="KUL">Kuala Lumpur</option>
-                <option value="SEL">Selangor</option>
-                <option value="PNG">Penang</option>
-                <option value="JHR">Johor</option>
-                <option value="PRK">Perak</option>
               </select>
+              <div class="error-message" id="stateError" style="color: var(--error); font-size: 12px; margin-top: 4px; display: none;"></div>
             </div>
           </div>
         </div>
@@ -373,21 +375,21 @@
         <!-- Payment Method -->
         <div class="form-section">
           <h3>Payment Method</h3>
-          <div class="payment-methods">
-            <div class="payment-method" data-method="fpx">
-              <i class="fas fa-university"></i>
+          <div class="payment-methods" role="radiogroup" aria-label="Payment method selection">
+            <div class="payment-method" data-method="fpx" role="radio" tabindex="0" aria-checked="false">
+              <i class="fas fa-university" aria-hidden="true"></i>
               <div>FPX Bank Transfer</div>
             </div>
-            <div class="payment-method" data-method="card">
-              <i class="fas fa-credit-card"></i>
+            <div class="payment-method" data-method="card" role="radio" tabindex="0" aria-checked="false">
+              <i class="fas fa-credit-card" aria-hidden="true"></i>
               <div>Credit/Debit Card</div>
             </div>
-            <div class="payment-method" data-method="grab">
-              <i class="fas fa-mobile-alt"></i>
+            <div class="payment-method" data-method="grab" role="radio" tabindex="0" aria-checked="false">
+              <i class="fas fa-mobile-alt" aria-hidden="true"></i>
               <div>GrabPay</div>
             </div>
-            <div class="payment-method" data-method="touchngo">
-              <i class="fas fa-wallet"></i>
+            <div class="payment-method" data-method="touchngo" role="radio" tabindex="0" aria-checked="false">
+              <i class="fas fa-wallet" aria-hidden="true"></i>
               <div>Touch 'n Go</div>
             </div>
           </div>
@@ -396,16 +398,16 @@
           <div id="paymentFields" style="display: none;">
             <div class="form-group">
               <label for="cardNumber">Card Number</label>
-              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+              <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" autocomplete="cc-number" inputmode="numeric" maxlength="19">
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="expiry">Expiry Date</label>
-                <input type="text" id="expiry" placeholder="MM/YY">
+                <input type="text" id="expiry" placeholder="MM/YY" autocomplete="cc-exp" inputmode="numeric" maxlength="5">
               </div>
               <div class="form-group">
                 <label for="cvv">CVV</label>
-                <input type="text" id="cvv" placeholder="123">
+                <input type="text" id="cvv" placeholder="123" autocomplete="cc-csc" inputmode="numeric" maxlength="4">
               </div>
             </div>
           </div>
@@ -452,10 +454,37 @@
           <i class="fas fa-check-circle" style="font-size: 48px; color: var(--success); margin-bottom: 16px;"></i>
           <h2>Order Confirmed!</h2>
           <div class="order-number" id="orderNumber"></div>
+          <div id="orderSummary" style="margin: 24px 0; padding: 16px; background: var(--luxury-gray); border-radius: 8px; text-align: left;">
+            <h4 style="margin: 0 0 12px; font-size: 16px;">Order Summary</h4>
+            <div id="confirmationItems"></div>
+            <div style="margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--border-gray);">
+              <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                <span>Subtotal:</span>
+                <span id="confirmationSubtotal"></span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                <span>Shipping:</span>
+                <span id="confirmationShipping"></span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                <span>Tax (6%):</span>
+                <span id="confirmationTax"></span>
+              </div>
+              <div style="display: flex; justify-content: space-between; font-weight: 600; margin-top: 8px;">
+                <span>Total:</span>
+                <span id="confirmationTotal"></span>
+              </div>
+            </div>
+          </div>
           <p>Thank you for your purchase. We've sent a confirmation email with your order details.</p>
-          <button class="btn btn-secondary" onclick="window.location.href='/onepage.html'" style="margin-top: 16px;">
-            Continue Shopping
-          </button>
+          <div style="margin-top: 16px;">
+            <button class="btn btn-secondary" onclick="window.location.href='/onepage.html'" style="margin-right: 8px;">
+              Continue Shopping
+            </button>
+            <button class="btn" onclick="window.location.href='/pages/orders/track.html'" style="background: var(--success); color: white;">
+              Track Order
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -463,25 +492,218 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
+    // Load standardized header component
+    async function loadHeader() {
+      try {
+        const response = await fetch('../../shared/header.html');
+        if (response.ok) {
+          const headerHTML = await response.text();
+          document.getElementById('header-container').innerHTML = headerHTML;
+          
+          // Update cart count after header loads
+          updateCartCount();
+          
+          if (typeof trackEvent === 'function') {
+            trackEvent('page_view', {
+              page_title: 'Guest Checkout',
+              page_path: '/checkout/guest.html'
+            });
+          }
+        }
+      } catch (error) {
+        console.error('Failed to load header:', error);
+      }
+    }
+
     // Initialize Supabase
     const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
     const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
     const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
     // State
-    let cart = [];
+    let checkoutCart = [];
     let selectedPaymentMethod = '';
+
+    // Enhanced validation functions
+    function validateEmail(email) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    }
+    
+    function validatePhone(phone) {
+      const phoneRegex = /^[\+]?[0-9\s-]{10,15}$/;
+      return phoneRegex.test(phone);
+    }
+    
+    function validatePostalCode(code, country) {
+      const patterns = {
+        'MY': /^[0-9]{5}$/,
+        'SG': /^[0-9]{6}$/,
+        'ID': /^[0-9]{5}$/
+      };
+      const pattern = patterns[country] || patterns['MY'];
+      return pattern.test(code);
+    }
+    
+    function showFieldError(fieldId, message) {
+      const errorElement = document.getElementById(fieldId + 'Error');
+      const field = document.getElementById(fieldId);
+      if (errorElement && field) {
+        errorElement.textContent = message;
+        errorElement.style.display = 'block';
+        field.style.borderColor = 'var(--error)';
+      }
+    }
+    
+    function clearFieldError(fieldId) {
+      const errorElement = document.getElementById(fieldId + 'Error');
+      const field = document.getElementById(fieldId);
+      if (errorElement && field) {
+        errorElement.style.display = 'none';
+        field.style.borderColor = 'var(--border-gray)';
+      }
+    }
+    
+    function validateForm() {
+      let isValid = true;
+      
+      // Clear previous errors
+      ['email', 'phone', 'fullName', 'address1', 'city', 'state', 'postalCode', 'country'].forEach(clearFieldError);
+      
+      // Validate email
+      const email = document.getElementById('email').value.trim();
+      if (!email) {
+        showFieldError('email', 'Email is required');
+        isValid = false;
+      } else if (!validateEmail(email)) {
+        showFieldError('email', 'Please enter a valid email address');
+        isValid = false;
+      }
+      
+      // Validate phone
+      const phone = document.getElementById('phone').value.trim();
+      if (!phone) {
+        showFieldError('phone', 'Phone number is required');
+        isValid = false;
+      } else if (!validatePhone(phone)) {
+        showFieldError('phone', 'Please enter a valid phone number');
+        isValid = false;
+      }
+      
+      // Validate full name
+      const fullName = document.getElementById('fullName').value.trim();
+      if (!fullName) {
+        showFieldError('fullName', 'Full name is required');
+        isValid = false;
+      } else if (fullName.length < 2) {
+        showFieldError('fullName', 'Name must be at least 2 characters');
+        isValid = false;
+      }
+      
+      // Validate address
+      const address1 = document.getElementById('address1').value.trim();
+      if (!address1) {
+        showFieldError('address1', 'Address is required');
+        isValid = false;
+      }
+      
+      // Validate city
+      const city = document.getElementById('city').value.trim();
+      if (!city) {
+        showFieldError('city', 'City is required');
+        isValid = false;
+      }
+      
+      // Validate state
+      const state = document.getElementById('state').value;
+      if (!state) {
+        showFieldError('state', 'State is required');
+        isValid = false;
+      }
+      
+      // Validate postal code
+      const postalCode = document.getElementById('postalCode').value.trim();
+      const country = document.getElementById('country').value;
+      if (!postalCode) {
+        showFieldError('postalCode', 'Postal code is required');
+        isValid = false;
+      } else if (!validatePostalCode(postalCode, country)) {
+        const countryNames = { 'MY': 'Malaysia', 'SG': 'Singapore', 'ID': 'Indonesia' };
+        showFieldError('postalCode', `Please enter a valid ${countryNames[country] || 'Malaysian'} postal code`);
+        isValid = false;
+      }
+      
+      // Validate country
+      const countryValue = document.getElementById('country').value;
+      if (!countryValue) {
+        showFieldError('country', 'Country is required');
+        isValid = false;
+      }
+      
+      // Validate payment method
+      if (!selectedPaymentMethod) {
+        showMessage('Please select a payment method', 'error');
+        isValid = false;
+      }
+      
+      return isValid;
+    }
+    
+    // Update state options based on country
+    function updateStateOptions() {
+      const country = document.getElementById('country').value;
+      const stateSelect = document.getElementById('state');
+      
+      const states = {
+        'MY': [
+          { value: 'KUL', text: 'Kuala Lumpur' },
+          { value: 'SEL', text: 'Selangor' },
+          { value: 'PNG', text: 'Penang' },
+          { value: 'JHR', text: 'Johor' },
+          { value: 'PRK', text: 'Perak' },
+          { value: 'KDH', text: 'Kedah' },
+          { value: 'KTN', text: 'Kelantan' },
+          { value: 'TRG', text: 'Terengganu' },
+          { value: 'PHG', text: 'Pahang' },
+          { value: 'MLK', text: 'Malacca' },
+          { value: 'NS', text: 'Negeri Sembilan' },
+          { value: 'SBH', text: 'Sabah' },
+          { value: 'SWK', text: 'Sarawak' }
+        ],
+        'SG': [
+          { value: 'SG', text: 'Singapore' }
+        ],
+        'ID': [
+          { value: 'JK', text: 'Jakarta' },
+          { value: 'BD', text: 'Bandung' },
+          { value: 'SB', text: 'Surabaya' },
+          { value: 'YK', text: 'Yogyakarta' },
+          { value: 'BL', text: 'Bali' }
+        ]
+      };
+      
+      stateSelect.innerHTML = '<option value="">Select State</option>';
+      const countryStates = states[country] || states['MY'];
+      countryStates.forEach(state => {
+        const option = document.createElement('option');
+        option.value = state.value;
+        option.textContent = state.text;
+        stateSelect.appendChild(option);
+      });
+    }
 
     // Initialize
     document.addEventListener('DOMContentLoaded', function() {
+      loadHeader(); // Load standardized header first
       loadCart();
       setupEventListeners();
       updateCartDisplay();
+      updateStateOptions(); // Initialize state options
     });
 
     // Load cart from localStorage
     function loadCart() {
-      cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      checkoutCart = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
     }
 
     // Setup event listeners
@@ -489,22 +711,115 @@
       // Payment method selection
       document.querySelectorAll('.payment-method').forEach(method => {
         method.addEventListener('click', function() {
-          document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
-          this.classList.add('selected');
-          selectedPaymentMethod = this.dataset.method;
-          
-          // Show/hide payment fields
-          const paymentFields = document.getElementById('paymentFields');
-          if (selectedPaymentMethod === 'card') {
-            paymentFields.style.display = 'block';
-          } else {
-            paymentFields.style.display = 'none';
+          selectPaymentMethod(this);
+        });
+        
+        // Keyboard navigation support
+        method.addEventListener('keydown', function(e) {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectPaymentMethod(this);
           }
         });
       });
+      
+      function selectPaymentMethod(methodElement) {
+        document.querySelectorAll('.payment-method').forEach(m => {
+          m.classList.remove('selected');
+          m.setAttribute('aria-checked', 'false');
+        });
+        methodElement.classList.add('selected');
+        methodElement.setAttribute('aria-checked', 'true');
+        selectedPaymentMethod = methodElement.dataset.method;
+        
+        // Show/hide payment fields
+        const paymentFields = document.getElementById('paymentFields');
+        if (selectedPaymentMethod === 'card') {
+          paymentFields.style.display = 'block';
+        } else {
+          paymentFields.style.display = 'none';
+        }
+      }
+
+      // Real-time validation for better UX
+      const fieldsToValidate = ['email', 'phone', 'fullName', 'address1', 'city', 'postalCode'];
+      fieldsToValidate.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+          const debouncedValidate = window.Reweave && window.Reweave.debounce ? window.Reweave.debounce(() => validateField(fieldId), 200) : () => validateField(fieldId);
+          field.addEventListener('blur', function() { debouncedValidate(); });
+          field.addEventListener('input', function() { clearFieldError(fieldId); });
+        }
+      });
+      
+      // Card input formatting
+      const cardNumberInput = document.getElementById('cardNumber');
+      if (cardNumberInput) {
+        cardNumberInput.addEventListener('input', function(e) {
+          let value = e.target.value.replace(/\s/g, '');
+          if (value.length > 0) {
+            value = value.match(/.{1,4}/g).join(' ');
+          }
+          e.target.value = value;
+        });
+      }
+      
+      // Expiry date formatting
+      const expiryInput = document.getElementById('expiry');
+      if (expiryInput) {
+        expiryInput.addEventListener('input', function(e) {
+          let value = e.target.value.replace(/\D/g, '');
+          if (value.length >= 2) {
+            value = value.substring(0, 2) + '/' + value.substring(2, 4);
+          }
+          e.target.value = value;
+        });
+      }
 
       // Form submission
       document.getElementById('placeOrderBtn').addEventListener('click', placeOrder);
+    }
+    
+    // Validate individual field
+    function validateField(fieldId) {
+      const field = document.getElementById(fieldId);
+      const value = field.value.trim();
+      
+      if (!value) {
+        showFieldError(fieldId, 'This field is required');
+        return false;
+      }
+      
+      switch (fieldId) {
+        case 'email':
+          if (!validateEmail(value)) {
+            showFieldError(fieldId, 'Please enter a valid email address');
+            return false;
+          }
+          break;
+        case 'phone':
+          if (!validatePhone(value)) {
+            showFieldError(fieldId, 'Please enter a valid phone number');
+            return false;
+          }
+          break;
+        case 'postalCode':
+          const country = document.getElementById('country').value;
+          if (!validatePostalCode(value, country)) {
+            const countryNames = { 'MY': 'Malaysia', 'SG': 'Singapore', 'ID': 'Indonesia' };
+            showFieldError(fieldId, `Please enter a valid ${countryNames[country] || 'Malaysian'} postal code`);
+            return false;
+          }
+          break;
+        case 'fullName':
+          if (value.length < 2) {
+            showFieldError(fieldId, 'Name must be at least 2 characters');
+            return false;
+          }
+          break;
+      }
+      
+      return true;
     }
 
     // Update cart display
@@ -514,7 +829,7 @@
       const taxEl = document.getElementById('tax');
       const totalEl = document.getElementById('total');
 
-      if (cart.length === 0) {
+      if (checkoutCart.length === 0) {
         cartItems.innerHTML = '<p style="text-align: center; color: var(--text-gray);">Your cart is empty</p>';
         subtotalEl.textContent = 'RM 0.00';
         taxEl.textContent = 'RM 0.00';
@@ -525,7 +840,7 @@
       let subtotal = 0;
       cartItems.innerHTML = '';
 
-      cart.forEach(item => {
+      checkoutCart.forEach(item => {
         const itemTotal = (item.price || 0) * (item.qty || 1);
         subtotal += itemTotal;
 
@@ -544,7 +859,7 @@
         cartItems.appendChild(itemEl);
       });
 
-      const tax = subtotal * 0.06; // 6% tax
+      const tax = subtotal * 0.06;
       const shipping = 10; // Fixed shipping
       const total = subtotal + tax + shipping;
 
@@ -562,40 +877,49 @@
 
     // Place order
     async function placeOrder() {
-      // Validate form
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-      const fullName = document.getElementById('fullName').value;
-      const address1 = document.getElementById('address1').value;
-      const city = document.getElementById('city').value;
-      const state = document.getElementById('state').value;
-      const postalCode = document.getElementById('postalCode').value;
-      const country = document.getElementById('country').value;
-
-      if (!email || !phone || !fullName || !address1 || !city || !state || !postalCode || !country) {
-        showMessage('Please fill in all required fields', 'error');
+      // Use comprehensive validation
+      if (!validateForm()) {
         return;
       }
 
-      if (!selectedPaymentMethod) {
-        showMessage('Please select a payment method', 'error');
-        return;
-      }
-
-      if (cart.length === 0) {
+      if (checkoutCart.length === 0) {
         showMessage('Your cart is empty', 'error');
         return;
       }
+
+      // Get form values after validation
+      const email = document.getElementById('email').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+      const fullName = document.getElementById('fullName').value.trim();
+      const address1 = document.getElementById('address1').value.trim();
+      const address2 = document.getElementById('address2').value.trim();
+      const city = document.getElementById('city').value.trim();
+      const state = document.getElementById('state').value;
+      const postalCode = document.getElementById('postalCode').value.trim();
+      const country = document.getElementById('country').value;
+      const notes = document.getElementById('notes').value.trim();
 
       // Show loading
       const btn = document.getElementById('placeOrderBtn');
       const btnText = document.getElementById('btnText');
       btn.disabled = true;
       btnText.innerHTML = '<span class="loading"></span>Processing...';
+      
+      if (typeof trackEvent === 'function') trackEvent('begin_checkout', {
+        currency: 'MYR',
+        value: checkoutCart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0) * 1.06 + 10,
+        items: checkoutCart.map(item => ({
+          item_id: item.sku || item.id,
+          item_name: item.name,
+          item_variant: item.variant || '',
+          quantity: item.qty || 1,
+          price: item.price || 0
+        }))
+      });
 
       try {
         // Calculate totals
-        const subtotal = cart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0);
+        const subtotal = checkoutCart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0);
         const tax = subtotal * 0.06;
         const shipping = 10;
         const total = subtotal + tax + shipping;
@@ -610,13 +934,13 @@
           phone: phone,
           full_name: fullName,
           address_line1: address1,
-          address_line2: document.getElementById('address2').value,
+          address_line2: address2,
           city: city,
           state: state,
           postal_code: postalCode,
           country: country,
-          order_notes: document.getElementById('notes').value,
-          items: cart,
+          order_notes: notes,
+          items: checkoutCart,
           subtotal: subtotal,
           tax: tax,
           shipping: shipping,
@@ -637,18 +961,34 @@
           throw error;
         }
 
-        // Success - show confirmation
         showOrderConfirmation(orderNumber);
         
-        // Clear cart
-        localStorage.removeItem('cart');
+        localStorage.setItem('reweave-cart', '[]');
         
         // Store order number for tracking
         localStorage.setItem('lastOrderNumber', orderNumber);
 
       } catch (error) {
         console.error('Order error:', error);
-        showMessage('Failed to place order. Please try again.', 'error');
+        
+        // Enhanced error messages based on error type
+        let errorMessage = 'Failed to place order. Please try again.';
+        if (error.message && error.message.includes('network')) {
+          errorMessage = 'Network error. Please check your connection and try again.';
+        } else if (error.message && error.message.includes('timeout')) {
+          errorMessage = 'Request timed out. Please try again.';
+        } else if (error.code === 'PGRST116') {
+          errorMessage = 'Order service temporarily unavailable. Please try again in a few moments.';
+        }
+        
+        showMessage(errorMessage, 'error');
+        
+        // Track error
+        trackEvent('checkout_error', {
+          error_type: error.code || 'unknown',
+          error_message: error.message || 'unknown error',
+          payment_method: selectedPaymentMethod
+        });
       } finally {
         btn.disabled = false;
         btnText.textContent = 'Place Order';
@@ -679,17 +1019,61 @@
       const confirmation = document.getElementById('orderConfirmation');
       confirmation.style.display = 'block';
       document.getElementById('orderNumber').textContent = `Order #${orderNumber}`;
+      
+      // Calculate totals for confirmation
+      const subtotal = checkoutCart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0);
+      const tax = subtotal * 0.06;
+      const shipping = 10;
+      const total = subtotal + tax + shipping;
+      
+      // Populate confirmation details
+      const confirmationItems = document.getElementById('confirmationItems');
+      confirmationItems.innerHTML = '';
+      
+      checkoutCart.forEach(item => {
+        const itemEl = document.createElement('div');
+        itemEl.style.cssText = 'display: flex; justify-content: space-between; align-items: center; padding: 4px 0; font-size: 13px;';
+        itemEl.innerHTML = `
+          <div>
+            <div style="font-weight: 500;">${item.name}</div>
+            <div style="font-size: 11px; color: var(--text-gray);">${item.variant || ''} × ${item.qty || 1}</div>
+          </div>
+          <div>RM ${((item.price || 0) * (item.qty || 1)).toFixed(2)}</div>
+        `;
+        confirmationItems.appendChild(itemEl);
+      });
+      
+      document.getElementById('confirmationSubtotal').textContent = `RM ${subtotal.toFixed(2)}`;
+      document.getElementById('confirmationShipping').textContent = `RM ${shipping.toFixed(2)}`;
+      document.getElementById('confirmationTax').textContent = `RM ${tax.toFixed(2)}`;
+      document.getElementById('confirmationTotal').textContent = `RM ${total.toFixed(2)}`;
+      
+      // Track successful order
+      if (typeof trackEvent === 'function') trackEvent('purchase', {
+        transaction_id: orderNumber,
+        value: total,
+        currency: 'MYR',
+        items: checkoutCart.map(item => ({
+          item_id: item.sku || item.id,
+          item_name: item.name,
+          item_variant: item.variant || '',
+          quantity: item.qty || 1,
+          price: item.price || 0
+        }))
+      });
     }
 
     // Update cart count in header
     function updateCartCount() {
-      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const c = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
+      const count = c.reduce((sum, item) => sum + (item.qty || 1), 0);
       const badge = document.querySelector('.cart-count');
       if (badge) badge.textContent = String(count);
     }
 
     updateCartCount();
   </script>
+
+  <script src="../../shared/script.js"></script>
 </body>
 </html>

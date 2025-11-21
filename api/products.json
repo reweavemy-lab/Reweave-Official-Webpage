@@ -1,0 +1,48 @@
+{
+  "products": [
+    {
+      "id": "rw-batik-sling-1",
+      "name": "Batik Sling Small",
+      "price": 189,
+      "description": "Compact sling in heritage Batik with modern hardware.",
+      "images": [
+        "/images/Batik Front (WIP).png"
+      ],
+      "categories": ["Bags", "Sling", "Batik"],
+      "tags": ["batik", "sling", "heritage"],
+      "variants": [
+        { "sku": "rw-batik-sling-1-blue", "price": 189, "options": { "Color": "Blue" } },
+        { "sku": "rw-batik-sling-1-red",  "price": 189, "options": { "Color": "Red" } }
+      ]
+    },
+    {
+      "id": "rw-songket-tote-1",
+      "name": "Songket Tote",
+      "price": 259,
+      "description": "Everyday tote in Songket weave, reinforced base and inner pocket.",
+      "images": [
+        "/images/Batik Front (WIP).png"
+      ],
+      "categories": ["Bags", "Tote", "Songket"],
+      "tags": ["songket", "tote", "artisan"],
+      "variants": [
+        { "sku": "rw-songket-tote-1-gold", "price": 259, "options": { "Color": "Gold" } },
+        { "sku": "rw-songket-tote-1-black", "price": 259, "options": { "Color": "Black" } }
+      ]
+    },
+    {
+      "id": "rw-canvas-pouch-1",
+      "name": "Canvas Pouch",
+      "price": 69,
+      "description": "Minimal pouch for essentials, durable canvas.",
+      "images": [
+        "https://via.placeholder.com/600x600?text=Canvas+Pouch"
+      ],
+      "categories": ["Accessories", "Pouch"],
+      "tags": ["canvas", "pouch"],
+      "variants": [
+        { "sku": "rw-canvas-pouch-1-natural", "price": 69, "options": { "Color": "Natural" } }
+      ]
+    }
+  ]
+}

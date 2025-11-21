@@ -92,6 +92,7 @@ button {
   z-index: 1000;
   padding: 15px 0;
   transition: all 0.3s ease;
+  will-change: background, box-shadow, padding;
 }
 
 .luxury-header.scrolled {
@@ -375,6 +376,7 @@ body.nav-open {
   border: 1px solid var(--border-gray);
   border-collapse: collapse;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform, box-shadow;
 }
 
 .category-item:hover {
@@ -784,7 +786,8 @@ body.nav-open {
 
 /* Luxury Footer */
 .luxury-footer {
-  background: var(--primary-white);
+  background: var(--primary-black);
+  color: var(--primary-white);
   border-top: 1px solid var(--border-gray);
   padding: 50px 0 20px;
 }
@@ -809,7 +812,7 @@ body.nav-open {
 }
 .footer-links a {
   font-size: 14px;
-  color: var(--primary-black);
+  color: var(--primary-white);
 }
 .footer-sub {
   display: flex;
@@ -821,7 +824,7 @@ body.nav-open {
   color: var(--text-gray);
 }
 .footer-sub a {
-  color: var(--primary-black);
+  color: var(--primary-white);
 }
 .footer-brand {
   text-align: center;
@@ -843,5 +846,36 @@ body.nav-open {
 }
 @media (max-width: 480px) {
   .footer-grid { grid-template-columns: 1fr; }
-  .footer-sub { flex-direction: column; gap: 10px; }
+.footer-sub { flex-direction: column; gap: 10px; }
 }
+
+.header {
+  position: fixed; top: 0; left: 0; right: 0;
+  background: rgba(255,255,255,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border-gray);
+  z-index: 1000; transition: all 0.3s ease;
+}
+.header-container {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px 30px; max-width: 1200px; margin: 0 auto;
+}
+.header.scrolled { background: rgba(255,255,255,0.98); box-shadow: 0 2px 20px rgba(0,0,0,0.1); }
+.logo { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 300; letter-spacing: 2px; text-decoration: none; color: var(--primary-black); }
+.nav-left, .nav-right { display: flex; align-items: center; gap: 25px; }
+.nav-btn { background: none; border: none; cursor: pointer; font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 13px; display: flex; align-items: center; gap: 6px; transition: opacity 0.3s ease; color: var(--primary-black); }
+.nav-btn:hover { opacity: 0.7; }
+.cart-btn { position: relative; padding: 8px 16px; border: 1px solid var(--border-gray); border-radius: 20px; background: var(--primary-white); }
+.cart-count { position: absolute; top: -5px; right: -5px; background: var(--primary-black); color: var(--primary-white); border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 500; }
+
+.mobile-menu { position: fixed; top: 0; left: -100%; width: 320px; height: 100vh; background: var(--primary-white); border-right: 1px solid var(--border-gray); z-index: 1001; transition: left 0.3s ease; overflow-y: auto; }
+.mobile-menu.active { left: 0; }
+.menu-header { padding: 20px; border-bottom: 1px solid var(--border-gray); display: flex; justify-content: space-between; align-items: center; }
+.menu-section { padding: 20px; border-bottom: 1px solid var(--border-gray); }
+.menu-title { font-family: 'Playfair Display', serif; font-size: 16px; font-weight: 300; margin-bottom: 15px; letter-spacing: 1px; }
+.menu-link { display: block; padding: 8px 0; color: var(--text-gray); text-decoration: none; font-size: 14px; transition: color 0.3s ease; }
+.menu-link:hover { color: var(--primary-black); }
+
+.footer { padding: 40px 0; background: var(--primary-black); color: var(--primary-white); text-align: center; }
+.footer-brand { font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 300; letter-spacing: 2px; margin-bottom: 10px; }
+.footer-text { font-size: 14px; opacity: 0.7; font-weight: 300; }

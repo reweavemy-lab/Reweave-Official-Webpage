@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>FPX Checkout • Reweave</title>
-  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../../archive/development-files/css/styles.css" />
   <style>
     .container { max-width: 900px; margin: 0 auto; padding: 24px; }
     .checkout-card { border:1px solid var(--border-gray); border-radius:14px; padding:16px; background:#fff; }
@@ -16,14 +16,69 @@
   </style>
 </head>
 <body>
-  <header class="luxury-header">
-    <div class="header-container">
-      <div class="logo-center"><a href="/">REWEAVE</a></div>
-      <div class="header-right">
-        <button class="utility-btn cart-btn" aria-label="Cart" onclick="window.location.href='../cart/index.html'"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
-      </div>
+  <!-- Standardized Header Component for Reweave -->
+<header class="header">
+  <div class="header-container">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i> Menu
+      </button>
+      <button class="nav-btn" onclick="window.location.href='pages/tryon/index.html'" title="AI Try-On">AI Try-On</button>
     </div>
-  </header>
+    
+    <a href="/index.html" class="logo">REWEAVE</a>
+    
+    <div class="nav-right">
+      <button class="nav-btn cart-btn" onclick="window.location.href = '/pages/cart/index.html'"">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <button class="nav-btn" onclick="toggleMenu()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Shop</div>
+    <a href="pages/shop/index.html" class="menu-link">Shop All</a>
+    <a href="pages/shop/index.html#new-arrivals" class="menu-link">New Arrivals</a>
+    <a href="pages/shop/index.html#batik-heritage" class="menu-link">Batik Heritage</a>
+    <a href="pages/shop/index.html#songket-collection" class="menu-link">Songket Collection</a>
+    <a href="pages/shop/index.html#accessories" class="menu-link">Accessories</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Our Story</div>
+    <a href="pages/story/index.html" class="menu-link">About Reweave</a>
+    <a href="pages/artisan/index.html" class="menu-link">Artisan Craft</a>
+    <a href="pages/culture/index.html" class="menu-link">Cultural Heritage</a>
+    <a href="pages/impact/index.html" class="menu-link">Sustainability</a>
+    <a href="pages/community/index.html" class="menu-link">Community</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Experience</div>
+    <a href="pages/tryon/index.html" class="menu-link">AI Try-On</a>
+    <a href="pages/customize/index.html" class="menu-link">Customize</a>
+    <a href="pages/journal/index.html" class="menu-link">Journal</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Support</div>
+    <a href="pages/team/index.html" class="menu-link">Contact Us</a>
+    <a href="#" class="menu-link">Shipping & Returns</a>
+    <a href="#" class="menu-link">Size Guide</a>
+    <a href="#" class="menu-link">Care Instructions</a>
+  </div>
+</div>
 
   <main class="container">
     <h1 class="page-title">FPX Bank Transfer</h1>
@@ -47,12 +102,27 @@
     </section>
   </main>
 
-  <footer class="luxury-footer">
-    <div class="container" style="text-align:center;">
-      <div class="footer-brand" style="margin-bottom:8px;">REWEAVE</div>
-      <p class="subtext">FPX, Visa, Mastercard • 30‑day returns • Support: +65 6123 4567</p>
+  <!-- Standardized Footer Component for Reweave -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">REWEAVE</div>
+    <div class="footer-text">
+      Sustainable fashion, reimagined. Crafting heritage into modern essentials.
     </div>
-  </footer>
+    <div class="footer-links">
+      <a href="pages/story/index.html" class="footer-link">Our Story</a>
+      <a href="pages/impact/index.html" class="footer-link">Sustainability</a>
+      <a href="pages/community/index.html" class="footer-link">Community</a>
+      <a href="pages/team/index.html" class="footer-link">Contact</a>
+    </div>
+    <div class="footer-trust">
+      <span class="trust-badge">FPX Available</span>
+      <span class="trust-badge">Visa</span>
+      <span class="trust-badge">Mastercard</span>
+      <span class="trust-badge">30-day Returns</span>
+    </div>
+  </div>
+</footer>
 
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <script>
@@ -88,5 +158,7 @@
     });
   </script>
   <script src="../../js/main.js"></script>
+
+  <script src="/shared/script.js"></script>
 </body>
 </html>

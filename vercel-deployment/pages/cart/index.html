@@ -7,6 +7,14 @@
   <title>Your Cart • Reweave</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="../../shared/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+  <link rel="dns-prefetch" href="//api.reweave.my">
   <style>
     :root {
       --primary-black: #000000;
@@ -27,7 +35,7 @@
 
     /* Items list */
     .items-card { background: var(--primary-white); border: 1px solid var(--border-gray); border-radius: 12px; }
-    .item-row { display: grid; grid-template-columns: 96px 1fr auto; gap: 16px; padding: 16px; align-items: center; border-bottom: 1px solid var(--border-gray); transition: background-color 0.3s ease; }
+    .item-row { display: grid; grid-template-columns: 96px 1fr auto; gap: 16px; padding: 16px; align-items: center; border-bottom: 1px solid var(--border-gray); transition: background-color 0.3s ease; will-change: background-color; }
     .item-row:hover { background-color: var(--luxury-gray); }
     .item-row:last-child { border-bottom: none; }
     .thumb { width: 96px; height: 96px; border-radius: 10px; background: var(--luxury-gray); display:flex; align-items:center; justify-content:center; overflow:hidden; }
@@ -142,6 +150,7 @@
       z-index: 10000;
       transform: translateX(400px);
       transition: transform 0.3s ease;
+      will-change: transform;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
     
@@ -159,62 +168,8 @@
   </style>
 </head>
 <body>
-  <!-- Luxury header (standardized) -->
-  <header class="luxury-header">
-    <div class="header-container">
-      <div class="header-left">
-        <button class="menu-btn" aria-label="Menu"><i class="fas fa-bars"></i><span>Menu</span></button>
-        <button class="search-btn" aria-label="Search"><i class="fas fa-search"></i><span>Search</span></button>
-      </div>
-    <div class="logo-center"><a href="/">REWEAVE</a></div>
-      <div class="header-right">
-
-        <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
-        <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
-        <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
-      </div>
-    </div>
-    <nav class="hidden-nav">
-      <div class="nav-content">
-        <button class="close-nav" aria-label="Close"><i class="fas fa-times"></i><span>Close</span></button>
-        <div class="nav-categories">
-          <div class="nav-section">
-            <h3>New</h3>
-            <ul>
-              <li><a href="../shop/index.html">Latest Arrivals</a></li>
-              <li><a href="../shop/index.html">Limited Edition</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Bags and Accessories</h3>
-            <ul>
-              <li><a href="../shop/index.html">Totes</a></li>
-              <li><a href="../shop/index.html">Slings</a></li>
-              <li><a href="../shop/index.html">Pouches</a></li>
-              <li><a href="../shop/index.html">Wallets</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Collections</h3>
-            <ul>
-              <li><a href="../shop/index.html">Reweave Luxe</a></li>
-              <li><a href="../shop/index.html">Reweave Pickleball</a></li>
-              <li><a href="../shop/index.html">Batik Series</a></li>
-            </ul>
-          </div>
-          <div class="nav-section">
-            <h3>Our Story</h3>
-            <ul>
-              <li><a href="../story/index.html">About Us</a></li>
-              <li><a href="../impact/index.html">Impact</a></li>
-              <li><a href="../culture/index.html">Culture</a></li>
-              <li><a href="../journal/index.html">Journal</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </nav>
-  </header>
+  <!-- Standardized Header Component for Reweave -->
+  <div id="header-container"></div>
 
   <main class="container">
     <h1 class="page-title">Your Cart</h1>
@@ -258,8 +213,8 @@
         </div>
 
         <!-- Checkout buttons -->
-        <a href="../checkout/guest.html" class="btn" id="checkoutBtn">Proceed to Checkout</a>
-        <a href="../shop/index.html" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        <button class="btn" id="checkoutBtn">Proceed to Checkout</button>
+        <a href="../../index.html#products" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
 
         <!-- Guest checkout info -->
         <div style="margin-top: 16px; padding: 12px; background: var(--primary-white); border: 1px solid var(--border-gray); border-radius: 8px;">
@@ -270,83 +225,171 @@
       </div>
     </div>
   </main>
+  <!-- Standardized Footer Component for Reweave -->
+  <div id="footer-container"></div>
+  <section class="container" style="margin-top:24px;">
+    <h3 style="font-family: 'Playfair Display', serif; font-weight:300; letter-spacing:1px;">You might also like</h3>
+    <div id="upsellGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px;"></div>
+  </section>
 
   <script>
-    // Cart functionality
-    let cart = [];
+    // Enhanced Cart functionality with numeric price math and advanced totals
+    let pageCart = [];
     let promoDiscount = 0;
     let promoCode = '';
-
-    // Initialize cart - use reweave-cart key from main site
+    let shippingDiscount = 0;
+    let taxRate = 0.06; // 6% SST
+    let freeShippingThreshold = 200; // Free shipping above RM200
+    
+    const API_PRODUCTS = '/api/products.json';
+    
+    // Enhanced currency formatting with proper rounding
+    const formatMYR = (value, decimals = 2) => {
+      const num = Number(value || 0);
+      return `RM ${num.toFixed(decimals)}`;
+    };
+    
+    // Numeric validation and sanitization
+    const sanitizePrice = (price) => {
+      if (typeof price === 'string') {
+        return parseFloat(price.replace(/[^0-9.-]/g, '')) || 0;
+      }
+      return Number(price || 0);
+    };
+    
+    // Initialize cart with enhanced data validation
     function initCart() {
-      cart = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
+      pageCart = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
+      pageCart = pageCart.map(item => ({
+        ...item,
+        price: sanitizePrice(item.price),
+        qty: Math.max(1, Number(item.qty || 1)),
+        originalPrice: sanitizePrice(item.originalPrice || item.price),
+        discount: Number(item.discount || 0)
+      }));
+      
+      // Validate cart data integrity
+      pageCart = pageCart.filter(item => 
+        item.id && 
+        item.name && 
+        !isNaN(item.price) && 
+        item.price >= 0 &&
+        item.qty > 0
+      );
+      
+      localStorage.setItem('reweave-cart', JSON.stringify(pageCart));
       renderCart();
       updateSummary();
+      loadUpsell();
+      trackCartView();
     }
 
-    // Render cart items
+    // Enhanced cart rendering with price breakdowns and item management
     function renderCart() {
       const cartItems = document.getElementById('cartItems');
       
-      if (cart.length === 0) {
+      if (pageCart.length === 0) {
         cartItems.innerHTML = `
           <div class="empty-cart">
             <i class="fas fa-shopping-bag"></i>
             <h3>Your cart is empty</h3>
             <p>Add some beautiful items to get started</p>
-            <a href="../shop/index.html" class="btn" style="margin-top: 16px;">Continue Shopping</a>
+            <a href="../../index.html#products" class="btn" style="margin-top: 16px;">Continue Shopping</a>
           </div>
         `;
         document.getElementById('checkoutBtn').style.display = 'none';
         return;
       }
 
-      cartItems.innerHTML = cart.map((item, index) => `
-        <div class="item-row">
-          <div class="thumb">
-            <img src="${item.image || '../../images/Batik Front (WIP).png'}" alt="${item.name}" />
-          </div>
-          <div class="item-main">
-            <h3>${item.name}</h3>
-            <div class="item-meta">${item.variant || item.color || ''}</div>
-            <div class="item-meta">RM ${parseFloat(item.price || 0).toFixed(2)}</div>
-          </div>
-          <div class="item-actions">
-            <div class="qty">
-              <button onclick="updateQuantity(${index}, -1)">−</button>
-              <input type="number" value="${item.qty || 1}" min="1" onchange="setQuantity(${index}, this.value)">
-              <button onclick="updateQuantity(${index}, 1)">+</button>
+      cartItems.innerHTML = pageCart.map((item, index) => {
+        const itemTotal = Number(item.price || 0) * Number(item.qty || 1);
+        const originalTotal = Number(item.originalPrice || item.price || 0) * Number(item.qty || 1);
+        const savings = originalTotal - itemTotal;
+        
+        return `
+          <div class="item-row" data-item-id="${item.id}">
+            <div class="thumb">
+              <img src="${item.image || '../../images/Batik Front (WIP).png'}" alt="${item.name}" loading="lazy" />
             </div>
-            <div style="text-align: right; min-width: 80px;">
-              <div style="font-weight: 500;">RM ${(parseFloat(item.price || 0) * (item.qty || 1)).toFixed(2)}</div>
-              <div class="link-muted" onclick="removeItem(${index})">Remove</div>
+            <div class="item-main">
+              <h3>${item.name}</h3>
+              <div class="item-meta">${item.variant || item.color || ''}</div>
+              <div class="item-meta">
+                ${item.discount > 0 ? 
+                  `<span style="text-decoration: line-through; color: #999;">${formatMYR(item.originalPrice || item.price)}</span> ` :
+                  ''
+                }
+                <strong>${formatMYR(item.price)}</strong>
+                ${savings > 0 ? `<span style="color: #2e7d32; font-size: 12px;">Save ${formatMYR(savings)}</span>` : ''}
+              </div>
+            </div>
+            <div class="item-actions">
+              <div class="qty">
+                <button onclick="updateQuantity(${index}, -1)" aria-label="Decrease quantity">−</button>
+                <input type="number" value="${item.qty || 1}" min="1" max="99" onchange="setQuantity(${index}, this.value)" aria-label="Item quantity">
+                <button onclick="updateQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
+              </div>
+              <div style="text-align: right; min-width: 80px;">
+                <div style="font-weight: 500;">${formatMYR(itemTotal)}</div>
+                <div class="link-muted" onclick="removeItem(${index})" role="button" tabindex="0">Remove</div>
+              </div>
             </div>
           </div>
-        </div>
-      `).join('');
+        `;
+      }).join('');
+      
+      // Add keyboard navigation for remove buttons
+      document.querySelectorAll('.link-muted[role="button"]').forEach(btn => {
+        btn.addEventListener('keypress', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            btn.click();
+          }
+        });
+      });
     }
 
-    // Update quantity
+    // Enhanced quantity update with validation and animation
     function updateQuantity(index, change) {
-      const newQty = Math.max(1, (cart[index].qty || 1) + change);
-      cart[index].qty = newQty;
-      saveCart();
-      renderCart();
-      updateSummary();
+      const currentQty = Math.max(1, Number(pageCart[index].qty || 1));
+      const newQty = Math.max(1, Math.min(99, currentQty + change));
+      
+      if (newQty !== currentQty) {
+        pageCart[index].qty = newQty;
+        saveCart();
+        
+        // Add visual feedback
+        const itemRow = document.querySelector(`[data-item-id="${pageCart[index].id}"]`);
+        if (itemRow) {
+          itemRow.style.backgroundColor = '#f0f8f0';
+          setTimeout(() => {
+            itemRow.style.backgroundColor = '';
+          }, 300);
+        }
+        
+        renderCart();
+        updateSummary();
+        trackQuantityChange(pageCart[index], newQty, currentQty);
+      }
     }
 
-    // Set quantity directly
+    // Enhanced quantity setting with validation
     function setQuantity(index, qty) {
-      const newQty = Math.max(1, parseInt(qty) || 1);
-      cart[index].qty = newQty;
-      saveCart();
-      renderCart();
-      updateSummary();
+      const newQty = Math.max(1, Math.min(99, parseInt(qty) || 1));
+      const currentQty = Number(pageCart[index].qty || 1);
+      
+      if (newQty !== currentQty) {
+        pageCart[index].qty = newQty;
+        saveCart();
+        renderCart();
+        updateSummary();
+        trackQuantityChange(pageCart[index], newQty, currentQty);
+      }
     }
 
     // Remove item
     function removeItem(index) {
-      cart.splice(index, 1);
+      pageCart.splice(index, 1);
       saveCart();
       renderCart();
       updateSummary();
@@ -355,77 +398,319 @@
 
     // Save cart to localStorage
     function saveCart() {
-      localStorage.setItem('reweave-cart', JSON.stringify(cart));
+      localStorage.setItem('reweave-cart', JSON.stringify(pageCart));
     }
 
-    // Update summary
+    // Enhanced summary calculation with comprehensive pricing logic
     function updateSummary() {
-      const subtotal = cart.reduce((sum, item) => sum + (parseFloat(item.price || 0) * (item.qty || 1)), 0);
-      const shipping = 10; // Fixed shipping
-      const tax = subtotal * 0.06; // 6% tax
-      const discount = promoDiscount > 0 ? subtotal * promoDiscount : 0;
-      const total = subtotal + shipping + tax - discount;
-
-      document.getElementById('subtotal').textContent = `RM ${subtotal.toFixed(2)}`;
-      document.getElementById('shipping').textContent = `RM ${shipping.toFixed(2)}`;
-      document.getElementById('tax').textContent = `RM ${tax.toFixed(2)}`;
-      document.getElementById('total').textContent = `RM ${total.toFixed(2)}`;
-
-      // Show promo savings if applied
-      const promoNotice = document.getElementById('promoNotice');
-      if (promoDiscount > 0) {
-        promoNotice.innerHTML = `<span class="savings">✓ Promo code applied: ${(promoDiscount * 100).toFixed(0)}% off</span>`;
+      // Calculate subtotal with proper numeric precision
+      const subtotal = pageCart.reduce((sum, item) => {
+        const itemTotal = Number(item.price || 0) * Number(item.qty || 1);
+        return sum + itemTotal;
+      }, 0);
+      
+      // Calculate original subtotal for savings display
+      const originalSubtotal = pageCart.reduce((sum, item) => {
+        const originalPrice = Number(item.originalPrice || item.price || 0);
+        const itemTotal = originalPrice * Number(item.qty || 1);
+        return sum + itemTotal;
+      }, 0);
+      
+      // Apply promo discount
+      const promoSavings = promoDiscount > 0 ? subtotal * promoDiscount : 0;
+      const discountedSubtotal = Math.max(0, subtotal - promoSavings);
+      
+      // Calculate shipping with free shipping threshold
+      let shipping = 10; // Base shipping
+      let currentShippingDiscount = shippingDiscount; // Use global shipping discount
+      
+      if (discountedSubtotal >= freeShippingThreshold) {
+        currentShippingDiscount = shipping; // Free shipping
+        shipping = 0;
+      } else if (currentShippingDiscount > 0) {
+        shipping = Math.max(0, shipping - currentShippingDiscount);
       }
+      
+      // Calculate tax on discounted subtotal + shipping
+      const taxableAmount = discountedSubtotal + shipping;
+      const tax = taxableAmount * taxRate;
+      
+      // Calculate final total
+      const total = discountedSubtotal + shipping + tax;
+      
+      // Update DOM with enhanced display
+      document.getElementById('subtotal').textContent = formatMYR(subtotal);
+      document.getElementById('shipping').textContent = formatMYR(shipping);
+      document.getElementById('tax').textContent = formatMYR(tax);
+      document.getElementById('total').textContent = formatMYR(total);
+      
+      // Update promo notice with comprehensive savings info
+      const promoNotice = document.getElementById('promoNotice');
+      let savingsMessage = '';
+      
+      if (promoDiscount > 0) {
+        savingsMessage += `<span class="savings">✓ Promo code applied: ${(promoDiscount * 100).toFixed(0)}% off (${formatMYR(promoSavings)} saved)</span>`;
+      }
+      
+      if (currentShippingDiscount > 0) {
+        savingsMessage += savingsMessage ? '<br>' : '';
+        savingsMessage += `<span class="savings">✓ Free shipping applied</span>`;
+      }
+      
+      if (originalSubtotal > subtotal) {
+        const itemSavings = originalSubtotal - subtotal;
+        savingsMessage += savingsMessage ? '<br>' : '';
+        savingsMessage += `<span class="savings">✓ Item discounts: ${formatMYR(itemSavings)} saved</span>`;
+      }
+      
+      promoNotice.innerHTML = savingsMessage || '';
+      
+      // Track cart update for analytics
+      trackCartUpdate({
+        subtotal: subtotal,
+        discountedSubtotal: discountedSubtotal,
+        shipping: shipping,
+        tax: tax,
+        total: total,
+        promoCode: promoCode,
+        promoSavings: promoSavings,
+        itemCount: pageCart.length,
+        totalQuantity: pageCart.reduce((sum, item) => sum + (item.qty || 1), 0)
+      });
     }
 
-    // Apply promo code
+    // Enhanced promo code system with validation and multiple types
     function applyPromo() {
       const code = document.getElementById('promoCode').value.trim().toUpperCase();
       const promoNotice = document.getElementById('promoNotice');
       
-      // Simple promo codes
+      // Enhanced promo codes with different types
       const promos = {
-        'WELCOME10': 0.10,
-        'FIRST5': 0.05,
-        'REWEAVE15': 0.15
+        // Percentage discounts
+        'WELCOME10': { type: 'percentage', value: 0.10, description: '10% off for new customers' },
+        'FIRST5': { type: 'percentage', value: 0.05, description: '5% off first purchase' },
+        'REWEAVE15': { type: 'percentage', value: 0.15, description: '15% off sitewide' },
+        'HERITAGE20': { type: 'percentage', value: 0.20, description: '20% off heritage collection' },
+        
+        // Fixed amount discounts
+        'SAVE20': { type: 'fixed', value: 20, description: 'RM20 off orders over RM150', minOrder: 150 },
+        'SAVE50': { type: 'fixed', value: 50, description: 'RM50 off orders over RM300', minOrder: 300 },
+        
+        // Free shipping
+        'FREESHIP': { type: 'shipping', value: 0, description: 'Free shipping on any order' },
+        
+        // Special offers
+        'STUDENT10': { type: 'percentage', value: 0.10, description: '10% student discount', requiresVerification: true }
       };
 
       if (promos[code]) {
-        promoDiscount = promos[code];
-        promoCode = code;
-        promoNotice.innerHTML = `<span class="savings">✓ Promo code applied: ${(promoDiscount * 100).toFixed(0)}% off</span>`;
+        const promo = promos[code];
+      const subtotal = pageCart.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.qty || 1), 0);
+        
+        // Validate minimum order amount
+        if (promo.minOrder && subtotal < promo.minOrder) {
+          promoNotice.innerHTML = `❌ Minimum order of ${formatMYR(promo.minOrder)} required for ${code}`;
+          return;
+        }
+        
+        // Apply promo based on type
+        if (promo.type === 'percentage') {
+          promoDiscount = promo.value;
+          promoCode = code;
+          promoNotice.innerHTML = `<span class="savings">✓ ${promo.description}: ${(promo.value * 100).toFixed(0)}% off</span>`;
+        } else if (promo.type === 'fixed') {
+          // Fixed amount discount - convert to percentage for calculation
+          promoDiscount = Math.min(promo.value / subtotal, 1); // Cap at 100%
+          promoCode = code;
+          promoNotice.innerHTML = `<span class="savings">✓ ${promo.description}: ${formatMYR(promo.value)} off</span>`;
+        } else if (promo.type === 'shipping') {
+          // Free shipping - set shipping to 0
+          shippingDiscount = 10; // Full shipping discount
+          promoCode = code;
+          promoNotice.innerHTML = `<span class="savings">✓ ${promo.description}</span>`;
+        }
+        
         updateSummary();
+        trackPromoApplied(code, promo);
+        
       } else if (code) {
-        promoNotice.innerHTML = '❌ Invalid promo code';
+        promoNotice.innerHTML = '❌ Invalid promo code. Try WELCOME10, SAVE20, or FREESHIP';
+        // Clear promo after 3 seconds
+        setTimeout(() => {
+          if (promoNotice.innerHTML.includes('Invalid')) {
+            promoNotice.innerHTML = '';
+          }
+        }, 3000);
+      }
+    }
+
+    // Analytics tracking functions
+    function trackCartView() {
+      if (typeof trackEvent === 'function') {
+        trackEvent('cart_view', {
+          item_count: pageCart.length,
+          total_quantity: pageCart.reduce((sum, item) => sum + (item.qty || 1), 0),
+          subtotal: pageCart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0)
+        });
+      }
+    }
+    
+    function trackCartUpdate(cartData) {
+      if (typeof trackEvent === 'function') {
+        trackEvent('cart_update', cartData);
+      }
+    }
+    
+    function trackQuantityChange(item, newQty, oldQty) {
+      if (typeof trackEvent === 'function') {
+        trackEvent('quantity_change', {
+          item_id: item.id,
+          item_name: item.name,
+          new_quantity: newQty,
+          old_quantity: oldQty,
+          price: item.price
+        });
+      }
+    }
+    
+    function trackPromoApplied(code, promo) {
+      if (typeof trackEvent === 'function') {
+        trackEvent('promo_applied', {
+          promo_code: code,
+          promo_type: promo.type,
+          promo_value: promo.value,
+          description: promo.description
+        });
       }
     }
 
     // Update cart count in header
     function updateCartCount() {
-      const count = cart.reduce((sum, item) => sum + (item.qty || 1), 0);
+      const count = pageCart.reduce((sum, item) => sum + Number(item.qty || 1), 0);
       const badge = document.querySelector('.cart-count');
       if (badge) badge.textContent = String(count);
     }
 
-    // Initialize on load
-    document.addEventListener('DOMContentLoaded', initCart);
-
-    // Header functionality (simplified)
-    document.addEventListener('DOMContentLoaded', function() {
-      // Simple cart count update for header
-      updateCartCount();
-      
-      // Menu toggle (basic)
-      const menuBtn = document.querySelector('.menu-btn');
-      const hiddenNav = document.querySelector('.hidden-nav');
-      const closeNav = document.querySelector('.close-nav');
-      
-      if (menuBtn && hiddenNav) {
-        menuBtn.addEventListener('click', () => hiddenNav.classList.add('active'));
-        closeNav.addEventListener('click', () => hiddenNav.classList.remove('active'));
+    // Load standardized header and footer
+    async function loadStandardizedComponents() {
+      try {
+        const [headerResponse, footerResponse] = await Promise.all([
+          fetch('../../shared/header.html'),
+          fetch('../../shared/footer.html')
+        ]);
+        
+        const headerHtml = await headerResponse.text();
+        const footerHtml = await footerResponse.text();
+        
+        document.getElementById('header-container').innerHTML = headerHtml;
+        document.getElementById('footer-container').innerHTML = footerHtml;
+        
+        // Initialize header functionality
+        if (typeof initializeHeader === 'function') {
+          initializeHeader();
+        }
+      } catch (error) {
+        console.error('Failed to load standardized components:', error);
       }
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', function() {
+      loadStandardizedComponents();
+      initCart();
     });
+    function loadUpsell() {
+      const grid = document.getElementById('upsellGrid');
+      if (!grid) return;
+      grid.innerHTML = '<p style="color:#777">Loading recommendations...</p>';
+      fetch(API_PRODUCTS)
+        .then(r => r.json())
+        .then(data => {
+          const list = Array.isArray(data) ? data : (data.products || []);
+          const picks = list.slice(0, 4);
+          grid.innerHTML = picks.map(p => {
+            const minVariant = (p.variants || [])[0] || { price: p.price || 0, options: {}, sku: p.id };
+            const minPrice = (p.variants || []).reduce((m, v) => Math.min(m, Number(v.price || 0)), Number(minVariant.price || 0));
+            const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
+            return `
+              <div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;">
+                <img src="${firstImage}" alt="${p.name}" style="width:72px;height:72px;border-radius:8px;object-fit:cover;" />
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:500;">${p.name}</div>
+                  <div style="font-size:13px;color:#666;">${formatMYR(minPrice)}</div>
+                </div>
+                <button data-id="${p.id}" data-price="${Number(minVariant.price || minPrice)}" data-image="${firstImage}" data-name="${p.name}" class="btn btn-secondary" style="width:auto;">Add</button>
+              </div>
+            `;
+          }).join('');
+          Array.from(grid.querySelectorAll('button')).forEach(btn => {
+            btn.addEventListener('click', () => {
+              const item = {
+                id: btn.getAttribute('data-id'),
+                name: btn.getAttribute('data-name'),
+                price: Number(btn.getAttribute('data-price') || 0),
+                qty: 1,
+                image: btn.getAttribute('data-image') || '',
+                options: '',
+                addon: true
+              };
+              const cur = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
+              const existing = cur.find(i => i.id === item.id && i.options === item.options);
+              if (existing) existing.qty += 1; else cur.push(item);
+              localStorage.setItem('reweave-cart', JSON.stringify(cur));
+              pageCart = cur;
+              renderCart();
+              updateSummary();
+              updateCartCount();
+            });
+          });
+        })
+        .catch(() => {
+          // Fallback mock picks when backend is offline
+          const picks = [
+            { id: 'mock-1', name: 'Batik Sling Small', price: 189, images: ['https://via.placeholder.com/300x300?text=Batik+Sling'] },
+            { id: 'mock-2', name: 'Songket Tote', price: 259, images: ['https://via.placeholder.com/300x300?text=Songket+Tote'] },
+            { id: 'mock-3', name: 'Canvas Pouch', price: 69, images: ['https://via.placeholder.com/300x300?text=Canvas+Pouch'] },
+            { id: 'mock-4', name: 'Leather Wallet', price: 129, images: ['https://via.placeholder.com/300x300?text=Leather+Wallet'] }
+          ];
+          grid.innerHTML = picks.map(p => {
+            const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
+            return `
+              <div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;">
+                <img src="${firstImage}" alt="${p.name}" style="width:72px;height:72px;border-radius:8px;object-fit:cover;" />
+                <div style="flex:1;">
+                  <div style="font-size:14px;font-weight:500;">${p.name}</div>
+                  <div style="font-size:13px;color:#666;">${formatMYR(p.price)}</div>
+                </div>
+                <button data-id="${p.id}" data-price="${Number(p.price || 0)}" data-image="${firstImage}" data-name="${p.name}" class="btn btn-secondary" style="width:auto;">Add</button>
+              </div>
+            `;
+          }).join('');
+          Array.from(grid.querySelectorAll('button')).forEach(btn => {
+            btn.addEventListener('click', () => {
+              const item = {
+                id: btn.getAttribute('data-id'),
+                name: btn.getAttribute('data-name'),
+                price: Number(btn.getAttribute('data-price') || 0),
+                qty: 1,
+                image: btn.getAttribute('data-image') || '',
+                options: '',
+                addon: true
+              };
+              const cur = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
+              const existing = cur.find(i => i.id === item.id && i.options === item.options);
+              if (existing) existing.qty += 1; else cur.push(item);
+              localStorage.setItem('reweave-cart', JSON.stringify(cur));
+              pageCart = cur;
+              renderCart();
+              updateSummary();
+              updateCartCount();
+            });
+          });
+        });
+    }
   </script>
+  <script src="../../../archive/development-files/script.js"></script>
   
   <!-- Toast Notification Container -->
   <div id="toastContainer" style="position: fixed; top: 100px; right: 20px; z-index: 10000;"></div>
@@ -460,5 +745,14 @@
   <!-- AI Chatbot Widget -->
   <script id="shieldbase-chatbot-widget">(function(){window.SbaiConfig={apiBase:"https://demo.sbai.cloud",appId:"ca61bc90-3fb9-4cde-a7ed-aef28d127c1a"};function initChatWidget(){if(document.getElementById('sbai-chat-btn'))return;var chatBtn=document.createElement("div");chatBtn.id="sbai-chat-btn";chatBtn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 16 16" fill="white"><path d="M8.006 0a8.006 8.006 0 0 0-6.829 3.826 7.995 7.995 0 0 0-.295 7.818l-.804 2.402a1.48 1.48 0 0 0 1.877 1.876l2.403-.8a8.006 8.006 0 0 0 11.42-5.25 7.994 7.994 0 0 0-4.28-9.066A8.007 8.007 0 0 0 8.006 0Zm0 14.22a6.226 6.226 0 0 1-3.116-.836.89.89 0 0 0-.727-.074l-2.207.736.736-2.206a.888.888 0 0 0-.074-.727A6.218 6.218 0 0 1 7.19 1.831a6.227 6.227 0 0 1 6.565 3.784 6.218 6.218 0 0 1-1.96 7.318 6.227 6.227 0 0 1-3.789 1.286Z"></path></svg>';Object.assign(chatBtn.style,{position:"fixed",bottom:"20px",right:"20px",width:"60px",height:"60px",borderRadius:"50%",backgroundColor:"#4F00ED",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontSize:"24px",cursor:"pointer",zIndex:"9999",transition:"all 0.3s ease",boxShadow:"0 4px 12px rgba(79, 0, 237, 0.4)",border:"none"});var chatContainer=document.createElement("div");chatContainer.id="sbai-chat-container";Object.assign(chatContainer.style,{position:"fixed",right:"20px",bottom:"90px",width:"400px",height:"600px",maxWidth:"calc(100vw - 40px)",maxHeight:"calc(100vh - 120px)",borderRadius:"16px",boxShadow:"0 8px 32px rgba(0, 0, 0, 0.12)",zIndex:"9998",opacity:"0",visibility:"hidden",transform:"translateY(20px)",transition:"all 0.3s ease",backgroundColor:"white",overflow:"hidden"});document.body.appendChild(chatBtn);document.body.appendChild(chatContainer);var isOpen=false;chatBtn.addEventListener("click",function(){isOpen=!isOpen;if(isOpen){chatContainer.style.opacity="1";chatContainer.style.visibility="visible";chatContainer.style.transform="translateY(0)";chatBtn.style.transform="rotate(45deg)";if(!chatContainer.querySelector("iframe")){var iframe=document.createElement("iframe");iframe.src=window.SbaiConfig.apiBase+"/chat/"+window.SbaiConfig.appId;iframe.style.width="100%";iframe.style.height="100%";iframe.style.border="none";iframe.style.borderRadius="16px";iframe.allow="microphone; camera";chatContainer.appendChild(iframe);}}else{chatContainer.style.opacity="0";chatContainer.style.visibility="hidden";chatContainer.style.transform="translateY(20px)";chatBtn.style.transform="rotate(0deg)";}});document.addEventListener("click",function(e){if(isOpen&&!chatBtn.contains(e.target)&&!chatContainer.contains(e.target)){isOpen=false;chatContainer.style.opacity="0";chatContainer.style.visibility="hidden";chatContainer.style.transform="translateY(20px)";chatBtn.style.transform="rotate(0deg)";}});}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initChatWidget);}else{initChatWidget();}})();
   </script>
+
+  <script src="../../shared/script.js"></script>
 </body>
 </html>
+    // Checkout button behavior limited to current scope
+    const checkoutBtn = document.getElementById('checkoutBtn');
+    if (checkoutBtn) {
+      checkoutBtn.addEventListener('click', function() {
+        alert('Checkout is not available in this preview. Please continue shopping.');
+      });
+    }

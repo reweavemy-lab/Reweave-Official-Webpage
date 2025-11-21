@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-      <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
+      <link rel="icon" type="image/png" href="../../../images/Reweave_logo-removebg-preview.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Customize Your Bag • Reweave</title>
-  <link rel="stylesheet" href="../../css/styles.css" />
+  <link rel="stylesheet" href="../../../archive/development-files/css/styles.css" />
   <!-- Google Fonts (Poppins) -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <!-- Font Awesome for header icons -->
@@ -40,61 +40,69 @@
 </head>
 <body>
   <!-- Luxury header (consistent with other pages) -->
-  <header class="luxury-header">
-    <div class="header-top">
-      <button class="menu-btn"><i class="fas fa-bars"></i> Menu</button>
-      <button class="search-btn"><i class="fas fa-search"></i> Search</button>
-      <a href="/" class="brand">REWEAVE</a>
-      <div class="header-actions">
-        <a href="tel:+1234567890" class="call-link">Call Us</a>
-        <a href="#" class="account-link"><i class="fas fa-user"></i></a>
-        <a href="#" class="wishlist-link"><i class="fas fa-heart"></i></a>
-        <a href="../cart/index.html" class="cart-link"><i class="fas fa-shopping-cart"></i></a>
-      </div>
+  <!-- Standardized Header Component for Reweave -->
+<header class="header">
+  <div class="header-container">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i> Menu
+      </button>
+      <button class="nav-btn" onclick="window.location.href='pages/tryon/index.html'" title="AI Try-On">AI Try-On</button>
     </div>
+    
+    <a href="/index.html" class="logo">REWEAVE</a>
+    
+    <div class="nav-right">
+      <button class="nav-btn cart-btn" onclick="window.location.href = '/pages/cart/index.html'"">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
 
-    <nav class="hidden-nav">
-      <div class="nav-columns">
-        <div class="nav-column">
-          <h3>Reweave</h3>
-          <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
-          <div class="social-links">
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-x-twitter"></i></a>
-            <a href="#"><i class="fab fa-pinterest"></i></a>
-          </div>
-        </div>
-        <div class="nav-column">
-          <h3>Shop</h3>
-          <ul>
-            <li><a href="../shop/index.html">All Products</a></li>
-            <li><a href="../shop/index.html#new">New Arrivals</a></li>
-            <li><a href="../shop/index.html#best">Best Sellers</a></li>
-            <li><a href="../shop/index.html#sale">Sale</a></li>
-          </ul>
-        </div>
-        <div class="nav-column">
-          <h3>About</h3>
-          <ul>
-            <li><a href="../story/index.html">Our Story</a></li>
-            <li><a href="../impact/index.html">Impact</a></li>
-            <li><a href="../team/index.html">Our Team</a></li>
-            <li><a href="../culture/index.html">Arts & Culture</a></li>
-          </ul>
-        </div>
-        <div class="nav-column">
-          <h3>Support</h3>
-          <ul>
-            <li><a href="../community/index.html">Contact Us</a></li>
-            <li><a href="#">FAQ</a></li>
-            <li><a href="#">Shipping & Returns</a></li>
-            <li><a href="#">Privacy Policy</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
-  </header>
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <button class="nav-btn" onclick="toggleMenu()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Shop</div>
+    <a href="pages/shop/index.html" class="menu-link">Shop All</a>
+    <a href="pages/shop/index.html#new-arrivals" class="menu-link">New Arrivals</a>
+    <a href="pages/shop/index.html#batik-heritage" class="menu-link">Batik Heritage</a>
+    <a href="pages/shop/index.html#songket-collection" class="menu-link">Songket Collection</a>
+    <a href="pages/shop/index.html#accessories" class="menu-link">Accessories</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Our Story</div>
+    <a href="pages/story/index.html" class="menu-link">About Reweave</a>
+    <a href="pages/artisan/index.html" class="menu-link">Artisan Craft</a>
+    <a href="pages/culture/index.html" class="menu-link">Cultural Heritage</a>
+    <a href="pages/impact/index.html" class="menu-link">Sustainability</a>
+    <a href="pages/community/index.html" class="menu-link">Community</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Experience</div>
+    <a href="pages/tryon/index.html" class="menu-link">AI Try-On</a>
+    <a href="pages/customize/index.html" class="menu-link">Customize</a>
+    <a href="pages/journal/index.html" class="menu-link">Journal</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Support</div>
+    <a href="pages/team/index.html" class="menu-link">Contact Us</a>
+    <a href="#" class="menu-link">Shipping & Returns</a>
+    <a href="#" class="menu-link">Size Guide</a>
+    <a href="#" class="menu-link">Care Instructions</a>
+  </div>
+</div>
 
   <main>
     <section class="customize-hero">
@@ -150,53 +158,30 @@
     </section>
   </main>
 
-  <footer class="luxury-footer">
-    <div class="footer-columns">
-      <div class="footer-column">
-        <h3>Reweave</h3>
-        <p>Sustainable fashion that connects culture, community, and environmental responsibility.</p>
-        <div class="social-links">
-          <a href="#"><i class="fab fa-instagram"></i></a>
-          <a href="#"><i class="fab fa-facebook"></i></a>
-          <a href="#"><i class="fab fa-x-twitter"></i></a>
-          <a href="#"><i class="fab fa-pinterest"></i></a>
-        </div>
-      </div>
-      <div class="footer-column">
-        <h3>Shop</h3>
-        <ul>
-          <li><a href="../shop/index.html">All Products</a></li>
-          <li><a href="../shop/index.html#new">New Arrivals</a></li>
-          <li><a href="../shop/index.html#best">Best Sellers</a></li>
-          <li><a href="../shop/index.html#sale">Sale</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h3>About</h3>
-        <ul>
-          <li><a href="../story/index.html">Our Story</a></li>
-          <li><a href="../impact/index.html">Impact</a></li>
-          <li><a href="../team/index.html">Our Team</a></li>
-          <li><a href="../culture/index.html">Arts & Culture</a></li>
-        </ul>
-      </div>
-      <div class="footer-column">
-        <h3>Support</h3>
-        <ul>
-          <li><a href="../community/index.html">Contact Us</a></li>
-          <li><a href="#">FAQ</a></li>
-          <li><a href="#">Shipping & Returns</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-        </ul>
-      </div>
+  <!-- Standardized Footer Component for Reweave -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">REWEAVE</div>
+    <div class="footer-text">
+      Sustainable fashion, reimagined. Crafting heritage into modern essentials.
     </div>
-    <div class="footer-bottom">
-      <p>&copy; 2025 Reweave. All rights reserved.</p>
+    <div class="footer-links">
+      <a href="pages/story/index.html" class="footer-link">Our Story</a>
+      <a href="pages/impact/index.html" class="footer-link">Sustainability</a>
+      <a href="pages/community/index.html" class="footer-link">Community</a>
+      <a href="pages/team/index.html" class="footer-link">Contact</a>
     </div>
-  </footer>
+    <div class="footer-trust">
+      <span class="trust-badge">FPX Available</span>
+      <span class="trust-badge">Visa</span>
+      <span class="trust-badge">Mastercard</span>
+      <span class="trust-badge">30-day Returns</span>
+    </div>
+  </div>
+</footer>
 
   <!-- Luxury header interactions -->
-  <script src="../../script.js"></script>
+  <script src="../../../archive/development-files/script.js"></script>
 
   <!-- 3D Customizer (Three.js) -->
   <script type="module">
@@ -375,5 +360,7 @@
 
     onResize();
   </script>
+
+  <script src="/shared/script.js"></script>
 </body>
 </html>

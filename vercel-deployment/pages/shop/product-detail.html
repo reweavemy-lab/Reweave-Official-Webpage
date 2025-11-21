@@ -1,798 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-        <link rel="icon" type="image/x-icon" href="/Users/howiesim/Documents/Reweave Official Webpage/images/Reweave logo.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Detail - Reweave</title>
-    <link rel="stylesheet" href="../../css/styles.css">
-    <style>
-        /* Product Detail Specific Styles */
-        .product-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 2rem;
-            padding: 2rem 0;
-        }
-        
-        .product-images {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .main-image {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-            margin-bottom: 1rem;
-            border-radius: 4px;
-        }
-        
-        .image-thumbnails {
-            display: flex;
-            gap: 0.5rem;
-            overflow-x: auto;
-        }
-        
-        .thumbnail {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            cursor: pointer;
-            border-radius: 4px;
-            opacity: 0.7;
-            transition: opacity 0.3s;
-        }
-        
-        .thumbnail:hover, .thumbnail.active {
-            opacity: 1;
-        }
-        
-        .product-info {
-            flex: 1;
-            min-width: 300px;
-        }
-        
-        .product-title {
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .product-price {
-            font-size: 1.5rem;
-            color: #3a5a40;
-            margin-bottom: 1rem;
-        }
-        
-        .product-description {
-            margin-bottom: 2rem;
-            line-height: 1.6;
-        }
-        
-        .product-meta {
-            margin-bottom: 2rem;
-        }
-        
-        .meta-item {
-            display: flex;
-            margin-bottom: 0.5rem;
-        }
-        
-        .meta-label {
-            width: 120px;
-            font-weight: 600;
-        }
-        
-        .size-options, .color-options {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .size-option {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .size-option:hover, .size-option.selected {
-            background-color: #3a5a40;
-            color: white;
-            border-color: #3a5a40;
-        }
-        
-        .color-option {
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .color-option:hover, .color-option.selected {
-            transform: scale(1.2);
-            box-shadow: 0 0 0 2px white, 0 0 0 4px #3a5a40;
-        }
-        
-        .quantity-selector {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        
-        .quantity-btn {
-            width: 40px;
-            height: 40px;
-            background: #f5f5f5;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-        }
-        
-        .quantity-input {
-            width: 60px;
-            height: 40px;
-            text-align: center;
-            border: 1px solid #ddd;
-            margin: 0 0.5rem;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .add-to-cart, .try-on-btn, .customize-btn {
-            padding: 0.8rem 1.5rem;
-            border: none;
-            border-radius: 4px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-        }
-        
-        .add-to-cart {
-            background-color: #3a5a40;
-            color: white;
-            flex: 2;
-        }
-        
-        .add-to-cart:hover {
-            background-color: #2d4330;
-        }
-        
-        .try-on-btn, .wishlist-btn, .customize-btn {
-            background-color: #f5f5f5;
-            color: #333;
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-        }
-        
-        .try-on-btn:hover, .wishlist-btn:hover, .customize-btn:hover {
-            background-color: #e5e5e5;
-        }
-        
-        .product-tabs {
-            margin-top: 3rem;
-        }
-        
-        .tab-buttons {
-            display: flex;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        .tab-btn {
-            padding: 1rem 2rem;
-            background: none;
-            border: none;
-            border-bottom: 3px solid transparent;
-            cursor: pointer;
-            font-weight: 600;
-        }
-        
-        .tab-btn.active {
-            border-bottom-color: #3a5a40;
-            color: #3a5a40;
-        }
-        
-        .tab-content {
-            padding: 2rem 0;
-        }
-        
-        .tab-pane {
-            display: none;
-        }
-        
-        .tab-pane.active {
-            display: block;
-        }
-        
-        .sustainability-metrics {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-top: 1rem;
-        }
-        
-        .metric {
-            flex: 1;
-            min-width: 200px;
-            background: #f9f9f9;
-            padding: 1.5rem;
-            border-radius: 4px;
-            text-align: center;
-        }
-        
-        .metric-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #3a5a40;
-            margin-bottom: 0.5rem;
-        }
-        
-        .related-products {
-            margin-top: 4rem;
-        }
-        
-        .related-title {
-            font-size: 1.8rem;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .related-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        @media (max-width: 768px) {
-            .product-container {
-                flex-direction: column;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-        }
-    </style>
-  <!-- Font Awesome for header icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Detail • Reweave</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <link rel="stylesheet" href="../../../archive/development-files/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
 </head>
 <body>
-    <header class="luxury-header">
-        <div class="header-container">
-            <div class="header-left">
-                <button class="menu-btn" aria-label="Menu">
-                    <i class="fas fa-bars"></i>
-                    <span>Menu</span>
-                </button>
-                <button class="search-btn" aria-label="Search">
-                    <i class="fas fa-search"></i>
-                    <span>Search</span>
-                </button>
-            </div>
-            <div class="logo-center">
-            <a href="/">REWEAVE</a>
-            </div>
-            <div class="header-right">
-                <button class="utility-btn" aria-label="Call Us"><span>Call Us</span></button>
-                <button class="utility-btn" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
-                <button class="utility-btn" aria-label="Account"><i class="fas fa-user"></i></button>
-                <button class="utility-btn cart-btn" aria-label="Cart"><i class="fas fa-shopping-bag"></i><span class="cart-count">0</span></button>
-            </div>
-        </div>
-        <nav class="hidden-nav">
-            <div class="nav-content">
-                <button class="close-nav" aria-label="Close">
-                    <i class="fas fa-times"></i>
-                    <span>Close</span>
-                </button>
-                <div class="nav-categories">
-                    <div class="nav-section">
-                        <h3>New</h3>
-                        <ul>
-                            <li><a href="../index.html">Latest Arrivals</a></li>
-                            <li><a href="../index.html">Limited Edition</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>Bags and Accessories</h3>
-                        <ul>
-                            <li><a href="index.html">Totes</a></li>
-                            <li><a href="index.html">Slings</a></li>
-                            <li><a href="index.html">Accessories</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>Collections</h3>
-                        <ul>
-                            <li><a href="index.html">Batik Heritage</a></li>
-                            <li><a href="index.html">Artisan Series</a></li>
-                        </ul>
-                    </div>
-                    <div class="nav-section">
-                        <h3>About</h3>
-                        <ul>
-                            <li><a href="../story/index.html">Our Story</a></li>
-                            <li><a href="../community/index.html">Community</a></li>
-                            <li><a href="../impact/index.html">Impact</a></li>
-                            <li><a href="../journal/index.html">Journal</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </header>
-
-    <main>
-        <div class="container">
-            <nav class="breadcrumb" aria-label="breadcrumb">
-                <ol>
-                    <li><a href="../../index.html">Home</a></li>
-                    <li><a href="index.html">Shop</a></li>
-                    <li>Handwoven Cotton Dress</li>
-                </ol>
-            </nav>
-
-            <div class="product-container">
-                <div class="product-images">
-                    <img src="https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Handwoven Cotton Dress" class="main-image">
-                    <div class="image-thumbnails">
-                        <img src="https://images.pexels.com/photos/6626903/pexels-photo-6626903.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Thumbnail 1" class="thumbnail active">
-                        <img src="https://images.pexels.com/photos/6626967/pexels-photo-6626967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Thumbnail 2" class="thumbnail">
-                        <img src="https://images.pexels.com/photos/6626963/pexels-photo-6626963.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Thumbnail 3" class="thumbnail">
-                        <img src="https://images.pexels.com/photos/6626968/pexels-photo-6626968.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Thumbnail 4" class="thumbnail">
-                    </div>
-                </div>
-
-                <div class="product-info">
-                    <h1 class="product-title">Handwoven Cotton Dress</h1>
-                    <div class="product-price">$129.00</div>
-                    <div class="product-description">
-                        <p>This beautiful handwoven cotton dress is crafted by skilled artisans using traditional techniques passed down through generations. The breathable fabric is perfect for warm weather, while the timeless design ensures you'll treasure this piece for years to come.</p>
-                    </div>
-
-                    <div class="product-meta">
-                        <div class="meta-item">
-                            <span class="meta-label">Material:</span>
-                            <span>100% Organic Cotton</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Origin:</span>
-                            <span>Handcrafted in India</span>
-                        </div>
-                        <div class="meta-item">
-                            <span class="meta-label">Artisan:</span>
-                            <span><a href="../artisan/index.html">Priya Collective</a></span>
-                        </div>
-                    </div>
-
-                    <div class="size-section">
-                        <h3>Size</h3>
-                        <div class="size-options">
-                            <div class="size-option">XS</div>
-                            <div class="size-option selected">S</div>
-                            <div class="size-option">M</div>
-                            <div class="size-option">L</div>
-                            <div class="size-option">XL</div>
-                        </div>
-                        <a href="#" class="size-guide-link">Size Guide</a>
-                    </div>
-
-                    <div class="color-section">
-                        <h3>Color</h3>
-                        <div class="color-options">
-                            <div class="color-option selected" style="background-color: #e8d2a0;" title="Natural"></div>
-                            <div class="color-option" style="background-color: #86a397;" title="Sage"></div>
-                            <div class="color-option" style="background-color: #b57c65;" title="Terracotta"></div>
-                            <div class="color-option" style="background-color: #4a6c8c;" title="Indigo"></div>
-                        </div>
-                    </div>
-
-                    <div class="quantity-selector">
-                        <button class="quantity-btn decrease">-</button>
-                        <input type="number" class="quantity-input" value="1" min="1" max="10">
-                        <button class="quantity-btn increase">+</button>
-                    </div>
-
-                    <div class="action-buttons">
-                        <button class="add-to-cart">Add to Cart</button>
-                        <button class="customize-btn">
-                            <span class="material-icons">tune</span>
-                            Customize
-                        </button>
-                        <button class="try-on-btn">
-                            <span class="material-icons">person</span>
-                            Try On
-                        </button>
-                        <button class="wishlist-btn">
-                            <span class="material-icons">favorite_border</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-tabs">
-                <div class="tab-buttons">
-                    <button class="tab-btn active" data-tab="details">Details</button>
-                    <button class="tab-btn" data-tab="sustainability">Sustainability</button>
-                    <button class="tab-btn" data-tab="care">Care Instructions</button>
-                    <button class="tab-btn" data-tab="shipping">Shipping & Returns</button>
-                </div>
-
-                <div class="tab-content">
-                    <div class="tab-pane active" id="details">
-                        <h3>Product Details</h3>
-                        <p>This dress features:</p>
-                        <ul>
-                            <li>Handwoven cotton fabric with natural dyes</li>
-                            <li>Relaxed fit with adjustable waist tie</li>
-                            <li>Side pockets</li>
-                            <li>Three-quarter length sleeves</li>
-                            <li>Midi length</li>
-                            <li>Slight V-neck</li>
-                        </ul>
-                        <p>Each piece is unique with subtle variations in the weave and color, showcasing the handmade nature of the garment.</p>
-                    </div>
-
-                    <div class="tab-pane" id="sustainability">
-                        <h3>Sustainability Impact</h3>
-                        <p>At Reweave, we believe in transparency. Here's how this product makes a positive impact:</p>
-                        
-                        <div class="sustainability-metrics">
-                            <div class="metric">
-                                <div class="metric-value">95%</div>
-                                <div class="metric-label">Less Water Used</div>
-                                <p>Compared to conventional cotton production</p>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">0</div>
-                                <div class="metric-label">Synthetic Materials</div>
-                                <p>100% natural, biodegradable materials</p>
-                            </div>
-                            <div class="metric">
-                                <div class="metric-value">4</div>
-                                <div class="metric-label">Artisans Supported</div>
-                                <p>Direct impact on artisan livelihoods</p>
-                            </div>
-                        </div>
-                        
-                        <p>This product is made with GOTS certified organic cotton, natural dyes, and traditional handloom techniques that preserve cultural heritage while minimizing environmental impact.</p>
-                    </div>
-
-                    <div class="tab-pane" id="care">
-                        <h3>Care Instructions</h3>
-                        <p>To preserve the beauty and longevity of your handwoven garment:</p>
-                        <ul>
-                            <li>Hand wash in cold water with mild soap</li>
-                            <li>Do not bleach</li>
-                            <li>Hang to dry in shade</li>
-                            <li>Iron on low heat if needed</li>
-                            <li>Store folded in a cool, dry place</li>
-                        </ul>
-                        <p>Natural dyes may slightly fade over time, which is part of the charm of sustainable fashion.</p>
-                    </div>
-
-                    <div class="tab-pane" id="shipping">
-                        <h3>Shipping & Returns</h3>
-                        <p>We ship worldwide with carbon-neutral delivery options:</p>
-                        <ul>
-                            <li>Standard Shipping (3-5 business days): $5.99</li>
-                            <li>Express Shipping (1-2 business days): $12.99</li>
-                            <li>Free shipping on orders over $100</li>
-                        </ul>
-                        <p>Returns and exchanges are accepted within 30 days of delivery. Items must be unworn with original tags attached. Read our full <a href="#">Return Policy</a> for more details.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="related-products">
-                <h2 class="related-title">You May Also Like</h2>
-                <div class="related-grid">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://images.pexels.com/photos/6626987/pexels-photo-6626987.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Related Product 1">
-                            <div class="product-actions">
-                                <button class="quick-view">Quick View</button>
-                                <button class="add-to-wishlist">
-                                    <span class="material-icons">favorite_border</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Handwoven Scarf</h3>
-                            <div class="product-price">$49.00</div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://images.pexels.com/photos/6626979/pexels-photo-6626979.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Related Product 2">
-                            <div class="product-actions">
-                                <button class="quick-view">Quick View</button>
-                                <button class="add-to-wishlist">
-                                    <span class="material-icons">favorite_border</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Organic Cotton Top</h3>
-                            <div class="product-price">$79.00</div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://images.pexels.com/photos/6626892/pexels-photo-6626892.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Related Product 3">
-                            <div class="product-actions">
-                                <button class="quick-view">Quick View</button>
-                                <button class="add-to-wishlist">
-                                    <span class="material-icons">favorite_border</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Woven Tote Bag</h3>
-                            <div class="product-price">$59.00</div>
-                        </div>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://images.pexels.com/photos/6626974/pexels-photo-6626974.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Related Product 4">
-                            <div class="product-actions">
-                                <button class="quick-view">Quick View</button>
-                                <button class="add-to-wishlist">
-                                    <span class="material-icons">favorite_border</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">Block Print Skirt</h3>
-                            <div class="product-price">$89.00</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <footer class="luxury-footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-column">
-                    <h4>Help</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Client Advisor: 1800 814 930</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Product Care</a></li>
-                        <li><a href="#">Delivery, Returns & Exchanges</a></li>
-                        <li><a href="#">Stores</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Services</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Repairs</a></li>
-                        <li><a href="#">Personalisation</a></li>
-                        <li><a href="#">Art of Gifting</a></li>
-                        <li><a href="#">Download our Apps</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>About Reweave</h4>
-                    <ul class="footer-links">
-                        <li><a href="../story/index.html">Fashion & Craft</a></li>
-                        <li><a href="../culture/index.html">Arts & Culture</a></li>
-                        <li><a href="../story/index.html">Our Maison</a></li>
-                        <li><a href="../impact/index.html">Sustainability</a></li>
-                        <li><a href="../journal/index.html">Latest News</a></li>
-                        <li><a href="../story/index.html#careers">Careers</a></li>
-                        <li><a href="../community/index.html">Foundation</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column">
-                    <h4>Connect</h4>
-                    <ul class="footer-links">
-                        <li><a href="#">Sign up for emails</a></li>
-                        <li><a href="#">Follow Us</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-sub">
-                <div class="footer-locale">Ship to: <a href="#">Malaysia</a></div>
-                <div class="footer-legal">
-                    <a href="#">Sitemap</a>
-                    <a href="#">Legal & Privacy</a>
-                </div>
-            </div>
-
-            <div class="footer-brand">REWEAVE</div>
-        </div>
-    </footer>
+  <!-- Standardized Header Component for Reweave -->
+<header class="header">
+  <div class="header-container">
+    <div class="nav-left">
+      <button class="nav-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i> Menu
+      </button>
+      <button class="nav-btn" onclick="window.location.href='pages/tryon/index.html'" title="AI Try-On">AI Try-On</button>
+    </div>
     
-    <script>
-        // Product Detail Page: load by SKU and wire cart
-        document.addEventListener('DOMContentLoaded', function() {
-            const API_BASE = 'http://localhost:3001/api';
-            const params = new URLSearchParams(window.location.search);
-            const sku = params.get('sku');
-            const legacyId = params.get('id');
+    <a href="/index.html" class="logo">REWEAVE</a>
+    
+    <div class="nav-right">
+      <button class="nav-btn cart-btn" onclick="window.location.href = '/pages/cart/index.html'"">
+        <i class="fas fa-shopping-bag"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
 
-            const mainImage = document.querySelector('.main-image');
-            const thumbnailsWrap = document.querySelector('.image-thumbnails');
-            const titleEl = document.querySelector('.product-title');
-            const priceEl = document.querySelector('.product-price');
-            const descEl = document.querySelector('.product-description');
-            const breadcrumbLast = document.querySelector('.breadcrumb li:last-child');
-            const qtyInput = document.querySelector('.quantity-input');
-            const addBtn = document.querySelector('.add-to-cart');
-            const customizeBtn = document.querySelector('.customize-btn');
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="menu-header">
+    <h3>Menu</h3>
+    <button class="nav-btn" onclick="toggleMenu()">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Shop</div>
+    <a href="pages/shop/index.html" class="menu-link">Shop All</a>
+    <a href="pages/shop/index.html#new-arrivals" class="menu-link">New Arrivals</a>
+    <a href="pages/shop/index.html#batik-heritage" class="menu-link">Batik Heritage</a>
+    <a href="pages/shop/index.html#songket-collection" class="menu-link">Songket Collection</a>
+    <a href="pages/shop/index.html#accessories" class="menu-link">Accessories</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Our Story</div>
+    <a href="pages/story/index.html" class="menu-link">About Reweave</a>
+    <a href="pages/artisan/index.html" class="menu-link">Artisan Craft</a>
+    <a href="pages/culture/index.html" class="menu-link">Cultural Heritage</a>
+    <a href="pages/impact/index.html" class="menu-link">Sustainability</a>
+    <a href="pages/community/index.html" class="menu-link">Community</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Experience</div>
+    <a href="pages/tryon/index.html" class="menu-link">AI Try-On</a>
+    <a href="pages/customize/index.html" class="menu-link">Customize</a>
+    <a href="pages/journal/index.html" class="menu-link">Journal</a>
+  </div>
+  
+  <div class="menu-section">
+    <div class="menu-title">Support</div>
+    <a href="pages/team/index.html" class="menu-link">Contact Us</a>
+    <a href="#" class="menu-link">Shipping & Returns</a>
+    <a href="#" class="menu-link">Size Guide</a>
+    <a href="#" class="menu-link">Care Instructions</a>
+  </div>
+</div>
 
-            function formatMYR(n) { return `RM ${Number(n || 0).toFixed(2)}`; }
-            function getCart() { try { return JSON.parse(localStorage.getItem('cart')||'[]'); } catch(e) { return []; } }
-            function setCart(c) { localStorage.setItem('cart', JSON.stringify(c)); }
-            function updateCartCount() {
-                const cart = getCart();
-                const count = cart.reduce((sum, i) => sum + (i.qty || 1), 0);
-                const el = document.querySelector('.cart-count');
-                if (el) el.textContent = count;
-            }
+  <main class="container" style="padding: 32px 16px;">
+    <div id="detail" style="display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;">
+      <div id="detail-image-wrap">
+        <img id="detail-image" src="" alt="Product image" loading="lazy" decoding="async" style="width:100%;height:auto;border-radius:12px;object-fit:cover;" />
+      </div>
+      <div>
+        <h1 id="detail-title" style="font-size:2rem;margin-bottom:8px;">Product</h1>
+        <div id="detail-price" style="font-size:1.25rem;margin-bottom:12px;">RM 0.00</div>
+        <div id="detail-material" style="color:#555;margin-bottom:12px;"></div>
+        <div id="detail-sustain" style="color:#555;margin-bottom:16px;"></div>
+        <p id="detail-desc" style="line-height:1.6;margin-bottom:16px;"></p>
+        <div style="display:flex;gap:12px;">
+          <a id="detail-tryon" href="../tryon/index.html" class="item-btn primary" style="display:inline-block;padding:10px 14px;border-radius:8px;background:#111;color:#fff;text-decoration:none;">AI Try-On</a>
+          <button id="detail-add" class="item-btn secondary" style="display:inline-block;padding:10px 14px;border-radius:8px;background:#fff;color:#111;border:1px solid #e0e0e0;">Add to Bag</button>
+          <button id="detail-buy" class="item-btn secondary" style="display:inline-block;padding:10px 14px;border-radius:8px;background:#fff;color:#111;border:1px solid #e0e0e0;">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  </main>
 
-            function renderImages(images) {
-                const imgs = Array.isArray(images) && images.length ? images : ['https://via.placeholder.com/900x900?text=Reweave'];
-                mainImage.src = imgs[0];
-                thumbnailsWrap.innerHTML = imgs.map((src, idx) => `<img src="${src}" alt="Image ${idx+1}" class="thumbnail ${idx===0?'active':''}">`).join('');
-                const thumbnails = thumbnailsWrap.querySelectorAll('.thumbnail');
-                thumbnails.forEach(thumb => {
-                    thumb.addEventListener('click', function() {
-                        mainImage.src = this.src;
-                        thumbnails.forEach(t => t.classList.remove('active'));
-                        this.classList.add('active');
-                    });
-                });
-            }
+  <!-- Standardized Footer Component for Reweave -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-brand">REWEAVE</div>
+    <div class="footer-text">
+      Sustainable fashion, reimagined. Crafting heritage into modern essentials.
+    </div>
+    <div class="footer-links">
+      <a href="pages/story/index.html" class="footer-link">Our Story</a>
+      <a href="pages/impact/index.html" class="footer-link">Sustainability</a>
+      <a href="pages/community/index.html" class="footer-link">Community</a>
+      <a href="pages/team/index.html" class="footer-link">Contact</a>
+    </div>
+    <div class="footer-trust">
+      <span class="trust-badge">FPX Available</span>
+      <span class="trust-badge">Visa</span>
+      <span class="trust-badge">Mastercard</span>
+      <span class="trust-badge">30-day Returns</span>
+    </div>
+  </div>
+</footer>
 
-            function wireTabs() {
-                const tabButtons = document.querySelectorAll('.tab-btn');
-                const tabPanes = document.querySelectorAll('.tab-pane');
-                tabButtons.forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const tabId = this.getAttribute('data-tab');
-                        tabButtons.forEach(b => b.classList.remove('active'));
-                        this.classList.add('active');
-                        tabPanes.forEach(p => p.classList.remove('active'));
-                        document.getElementById(tabId).classList.add('active');
-                    });
-                });
-            }
+  <script>
+    const API_PRODUCTS = '/api/products.json';
+    const params = new URLSearchParams(window.location.search);
+    const sku = params.get('sku');
+    const getCart = () => JSON.parse(localStorage.getItem('cart') || '[]');
+    const setCart = c => localStorage.setItem('cart', JSON.stringify(c));
+    const formatMYR = v => `RM ${Number(v || 0).toFixed(2)}`;
 
-            function wireQuantity() {
-                const decreaseBtn = document.querySelector('.decrease');
-                const increaseBtn = document.querySelector('.increase');
-                decreaseBtn.addEventListener('click', function() {
-                    const v = parseInt(qtyInput.value || '1', 10);
-                    qtyInput.value = Math.max(1, v - 1);
-                });
-                increaseBtn.addEventListener('click', function() {
-                    const v = parseInt(qtyInput.value || '1', 10);
-                    qtyInput.value = Math.min(10, v + 1);
-                });
-            }
+    document.addEventListener('DOMContentLoaded', () => {
+      fetch(API_PRODUCTS)
+        .then(r => r.json())
+        .then(data => {
+          const list = Array.isArray(data) ? data : (data.products || []);
+          let product = list.find(p => {
+            const variants = p.variants || [];
+            return (p.id === sku) || variants.some(v => v.sku === sku);
+          }) || list[0];
+          if (!product) return;
+          const firstImage = (product.images && product.images[0]) || 'https://via.placeholder.com/800x800?text=Reweave';
+          const minVariant = (product.variants || [])[0] || { price: product.price || 0, sku: product.id };
+          const minPrice = (product.variants || []).reduce((m, v) => Math.min(m, Number(v.price || 0)), Number(minVariant.price || 0));
 
-            function loadBySku(sku) {
-                // 1) Get variant/inventory by SKU -> productId
-                fetch(`${API_BASE}/inventory/${encodeURIComponent(sku)}`)
-                  .then(r => r.json())
-                  .then(invResp => {
-                    if (!invResp.ok || !invResp.inventory) throw new Error('not_found');
-                    const inv = invResp.inventory;
-                    // 2) Get product by productId
-                    return fetch(`${API_BASE}/products/${encodeURIComponent(inv.productId)}`).then(r => r.json()).then(prodResp => ({ inv, prodResp }));
-                  })
-                  .then(({ inv, prodResp }) => {
-                    const p = prodResp.product || prodResp.products || prodResp;
-                    titleEl.textContent = p.title || p.name || 'Product';
-                    priceEl.textContent = formatMYR(inv.price || (p.price || 0));
-                    descEl.innerHTML = `<p>${(p.description || '').trim()}</p>`;
-                    if (breadcrumbLast) breadcrumbLast.textContent = (p.title || p.name || sku);
-                    renderImages(p.images || []);
-                    updateCartCount();
-                    addBtn.addEventListener('click', function() {
-                        const cart = getCart();
-                        const qty = parseInt(qtyInput.value || '1', 10);
-                        const optionsArr = [];
-                        const opt = inv.options || {};
-                        Object.entries(opt).forEach(([k,v]) => optionsArr.push(`${k}: ${v}`));
-                        const item = {
-                            id: inv.sku,
-                            name: (p.title || p.name || 'Product'),
-                            price: Number(inv.price || 0),
-                            qty,
-                            image: mainImage.src,
-                            options: optionsArr.join(' • '),
-                            addon: false
-                        };
-                        const existing = cart.find(i => i.id === item.id && i.options === item.options);
-                        if (existing) existing.qty += qty; else cart.push(item);
-                        setCart(cart);
-                        updateCartCount();
-                        window.location.href = '../cart/index.html';
-                    });
-                    customizeBtn.addEventListener('click', function() {
-                        // Pass product id for preselection
-                        const pid = p.id || p.productId || '';
-                        window.location.href = `configure.html?productId=${encodeURIComponent(pid)}`;
-                    });
-                  })
-                  .catch(err => {
-                    console.error('Failed to load SKU', err);
-                    titleEl.textContent = 'Not Found';
-                    priceEl.textContent = formatMYR(0);
-                    descEl.innerHTML = '<p>We couldn\'t find this item. Please go back to the shop.</p>';
-                    renderImages([]);
-                  });
-            }
+          const imgEl = document.getElementById('detail-image');
+          imgEl.src = firstImage;
+          imgEl.sizes = '(max-width: 768px) 100vw, 50vw';
+          document.getElementById('detail-title').textContent = product.name || 'Product';
+          document.getElementById('detail-price').textContent = formatMYR(minPrice);
+          document.getElementById('detail-material').textContent = product.material ? `Material: ${product.material}` : '';
+          document.getElementById('detail-sustain').textContent = product.sustainability ? `Impact: ${product.sustainability}` : '';
+          document.getElementById('detail-desc').textContent = product.description || '';
+      const tryon = document.getElementById('detail-tryon');
+      tryon.href = `../tryon/index.html?product=${encodeURIComponent(product.name || '')}`;
 
-            function loadById(id) {
-                fetch(`${API_BASE}/products/${encodeURIComponent(id)}`)
-                  .then(r => r.json())
-                  .then(resp => {
-                    const p = resp.product || resp.products || resp;
-                    titleEl.textContent = p.title || p.name || 'Product';
-                    const v0 = (p.variants || [])[0];
-                    priceEl.textContent = formatMYR((v0 && v0.price) || p.price || 0);
-                    descEl.innerHTML = `<p>${(p.description || '').trim()}</p>`;
-                    if (breadcrumbLast) breadcrumbLast.textContent = (p.title || p.name || id);
-                    renderImages(p.images || []);
-                    updateCartCount();
-                    addBtn.addEventListener('click', function() {
-                        const cart = getCart();
-                        const qty = parseInt(qtyInput.value || '1', 10);
-                        const item = {
-                            id: (v0 && v0.sku) || id,
-                            name: (p.title || p.name || 'Product'),
-                            price: Number((v0 && v0.price) || p.price || 0),
-                            qty,
-                            image: mainImage.src,
-                            options: '',
-                            addon: false
-                        };
-                        const existing = cart.find(i => i.id === item.id && i.options === item.options);
-                        if (existing) existing.qty += qty; else cart.push(item);
-                        setCart(cart);
-                        updateCartCount();
-                        window.location.href = '../cart/index.html';
-                    });
-                    customizeBtn.addEventListener('click', function() {
-                        const pid = p.id || id;
-                        window.location.href = `configure.html?productId=${encodeURIComponent(pid)}`;
-                    });
-                  })
-                  .catch(err => {
-                    console.error('Failed to load product id', err);
-                    titleEl.textContent = 'Not Found';
-                    priceEl.textContent = formatMYR(0);
-                    descEl.innerHTML = '<p>We couldn\'t find this item. Please go back to the shop.</p>';
-                    renderImages([]);
-                  });
-            }
+      // Inject JSON-LD Product schema for AI shoppers
+      const ld = {
+        '@context': 'https://schema.org/',
+        '@type': 'Product',
+        name: product.name || 'Product',
+        image: product.images || [firstImage],
+        description: product.description || '',
+        sku: minVariant.sku || product.id,
+        brand: { '@type': 'Brand', name: 'Reweave' },
+        category: (product.categories || []).join(', '),
+        offers: {
+          '@type': 'Offer',
+          priceCurrency: 'MYR',
+          price: Number(minPrice || 0),
+          availability: 'https://schema.org/InStock'
+        }
+      };
+      const breadcrumb = {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: '/vercel-deployment/index.html' },
+          { '@type': 'ListItem', position: 2, name: 'Shop', item: '/vercel-deployment/pages/shop/index.html' },
+          { '@type': 'ListItem', position: 3, name: product.name || 'Product' }
+        ]
+      };
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.textContent = JSON.stringify(ld);
+      document.head.appendChild(script);
+      const script2 = document.createElement('script');
+      script2.type = 'application/ld+json';
+      script2.textContent = JSON.stringify(breadcrumb);
+      document.head.appendChild(script2);
 
-            // Kick off
-            wireTabs();
-            wireQuantity();
-            if (sku) loadBySku(sku); else if (legacyId) loadById(legacyId); else loadById('luxe-mini');
+          document.getElementById('detail-add').addEventListener('click', () => {
+            const cart = getCart();
+            const item = {
+              id: minVariant.sku || product.id,
+              name: product.name,
+              price: Number(minVariant.price || minPrice),
+              qty: 1,
+              image: firstImage,
+              options: '',
+              addon: false
+            };
+            const existing = cart.find(i => i.id === item.id && i.options === item.options);
+            if (existing) existing.qty += 1; else cart.push(item);
+            setCart(cart);
+            alert('Added to bag');
+          });
+
+          document.getElementById('detail-buy').addEventListener('click', () => {
+            const cart = getCart();
+            const item = {
+              id: minVariant.sku || product.id,
+              name: product.name,
+              price: Number(minVariant.price || minPrice),
+              qty: 1,
+              image: firstImage,
+              options: '',
+              addon: false
+            };
+            const existing = cart.find(i => i.id === item.id && i.options === item.options);
+            if (existing) existing.qty += 1; else cart.push(item);
+            setCart(cart);
+            window.location.href = '/pages/cart/index.html';
+          });
+        })
+        .catch(err => {
+          console.error(err);
         });
-    </script>
-<script src="../../script.js"></script>
+    });
+  </script>
+
+  <script src="/shared/script.js"></script>
 </body>
 </html>

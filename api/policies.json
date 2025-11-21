@@ -1,0 +1,11 @@
+{
+  "shipping": {
+    "domestic": "2-5 business days",
+    "international": "7-14 business days"
+  },
+  "returns": {
+    "windowDays": 30,
+    "conditions": ["Unused", "Tags attached", "Original packaging"]
+  },
+  "payments": ["FPX", "Visa", "Mastercard"]
+}
