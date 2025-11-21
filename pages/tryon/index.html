@@ -361,55 +361,51 @@
             </div>
 
             <div style="width:100%;max-width:1200px;margin:0 auto;">
-                <div id="tryon-error" style="display:block;background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:30px;text-align:center;margin-bottom:20px;">
+                <div id="tryon-error" style="display:none;background:#fff3cd;border:1px solid #ffc107;border-radius:12px;padding:30px;text-align:center;margin-bottom:20px;">
                     <i class="fas fa-exclamation-triangle" style="font-size:3rem;color:#ffc107;margin-bottom:15px;"></i>
-                    <h3 style="margin-bottom:10px;color:#856404;">AI Try-On Service</h3>
-                    <p style="color:#856404;margin-bottom:20px;">The AI Try-On feature is currently being set up. Please check back soon!</p>
+                    <h3 style="margin-bottom:10px;color:#856404;">AI Try-On Service Unavailable</h3>
+                    <p style="color:#856404;margin-bottom:20px;">The AI Try-On feature is currently unavailable. Please check back soon!</p>
                     <div style="background:white;border-radius:8px;padding:20px;text-align:left;max-width:600px;margin:0 auto;">
-                        <h4 style="margin-bottom:15px;">Coming Soon:</h4>
-                        <p style="color:#333;line-height:1.8;">Our AI Try-On feature will allow you to virtually try on our products using advanced AI technology. This feature will be available shortly.</p>
+                        <h4 style="margin-bottom:15px;">Troubleshooting:</h4>
+                        <p style="color:#333;line-height:1.8;">If you're seeing this message, the AI Try-On service may be temporarily unavailable. Please try again later or contact support.</p>
                     </div>
                 </div>
-                <!-- Iframe only loads on localhost, stays hidden in production -->
-                <iframe id="ai-tryon-frame" src="about:blank" style="display:none;width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
+                <iframe id="ai-tryon-frame" src="about:blank" style="display:block;width:100%;height:1000px;border:none;border-radius:12px;box-shadow:0 5px 15px rgba(0,0,0,0.08);"></iframe>
             </div>
             
             <script>
-                // Only try to load localhost Streamlit app if we're on localhost
+                // Determine the correct URL based on environment
                 const isLocalhost = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                const aiTryOnUrl = isLocalhost ? 'http://localhost:8501/' : 'https://ai.reweave.shop/';
                 
-                if (isLocalhost) {
-                    // Only on localhost: try to load the Streamlit app
-                    const iframe = document.getElementById('ai-tryon-frame');
-                    const errorDiv = document.getElementById('tryon-error');
-                    
-                    iframe.src = 'http://localhost:8501/';
-                    iframe.style.display = 'block';
-                    errorDiv.style.display = 'none';
-                    
-                    let hasLoaded = false;
-                    let loadTimeout = setTimeout(function() {
-                        if (!hasLoaded) {
-                            errorDiv.style.display = 'block';
-                            iframe.style.display = 'none';
-                        }
-                    }, 3000);
-                    
-                    iframe.addEventListener('load', function() {
-                        hasLoaded = true;
-                        clearTimeout(loadTimeout);
-                        errorDiv.style.display = 'none';
-                        iframe.style.display = 'block';
-                    });
-                    
-                    iframe.addEventListener('error', function() {
-                        hasLoaded = false;
-                        clearTimeout(loadTimeout);
+                const iframe = document.getElementById('ai-tryon-frame');
+                const errorDiv = document.getElementById('tryon-error');
+                
+                // Set iframe source
+                iframe.src = aiTryOnUrl;
+                
+                let hasLoaded = false;
+                let loadTimeout = setTimeout(function() {
+                    if (!hasLoaded) {
+                        // Show error if iframe hasn't loaded after 5 seconds
                         errorDiv.style.display = 'block';
                         iframe.style.display = 'none';
-                    });
-                }
-                // For production (reweave.shop): iframe stays hidden with src="about:blank", error message is shown
+                    }
+                }, 5000);
+                
+                iframe.addEventListener('load', function() {
+                    hasLoaded = true;
+                    clearTimeout(loadTimeout);
+                    errorDiv.style.display = 'none';
+                    iframe.style.display = 'block';
+                });
+                
+                iframe.addEventListener('error', function() {
+                    hasLoaded = false;
+                    clearTimeout(loadTimeout);
+                    errorDiv.style.display = 'block';
+                    iframe.style.display = 'none';
+                });
             </script>
 
             <div class="tryon-layout" style="display:none;">
