@@ -882,6 +882,51 @@
       if (badge) badge.textContent = String(count);
     }
 
+    // Fallback addToCart function for recommended products
+    function addToCartFallback(productId, productName, productPrice, productImage, variant) {
+      console.log('addToCartFallback called with:', { productId, productName, productPrice, productImage, variant });
+      
+      // Check if item already exists in cart
+      const existingItem = cart.find(item => (item.id === productId || item.productId === productId) && item.variant === variant);
+      
+      if (existingItem) {
+        // Update quantity
+        existingItem.quantity = (existingItem.quantity || existingItem.qty || 0) + 1;
+        existingItem.qty = existingItem.quantity;
+      } else {
+        // Add new item
+        const cartItem = {
+          id: productId,
+          productId: productId,
+          name: productName,
+          price: productPrice,
+          image: productImage,
+          variant: variant,
+          quantity: 1,
+          qty: 1
+        };
+        cart.push(cartItem);
+      }
+      
+      // Save to localStorage
+      localStorage.setItem('reweave-cart', JSON.stringify(cart));
+      console.log('Cart saved. Items:', cart.length);
+      
+      // Refresh cart display
+      initCart();
+      updateCartCount();
+      
+      // Dispatch cart updated event
+      window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart: cart } }));
+      
+      // Show success message
+      if (typeof showToast === 'function') {
+        showToast(`${productName} added to cart`, 'success');
+      } else {
+        alert(`${productName} added to cart!`);
+      }
+    }
+
     // Load recommended products for upselling
     async function loadRecommendedProducts() {
       const upsellingSection = document.getElementById('upsellingSection');
@@ -1004,6 +1049,15 @@
               variant: button.dataset.variant
             });
             
+            // Get product data from button
+            const productId = button.dataset.productId;
+            const productName = button.dataset.productName;
+            let productPrice = parseFloat(button.dataset.productPrice) || 0;
+            const productImage = button.dataset.productImage;
+            const variant = button.dataset.variant || 'default';
+            
+            console.log('Product data:', { productId, productName, productPrice, productImage, variant });
+            
             // Try to call addToCart from shared script
             if (typeof window.addToCart === 'function') {
               console.log('Calling window.addToCart...');
@@ -1012,8 +1066,9 @@
               console.log('Calling addToCart (without window)...');
               addToCart(button);
             } else {
-              console.error('addToCart function not found!');
-              alert('Error: Add to Cart function not available. Please refresh the page.');
+              // Fallback: Add to cart manually using cart page's cart variable
+              console.log('addToCart not found, using fallback method...');
+              addToCartFallback(productId, productName, productPrice, productImage, variant);
             }
           });
         });
