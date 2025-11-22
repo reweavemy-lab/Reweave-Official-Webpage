@@ -989,6 +989,15 @@
       
       // Load recommended products after a short delay
       setTimeout(loadRecommendedProducts, 500);
+      
+      // Listen for cart updates from addToCart function
+      window.addEventListener('cartUpdated', function() {
+        console.log('Cart updated event received, refreshing cart display...');
+        initCart();
+        updateCartCount();
+        // Reload recommended products to exclude newly added items
+        setTimeout(loadRecommendedProducts, 100);
+      });
     });
 
     // Mobile menu functionality

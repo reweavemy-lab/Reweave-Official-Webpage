@@ -358,6 +358,9 @@ function addToCart(button) {
     cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
     updateCartCount();
     
+    // Dispatch custom event to notify cart page to refresh
+    window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart: cart } }));
+    
     // Show success message
     showToast(`${productName} added to cart`, 'success');
     
