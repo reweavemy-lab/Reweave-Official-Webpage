@@ -975,14 +975,13 @@
                 <div class="recommended-product-name" onclick="window.location.href='/pages/shop/index.html'">${name}</div>
                 <div class="recommended-product-price">${priceDisplay}</div>
                 <div class="recommended-product-actions">
-                  <button class="btn" 
+                  <button class="btn recommended-add-to-cart-btn" 
                           data-add-to-cart 
                           data-product-id="${productId}"
                           data-product-name="${name}"
                           data-product-price="${price}"
                           data-product-image="${image}"
-                          data-variant="${variantName}"
-                          onclick="event.stopPropagation(); event.preventDefault(); if(typeof addToCart === 'function') { addToCart(this); } else { console.error('addToCart function not found. Make sure shared/script.js is loaded.'); }">
+                          data-variant="${variantName}">
                     Add to Cart
                   </button>
                 </div>
@@ -990,6 +989,34 @@
             </div>
           `;
         }).join('');
+        
+        // Add event listeners to the newly created buttons
+        recommendedProducts.querySelectorAll('.recommended-add-to-cart-btn').forEach(button => {
+          button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Add to Cart button clicked:', button);
+            console.log('Button data:', {
+              productId: button.dataset.productId,
+              productName: button.dataset.productName,
+              productPrice: button.dataset.productPrice,
+              productImage: button.dataset.productImage,
+              variant: button.dataset.variant
+            });
+            
+            // Try to call addToCart from shared script
+            if (typeof window.addToCart === 'function') {
+              console.log('Calling window.addToCart...');
+              window.addToCart(button);
+            } else if (typeof addToCart === 'function') {
+              console.log('Calling addToCart (without window)...');
+              addToCart(button);
+            } else {
+              console.error('addToCart function not found!');
+              alert('Error: Add to Cart function not available. Please refresh the page.');
+            }
+          });
+        });
         
         // Show upselling section
         upsellingSection.style.display = 'block';
