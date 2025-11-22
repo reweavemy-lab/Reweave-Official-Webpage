@@ -1005,8 +1005,19 @@
       // Update cart count on page load
       updateCartCount();
       
-      // Load recommended products after a short delay
-      setTimeout(loadRecommendedProducts, 500);
+      // Wait for Supabase to load, then load recommended products
+      function waitForSupabase() {
+        if (typeof supabase !== 'undefined' || (window.supabase && window.supabase.createClient)) {
+          console.log('Supabase loaded, fetching recommended products...');
+          loadRecommendedProducts();
+        } else {
+          console.log('Waiting for Supabase to load...');
+          setTimeout(waitForSupabase, 100);
+        }
+      }
+      
+      // Start loading after a short delay to ensure Supabase script is loaded
+      setTimeout(waitForSupabase, 500);
       
       // Listen for cart updates from addToCart function
       window.addEventListener('cartUpdated', function() {
