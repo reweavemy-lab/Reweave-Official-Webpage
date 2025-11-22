@@ -550,7 +550,7 @@
 
         <!-- Checkout buttons -->
         <button class="btn" id="checkoutBtn" onclick="showCheckout()">Proceed to Checkout</button>
-        <a href="../shop/index.html" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        <a href="/#products" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
 
         <!-- Guest checkout info -->
         <div style="margin-top: 16px; padding: 12px; background: var(--primary-white); border: 1px solid var(--border-gray); border-radius: 8px;">
@@ -664,6 +664,37 @@
     let cart = [];
     let promoDiscount = 0;
     let promoCode = '';
+    
+    // Supabase configuration and client
+    const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
+    let supabaseClient = null;
+    
+    // Initialize Supabase client
+    function initSupabase() {
+      if (typeof supabase !== 'undefined' && supabase.createClient) {
+        supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase client initialized successfully');
+        return true;
+      } else if (window.supabase && window.supabase.createClient) {
+        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase client initialized successfully (via window)');
+        return true;
+      }
+      return false;
+    }
+    
+    // Try to initialize Supabase when page loads
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        if (!initSupabase()) {
+          // Retry after a delay if library hasn't loaded
+          setTimeout(initSupabase, 1000);
+        }
+      });
+    } else {
+      initSupabase();
+    }
 
     // Initialize cart - use reweave-cart key from main site
     function initCart() {
@@ -710,7 +741,7 @@
             <i class="fas fa-shopping-bag"></i>
             <h3>Your cart is empty</h3>
             <p>Add some beautiful items to get started</p>
-            <a href="../shop/index.html" class="btn" style="margin-top: 16px;">Continue Shopping</a>
+            <a href="/#products" class="btn" style="margin-top: 16px;">Continue Shopping</a>
           </div>
         `;
         document.getElementById('checkoutBtn').style.display = 'none';
@@ -942,22 +973,13 @@
         const cartProductIds = cart.map(item => item.productId || item.id).filter(Boolean);
         console.log('Loading recommended products, excluding cart items:', cartProductIds);
         
-        // Load Supabase client - use the Supabase library from CDN
-        const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
-        
-        // Create Supabase client - the library is loaded via script tag
-        let supabaseClient;
-        if (typeof supabase !== 'undefined' && supabase.createClient) {
-          // Use global supabase from CDN script
-          supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-        } else if (window.supabase && window.supabase.createClient) {
-          // Try window.supabase
-          supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
-        } else {
-          console.error('Supabase library not loaded. Make sure the Supabase script is included.');
-          upsellingSection.style.display = 'none';
-          return;
+        // Use global Supabase client
+        if (!supabaseClient) {
+          if (!initSupabase()) {
+            console.error('Supabase library not loaded. Make sure the Supabase script is included.');
+            upsellingSection.style.display = 'none';
+            return;
+          }
         }
         
         console.log('Fetching products from Supabase...');
@@ -1140,7 +1162,7 @@
       }
     }
 
-    function handleCheckout(event) {
+    async function handleCheckout(event) {
       event.preventDefault();
       
       // Get form data
@@ -1177,17 +1199,60 @@
         submitBtn.textContent = 'Processing...';
       }
 
-      // Save order data to localStorage (for now - you can send to backend later)
+      // Save order data to localStorage as backup
       localStorage.setItem('reweave-order', JSON.stringify(formData));
       
       // Log order data (for debugging)
       console.log('Order submitted:', formData);
 
-      // Simulate processing delay
-      setTimeout(() => {
-        // Show success message
+      // Prepare data for Supabase insertion
+      const orderData = {
+        full_name: formData.contact.fullName,
+        email: formData.contact.email,
+        phone: formData.contact.phone,
+        shipping_address: formData.shipping.address,
+        shipping_city: formData.shipping.city,
+        shipping_state: formData.shipping.state,
+        shipping_postcode: formData.shipping.postcode,
+        shipping_country: formData.shipping.country,
+        delivery_instructions: formData.shipping.instructions || null,
+        items: formData.order.items,
+        subtotal: formData.order.subtotal,
+        shipping_cost: formData.order.shipping,
+        tax: formData.order.tax,
+        total: formData.order.total,
+        promo_code: formData.order.promoCode,
+        promo_discount: formData.order.promoDiscount || 0,
+        status: 'pending'
+      };
+
+      try {
+        // Check if Supabase client is available
+        if (!supabaseClient) {
+          console.warn('Supabase client not available, initializing...');
+          if (!initSupabase()) {
+            throw new Error('Supabase library not loaded. Please refresh the page and try again.');
+          }
+        }
+
+        // Insert order into Supabase
+        console.log('Saving order to Supabase...', orderData);
+        const { data, error } = await supabaseClient
+          .from('orders')
+          .insert([orderData])
+          .select();
+
+        if (error) {
+          throw error;
+        }
+
+        console.log('Order saved successfully to Supabase:', data);
+        
+        // Show success message with order ID
+        const orderId = data[0].id;
         const total = formData.order.total.toFixed(2);
-        if (confirm('Order placed successfully!\n\nOrder Total: RM ' + total + '\n\nYou will receive a confirmation email shortly.\n\nClick OK to clear cart and return home.')) {
+        
+        if (confirm(`Order placed successfully!\n\nOrder ID: ${orderId.substring(0, 8)}...\nOrder Total: RM ${total}\n\nYou will receive a confirmation email shortly.\n\nClick OK to clear cart and return home.`)) {
           // Clear cart
           cart = [];
           localStorage.removeItem('reweave-cart');
@@ -1201,27 +1266,28 @@
             submitBtn.textContent = 'Complete Order';
           }
         }
-      }, 1000);
-
-      // In production, you would send this to your backend:
-      // fetch('/api/orders', {
-      //   method: 'POST',
-      //   headers: { 'Content-Type': 'application/json' },
-      //   body: JSON.stringify(formData)
-      // })
-      // .then(response => response.json())
-      // .then(data => {
-      //   // Handle success
-      //   window.location.href = '/order-confirmation?id=' + data.orderId;
-      // })
-      // .catch(error => {
-      //   // Handle error
-      //   alert('Error placing order. Please try again.');
-      //   if (submitBtn) {
-      //     submitBtn.disabled = false;
-      //     submitBtn.textContent = 'Complete Order';
-      //   }
-      // });
+      } catch (error) {
+        console.error('Error saving order to Supabase:', error);
+        
+        // Show error but still save to localStorage as backup
+        const total = formData.order.total.toFixed(2);
+        const errorMessage = error.message || 'Unknown error occurred';
+        
+        if (confirm(`There was an issue saving your order to our database.\n\nYour order has been saved locally.\nOrder Total: RM ${total}\n\nError: ${errorMessage}\n\nPlease contact support with your order details.\n\nClick OK to clear cart and return home.`)) {
+          // Clear cart
+          cart = [];
+          localStorage.removeItem('reweave-cart');
+          
+          // Redirect to home
+          window.location.href = '/';
+        } else {
+          // Keep cart and reload
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Complete Order';
+          }
+        }
+      }
     }
 
     function calculateSubtotal() {

@@ -1,8 +1,8 @@
--- Drop existing table if it exists (to avoid conflicts)
-DROP TABLE IF EXISTS orders CASCADE;
+-- Safe version: Only creates table if it doesn't exist, preserves existing data
+-- Use this if you have existing orders data you want to keep
 
--- Create orders table for guest checkout and lead collection
-CREATE TABLE orders (
+-- Create orders table only if it doesn't exist
+CREATE TABLE IF NOT EXISTS orders (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     
     -- Contact Information
@@ -40,7 +40,7 @@ CREATE TABLE orders (
     CONSTRAINT valid_subtotal CHECK (subtotal >= 0)
 );
 
--- Create indexes for better query performance
+-- Create indexes only if they don't exist
 CREATE INDEX IF NOT EXISTS idx_orders_email ON orders(email);
 CREATE INDEX IF NOT EXISTS idx_orders_status ON orders(status);
 CREATE INDEX IF NOT EXISTS idx_orders_created_at ON orders(created_at DESC);
@@ -49,11 +49,17 @@ CREATE INDEX IF NOT EXISTS idx_orders_phone ON orders(phone);
 -- Enable RLS (Row Level Security)
 ALTER TABLE orders ENABLE ROW LEVEL SECURITY;
 
--- Grant permissions
-GRANT SELECT, INSERT ON orders TO anon;
-GRANT SELECT, INSERT, UPDATE ON orders TO authenticated;
+-- Grant permissions (idempotent)
+DO $$
+BEGIN
+    GRANT SELECT, INSERT ON orders TO anon;
+    GRANT SELECT, INSERT, UPDATE ON orders TO authenticated;
+EXCEPTION WHEN OTHERS THEN
+    -- Permissions already exist, ignore
+    NULL;
+END $$;
 
--- Drop existing policies if they exist
+-- Drop existing policies if they exist, then recreate
 DROP POLICY IF EXISTS "Allow anonymous order creation" ON orders;
 DROP POLICY IF EXISTS "Users can view their own orders" ON orders;
 DROP POLICY IF EXISTS "Authenticated users can manage orders" ON orders;
