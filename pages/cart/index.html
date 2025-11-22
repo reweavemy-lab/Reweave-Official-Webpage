@@ -887,36 +887,54 @@
       const upsellingSection = document.getElementById('upsellingSection');
       const recommendedProducts = document.getElementById('recommendedProducts');
       
-      if (!upsellingSection || !recommendedProducts) return;
+      if (!upsellingSection || !recommendedProducts) {
+        console.warn('Upselling section elements not found');
+        return;
+      }
       
       try {
         // Get current cart product IDs to exclude them
         const cartProductIds = cart.map(item => item.productId || item.id).filter(Boolean);
+        console.log('Loading recommended products, excluding cart items:', cartProductIds);
         
-        // Load Supabase client from shared script
+        // Load Supabase client - use the Supabase library from CDN
         const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
         
-        if (typeof supabase === 'undefined') {
-          console.warn('Supabase not available for recommended products');
+        // Create Supabase client - the library is loaded via script tag
+        let supabaseClient;
+        if (typeof supabase !== 'undefined' && supabase.createClient) {
+          // Use global supabase from CDN script
+          supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        } else if (window.supabase && window.supabase.createClient) {
+          // Try window.supabase
+          supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        } else {
+          console.error('Supabase library not loaded. Make sure the Supabase script is included.');
+          upsellingSection.style.display = 'none';
           return;
         }
         
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        console.log('Fetching products from Supabase...');
         
         // Fetch products (excluding items already in cart)
         const { data, error } = await supabaseClient
           .from('product_variants')
           .select('id, product_id, variant_name, price, color, image, is_active, products(title, description, category)')
           .eq('is_active', true)
-          .limit(4);
+          .limit(20); // Fetch more to have options after filtering
         
         if (error) {
-          console.error('Error loading recommended products:', error);
+          console.error('Error loading recommended products from Supabase:', error);
+          upsellingSection.style.display = 'none';
           return;
         }
         
+        console.log('Fetched products from Supabase:', data?.length || 0);
+        
         if (!data || data.length === 0) {
+          console.warn('No products found in Supabase');
+          upsellingSection.style.display = 'none';
           return;
         }
         
