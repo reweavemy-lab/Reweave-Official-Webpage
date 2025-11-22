@@ -285,7 +285,8 @@
       overflow: hidden;
       box-shadow: 0 2px 8px rgba(0,0,0,0.08);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: pointer;
+      display: flex;
+      flex-direction: column;
     }
     
     .recommended-product-card:hover {
@@ -298,10 +299,14 @@
       height: 200px;
       object-fit: cover;
       background: #f5f5f5;
+      cursor: pointer;
     }
     
     .recommended-product-info {
       padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
     
     .recommended-product-name {
@@ -309,12 +314,25 @@
       font-weight: 500;
       color: var(--primary-black);
       margin-bottom: 8px;
+      cursor: pointer;
     }
     
     .recommended-product-price {
       font-size: 1.1rem;
       font-weight: 600;
       color: var(--primary-black);
+      margin-bottom: 12px;
+    }
+    
+    .recommended-product-actions {
+      margin-top: auto;
+    }
+    
+    .recommended-product-actions .btn {
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      border-radius: 6px;
     }
 
     /* Responsive */
@@ -922,16 +940,34 @@
         // Render recommended products
         recommendedProducts.innerHTML = uniqueProducts.map(variant => {
           const product = variant.products || {};
-          const price = variant.price ? (typeof variant.price === 'string' ? variant.price : `RM ${variant.price.toFixed(2)}`) : 'RM 0.00';
+          const price = variant.price ? (typeof variant.price === 'string' ? parseFloat(variant.price.replace(/RM\s*/gi, '')) : variant.price) : 0;
+          const priceDisplay = price > 0 ? (typeof variant.price === 'string' ? variant.price : `RM ${variant.price.toFixed(2)}`) : 'RM 0.00';
           const image = variant.image || 'images/placeholder.png';
           const name = product.title || variant.variant_name || 'Product';
+          const productId = variant.product_id || variant.id;
+          const variantId = variant.id;
+          const variantName = variant.variant_name || variant.color || 'Default';
           
           return `
-            <div class="recommended-product-card" onclick="window.location.href='/pages/shop/index.html'">
-              <img src="${image}" alt="${name}" class="recommended-product-image" onerror="this.src='images/placeholder.png'">
+            <div class="recommended-product-card">
+              <img src="${image}" alt="${name}" class="recommended-product-image" 
+                   onclick="window.location.href='/pages/shop/index.html'" 
+                   onerror="this.src='images/placeholder.png'">
               <div class="recommended-product-info">
-                <div class="recommended-product-name">${name}</div>
-                <div class="recommended-product-price">${price}</div>
+                <div class="recommended-product-name" onclick="window.location.href='/pages/shop/index.html'">${name}</div>
+                <div class="recommended-product-price">${priceDisplay}</div>
+                <div class="recommended-product-actions">
+                  <button class="btn" 
+                          data-add-to-cart 
+                          data-product-id="${productId}"
+                          data-product-name="${name}"
+                          data-product-price="${price}"
+                          data-product-image="${image}"
+                          data-variant="${variantName}"
+                          onclick="event.stopPropagation();">
+                    Add to Cart
+                  </button>
+                </div>
               </div>
             </div>
           `;
