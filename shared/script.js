@@ -234,7 +234,8 @@ function initializeCart() {
     });
 }
 
-function addToCart(button) {
+// Make addToCart available globally for inline onclick handlers
+window.addToCart = function addToCart(button) {
     // Handle both button element and string ID
     if (typeof button === 'string') {
         // If it's a string ID, find the button element

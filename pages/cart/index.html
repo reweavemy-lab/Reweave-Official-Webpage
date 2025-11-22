@@ -982,7 +982,7 @@
                           data-product-price="${price}"
                           data-product-image="${image}"
                           data-variant="${variantName}"
-                          onclick="event.stopPropagation();">
+                          onclick="event.stopPropagation(); event.preventDefault(); if(typeof addToCart === 'function') { addToCart(this); } else { console.error('addToCart function not found. Make sure shared/script.js is loaded.'); }">
                     Add to Cart
                   </button>
                 </div>
