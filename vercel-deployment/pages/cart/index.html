@@ -5,16 +5,9 @@
   <link rel="icon" type="image/x-icon" href="../../images/Reweave logo.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Cart • Reweave</title>
+  <link rel="stylesheet" href="/shared/styles.css" />
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="../../shared/styles.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-  <link rel="dns-prefetch" href="//fonts.googleapis.com">
-  <link rel="dns-prefetch" href="//fonts.gstatic.com">
-  <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
-  <link rel="dns-prefetch" href="//api.reweave.my">
   <style>
     :root {
       --primary-black: #000000;
@@ -25,7 +18,17 @@
       --hover-gray: #f0f0f0;
       --success: #2e7d32;
     }
-    body { font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color: var(--primary-black); background: var(--primary-white); }
+    body { 
+      font-family: 'Montserrat', system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; 
+      color: var(--primary-black); 
+      background: var(--primary-white);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+    main {
+      flex: 1;
+    }
     .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
     .page-title { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 300; margin: 16px 0 8px; letter-spacing: 1px; }
     .subtext { color: var(--text-gray); font-size: 14px; font-weight: 300; }
@@ -35,7 +38,7 @@
 
     /* Items list */
     .items-card { background: var(--primary-white); border: 1px solid var(--border-gray); border-radius: 12px; }
-    .item-row { display: grid; grid-template-columns: 96px 1fr auto; gap: 16px; padding: 16px; align-items: center; border-bottom: 1px solid var(--border-gray); transition: background-color 0.3s ease; will-change: background-color; }
+    .item-row { display: grid; grid-template-columns: 96px 1fr auto; gap: 16px; padding: 16px; align-items: center; border-bottom: 1px solid var(--border-gray); transition: background-color 0.3s ease; }
     .item-row:hover { background-color: var(--luxury-gray); }
     .item-row:last-child { border-bottom: none; }
     .thumb { width: 96px; height: 96px; border-radius: 10px; background: var(--luxury-gray); display:flex; align-items:center; justify-content:center; overflow:hidden; }
@@ -129,10 +132,339 @@
       color: var(--primary-black);
     }
 
+    /* Checkout Form Styles */
+    .checkout-form-container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 40px auto 0;
+      padding: 0 24px;
+      animation: slideDown 0.3s ease-out;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    .form-card {
+      background: var(--primary-white);
+      border: 1px solid var(--border-gray);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    .form-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-gray);
+    }
+    
+    .form-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 300;
+      margin: 0;
+      letter-spacing: 1px;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      color: var(--text-gray);
+      cursor: pointer;
+      padding: 4px 8px;
+      transition: color 0.3s ease;
+    }
+    
+    .close-btn:hover {
+      color: var(--primary-black);
+    }
+    
+    .form-section {
+      margin-bottom: 32px;
+    }
+    
+    .form-section h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin: 0 0 20px;
+      letter-spacing: 1px;
+      color: var(--primary-black);
+    }
+    
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    
+    @media (max-width: 768px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .form-group {
+      margin-bottom: 16px;
+    }
+    
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 6px;
+      color: var(--primary-black);
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--border-gray);
+      border-radius: 8px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      transition: border-color 0.3s ease;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary-black);
+    }
+    
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    
+    .form-actions {
+      display: flex;
+      gap: 16px;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border-gray);
+    }
+    
+    .form-actions .btn {
+      flex: 1;
+    }
+
+    /* Upselling Section */
+    .upselling-section {
+      margin-top: 60px;
+      padding: 40px 0;
+      background: #fafafa;
+    }
+    
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--primary-black);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .recommended-products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 24px;
+      margin-top: 30px;
+    }
+    
+    .recommended-product-card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .recommended-product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+    
+    .recommended-product-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #f5f5f5;
+      cursor: pointer;
+    }
+    
+    .recommended-product-info {
+      padding: 16px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .recommended-product-name {
+      font-size: 1rem;
+      font-weight: 500;
+      color: var(--primary-black);
+      margin-bottom: 8px;
+      cursor: pointer;
+    }
+    
+    .recommended-product-price {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-black);
+      margin-bottom: 12px;
+    }
+    
+    .recommended-product-actions {
+      margin-top: auto;
+    }
+    
+    .recommended-product-actions .btn {
+      width: 100%;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      border-radius: 6px;
+    }
+
     /* Responsive */
     @media (max-width: 768px) {
       .container { padding: 16px; }
       .summary { padding: 20px; }
+      .form-card { padding: 20px; }
+      .form-actions {
+        flex-direction: column;
+      }
+      .recommended-products {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+        gap: 16px;
+      }
+      .upselling-section {
+        margin-top: 40px;
+        padding: 30px 0;
+      }
+    }
+    
+    /* Header Styles */
+    .luxury-header {
+      position: fixed; top: 0; left: 0; right: 0;
+      background: var(--primary-white); border-bottom: 1px solid var(--border-gray);
+      z-index: 1000; backdrop-filter: blur(10px);
+    }
+    
+    .header-container {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 20px 30px; max-width: 1200px; margin: 0 auto;
+    }
+    
+    .header-left, .header-right {
+      display: flex; align-items: center; gap: 25px;
+    }
+    
+    .logo-center a {
+      font-family: 'Playfair Display', serif;
+      font-size: 28px; font-weight: 300;
+      letter-spacing: 2px; text-decoration: none;
+      color: var(--primary-black);
+    }
+    
+    .menu-btn, .utility-btn {
+      background: none; border: none; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 13px;
+      display: flex; align-items: center; gap: 6px;
+      transition: opacity 0.3s ease; color: var(--primary-black);
+    }
+    
+    .menu-btn:hover, .utility-btn:hover { opacity: 0.7; }
+    
+    .cart-btn {
+      position: relative; padding: 8px 16px;
+      border: 1px solid var(--border-gray); border-radius: 20px;
+      background: var(--primary-white);
+    }
+    
+    .cart-count {
+      position: absolute; top: -5px; right: -5px;
+      background: var(--primary-black); color: var(--primary-white);
+      border-radius: 50%; width: 18px; height: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10px; font-weight: 500;
+    }
+
+    /* Hidden Navigation */
+    .hidden-nav {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: var(--primary-white); z-index: 2000;
+      transform: translateX(-100%); transition: transform 0.3s ease;
+      overflow-y: auto;
+    }
+    
+    .hidden-nav.active { transform: translateX(0); }
+    
+    .nav-content {
+      padding: 20px 30px;
+    }
+    
+    .close-nav {
+      display: flex; align-items: center; gap: 8px;
+      background: none; border: none; cursor: pointer;
+      font-family: 'Montserrat', sans-serif; font-weight: 300; font-size: 14px;
+      margin-bottom: 20px; color: var(--primary-black);
+    }
+    
+    .nav-section {
+      margin-bottom: 24px;
+    }
+    
+    .nav-section h3 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      margin: 0 0 12px 0;
+      color: var(--primary-black);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .nav-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .nav-section li {
+      margin-bottom: 8px;
+    }
+    
+    .nav-section a {
+      color: var(--text-gray);
+      text-decoration: none;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 16px;
+      font-weight: 300;
+      transition: color 0.3s ease;
+    }
+    
+    .nav-section a:hover {
+      color: var(--primary-black);
     }
     
     /* Toast Notifications */
@@ -150,7 +482,6 @@
       z-index: 10000;
       transform: translateX(400px);
       transition: transform 0.3s ease;
-      will-change: transform;
       box-shadow: 0 4px 20px rgba(0,0,0,0.15);
     }
     
@@ -169,7 +500,22 @@
 </head>
 <body>
   <!-- Standardized Header Component for Reweave -->
-  <div id="header-container"></div>
+  <header class="header">
+    <div class="header-container">
+      <div class="nav-left">
+        <button class="nav-btn" title="AI Try-On" onclick="window.location.href='/pages/tryon/index.html'">AI Try-On</button>
+      </div>
+      
+      <a href="/" class="logo">REWEAVE</a>
+      
+      <div class="nav-right">
+        <button class="nav-btn cart-btn">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
 
   <main class="container">
     <h1 class="page-title">Your Cart</h1>
@@ -213,8 +559,8 @@
         </div>
 
         <!-- Checkout buttons -->
-        <button class="btn" id="checkoutBtn">Proceed to Checkout</button>
-        <a href="../../index.html#products" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
+        <button class="btn" id="checkoutBtn" onclick="showCheckout()">Proceed to Checkout</button>
+        <a href="https://reweave.shop/#products" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>
 
         <!-- Guest checkout info -->
         <div style="margin-top: 16px; padding: 12px; background: var(--primary-white); border: 1px solid var(--border-gray); border-radius: 8px;">
@@ -224,172 +570,276 @@
         </div>
       </div>
     </div>
+
+    <!-- Checkout Form (initially hidden, appears when clicking Proceed to Checkout) -->
+    <div class="checkout-form-container" id="checkoutFormContainer" style="display: none;">
+      <div class="form-card">
+        <div class="form-header">
+          <h2>Delivery Information</h2>
+          <button class="close-btn" onclick="closeCheckout()" aria-label="Close checkout form">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        
+        <form id="checkoutForm" onsubmit="handleCheckout(event)">
+          <!-- Contact Information -->
+          <div class="form-section">
+            <h3>Contact Details</h3>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required placeholder="John Doe" />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" required placeholder="john@example.com" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required placeholder="+60 12-345-6789" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Shipping Address -->
+          <div class="form-section">
+            <h3>Shipping Address</h3>
+            <div class="form-group">
+              <label for="address">Street Address *</label>
+              <input type="text" id="address" name="address" required placeholder="123 Main Street" />
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="city">City *</label>
+                <input type="text" id="city" name="city" required placeholder="Kuala Lumpur" />
+              </div>
+              <div class="form-group">
+                <label for="state">State *</label>
+                <input type="text" id="state" name="state" required placeholder="Selangor" />
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="postcode">Postal Code *</label>
+                <input type="text" id="postcode" name="postcode" required placeholder="50000" pattern="[0-9]{5}" />
+              </div>
+              <div class="form-group">
+                <label for="country">Country *</label>
+                <select id="country" name="country" required>
+                  <option value="MY" selected>Malaysia</option>
+                  <option value="SG">Singapore</option>
+                  <option value="ID">Indonesia</option>
+                  <option value="TH">Thailand</option>
+                  <option value="PH">Philippines</option>
+                  <option value="VN">Vietnam</option>
+                  <option value="OTHER">Other</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Delivery Instructions (Optional) -->
+          <div class="form-section">
+            <h3>Delivery Instructions (Optional)</h3>
+            <div class="form-group">
+              <label for="instructions">Special Instructions</label>
+              <textarea id="instructions" name="instructions" rows="3" placeholder="Leave at door, call before delivery, etc."></textarea>
+            </div>
+          </div>
+
+          <!-- Form Actions -->
+          <div class="form-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeCheckout()">Back to Cart</button>
+            <button type="submit" class="btn" id="submitCheckoutBtn">Complete Order</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
   </main>
-  <!-- Standardized Footer Component for Reweave -->
-  <div id="footer-container"></div>
-  <section class="container" style="margin-top:24px;">
-    <h3 style="font-family: 'Playfair Display', serif; font-weight:300; letter-spacing:1px;">You might also like</h3>
-    <div id="upsellGrid" style="display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px;"></div>
-  </section>
+
+    <!-- Upselling / Recommended Products Section -->
+    <div class="upselling-section" id="upsellingSection" style="display: none;">
+      <div class="container">
+        <h2 class="section-title">You May Also Like</h2>
+        <div class="recommended-products" id="recommendedProducts">
+          <!-- Recommended products will be loaded here -->
+        </div>
+      </div>
+    </div>
 
   <script>
-    // Enhanced Cart functionality with numeric price math and advanced totals
-    let pageCart = [];
+    // Cart functionality
+    let cart = [];
     let promoDiscount = 0;
     let promoCode = '';
-    let shippingDiscount = 0;
-    let taxRate = 0.06; // 6% SST
-    let freeShippingThreshold = 200; // Free shipping above RM200
     
-    const API_PRODUCTS = '/api/products.json';
+    // Supabase configuration and client
+    const supabaseUrl = 'https://dkpaeiyixdwzjpvvszyy.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRrcGFlaXlpeGR3empwdnZzenl5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM1MjAyNTUsImV4cCI6MjA3OTA5NjI1NX0.tcESQl8N7gFFkzh-OOvRBnHFyJ2CC9W0-vs3e6ItZTc';
+    let supabaseClient = null;
     
-    // Enhanced currency formatting with proper rounding
-    const formatMYR = (value, decimals = 2) => {
-      const num = Number(value || 0);
-      return `RM ${num.toFixed(decimals)}`;
-    };
-    
-    // Numeric validation and sanitization
-    const sanitizePrice = (price) => {
-      if (typeof price === 'string') {
-        return parseFloat(price.replace(/[^0-9.-]/g, '')) || 0;
+    // Initialize Supabase client
+    function initSupabase() {
+      if (typeof supabase !== 'undefined' && supabase.createClient) {
+        supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase client initialized successfully');
+        return true;
+      } else if (window.supabase && window.supabase.createClient) {
+        supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+        console.log('Supabase client initialized successfully (via window)');
+        return true;
       }
-      return Number(price || 0);
-    };
+      return false;
+    }
     
-    // Initialize cart with enhanced data validation
-    function initCart() {
-      pageCart = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
-      pageCart = pageCart.map(item => ({
-        ...item,
-        price: sanitizePrice(item.price),
-        qty: Math.max(1, Number(item.qty || 1)),
-        originalPrice: sanitizePrice(item.originalPrice || item.price),
-        discount: Number(item.discount || 0)
-      }));
-      
-      // Validate cart data integrity
-      pageCart = pageCart.filter(item => 
-        item.id && 
-        item.name && 
-        !isNaN(item.price) && 
-        item.price >= 0 &&
-        item.qty > 0
-      );
-      
-      localStorage.setItem('reweave-cart', JSON.stringify(pageCart));
-      renderCart();
-      updateSummary();
-      loadUpsell();
-      trackCartView();
+    // Try to initialize Supabase when page loads
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', function() {
+        if (!initSupabase()) {
+          // Retry after a delay if library hasn't loaded
+          setTimeout(initSupabase, 1000);
+        }
+      });
+    } else {
+      initSupabase();
     }
 
-    // Enhanced cart rendering with price breakdowns and item management
+    // Initialize cart - use reweave-cart key from main site
+    function initCart() {
+      const cartData = localStorage.getItem('reweave-cart');
+      console.log('Raw cart data from localStorage:', cartData);
+      
+      cart = JSON.parse(cartData || '[]');
+      console.log('Parsed cart data:', cart);
+      
+      // Debug: Log each item's price
+      if (cart.length > 0) {
+        console.log('Cart items with prices:');
+        cart.forEach((item, i) => {
+          console.log(`  Item ${i}:`, {
+            name: item.name,
+            id: item.id,
+            price: item.price,
+            priceType: typeof item.price,
+            allKeys: Object.keys(item),
+            fullItem: item
+          });
+        });
+      }
+      
+      // If cart is empty, show a message and hide checkout
+      if (cart.length === 0) {
+        console.log('Cart is empty');
+      } else {
+        console.log(`Cart has ${cart.length} items`);
+      }
+      
+      renderCart();
+      updateSummary();
+    }
+
+    // Render cart items
     function renderCart() {
       const cartItems = document.getElementById('cartItems');
+      console.log('Rendering cart with items:', cart);
       
-      if (pageCart.length === 0) {
+      if (cart.length === 0) {
         cartItems.innerHTML = `
           <div class="empty-cart">
             <i class="fas fa-shopping-bag"></i>
             <h3>Your cart is empty</h3>
             <p>Add some beautiful items to get started</p>
-            <a href="../../index.html#products" class="btn" style="margin-top: 16px;">Continue Shopping</a>
+            <a href="https://reweave.shop/#products" class="btn" style="margin-top: 16px;">Continue Shopping</a>
           </div>
         `;
         document.getElementById('checkoutBtn').style.display = 'none';
         return;
       }
+      
+      // Show checkout button when cart has items
+      document.getElementById('checkoutBtn').style.display = 'block';
 
-      cartItems.innerHTML = pageCart.map((item, index) => {
-        const itemTotal = Number(item.price || 0) * Number(item.qty || 1);
-        const originalTotal = Number(item.originalPrice || item.price || 0) * Number(item.qty || 1);
-        const savings = originalTotal - itemTotal;
+      cartItems.innerHTML = cart.map((item, index) => {
+        // Clean price data - remove RM prefix and convert to number
+        let price = item.price || 0;
+        console.log(`Cart item ${index}:`, {
+          name: item.name,
+          rawPrice: item.price,
+          priceType: typeof item.price,
+          allFields: Object.keys(item)
+        });
+        
+        if (typeof price === 'string') {
+          price = price.replace(/RM\s*/g, ''); // Remove RM prefix
+          price = parseFloat(price) || 0;
+        } else {
+          price = parseFloat(price) || 0;
+        }
+        
+        if (price === 0 || isNaN(price)) {
+          console.error(`Item ${index} (${item.name}) has invalid price:`, item);
+        }
+        
+        // Support both 'qty' and 'quantity' field names
+        const qty = parseInt(item.qty || item.quantity || 1);
+        const itemTotal = price * qty;
         
         return `
-          <div class="item-row" data-item-id="${item.id}">
+          <div class="item-row">
             <div class="thumb">
-              <img src="${item.image || '../../images/Batik Front (WIP).png'}" alt="${item.name}" loading="lazy" />
+              <img src="${item.image || '../../images/Batik Front (WIP).png'}" alt="${item.name}" />
             </div>
             <div class="item-main">
               <h3>${item.name}</h3>
-              <div class="item-meta">${item.variant || item.color || ''}</div>
-              <div class="item-meta">
-                ${item.discount > 0 ? 
-                  `<span style="text-decoration: line-through; color: #999;">${formatMYR(item.originalPrice || item.price)}</span> ` :
-                  ''
-                }
-                <strong>${formatMYR(item.price)}</strong>
-                ${savings > 0 ? `<span style="color: #2e7d32; font-size: 12px;">Save ${formatMYR(savings)}</span>` : ''}
-              </div>
+              <div class="item-meta">${item.variant || ''}</div>
+              <div class="item-meta">RM ${price.toFixed(2)}</div>
             </div>
             <div class="item-actions">
               <div class="qty">
-                <button onclick="updateQuantity(${index}, -1)" aria-label="Decrease quantity">−</button>
-                <input type="number" value="${item.qty || 1}" min="1" max="99" onchange="setQuantity(${index}, this.value)" aria-label="Item quantity">
-                <button onclick="updateQuantity(${index}, 1)" aria-label="Increase quantity">+</button>
+                <button onclick="updateQuantity(${index}, -1)">−</button>
+                <input type="number" value="${qty}" min="1" onchange="setQuantity(${index}, this.value)">
+                <button onclick="updateQuantity(${index}, 1)">+</button>
               </div>
               <div style="text-align: right; min-width: 80px;">
-                <div style="font-weight: 500;">${formatMYR(itemTotal)}</div>
-                <div class="link-muted" onclick="removeItem(${index})" role="button" tabindex="0">Remove</div>
+                <div style="font-weight: 500;">RM ${itemTotal.toFixed(2)}</div>
+                <div class="link-muted" onclick="removeItem(${index})">Remove</div>
               </div>
             </div>
           </div>
         `;
       }).join('');
-      
-      // Add keyboard navigation for remove buttons
-      document.querySelectorAll('.link-muted[role="button"]').forEach(btn => {
-        btn.addEventListener('keypress', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault();
-            btn.click();
-          }
-        });
-      });
     }
 
-    // Enhanced quantity update with validation and animation
+    // Update quantity
     function updateQuantity(index, change) {
-      const currentQty = Math.max(1, Number(pageCart[index].qty || 1));
-      const newQty = Math.max(1, Math.min(99, currentQty + change));
-      
-      if (newQty !== currentQty) {
-        pageCart[index].qty = newQty;
-        saveCart();
-        
-        // Add visual feedback
-        const itemRow = document.querySelector(`[data-item-id="${pageCart[index].id}"]`);
-        if (itemRow) {
-          itemRow.style.backgroundColor = '#f0f8f0';
-          setTimeout(() => {
-            itemRow.style.backgroundColor = '';
-          }, 300);
-        }
-        
-        renderCart();
-        updateSummary();
-        trackQuantityChange(pageCart[index], newQty, currentQty);
-      }
+      // Support both 'qty' and 'quantity' field names
+      const currentQty = parseInt(cart[index].qty || cart[index].quantity || 1);
+      const newQty = Math.max(1, currentQty + change);
+      // Update both fields for compatibility
+      cart[index].qty = newQty;
+      cart[index].quantity = newQty;
+      saveCart();
+      renderCart();
+      updateSummary();
     }
 
-    // Enhanced quantity setting with validation
+    // Set quantity directly
     function setQuantity(index, qty) {
-      const newQty = Math.max(1, Math.min(99, parseInt(qty) || 1));
-      const currentQty = Number(pageCart[index].qty || 1);
-      
-      if (newQty !== currentQty) {
-        pageCart[index].qty = newQty;
-        saveCart();
-        renderCart();
-        updateSummary();
-        trackQuantityChange(pageCart[index], newQty, currentQty);
-      }
+      const newQty = Math.max(1, parseInt(qty) || 1);
+      // Update both fields for compatibility
+      cart[index].qty = newQty;
+      cart[index].quantity = newQty;
+      saveCart();
+      renderCart();
+      updateSummary();
     }
 
     // Remove item
     function removeItem(index) {
-      pageCart.splice(index, 1);
+      cart.splice(index, 1);
       saveCart();
       renderCart();
       updateSummary();
@@ -398,319 +848,488 @@
 
     // Save cart to localStorage
     function saveCart() {
-      localStorage.setItem('reweave-cart', JSON.stringify(pageCart));
+      localStorage.setItem('reweave-cart', JSON.stringify(cart));
     }
 
-    // Enhanced summary calculation with comprehensive pricing logic
+    // Update summary
     function updateSummary() {
-      // Calculate subtotal with proper numeric precision
-      const subtotal = pageCart.reduce((sum, item) => {
-        const itemTotal = Number(item.price || 0) * Number(item.qty || 1);
+      console.log('Updating summary with cart:', cart);
+      
+      const subtotal = cart.reduce((sum, item) => {
+        // Support both 'qty' and 'quantity' field names
+        const qty = item.qty || item.quantity || 1;
+        
+        // Get price - handle multiple formats
+        let price = item.price;
+        if (price === null || price === undefined) {
+          console.warn(`Item ${item.name} has no price field. Available fields:`, Object.keys(item));
+          price = 0;
+        } else if (typeof price === 'string') {
+          price = parseFloat(price.replace(/RM\s*/g, '')) || 0;
+        } else {
+          price = parseFloat(price) || 0;
+        }
+        
+        const itemTotal = price * qty;
+        console.log(`Item: ${item.name}, Raw Price: ${item.price}, Parsed Price: ${price}, Qty: ${qty}, Total: ${itemTotal}`);
         return sum + itemTotal;
       }, 0);
       
-      // Calculate original subtotal for savings display
-      const originalSubtotal = pageCart.reduce((sum, item) => {
-        const originalPrice = Number(item.originalPrice || item.price || 0);
-        const itemTotal = originalPrice * Number(item.qty || 1);
-        return sum + itemTotal;
-      }, 0);
-      
-      // Apply promo discount
-      const promoSavings = promoDiscount > 0 ? subtotal * promoDiscount : 0;
-      const discountedSubtotal = Math.max(0, subtotal - promoSavings);
-      
-      // Calculate shipping with free shipping threshold
-      let shipping = 10; // Base shipping
-      let currentShippingDiscount = shippingDiscount; // Use global shipping discount
-      
-      if (discountedSubtotal >= freeShippingThreshold) {
-        currentShippingDiscount = shipping; // Free shipping
-        shipping = 0;
-      } else if (currentShippingDiscount > 0) {
-        shipping = Math.max(0, shipping - currentShippingDiscount);
-      }
-      
-      // Calculate tax on discounted subtotal + shipping
-      const taxableAmount = discountedSubtotal + shipping;
-      const tax = taxableAmount * taxRate;
-      
-      // Calculate final total
-      const total = discountedSubtotal + shipping + tax;
-      
-      // Update DOM with enhanced display
-      document.getElementById('subtotal').textContent = formatMYR(subtotal);
-      document.getElementById('shipping').textContent = formatMYR(shipping);
-      document.getElementById('tax').textContent = formatMYR(tax);
-      document.getElementById('total').textContent = formatMYR(total);
-      
-      // Update promo notice with comprehensive savings info
+      const shipping = 10; // Fixed shipping
+      const tax = subtotal * 0.06; // 6% tax
+      const discount = promoDiscount > 0 ? subtotal * promoDiscount : 0;
+      const total = subtotal + shipping + tax - discount;
+
+      console.log(`Subtotal: ${subtotal}, Shipping: ${shipping}, Tax: ${tax}, Discount: ${discount}, Total: ${total}`);
+
+      document.getElementById('subtotal').textContent = `RM ${subtotal.toFixed(2)}`;
+      document.getElementById('shipping').textContent = `RM ${shipping.toFixed(2)}`;
+      document.getElementById('tax').textContent = `RM ${tax.toFixed(2)}`;
+      document.getElementById('total').textContent = `RM ${total.toFixed(2)}`;
+
+      // Show promo savings if applied
       const promoNotice = document.getElementById('promoNotice');
-      let savingsMessage = '';
-      
       if (promoDiscount > 0) {
-        savingsMessage += `<span class="savings">✓ Promo code applied: ${(promoDiscount * 100).toFixed(0)}% off (${formatMYR(promoSavings)} saved)</span>`;
+        promoNotice.innerHTML = `<span class="savings">✓ Promo code applied: ${(promoDiscount * 100).toFixed(0)}% off</span>`;
       }
-      
-      if (currentShippingDiscount > 0) {
-        savingsMessage += savingsMessage ? '<br>' : '';
-        savingsMessage += `<span class="savings">✓ Free shipping applied</span>`;
-      }
-      
-      if (originalSubtotal > subtotal) {
-        const itemSavings = originalSubtotal - subtotal;
-        savingsMessage += savingsMessage ? '<br>' : '';
-        savingsMessage += `<span class="savings">✓ Item discounts: ${formatMYR(itemSavings)} saved</span>`;
-      }
-      
-      promoNotice.innerHTML = savingsMessage || '';
-      
-      // Track cart update for analytics
-      trackCartUpdate({
-        subtotal: subtotal,
-        discountedSubtotal: discountedSubtotal,
-        shipping: shipping,
-        tax: tax,
-        total: total,
-        promoCode: promoCode,
-        promoSavings: promoSavings,
-        itemCount: pageCart.length,
-        totalQuantity: pageCart.reduce((sum, item) => sum + (item.qty || 1), 0)
-      });
     }
 
-    // Enhanced promo code system with validation and multiple types
+    // Apply promo code
     function applyPromo() {
       const code = document.getElementById('promoCode').value.trim().toUpperCase();
       const promoNotice = document.getElementById('promoNotice');
       
-      // Enhanced promo codes with different types
+      // Simple promo codes
       const promos = {
-        // Percentage discounts
-        'WELCOME10': { type: 'percentage', value: 0.10, description: '10% off for new customers' },
-        'FIRST5': { type: 'percentage', value: 0.05, description: '5% off first purchase' },
-        'REWEAVE15': { type: 'percentage', value: 0.15, description: '15% off sitewide' },
-        'HERITAGE20': { type: 'percentage', value: 0.20, description: '20% off heritage collection' },
-        
-        // Fixed amount discounts
-        'SAVE20': { type: 'fixed', value: 20, description: 'RM20 off orders over RM150', minOrder: 150 },
-        'SAVE50': { type: 'fixed', value: 50, description: 'RM50 off orders over RM300', minOrder: 300 },
-        
-        // Free shipping
-        'FREESHIP': { type: 'shipping', value: 0, description: 'Free shipping on any order' },
-        
-        // Special offers
-        'STUDENT10': { type: 'percentage', value: 0.10, description: '10% student discount', requiresVerification: true }
+        'WELCOME10': 0.10,
+        'FIRST5': 0.05,
+        'REWEAVE15': 0.15
       };
 
       if (promos[code]) {
-        const promo = promos[code];
-      const subtotal = pageCart.reduce((sum, item) => sum + Number(item.price || 0) * Number(item.qty || 1), 0);
-        
-        // Validate minimum order amount
-        if (promo.minOrder && subtotal < promo.minOrder) {
-          promoNotice.innerHTML = `❌ Minimum order of ${formatMYR(promo.minOrder)} required for ${code}`;
-          return;
-        }
-        
-        // Apply promo based on type
-        if (promo.type === 'percentage') {
-          promoDiscount = promo.value;
-          promoCode = code;
-          promoNotice.innerHTML = `<span class="savings">✓ ${promo.description}: ${(promo.value * 100).toFixed(0)}% off</span>`;
-        } else if (promo.type === 'fixed') {
-          // Fixed amount discount - convert to percentage for calculation
-          promoDiscount = Math.min(promo.value / subtotal, 1); // Cap at 100%
-          promoCode = code;
-          promoNotice.innerHTML = `<span class="savings">✓ ${promo.description}: ${formatMYR(promo.value)} off</span>`;
-        } else if (promo.type === 'shipping') {
-          // Free shipping - set shipping to 0
-          shippingDiscount = 10; // Full shipping discount
-          promoCode = code;
-          promoNotice.innerHTML = `<span class="savings">✓ ${promo.description}</span>`;
-        }
-        
+        promoDiscount = promos[code];
+        promoCode = code;
+        promoNotice.innerHTML = `<span class="savings">✓ Promo code applied: ${(promoDiscount * 100).toFixed(0)}% off</span>`;
         updateSummary();
-        trackPromoApplied(code, promo);
-        
       } else if (code) {
-        promoNotice.innerHTML = '❌ Invalid promo code. Try WELCOME10, SAVE20, or FREESHIP';
-        // Clear promo after 3 seconds
-        setTimeout(() => {
-          if (promoNotice.innerHTML.includes('Invalid')) {
-            promoNotice.innerHTML = '';
-          }
-        }, 3000);
-      }
-    }
-
-    // Analytics tracking functions
-    function trackCartView() {
-      if (typeof trackEvent === 'function') {
-        trackEvent('cart_view', {
-          item_count: pageCart.length,
-          total_quantity: pageCart.reduce((sum, item) => sum + (item.qty || 1), 0),
-          subtotal: pageCart.reduce((sum, item) => sum + (item.price || 0) * (item.qty || 1), 0)
-        });
-      }
-    }
-    
-    function trackCartUpdate(cartData) {
-      if (typeof trackEvent === 'function') {
-        trackEvent('cart_update', cartData);
-      }
-    }
-    
-    function trackQuantityChange(item, newQty, oldQty) {
-      if (typeof trackEvent === 'function') {
-        trackEvent('quantity_change', {
-          item_id: item.id,
-          item_name: item.name,
-          new_quantity: newQty,
-          old_quantity: oldQty,
-          price: item.price
-        });
-      }
-    }
-    
-    function trackPromoApplied(code, promo) {
-      if (typeof trackEvent === 'function') {
-        trackEvent('promo_applied', {
-          promo_code: code,
-          promo_type: promo.type,
-          promo_value: promo.value,
-          description: promo.description
-        });
+        promoNotice.innerHTML = '❌ Invalid promo code';
       }
     }
 
     // Update cart count in header
     function updateCartCount() {
-      const count = pageCart.reduce((sum, item) => sum + Number(item.qty || 1), 0);
+      // Support both 'qty' and 'quantity' field names
+      const count = cart.reduce((sum, item) => sum + (item.qty || item.quantity || 1), 0);
       const badge = document.querySelector('.cart-count');
       if (badge) badge.textContent = String(count);
     }
 
-    // Load standardized header and footer
-    async function loadStandardizedComponents() {
+    // Fallback addToCart function for recommended products
+    function addToCartFallback(productId, productName, productPrice, productImage, variant) {
+      console.log('addToCartFallback called with:', { productId, productName, productPrice, productImage, variant });
+      
+      // Check if item already exists in cart
+      const existingItem = cart.find(item => (item.id === productId || item.productId === productId) && item.variant === variant);
+      
+      if (existingItem) {
+        // Update quantity
+        existingItem.quantity = (existingItem.quantity || existingItem.qty || 0) + 1;
+        existingItem.qty = existingItem.quantity;
+      } else {
+        // Add new item
+        const cartItem = {
+          id: productId,
+          productId: productId,
+          name: productName,
+          price: productPrice,
+          image: productImage,
+          variant: variant,
+          quantity: 1,
+          qty: 1
+        };
+        cart.push(cartItem);
+      }
+      
+      // Save to localStorage
+      localStorage.setItem('reweave-cart', JSON.stringify(cart));
+      console.log('Cart saved. Items:', cart.length);
+      
+      // Refresh cart display
+      initCart();
+      updateCartCount();
+      
+      // Dispatch cart updated event
+      window.dispatchEvent(new CustomEvent('cartUpdated', { detail: { cart: cart } }));
+      
+      // Show success message
+      if (typeof showToast === 'function') {
+        showToast(`${productName} added to cart`, 'success');
+      } else {
+        alert(`${productName} added to cart!`);
+      }
+    }
+
+    // Load recommended products for upselling
+    async function loadRecommendedProducts() {
+      const upsellingSection = document.getElementById('upsellingSection');
+      const recommendedProducts = document.getElementById('recommendedProducts');
+      
+      if (!upsellingSection || !recommendedProducts) {
+        console.warn('Upselling section elements not found');
+        return;
+      }
+      
       try {
-        const [headerResponse, footerResponse] = await Promise.all([
-          fetch('../../shared/header.html'),
-          fetch('../../shared/footer.html')
-        ]);
+        // Get current cart product IDs to exclude them
+        const cartProductIds = cart.map(item => item.productId || item.id).filter(Boolean);
+        console.log('Loading recommended products, excluding cart items:', cartProductIds);
         
-        const headerHtml = await headerResponse.text();
-        const footerHtml = await footerResponse.text();
-        
-        document.getElementById('header-container').innerHTML = headerHtml;
-        document.getElementById('footer-container').innerHTML = footerHtml;
-        
-        // Initialize header functionality
-        if (typeof initializeHeader === 'function') {
-          initializeHeader();
+        // Use global Supabase client
+        if (!supabaseClient) {
+          if (!initSupabase()) {
+            console.error('Supabase library not loaded. Make sure the Supabase script is included.');
+            upsellingSection.style.display = 'none';
+            return;
+          }
         }
-      } catch (error) {
-        console.error('Failed to load standardized components:', error);
+        
+        console.log('Fetching products from Supabase...');
+        
+        // Fetch products (excluding items already in cart)
+        const { data, error } = await supabaseClient
+          .from('product_variants')
+          .select('id, product_id, variant_name, price, color, image, is_active, products(title, description, category)')
+          .eq('is_active', true)
+          .limit(20); // Fetch more to have options after filtering
+        
+        if (error) {
+          console.error('Error loading recommended products from Supabase:', error);
+          upsellingSection.style.display = 'none';
+          return;
+        }
+        
+        console.log('Fetched products from Supabase:', data?.length || 0);
+        
+        if (!data || data.length === 0) {
+          console.warn('No products found in Supabase');
+          upsellingSection.style.display = 'none';
+          return;
+        }
+        
+        // Filter out products already in cart and get unique products
+        const uniqueProducts = [];
+        const seenProductIds = new Set();
+        
+        for (const variant of data) {
+          const productId = variant.product_id || variant.id;
+          if (!cartProductIds.includes(productId) && !seenProductIds.has(productId)) {
+            seenProductIds.add(productId);
+            uniqueProducts.push(variant);
+            if (uniqueProducts.length >= 4) break;
+          }
+        }
+        
+        if (uniqueProducts.length === 0) {
+          return;
+        }
+        
+        // Render recommended products
+        recommendedProducts.innerHTML = uniqueProducts.map(variant => {
+          const product = variant.products || {};
+          const price = variant.price ? (typeof variant.price === 'string' ? parseFloat(variant.price.replace(/RM\s*/gi, '')) : variant.price) : 0;
+          const priceDisplay = price > 0 ? (typeof variant.price === 'string' ? variant.price : `RM ${variant.price.toFixed(2)}`) : 'RM 0.00';
+          const image = variant.image || 'images/placeholder.png';
+          const name = product.title || variant.variant_name || 'Product';
+          const productId = variant.product_id || variant.id;
+          const variantId = variant.id;
+          const variantName = variant.variant_name || variant.color || 'Default';
+          
+          return `
+            <div class="recommended-product-card">
+              <img src="${image}" alt="${name}" class="recommended-product-image" 
+                   onclick="window.location.href='/pages/shop/index.html'" 
+                   onerror="this.src='images/placeholder.png'">
+              <div class="recommended-product-info">
+                <div class="recommended-product-name" onclick="window.location.href='/pages/shop/index.html'">${name}</div>
+                <div class="recommended-product-price">${priceDisplay}</div>
+                <div class="recommended-product-actions">
+                  <button class="btn recommended-add-to-cart-btn" 
+                          data-add-to-cart 
+                          data-product-id="${productId}"
+                          data-product-name="${name}"
+                          data-product-price="${price}"
+                          data-product-image="${image}"
+                          data-variant="${variantName}">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+        
+        // Add event listeners to the newly created buttons
+        recommendedProducts.querySelectorAll('.recommended-add-to-cart-btn').forEach(button => {
+          button.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            console.log('Add to Cart button clicked:', button);
+            console.log('Button data:', {
+              productId: button.dataset.productId,
+              productName: button.dataset.productName,
+              productPrice: button.dataset.productPrice,
+              productImage: button.dataset.productImage,
+              variant: button.dataset.variant
+            });
+            
+            // Get product data from button
+            const productId = button.dataset.productId;
+            const productName = button.dataset.productName;
+            let productPrice = parseFloat(button.dataset.productPrice) || 0;
+            const productImage = button.dataset.productImage;
+            const variant = button.dataset.variant || 'default';
+            
+            console.log('Product data:', { productId, productName, productPrice, productImage, variant });
+            
+            // Try to call addToCart from shared script
+            if (typeof window.addToCart === 'function') {
+              console.log('Calling window.addToCart...');
+              window.addToCart(button);
+            } else if (typeof addToCart === 'function') {
+              console.log('Calling addToCart (without window)...');
+              addToCart(button);
+            } else {
+              // Fallback: Add to cart manually using cart page's cart variable
+              console.log('addToCart not found, using fallback method...');
+              addToCartFallback(productId, productName, productPrice, productImage, variant);
+            }
+          });
+        });
+        
+        // Show upselling section
+        upsellingSection.style.display = 'block';
+      } catch (err) {
+        console.error('Error in loadRecommendedProducts:', err);
       }
     }
 
     // Initialize on load
     document.addEventListener('DOMContentLoaded', function() {
-      loadStandardizedComponents();
       initCart();
+      
+      // Update cart count on page load
+      updateCartCount();
+      
+      // Wait for Supabase to load, then load recommended products
+      function waitForSupabase() {
+        if (typeof supabase !== 'undefined' || (window.supabase && window.supabase.createClient)) {
+          console.log('Supabase loaded, fetching recommended products...');
+          loadRecommendedProducts();
+        } else {
+          console.log('Waiting for Supabase to load...');
+          setTimeout(waitForSupabase, 100);
+        }
+      }
+      
+      // Start loading after a short delay to ensure Supabase script is loaded
+      setTimeout(waitForSupabase, 500);
+      
+      // Listen for cart updates from addToCart function
+      window.addEventListener('cartUpdated', function() {
+        console.log('Cart updated event received, refreshing cart display...');
+        initCart();
+        updateCartCount();
+        // Reload recommended products to exclude newly added items
+        setTimeout(loadRecommendedProducts, 100);
+      });
+      
+      // Ensure checkout button works - remove any conflicting event listeners
+      const checkoutBtn = document.getElementById('checkoutBtn');
+      if (checkoutBtn) {
+        // Remove any existing event listeners by cloning the element
+        const newCheckoutBtn = checkoutBtn.cloneNode(true);
+        checkoutBtn.parentNode.replaceChild(newCheckoutBtn, checkoutBtn);
+        // Add the onclick handler
+        newCheckoutBtn.onclick = function(e) {
+          e.preventDefault();
+          e.stopPropagation();
+          if (typeof window.showCheckout === 'function') {
+            window.showCheckout();
+          } else {
+            console.error('showCheckout function not found');
+          }
+        };
+      }
     });
-    function loadUpsell() {
-      const grid = document.getElementById('upsellGrid');
-      if (!grid) return;
-      grid.innerHTML = '<p style="color:#777">Loading recommendations...</p>';
-      fetch(API_PRODUCTS)
-        .then(r => r.json())
-        .then(data => {
-          const list = Array.isArray(data) ? data : (data.products || []);
-          const picks = list.slice(0, 4);
-          grid.innerHTML = picks.map(p => {
-            const minVariant = (p.variants || [])[0] || { price: p.price || 0, options: {}, sku: p.id };
-            const minPrice = (p.variants || []).reduce((m, v) => Math.min(m, Number(v.price || 0)), Number(minVariant.price || 0));
-            const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
-            return `
-              <div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;">
-                <img src="${firstImage}" alt="${p.name}" style="width:72px;height:72px;border-radius:8px;object-fit:cover;" />
-                <div style="flex:1;">
-                  <div style="font-size:14px;font-weight:500;">${p.name}</div>
-                  <div style="font-size:13px;color:#666;">${formatMYR(minPrice)}</div>
-                </div>
-                <button data-id="${p.id}" data-price="${Number(minVariant.price || minPrice)}" data-image="${firstImage}" data-name="${p.name}" class="btn btn-secondary" style="width:auto;">Add</button>
-              </div>
-            `;
-          }).join('');
-          Array.from(grid.querySelectorAll('button')).forEach(btn => {
-            btn.addEventListener('click', () => {
-              const item = {
-                id: btn.getAttribute('data-id'),
-                name: btn.getAttribute('data-name'),
-                price: Number(btn.getAttribute('data-price') || 0),
-                qty: 1,
-                image: btn.getAttribute('data-image') || '',
-                options: '',
-                addon: true
-              };
-              const cur = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
-              const existing = cur.find(i => i.id === item.id && i.options === item.options);
-              if (existing) existing.qty += 1; else cur.push(item);
-              localStorage.setItem('reweave-cart', JSON.stringify(cur));
-              pageCart = cur;
-              renderCart();
-              updateSummary();
-              updateCartCount();
-            });
-          });
-        })
-        .catch(() => {
-          // Fallback mock picks when backend is offline
-          const picks = [
-            { id: 'mock-1', name: 'Batik Sling Small', price: 189, images: ['https://via.placeholder.com/300x300?text=Batik+Sling'] },
-            { id: 'mock-2', name: 'Songket Tote', price: 259, images: ['https://via.placeholder.com/300x300?text=Songket+Tote'] },
-            { id: 'mock-3', name: 'Canvas Pouch', price: 69, images: ['https://via.placeholder.com/300x300?text=Canvas+Pouch'] },
-            { id: 'mock-4', name: 'Leather Wallet', price: 129, images: ['https://via.placeholder.com/300x300?text=Leather+Wallet'] }
-          ];
-          grid.innerHTML = picks.map(p => {
-            const firstImage = (p.images && p.images[0]) || 'https://via.placeholder.com/300x300?text=Reweave';
-            return `
-              <div style="border:1px solid #e0e0e0;border-radius:10px;padding:12px;display:flex;gap:12px;align-items:center;">
-                <img src="${firstImage}" alt="${p.name}" style="width:72px;height:72px;border-radius:8px;object-fit:cover;" />
-                <div style="flex:1;">
-                  <div style="font-size:14px;font-weight:500;">${p.name}</div>
-                  <div style="font-size:13px;color:#666;">${formatMYR(p.price)}</div>
-                </div>
-                <button data-id="${p.id}" data-price="${Number(p.price || 0)}" data-image="${firstImage}" data-name="${p.name}" class="btn btn-secondary" style="width:auto;">Add</button>
-              </div>
-            `;
-          }).join('');
-          Array.from(grid.querySelectorAll('button')).forEach(btn => {
-            btn.addEventListener('click', () => {
-              const item = {
-                id: btn.getAttribute('data-id'),
-                name: btn.getAttribute('data-name'),
-                price: Number(btn.getAttribute('data-price') || 0),
-                qty: 1,
-                image: btn.getAttribute('data-image') || '',
-                options: '',
-                addon: true
-              };
-              const cur = JSON.parse(localStorage.getItem('reweave-cart') || '[]');
-              const existing = cur.find(i => i.id === item.id && i.options === item.options);
-              if (existing) existing.qty += 1; else cur.push(item);
-              localStorage.setItem('reweave-cart', JSON.stringify(cur));
-              pageCart = cur;
-              renderCart();
-              updateSummary();
-              updateCartCount();
-            });
-          });
-        });
+
+    // Checkout Form Functions - Make globally accessible
+    window.showCheckout = function showCheckout() {
+      const checkoutForm = document.getElementById('checkoutFormContainer');
+      if (checkoutForm) {
+        checkoutForm.style.display = 'block';
+        // Scroll to form
+        checkoutForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        // Hide checkout button
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        if (checkoutBtn) {
+          checkoutBtn.style.display = 'none';
+        }
+      }
+    };
+
+    window.closeCheckout = function closeCheckout() {
+      const checkoutForm = document.getElementById('checkoutFormContainer');
+      if (checkoutForm) {
+        checkoutForm.style.display = 'none';
+        // Show checkout button again
+        const checkoutBtn = document.getElementById('checkoutBtn');
+        if (checkoutBtn && cart.length > 0) {
+          checkoutBtn.style.display = 'block';
+        }
+      }
+    };
+
+    async function handleCheckout(event) {
+      event.preventDefault();
+      
+      // Get form data
+      const formData = {
+        contact: {
+          fullName: document.getElementById('fullName').value,
+          email: document.getElementById('email').value,
+          phone: document.getElementById('phone').value
+        },
+        shipping: {
+          address: document.getElementById('address').value,
+          city: document.getElementById('city').value,
+          state: document.getElementById('state').value,
+          postcode: document.getElementById('postcode').value,
+          country: document.getElementById('country').value,
+          instructions: document.getElementById('instructions').value
+        },
+        order: {
+          items: cart,
+          subtotal: calculateSubtotal(),
+          shipping: parseFloat(document.getElementById('shipping').textContent.replace('RM ', '')),
+          tax: parseFloat(document.getElementById('tax').textContent.replace('RM ', '')),
+          total: parseFloat(document.getElementById('total').textContent.replace('RM ', '')),
+          promoCode: promoCode || null,
+          promoDiscount: promoDiscount
+        },
+        timestamp: new Date().toISOString()
+      };
+
+      // Disable submit button
+      const submitBtn = document.getElementById('submitCheckoutBtn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Processing...';
+      }
+
+      // Save order data to localStorage as backup
+      localStorage.setItem('reweave-order', JSON.stringify(formData));
+      
+      // Log order data (for debugging)
+      console.log('Order submitted:', formData);
+
+      // Prepare data for Supabase insertion
+      const orderData = {
+        full_name: formData.contact.fullName,
+        email: formData.contact.email,
+        phone: formData.contact.phone,
+        shipping_address: formData.shipping.address,
+        shipping_city: formData.shipping.city,
+        shipping_state: formData.shipping.state,
+        shipping_postcode: formData.shipping.postcode,
+        shipping_country: formData.shipping.country,
+        delivery_instructions: formData.shipping.instructions || null,
+        items: formData.order.items,
+        subtotal: formData.order.subtotal,
+        shipping_cost: formData.order.shipping,
+        tax: formData.order.tax,
+        total: formData.order.total,
+        promo_code: formData.order.promoCode,
+        promo_discount: formData.order.promoDiscount || 0,
+        status: 'pending'
+      };
+
+      try {
+        // Check if Supabase client is available
+        if (!supabaseClient) {
+          console.warn('Supabase client not available, initializing...');
+          if (!initSupabase()) {
+            throw new Error('Supabase library not loaded. Please refresh the page and try again.');
+          }
+        }
+
+        // Insert order into Supabase
+        console.log('Saving order to Supabase...', orderData);
+        const { data, error } = await supabaseClient
+          .from('orders')
+          .insert([orderData])
+          .select();
+
+        if (error) {
+          throw error;
+        }
+
+        console.log('Order saved successfully to Supabase:', data);
+        
+        // Show success message with order ID
+        const orderId = data[0].id;
+        const total = formData.order.total.toFixed(2);
+        
+        if (confirm(`Order placed successfully!\n\nOrder ID: ${orderId.substring(0, 8)}...\nOrder Total: RM ${total}\n\nYou will receive a confirmation email shortly.\n\nClick OK to clear cart and return home.`)) {
+          // Clear cart
+          cart = [];
+          localStorage.removeItem('reweave-cart');
+          
+          // Redirect to home
+          window.location.href = '/';
+        } else {
+          // Keep cart and reload
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Complete Order';
+          }
+        }
+      } catch (error) {
+        console.error('Error saving order to Supabase:', error);
+        
+        // Show error but still save to localStorage as backup
+        const total = formData.order.total.toFixed(2);
+        const errorMessage = error.message || 'Unknown error occurred';
+        
+        if (confirm(`There was an issue saving your order to our database.\n\nYour order has been saved locally.\nOrder Total: RM ${total}\n\nError: ${errorMessage}\n\nPlease contact support with your order details.\n\nClick OK to clear cart and return home.`)) {
+          // Clear cart
+          cart = [];
+          localStorage.removeItem('reweave-cart');
+          
+          // Redirect to home
+          window.location.href = '/';
+        } else {
+          // Keep cart and reload
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Complete Order';
+          }
+        }
+      }
+    }
+
+    function calculateSubtotal() {
+      return cart.reduce((sum, item) => {
+        let price = item.price || 0;
+        if (typeof price === 'string') {
+          price = parseFloat(price.replace(/RM\s*/g, '')) || 0;
+        } else {
+          price = parseFloat(price) || 0;
+        }
+        const qty = parseInt(item.qty || item.quantity || 1);
+        return sum + (price * qty);
+      }, 0);
     }
   </script>
-  <script src="../../../archive/development-files/script.js"></script>
   
   <!-- Toast Notification Container -->
   <div id="toastContainer" style="position: fixed; top: 100px; right: 20px; z-index: 10000;"></div>
@@ -742,17 +1361,29 @@
     };
   </script>
   
-  <!-- AI Chatbot Widget -->
-  <script id="shieldbase-chatbot-widget">(function(){window.SbaiConfig={apiBase:"https://demo.sbai.cloud",appId:"ca61bc90-3fb9-4cde-a7ed-aef28d127c1a"};function initChatWidget(){if(document.getElementById('sbai-chat-btn'))return;var chatBtn=document.createElement("div");chatBtn.id="sbai-chat-btn";chatBtn.innerHTML='<svg xmlns="http://www.w3.org/2000/svg" width="23" height="23" viewBox="0 0 16 16" fill="white"><path d="M8.006 0a8.006 8.006 0 0 0-6.829 3.826 7.995 7.995 0 0 0-.295 7.818l-.804 2.402a1.48 1.48 0 0 0 1.877 1.876l2.403-.8a8.006 8.006 0 0 0 11.42-5.25 7.994 7.994 0 0 0-4.28-9.066A8.007 8.007 0 0 0 8.006 0Zm0 14.22a6.226 6.226 0 0 1-3.116-.836.89.89 0 0 0-.727-.074l-2.207.736.736-2.206a.888.888 0 0 0-.074-.727A6.218 6.218 0 0 1 7.19 1.831a6.227 6.227 0 0 1 6.565 3.784 6.218 6.218 0 0 1-1.96 7.318 6.227 6.227 0 0 1-3.789 1.286Z"></path></svg>';Object.assign(chatBtn.style,{position:"fixed",bottom:"20px",right:"20px",width:"60px",height:"60px",borderRadius:"50%",backgroundColor:"#4F00ED",display:"flex",justifyContent:"center",alignItems:"center",color:"white",fontSize:"24px",cursor:"pointer",zIndex:"9999",transition:"all 0.3s ease",boxShadow:"0 4px 12px rgba(79, 0, 237, 0.4)",border:"none"});var chatContainer=document.createElement("div");chatContainer.id="sbai-chat-container";Object.assign(chatContainer.style,{position:"fixed",right:"20px",bottom:"90px",width:"400px",height:"600px",maxWidth:"calc(100vw - 40px)",maxHeight:"calc(100vh - 120px)",borderRadius:"16px",boxShadow:"0 8px 32px rgba(0, 0, 0, 0.12)",zIndex:"9998",opacity:"0",visibility:"hidden",transform:"translateY(20px)",transition:"all 0.3s ease",backgroundColor:"white",overflow:"hidden"});document.body.appendChild(chatBtn);document.body.appendChild(chatContainer);var isOpen=false;chatBtn.addEventListener("click",function(){isOpen=!isOpen;if(isOpen){chatContainer.style.opacity="1";chatContainer.style.visibility="visible";chatContainer.style.transform="translateY(0)";chatBtn.style.transform="rotate(45deg)";if(!chatContainer.querySelector("iframe")){var iframe=document.createElement("iframe");iframe.src=window.SbaiConfig.apiBase+"/chat/"+window.SbaiConfig.appId;iframe.style.width="100%";iframe.style.height="100%";iframe.style.border="none";iframe.style.borderRadius="16px";iframe.allow="microphone; camera";chatContainer.appendChild(iframe);}}else{chatContainer.style.opacity="0";chatContainer.style.visibility="hidden";chatContainer.style.transform="translateY(20px)";chatBtn.style.transform="rotate(0deg)";}});document.addEventListener("click",function(e){if(isOpen&&!chatBtn.contains(e.target)&&!chatContainer.contains(e.target)){isOpen=false;chatContainer.style.opacity="0";chatContainer.style.visibility="hidden";chatContainer.style.transform="translateY(20px)";chatBtn.style.transform="rotate(0deg)";}});}if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",initChatWidget);}else{initChatWidget();}})();
-  </script>
+  <!-- Standardized Footer Component for Reweave -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">REWEAVE</div>
+      <div class="footer-text">
+        Sustainable fashion, reimagined. Crafting heritage into modern essentials.
+      </div>
+      <div class="footer-trust">
+        <span class="trust-badge">FPX Available</span>
+        <span class="trust-badge">Visa</span>
+        <span class="trust-badge">Mastercard</span>
+        <span class="trust-badge">30-day Returns</span>
+      </div>
+    </div>
+  </footer>
 
-  <script src="../../shared/script.js"></script>
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  
+  <!-- Shared Scripts -->
+  <script src="/shared/script.js"></script>
+  
+  <!-- AI Chatbot Widget -->
+  <script src="/shared/chatbot.js"></script>
 </body>
 </html>
-    // Checkout button behavior limited to current scope
-    const checkoutBtn = document.getElementById('checkoutBtn');
-    if (checkoutBtn) {
-      checkoutBtn.addEventListener('click', function() {
-        alert('Checkout is not available in this preview. Please continue shopping.');
-      });
-    }
